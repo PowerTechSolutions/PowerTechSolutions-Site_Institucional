@@ -54,7 +54,7 @@ create table Monitoramento(
     
     constraint pkCompsota primary key(idMonitoramento, fkUser, fkMaquina),
     
-    constraint chk check (usb in(0,1)),
+    constraint chkM check (usb in(0,1)),
     
     constraint fkUser foreign key(fkUser)
 		references Usuario(idUsuario),
