@@ -3,20 +3,16 @@
 body{
     margin: 0;
     font-family: 'Noto Sans', sans-serif;
-}
-
-.all{
-    width: 100%; 
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #4b0082;
+    flex-direction: column;
 }
 
 .container-login{
     width: 60%;
-    height: 80vh;
+    height: 96.7vh;
     background-color: #4b0082;
     display: flex;
     justify-content: center;
@@ -111,4 +107,8 @@ body{
     background-color: rgb(210, 191, 79);
     cursor: pointer;
     box-shadow: 0vh 1vh 4vh -1.2vh rgb(232, 241, 162);
+}
+
+.btn-login:hover{
+    box-shadow: 0vh 2vh 6vh -1.2vh #000000;
 }

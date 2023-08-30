@@ -1,0 +1,13 @@
+/* Começo rodapé */
+.divBoxRodaPe{
+    height: 3vh;
+    width: 100%;
+    background-color: gold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-top: 3px solid black;    
+}
+
+/* Fim rodapé */
