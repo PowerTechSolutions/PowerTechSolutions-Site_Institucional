@@ -1,0 +1,44 @@
+.header {
+    width: 100%;
+}
+
+.header .container {
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    margin-bottom: 1vh solid  #FFD700;
+}
+
+.navbar {
+    margin-right: 5%;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #FFD700;
+    height: 100%;
+    width: 17%;
+    margin-left: 156vh;
+    margin-bottom: 5vh;
+}
+
+.header li a {
+    color: #FFD700;
+    text-decoration: none;
+    display: block;
+    padding: 5px 15px;
+    cursor: pointer;
+    border: 2px solid;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.header li a:hover {
+    color: white;
+    transform: scale(1.08);
+    transition: 0.4s ease-in-out;
+}
+
+
