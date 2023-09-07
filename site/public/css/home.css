@@ -31,22 +31,10 @@ body {
     background-color: #FFD700;
 }
 
-:root {
-    --tamanho-header: 80px;
-    --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-    --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-    --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
-    --tamanho-footer: 65px;
-}
-
 .container {
     display: flex;
     width: 100%;
     margin: auto;
-}
-
-.header {
-    height: var(--tamanho-header);
 }
 
 .header .container {
@@ -72,17 +60,29 @@ body {
     width: 17%;
 }
 
-.banner {
-    border: 1px solid black;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.80) 100%), url(../assets/imgs_power/img_index1.jpg), lightgray 50% / cover no-repeat;
-    box-shadow: 0px 4px 4px 0px black(0, 0, 0, 0.25);
-    /* display: flex;
-    justify-content: space-around;
-    align-items: center; */
-    text-align: center;
+.header li a {
+    color: #FFD700;
+    text-decoration: none;
+    display: block;
+    padding: 5px 15px;
+    cursor: pointer;
+    border: 2px solid;
+    border-radius: 3px;
+    font-size: 12px;
 }
 
+.header li a:hover {
+    color: white;
+    transform: scale(1.08);
+    transition: 0.4s ease-in-out;
+}
 
+.banner {
+    border: 1px solid black;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.80) 100%, rgba(0, 0, 0, 0.80) 100%), url(../assets/imgs_power/img_index1.jpg), lightgray 100% / cover no-repeat;
+    box-shadow: 0px 4px 4px 0px black(0, 0, 0, 0.25);
+    text-align: center;
+}
 
 .banner button {
     width: 185px;
@@ -95,9 +95,6 @@ body {
     border: 2px solid;
     border-radius: 3px;
     font-size: 12px;
-    /* display: inline;
-    float: left; */
-    
 }
 
 .banner button:hover {
@@ -113,13 +110,28 @@ body {
     align-items: center;
 }
 
-.mvv{
+.banner p {
+    color: #FFD700;
+    text-align: center;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.beneficios {
     text-align: center;
     font-weight: bold;
     background-color: #d3d3d3;
 }
 
-.box {
+
+.mvv {
+    text-align: center;
+    font-weight: bold;
+    background-color: #d3d3d3;
+}
+
+.box1 {
     background-color: #d3d3d3;
     text-align: center;
     display: flex;
@@ -149,6 +161,96 @@ body {
     margin: 0;
 }
 
+.box4 {
+    background-color: #d3d3d3;
+    text-align: center;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 30vh;
+    margin: 10vh;
+}
+
+.box5 {
+    background-color: #d3d3d3;
+    text-align: center;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 30vh;
+    margin: 10vh;
+}
+
+.box6 {
+    background-color: #d3d3d3;
+    text-align: center;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 30vh;
+    margin: 10vh;
+}
+
+.box7 {
+    background-color: #d3d3d3;
+    text-align: center;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 30vh;
+    margin: 10vh;
+}
+
+.box8 {
+    background-color: #d3d3d3;
+    text-align: center;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 30vh;
+    margin: 10vh;
+}
+
+.box1:hover {
+    transform: scale(1.01);
+    transition: 0.4s ease-in-out;
+}
+
+.box2:hover {
+    transform: scale(1.01);
+    transition: 0.4s ease-in-out;
+}
+
+.box3:hover {
+    transform: scale(1.01);
+    transition: 0.4s ease-in-out;
+}
+
+.box4:hover {
+    transform: scale(1.01);
+    transition: 0.4s ease-in-out;
+}
+
+.box5:hover {
+    transform: scale(1.01);
+    transition: 0.4s ease-in-out;
+}
+
+.box6:hover {
+    transform: scale(1.01);
+    transition: 0.4s ease-in-out;
+}
+
+.box7:hover {
+    transform: scale(1.01);
+    transition: 0.4s ease-in-out;
+}
+
+.box8:hover {
+    transform: scale(1.01);
+    transition: 0.4s ease-in-out;
+}
+
 .missao {
     background-color: black;
     width: 900px;
@@ -160,26 +262,26 @@ body {
     align-items: center;
 }
 
-.missao p{
+.missao p {
     text-align: left;
     color: white;
     margin-left: 20px;
     font-weight: bold;
 }
 
-.missao span{
-    color:#FFD700;
+.missao span {
+    color: #FFD700;
     font-weight: bold;
 }
 
-.visao p{
+.visao p {
     text-align: left;
     color: white;
     margin-left: 20px;
     font-weight: bold;
 }
 
-.visao span{
+.visao span {
     color: #FFD700;
     font-weight: bold;
 }
@@ -207,15 +309,15 @@ body {
     align-items: center;
 }
 
-.valores p{
+.valores p {
     color: white;
     margin-left: 20px;
     font-weight: bold;
     text-align: left;
 }
 
-.valores span{
-    color:#FFD700;
+.valores span {
+    color: #FFD700;
     font-weight: bold;
     text-align: center;
     align-items: center;
@@ -257,32 +359,192 @@ body {
     background-color: white;
 }
 
-.img_teste {
-    text-align: center;
-    background-color: #d3d3d3;
+.line4 {
+    width: 1px;
+    height: 100%;
+    margin-left: 20px;
+    background-color: white;
 }
 
-.banner p {
-    color: #FFD700;
-    text-align: center;
-    font-size: 15px;
-    text-transform: uppercase;
+.line5 {
+    width: 1px;
+    height: 100%;
+    margin-right: 20px;
+    background-color: white;
+}
+
+.line6 {
+    width: 1px;
+    height: 100%;
+    margin-left: 20px;
+    background-color: white;
+}
+
+.line7 {
+    width: 1px;
+    height: 100%;
+    margin-right: 20px;
+    background-color: white;
+}
+
+.line8 {
+    width: 1px;
+    height: 100%;
+    margin-left: 20px;
+    background-color: white;
+}
+
+.titulo_reducao_custo {
+    font-weight: bold;
+    font-size: large;
+    color: white;
+    white-space: nowrap;
+}
+
+.reducao_custo {
+    background-color: black;
+    width: 900px;
+    height: 200px;
+    flex-shrink: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.reducao_custo p {
+    text-align: left;
+    color: white;
+    margin-left: 20px;
     font-weight: bold;
 }
 
-.header li a {
+.reducao_custo span {
     color: #FFD700;
-    text-decoration: none;
-    display: block;
-    padding: 5px 15px;
-    cursor: pointer;
-    border: 2px solid;
-    border-radius: 3px;
-    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-.header li a:hover {
+.titulo_gestao_risco {
+    font-weight: bold;
+    font-size: large;
     color: white;
-    transform: scale(1.08);
-    transition: 0.4s ease-in-out;
+    white-space: nowrap;
+}
+
+.gestao_risco {
+    background-color: black;
+    width: 900px;
+    height: 200px;
+    flex-shrink: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.gestao_risco p {
+    text-align: left;
+    color: white;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.gestao_risco span {
+    color: #FFD700;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.titulo_eficiencia {
+    font-weight: bold;
+    font-size: large;
+    color: white;
+    white-space: nowrap;
+}
+
+.eficiencia {
+    background-color: black;
+    width: 900px;
+    height: 200px;
+    flex-shrink: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.eficiencia p {
+    text-align: left;
+    color: white;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.eficiencia span {
+    color: #FFD700;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.titulo_expertise {
+    font-weight: bold;
+    font-size: large;
+    color: white;
+    white-space: nowrap;
+}
+
+.expertise {
+    background-color: black;
+    width: 900px;
+    height: 200px;
+    flex-shrink: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.expertise p {
+    text-align: left;
+    color: white;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.expertise span {
+    color: #FFD700;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.titulo_personalizacao {
+    font-weight: bold;
+    font-size: large;
+    color: white;
+    white-space: nowrap;
+}
+
+.personalizacao {
+    background-color: black;
+    width: 900px;
+    height: 200px;
+    flex-shrink: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.personalizacao p {
+    text-align: left;
+    color: white;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.personalizacao span {
+    color: #FFD700;
+    font-weight: bold;
+    text-transform: uppercase;
 }
