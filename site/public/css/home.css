@@ -12,7 +12,7 @@ body {
     /* font-family: 'PT Sans Narrow', sans-serif; */
     /* font-family: 'Roboto Condensed', sans-serif; */
     font-family: 'Quicksand', sans-serif;
-    background: white;
+    background: #d3d3d3;
 }
 
 ::-webkit-scrollbar {
@@ -76,8 +76,13 @@ body {
     border: 1px solid black;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.80) 100%), url(../assets/imgs_power/img_index1.jpg), lightgray 50% / cover no-repeat;
     box-shadow: 0px 4px 4px 0px black(0, 0, 0, 0.25);
+    /* display: flex;
+    justify-content: space-around;
+    align-items: center; */
     text-align: center;
 }
+
+
 
 .banner button {
     width: 185px;
@@ -90,6 +95,9 @@ body {
     border: 2px solid;
     border-radius: 3px;
     font-size: 12px;
+    /* display: inline;
+    float: left; */
+    
 }
 
 .banner button:hover {
@@ -102,6 +110,13 @@ body {
     width: 20%;
     height: 20%;
     text-align: center;
+    align-items: center;
+}
+
+.mvv{
+    text-align: center;
+    font-weight: bold;
+    background-color: #d3d3d3;
 }
 
 .box {
@@ -110,7 +125,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 45vh;
     margin: 0;
 }
 
@@ -120,7 +135,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 45vh;
     margin: 0;
 }
 
@@ -130,70 +145,115 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 45vh;
     margin: 0;
 }
 
 .missao {
     background-color: black;
-    width: 800px;
-    height: 250px;
+    width: 900px;
+    height: 200px;
     flex-shrink: 0;
     padding: 20px;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
 }
 
+.missao p{
+    text-align: left;
+    color: white;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.missao span{
+    color:#FFD700;
+    font-weight: bold;
+}
+
+.visao p{
+    text-align: left;
+    color: white;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.visao span{
+    color: #FFD700;
+    font-weight: bold;
+}
+
+
 .visao {
-    background-color: white;
-    width: 800px;
-    height: 250px;
+    background-color: black;
+    width: 900px;
+    height: 200px;
     flex-shrink: 0;
     padding: 20px;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
 }
 
 .valores {
     background-color: black;
-    width: 800px;
-    height: 250px;
+    width: 900px;
+    height: 200px;
     flex-shrink: 0;
     padding: 20px;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
+}
+
+.valores p{
+    color: white;
+    margin-left: 20px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.valores span{
+    color:#FFD700;
+    font-weight: bold;
+    text-align: center;
+    align-items: center;
 }
 
 .missao img {
-    width: 40%;
-    height: 60%;
+    width: 20%;
+    height: 40%;
 }
 
 .visao img {
-    width: 40%;
-    height: 60%;
+    width: 20%;
+    height: 40%;
 }
 
 .valores img {
-    width: 40%;
-    height: 60%;
+    width: 20%;
+    height: 40%;
 }
 
 .line1 {
     width: 1px;
     height: 100%;
+    margin-left: 20px;
     background-color: white;
 }
 
 .line2 {
     width: 1px;
     height: 100%;
-    background-color: #000;
+    margin-left: 20px;
+    background-color: white;
 }
 
 .line3 {
     width: 1px;
     height: 100%;
+    margin-left: 20px;
     background-color: white;
 }
 
