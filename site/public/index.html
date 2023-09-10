@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <title>POWER TECH SHOLUTIONS | HOME</title>
-    
-    <link rel="icon" href="assets/imgs_power/power_tech_solutions_logo_semfundo.png" />
-    <link rel="stylesheet" href="css/home.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
 
-    <script src="js/slider.js" defer></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>POWER TECH SHOLUTIONS | HOME</title>
+
+  <link rel="icon" href="assets/imgs_power/power_tech_solutions_logo_semfundo.png" />
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+  <script src="js/slider.js" defer></script>
+
 </head>
 
 <body>
+
+
   <div class="header">
     <div class="container">
       <a href="index.html" alt=""></a>
@@ -31,15 +34,17 @@
   </div>
   <div class="banner">
     <img src="assets/imgs_power/power_tech_solutions_logo_semfundo.png" alt="">
-    <p>A Power Tech Solutions é uma empresa terceirizada que monitora hardwares de empresas que são trending de
-      energia.</p>
+    <p>Descubra como a Power Tech Solutions está revolucionando o setor do mercado de energia livre. Oferecemos soluções
+      de monitoramento
+      de hardware avançadas para empresas em trending de energia. Mantenha-se à frente da concorrência com nossa
+      tecnologia de ponta.</p>
     <br><br>
-    <button><b>CONHEÇA A POWERTECH</b></button>
-    <br><br><br><br><br><br><br><br>
-    
-    
-    
-    
+    <button id="scrollButton"><b>CONHEÇA A POWERTECH</b></button>
+    <br><br><br><br>
+
+
+
+
 
 
     <div class="your-container">
@@ -62,7 +67,7 @@
 
   <div class="divPlanoFundo">
 
-    <div class="beneficios">
+    <div class="beneficios"  id="outraSessao">
       <h1><b>BENEFÍCIOS QUE SÓ A <span>POWER TECH SOLUTIONS</span> PODE OFERECER!</b></h1>
     </div>
 
@@ -87,29 +92,19 @@
 
           <!-- slides imagens -->
           <div class="slide first">
-            <img
-              src="css/img/Eficiencia energetica - carrossel1.png"
-              alt="Imagem 1">
+            <img src="css/img/Eficiencia energetica - carrossel1.png" alt="Imagem 1">
           </div>
           <div class="slide">
-            <img
-              src="css/img/expertise tecnica- carrossel1.png"
-              alt="Imagem 2">
+            <img src="css/img/expertise tecnica- carrossel1.png" alt="Imagem 2">
           </div>
           <div class="slide">
-            <img
-              src="css/img/Gestão de risco - Carrossel1.png"
-              alt="Imagem 3">
-            </div>
-            <div class="slide">
-              <img
-              src="css/img/Redução de custos - Carrossel1.png"
-              alt="Imagem 4">
-            </div>
+            <img src="css/img/Gestão de risco - Carrossel1.png" alt="Imagem 3">
+          </div>
           <div class="slide">
-            <img
-              src="css/img/Personalização.png"
-              alt="Imagem 5">
+            <img src="css/img/Redução de custos - Carrossel1.png" alt="Imagem 4">
+          </div>
+          <div class="slide">
+            <img src="css/img/Personalização.png" alt="Imagem 5">
           </div>
           <!-- Final slides imagens -->
 
@@ -135,7 +130,7 @@
       </div>
 
     </div>
-    
+
 
 
 
@@ -252,14 +247,14 @@
   <div class="divBoxRodaPe">
     <div class="divBoxConteudoRodaPe">
       <div class="divConteudo1">
-          <span>
-            Nossa sede: <br>
-            Rua Haddock Lobo, 595 São Paulo - SP <br>
-            Andar 2 - Sala A
+        <span>
+          Nossa sede: <br>
+          Rua Haddock Lobo, 595 São Paulo - SP <br>
+          Andar 2 - Sala A
 
-          </span>
+        </span>
 
-        </div>
+      </div>
       <div class="divBarraRodape">
 
       </div>
@@ -345,23 +340,25 @@
   </div>
 
 
+
+  <script src="js/script.js"></script>
 </body>
 <script>
   let count = 1;
-document.getElementById("radio1").cheked = true;
+  document.getElementById("radio1").cheked = true;
 
-setInterval(function() {
+  setInterval(function () {
     nextImage();
-}, 2000)
+  }, 2000)
 
-function nextImage() {
+  function nextImage() {
     count++;
-    if (count >5) {
-        count = 1;
+    if (count > 5) {
+      count = 1;
     }
 
     document.getElementById("radio" + count).cheked = true;
 
-}
+  }
 
 </script>

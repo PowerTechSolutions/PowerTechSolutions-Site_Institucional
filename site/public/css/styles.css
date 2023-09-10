@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.carousel-container {
+    display: flex;
+    overflow: hidden;
+    width: 100%; /* Largura do carrossel */
+    margin: 0 auto;
+}
+
+.carousel-slide {
+    flex: 0 0 auto;
+    width: 100%; /* Largura do carrossel */
+    transition: transform 0.5s ease-in-out;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+}
+
+.content {
+    padding: 20px;
+}
+
+button {
+    margin-top: 10px;
+    cursor: pointer;
+}
