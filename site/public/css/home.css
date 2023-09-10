@@ -655,10 +655,14 @@ body {
 
 .textoConteudo2{
     display: flex;
-    background-color: white;
+    background-color: rgb(0, 0, 0);
     width: 50%;
-
 }
+
+.textoConteudo2 span{
+    color: white;
+}
+
 .divBarraRodape{
     height: 100%;
     width: 0.5%;

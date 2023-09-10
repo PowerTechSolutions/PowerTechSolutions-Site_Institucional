@@ -10,7 +10,7 @@
     background-color: black;
     margin-bottom: 1vh solid  #FFD700;
     position: relative;
-    bottom: 5.3vh;
+    bottom: 2.3vh;
 }
 
 .navbar {
@@ -35,6 +35,8 @@
     border: 2px solid;
     border-radius: 3px;
     font-size: 12px;
+    /* width: vh;
+    height: 3vh; */
 }
 
 .header li a:hover {
@@ -50,6 +52,7 @@
 }
 .header .container{
     height: 18.5;
+    bottom: 5.3vh;
 }
 }
 
