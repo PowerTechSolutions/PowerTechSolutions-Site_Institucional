@@ -124,8 +124,18 @@ body{
     background-color: #FFD700;
 }
 
-
-
-@media only screen and (max-width: 370px) {
-    
-}
+@media only screen and (max-width: 768px) {  
+    .container-login {
+      width: 90%; 
+      top: 5vh; 
+    }
+  
+    .card-login {
+      width: 90%; /* Reduza a largura do cartão de login */
+      height: auto; /* Ajuste a altura automaticamente para o conteúdo */
+    }
+  
+    .preencher-login input {
+      width: 100%; /* Faça com que os campos de entrada ocupem a largura total */
+    }
+  }
