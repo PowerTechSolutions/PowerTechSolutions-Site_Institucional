@@ -131,11 +131,11 @@ body{
     }
   
     .card-login {
-      width: 90%; /* Reduza a largura do cartão de login */
-      height: auto; /* Ajuste a altura automaticamente para o conteúdo */
+      width: 90%; 
+      height: auto;
     }
   
     .preencher-login input {
-      width: 100%; /* Faça com que os campos de entrada ocupem a largura total */
+      width: 100%;
     }
   }
