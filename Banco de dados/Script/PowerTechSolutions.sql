@@ -49,7 +49,6 @@ create table Monitoramento(
     CPU int,
     ram decimal(2),
     disco int,
-    usb int,
     dt datetime,
     
     constraint pkCompsota primary key(idMonitoramento, fkUser, fkMaquina),
