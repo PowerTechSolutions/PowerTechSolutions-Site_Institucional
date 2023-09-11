@@ -87,7 +87,6 @@ body {
 .banner {
     border: 1px solid black;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.80) 100%, rgba(0, 0, 0, 0.80) 100%), url(../assets/imgs_power/img_index1.jpg), lightgray 100% / cover no-repeat;
-    background-size: 100%;
     box-shadow: 0px 4px 4px 0px black(0, 0, 0, 0.25);
     text-align: center;
 }
@@ -122,9 +121,8 @@ body {
     color: #FFD700;
     text-align: center;
     font-size: 15px;
+    text-transform: uppercase;
     font-weight: bold;
-    margin-right: 15%;
-    margin-left: 15%;
 }
 
 .css-waves {
@@ -188,7 +186,7 @@ body {
     /* background-color: #d3d3d3; */
 }
 
-.box1 {
+.boxMvv {
     /* background-color: #d3d3d3; */
     text-align: center;
     display: flex;
@@ -198,117 +196,7 @@ body {
     margin: 0;
 }
 
-.box2 {
-    /* background-color: #d3d3d3; */
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 45vh;
-    margin: 0;
-}
-
-.box3 {
-    /* background-color: #d3d3d3; */
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 45vh;
-    margin: 0;
-}
-
-.box4 {
-    /* background-color: #d3d3d3; */
-    text-align: center;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    height: 100%;
-    /* height: 30vh; */
-    margin: 10vh;
-}
-
-.box5 {
-    /* background-color: #d3d3d3; */
-    text-align: center;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    /* height: 30vh; */
-    height: 100%;
-    margin: 10vh;
-}
-
-.box6 {
-    /* background-color: #d3d3d3; */
-    text-align: center;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    /* height: 30vh; */
-    height: 100%;
-    margin: 10vh;
-}
-
-.box7 {
-    /* background-color: #d3d3d3; */
-    text-align: center;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    /* height: 30vh; */
-    height: 100%;
-    margin: 10vh;
-}
-
-.box8 {
-    /* background-color: #d3d3d3; */
-    text-align: center;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    /* height: 30vh; */
-    height: 100%;
-    margin: 10vh;
-}
-
-.box1:hover {
-    transform: scale(1.01);
-    transition: 0.4s ease-in-out;
-}
-
-.box2:hover {
-    transform: scale(1.01);
-    transition: 0.4s ease-in-out;
-}
-
-.box3:hover {
-    transform: scale(1.01);
-    transition: 0.4s ease-in-out;
-}
-
-.box4:hover {
-    transform: scale(1.01);
-    transition: 0.4s ease-in-out;
-}
-
-.box5:hover {
-    transform: scale(1.01);
-    transition: 0.4s ease-in-out;
-}
-
-.box6:hover {
-    transform: scale(1.01);
-    transition: 0.4s ease-in-out;
-}
-
-.box7:hover {
-    transform: scale(1.01);
-    transition: 0.4s ease-in-out;
-}
-
-.box8:hover {
+.boxMvv:hover {
     transform: scale(1.01);
     transition: 0.4s ease-in-out;
 }
@@ -463,15 +351,25 @@ body {
     white-space: nowrap;
 }
 
+.box{
+    display: flex;
+    height: 70vh;
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(0, 255, 76);
+}
 .reducao_custo {
     background-color: black;
-    width: 900px;
-    height: 200px;
-    flex-shrink: 0;
+    width: 90%;
+    height: 30vh;
+    /* flex-shrink: 0; */
     padding: 20px;
     display: flex;
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
     align-items: center;
+    justify-content: center;
 }
 
 .reducao_custo p {
@@ -613,14 +511,13 @@ body {
 
 
 .divBoxRodaPe{
-    margin-top: 3%;
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
     height: 40vh;
+    
     background-color: #d3d3d3;
-
 }
 
 .divTituloRodaPe{
@@ -645,7 +542,6 @@ body {
     justify-content: center;
     background-color: azure;
     width: 100%;
-    font-weight: bold;
 }
 
 .divBoxConteudo2{
@@ -655,19 +551,14 @@ body {
     flex-direction: column;
     background-color: rgb(0, 0, 0);
     width: 100%;
-    font-weight: bold;
 }
 
 .textoConteudo2{
     display: flex;
-    background-color: rgb(0, 0, 0);
+    background-color: white;
     width: 50%;
-}
 
-.textoConteudo2 span{
-    color: white;
 }
-
 .divBarraRodape{
     height: 100%;
     width: 0.5%;
@@ -770,27 +661,102 @@ body {
 
 
 
-/* slides */
+/* Carrossel BENEFÍCIOS QUE SÓ A POWER TECH SOLUTIONS PODE OFERECER */
 .divBoxSlider{
     display: flex;
-    justify-content: center;
     align-items: center;
     height: 60vh;
     width: 100%;
 
     background-color: #dd4b39;
 }
+
+
+.boxSlide{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 95%;
+
+    background-color: #ffffff;
+}
+.boxTitulo{
+    display: flex;
+    width: 20%;
+    height: 100%;
+    justify-content: center;
+
+    background-color: #3b5998;
+}
+
+.titulo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 80%;
+
+background-color: #dd4b39;
+}
+
+.divLinhaSepara{
+    width: 0.2%;
+    height: 85%;
+    background-color: white;
+
+}
+
+.boxConteudo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 100%;
+
+    background-color: aqua;
+}
+
+.conteudo{
+    display: flex;
+    align-items: center;
+    height: 80%;
+    width: 95%;
+    
+    background-color: #dd4b39;
+}
+
+.txt{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 60%;
+
+    background-color: rgb(0, 0, 0);
+}
+
+.txt span{
+    color: gold;
+}
+
+.txt p{
+    text-align: justify;
+    color: white;
+}
+
 .slider{
     margin:  0 auto;
     height: 400px;
-    width: 100%;
+    width: 100vw;
+    padding: 0;
 
     overflow: hidden;
 }
 
 .slides{
-    width: 400%;
-    height: 50vh;
+    width: 400vw;
+    height: 400px;
     display: flex;
     
 }
@@ -799,15 +765,12 @@ body {
     display: none;
 }
 
-.slide{
-    width: 25%;
+.slide, #primerioSlide{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
     position: relative;
-    transition: 2s;
-}
-
-.slide img{
-    width: 100%;
-    height: 100%;
+    transition: all 3s ease-in;
 }
 
 .manual-navigation{
@@ -884,3 +847,44 @@ body {
 #radio5:checked ~ .navigation-auto .auto-btn5{
     background-color: black;
 }
+/* Carrossel BENEFÍCIOS QUE SÓ A POWER TECH SOLUTIONS PODE OFERECER Final */
+
+/* Carrossel ajustes FEEDBACKS */
+
+
+
+#radio1FeedBack:checked ~ .first{
+    margin-left: 0%;
+}
+#radio2FeedBack:checked ~ .first{
+    margin-left: -25%;
+}
+#radio3FeedBack:checked ~ .first{
+    margin-left: -50%;
+}
+#radio4FeedBack:checked ~ .first{
+    margin-left: -75%;
+}
+#radio5FeedBack:checked ~ .first{
+    margin-left: -100%;
+}
+
+#radio1FeedBack:checked ~ .navigation-auto .auto-btn1{
+    background-color: black;
+}
+#radio2FeedBack:checked ~ .navigation-auto .auto-btn2{
+    background-color: black;
+}
+#radio3FeedBack:checked ~ .navigation-auto .auto-btn3{
+    background-color: black;
+}
+#radio4FeedBack:checked ~ .navigation-auto .auto-btn4{
+    background-color: black;
+}
+#radio5FeedBack:checked ~ .navigation-auto .auto-btn5{
+    background-color: black;
+}
+/* carrossel FEEDBACKS fianl */
+ 
+
+
