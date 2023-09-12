@@ -1,9 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'); */
-/* @import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap'); */
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
-/*#360736*/
-
 
 body {
     margin: 0;
@@ -222,18 +217,55 @@ body {
 }
 
 /* Mobile Optimization */
-@media (max-width: 1024px) {
+
+@media (max-width: 1025px) {
+
+    .textoBanner{
+        width: 55vh;
+        margin-left: 10vh;
+        margin-bottom: 3vh;
+    }
+
+    .banner p {        
+        margin-right: 0;
+        margin-left: 0;
+    }
+
     .css-waves {
         height: 40px;
         min-height: 40px;
     }
+
+    .boxSobreNos{
+        flex-direction: column;
+    }
+
+    .divConteudoSobreNos1 img {
+        width: 80%;
+        height: 80vh;
+    }
+
+    .divConteudoSobreNos2 {
+        width: 100%;
+        position: relative;
+        bottom: 19vh;
+    }
+
+    .tituloNossoTrabalho {
+        height: 0vh;
 }
 
-@media (max-width: 1024px) {
+.divConteudoSobreNos2 p {
+    font-size: 25px;
+
+}
+
+}
+
     .divConteudoSobreNos1 img {
       width: 100%;
     }
-}
+
 .beneficios {
     text-align: center;
     font-weight: bold;
@@ -271,11 +303,11 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 10vh;
+   
     /* background-color: #dd4b39; */
 }
 .tituloNossoTrabalho span{
-    font-size: 24px;
+    font-size: 35px;
     font-weight: bold;
 }
 
