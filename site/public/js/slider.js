@@ -1,11 +1,12 @@
 let count = 1;
-  document.getElementById("radio1").checked = true;
+document.getElementById("radio1").checked = true;
+
 
   setInterval(function() {
-    nextImage();
-  }, 6000); 
+    proximaImage();
+  }, 4000); 
 
-  function nextImage() {
+  function proximaImage() {
     count++;
     if (count > 5) {
       count = 1;
@@ -13,3 +14,5 @@ let count = 1;
 
     document.getElementById("radio" + count).checked = true;
   }
+
+

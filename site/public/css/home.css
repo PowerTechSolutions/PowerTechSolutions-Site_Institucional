@@ -838,7 +838,6 @@ background-color: #dd4b39;
 .navigation-auto div:not(:last-child){
     margin-right: 3%;
 }
-
 #radio1:checked ~ .navigation-auto .auto-btn1{
     background-color: black;
 }
@@ -856,42 +855,92 @@ background-color: #dd4b39;
 }
 /* Carrossel BENEFÍCIOS QUE SÓ A POWER TECH SOLUTIONS PODE OFERECER Final */
 
-/* Carrossel ajustes FEEDBACKS */
+/* Carrossel  FEEDBACKS */
+
+.boxImgFeedBack{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #3b5998;
+}
+
+.imgFeedBack{
+    width: 7vw;
+    height: 14vh;
+    background-color: #000;
+}
+.divNomeFeedBack{
+    background-color: #d3d3d3;
+    margin-top: 2vh;
+    width: 7vw;
+    height: 3vh;
+}
 
 
+.slideFeedBack, #primerioSlide{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    position: relative;
+    transition: all 3s ease-in;
+}
 
-#radio1FeedBack:checked ~ .first{
+.manual-btnFeedBack{
+    border: 2px solid rgb(0, 0, 0);
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.manual-btnFeedBack:not(:last-child){
+    margin-right: 3%;
+}
+
+.manual-btnFeedBack:hover{
+    background-color: #FFD700;
+}
+
+#radioFeedBack1:checked ~ .first{
     margin-left: 0%;
 }
-#radio2FeedBack:checked ~ .first{
+#radioFeedBack2:checked ~ .first{
     margin-left: -25%;
 }
-#radio3FeedBack:checked ~ .first{
+#radioFeedBack3:checked ~ .first{
     margin-left: -50%;
 }
-#radio4FeedBack:checked ~ .first{
+#radioFeedBack4:checked ~ .first{
     margin-left: -75%;
 }
-#radio5FeedBack:checked ~ .first{
+#radioFeedBack5:checked ~ .first{
     margin-left: -100%;
 }
 
-#radio1FeedBack:checked ~ .navigation-auto .auto-btn1{
+.navigation-autoFeedBack div:not(:last-child){
+    margin-right: 3%;
+}
+#radioFeedBack1:checked ~ .navigation-autoFeedBack .auto-btnFeedBack1{
     background-color: black;
 }
-#radio2FeedBack:checked ~ .navigation-auto .auto-btn2{
+#radioFeedBack2:checked ~ .navigation-autoFeedBack .auto-btnFeedBack2{
     background-color: black;
 }
-#radio3FeedBack:checked ~ .navigation-auto .auto-btn3{
+#radioFeedBack3:checked ~ .navigation-autoFeedBack .auto-btnFeedBack3{
     background-color: black;
 }
-#radio4FeedBack:checked ~ .navigation-auto .auto-btn4{
+#radioFeedBack4:checked ~ .navigation-autoFeedBack .auto-btnFeedBack4{
     background-color: black;
 }
-#radio5FeedBack:checked ~ .navigation-auto .auto-btn5{
+#radioFeedBack5:checked ~ .navigation-autoFeedBack .auto-btnFeedBack5{
     background-color: black;
 }
-/* carrossel FEEDBACKS fianl */
+
+/* carrossel FEEDBACKS final */
  
 
 
