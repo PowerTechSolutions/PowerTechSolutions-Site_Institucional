@@ -652,7 +652,7 @@ body {
     &:hover,
     &:focus {
         color: #4183c4;
-        box-shadow: 0 0 24px 0 #000000
+        box-shadow: 0 0 24px 0 #ffff
     }
 }
 
