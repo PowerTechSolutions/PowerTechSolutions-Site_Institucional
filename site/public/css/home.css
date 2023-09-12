@@ -110,7 +110,7 @@ body {
     font-weight: bold;
 }
 
-.divTituloSobreNos{
+.divTituloSobreNos {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,12 +120,13 @@ body {
     /* background-color: #00ACED; */
 }
 
-.divTituloSobreNos span{
+.divTituloSobreNos span {
     font-size: 32px;
     font-weight: bold;
+
 }
 
-.divBoxSobreNos{
+.divBoxSobreNos {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -134,7 +135,8 @@ body {
 
     /* background-color: #dd4b39; */
 }
-.boxSobreNos{
+
+.boxSobreNos {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -144,7 +146,8 @@ body {
 
     /* background-color: #353c4a; */
 }
-.divConteudoSobreNos1{
+
+.divConteudoSobreNos1 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -156,17 +159,18 @@ body {
     margin-bottom: 20px;
 }
 
-.divConteudoSobreNos1 img{
+.divConteudoSobreNos1 img {
     width: 100vh;
     height: 100vh;
 }
 
-.divConteudoSobreNos2{
+.divConteudoSobreNos2 {
     height: 70vh;
     width: 100vw;
     /* background-color: blue; */
 }
-.divConteudoSobreNos2 p{
+
+.divConteudoSobreNos2 p {
     font-size: 19px;
     text-align: justify;
     font-weight: bold;
@@ -220,13 +224,13 @@ body {
 
 @media (max-width: 1025px) {
 
-    .textoBanner{
+    .textoBanner {
         width: 55vh;
         margin-left: 10vh;
         margin-bottom: 3vh;
     }
 
-    .banner p {        
+    .banner p {
         margin-right: 0;
         margin-left: 0;
     }
@@ -236,7 +240,7 @@ body {
         min-height: 40px;
     }
 
-    .boxSobreNos{
+    .boxSobreNos {
         flex-direction: column;
     }
 
@@ -253,18 +257,18 @@ body {
 
     .tituloNossoTrabalho {
         height: 0vh;
-}
-
-.divConteudoSobreNos2 p {
-    font-size: 25px;
-
-}
-
-}
-
-    .divConteudoSobreNos1 img {
-      width: 100%;
     }
+
+    .divConteudoSobreNos2 p {
+        font-size: 25px;
+
+    }
+
+}
+
+.divConteudoSobreNos1 img {
+    width: 100%;
+}
 
 .beneficios {
     text-align: center;
@@ -294,31 +298,33 @@ body {
 .boxNossoTrabalho {
     width: 100%;
     height: 75vh;
-    
+
     /* background-color: white; */
 }
 
-.tituloNossoTrabalho{
+.tituloNossoTrabalho {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-   
+
     /* background-color: #dd4b39; */
 }
-.tituloNossoTrabalho span{
+
+.tituloNossoTrabalho span {
     font-size: 35px;
     font-weight: bold;
 }
 
-.boxNossoTrabalhoImg{
+.boxNossoTrabalhoImg {
     display: flex;
     justify-content: center;
     height: 30vh;
     width: 100%;
     /* background-color: #FFD700; */
 }
-.divNossoTrabalhoImg img{
+
+.divNossoTrabalhoImg img {
     height: 50vh;
     width: 100%;
     position: relative;
@@ -328,17 +334,17 @@ body {
 }
 
 
-.boxNossoTrabalhoConteudo{
+.boxNossoTrabalhoConteudo {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    height:35vh;
+    height: 35vh;
 
     /* background-color: #3b5998; */
 }
 
-.boxMonitoramento{
+.boxMonitoramento {
     display: flex;
     align-items: center;
 
@@ -357,9 +363,10 @@ body {
     color: white;
 }
 
-.boxMonitoramento span{
+.boxMonitoramento span {
     font-weight: bold;
 }
+
 .BoxMonitoramento:hover {
     transform: scale(1.01);
     transition: 0.3s ease-in-out;
@@ -455,7 +462,7 @@ body {
     height: 45vh;
     width: 100%;
     margin: 0;
-    
+
     /* background-color: #00ACED; */
 }
 
@@ -518,7 +525,7 @@ body {
     background-color: #000;
 }
 
-.divTituloRodaPe{
+.divTituloRodaPe {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -526,7 +533,7 @@ body {
     height: 10vh;
 }
 
-.divTituloRodaPe span{
+.divTituloRodaPe span {
     font-size: 22px;
     color: gold;
     font-weight: bold;
@@ -537,8 +544,8 @@ body {
     flex-direction: row;
     height: 90%;
     width: 90%;
-    
-    
+
+
 }
 
 .divConteudo1 {
@@ -681,7 +688,7 @@ body {
     height: 60vh;
     width: 100%;
 
-    
+
 }
 
 
@@ -698,8 +705,8 @@ body {
     width: 20%;
     height: 100%;
     justify-content: center;
+    white-space: nowrap;
 
-    
 }
 
 .titulo {
@@ -726,7 +733,7 @@ body {
     width: 80%;
     height: 100%;
 
-    
+
 }
 
 .conteudo {
@@ -736,7 +743,7 @@ body {
     height: 80%;
     width: 95%;
 
-    
+
 }
 
 .txt {
@@ -757,11 +764,11 @@ body {
 
 .titulo span {
     color: gold;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
 }
 
-.conteudo span{
+.conteudo span {
     color: gold;
 }
 
@@ -791,10 +798,11 @@ body {
     display: none;
 }
 
-.slide,#primerioSlide {
+.slide,
+#primerioSlide {
     display: flex;
     justify-content: center;
-    width: 100vw    ;
+    width: 100vw;
     position: relative;
     transition: all 3s ease-in;
 }
@@ -916,7 +924,7 @@ body {
 .divNomeFeedBack {
     background-color: #d3d3d3;
     /* margin-top: 2vh; */
-    /* width: 7vw;
+/* width: 7vw;
     height: 3vh;
 }
 
@@ -1022,6 +1030,6 @@ background-color: #00ACED;
 
 #radioFeedBack5:checked~.navigation-autoFeedBack .auto-btnFeedBack5 {
     background-color: black;
-} */ 
+} */
 
 /* carrossel FEEDBACKS final */
