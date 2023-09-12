@@ -125,17 +125,43 @@ body{
 }
 
 @media only screen and (max-width: 768px) {  
+   
+    .img-login{
+        width: 100%;
+    }
+
     .container-login {
-      width: 90%; 
+      width: auto; 
       top: 5vh; 
+      margin: 0;
     }
   
     .card-login {
-      width: 90%; 
+      width: auto; 
       height: auto;
+      margin: 0;
     }
   
     .preencher-login input {
       width: 100%;
     }
   }
+  
+  @media only screen and (max-width: 1300px) {  
+   
+   
+    .container-login {
+      width: 80%; 
+      top: 5vh; 
+    }
+  
+    .card-login {
+      width: 80%; 
+      height: auto;
+    }
+  
+    .preencher-login input {
+      width: 70%;
+    }
+  }
+
