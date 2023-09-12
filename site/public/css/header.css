@@ -2,41 +2,38 @@
     width: 100%;
 }
 
+.container {
+    display: flex;
+    margin: auto;
+}
+
 .header .container {
     justify-content: space-between;
     align-items: center;
-    height: 8.5vh;
+    height: 10vh;
     width: 100%;
     background-color: black;
-    margin-bottom: 1vh solid  #FFD700;
-    position: relative;
-    bottom: 2.3vh;
 }
 
 .navbar {
-    margin-right: 5%;
+    margin-right: 5vh;
     list-style: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: #FFD700;
-    height: 100%;
-    width: 17%;
-    margin-left: 75%;
-    
+    width: 40vh;
 }
 
 .header li a {
     color: #FFD700;
     text-decoration: none;
     display: block;
-    padding: 5px 15px;
+    padding: 1vh 2vh;
     cursor: pointer;
-    border: 2px solid;
-    border-radius: 3px;
-    font-size: 12px;
-    /* width: vh;
-    height: 3vh; */
+    border: 0.5vh solid;
+    border-radius: 0.5vh;
+    font-size: 2vh;
 }
 
 .header li a:hover {
@@ -51,12 +48,11 @@
         justify-content: space-between;
         align-items: center;
     }
-    
+   
     .header .container {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    
+   
     }
-

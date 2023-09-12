@@ -115,6 +115,69 @@ body {
     font-weight: bold;
 }
 
+.divTituloSobreNos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    width: 100%;
+
+    /* background-color: #00ACED; */
+}
+
+.divTituloSobreNos span{
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.divBoxSobreNos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 100%;
+
+    /* background-color: #dd4b39; */
+}
+.boxSobreNos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: 80vh;
+    width: 90vw;
+
+    /* background-color: #353c4a; */
+}
+.divConteudoSobreNos1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100vw;
+    height: 70vh;
+    /* background-color: orange; */
+
+    margin-bottom: 20px;
+}
+
+.divConteudoSobreNos1 img{
+    width: 100vh;
+    height: 100vh;
+}
+
+.divConteudoSobreNos2{
+    height: 70vh;
+    width: 100vw;
+    /* background-color: blue; */
+}
+.divConteudoSobreNos2 p{
+    font-size: 19px;
+    text-align: justify;
+    font-weight: bold;
+    margin: 5vh;
+}
+
 .css-waves {
     position: relative;
     width: 100%;
@@ -159,13 +222,18 @@ body {
 }
 
 /* Mobile Optimization */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .css-waves {
         height: 40px;
         min-height: 40px;
     }
 }
 
+@media (max-width: 1024px) {
+    .divConteudoSobreNos1 img {
+      width: 100%;
+    }
+}
 .beneficios {
     text-align: center;
     font-weight: bold;
@@ -180,19 +248,166 @@ body {
 }
 
 .sobreNos img {
-    width: 100vh;
+    width: 100%;
     height: 100vh;
 }
 
 .sobreNos p {
+    font-size: 16px;
     font-weight: bolder;
+    text-align: justify;
     margin: 5vh;
 }
 
-.divPlanoFundo h1 {
-    text-align: center;
-    font-weight: bolder;
+.boxNossoTrabalho {
+    width: 100%;
+    height: 75vh;
+    
+    /* background-color: white; */
 }
+
+.tituloNossoTrabalho{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 10vh;
+    /* background-color: #dd4b39; */
+}
+.tituloNossoTrabalho span{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.boxNossoTrabalhoImg{
+    display: flex;
+    justify-content: center;
+    height: 30vh;
+    width: 100%;
+    /* background-color: #FFD700; */
+}
+.divNossoTrabalhoImg img{
+    height: 50vh;
+    width: 100%;
+    position: relative;
+    bottom: 10vh;
+
+    /* background-color: red; */
+}
+
+
+.boxNossoTrabalhoConteudo{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height:35vh;
+
+    /* background-color: #3b5998; */
+}
+
+.boxMonitoramento{
+    display: flex;
+    align-items: center;
+
+    height: 23vh;
+    width: 26vw;
+    border: 0.2vh solid black;
+    box-shadow: 2vh 2vh #000;
+    padding: 2vh;
+    border-radius: 0.5vh;
+    background-color: rgb(104, 104, 104);
+
+}
+
+.boxMonitoramento p {
+    text-align: justify;
+    color: white;
+}
+
+.boxMonitoramento span{
+    font-weight: bold;
+}
+.BoxMonitoramento:hover {
+    transform: scale(1.01);
+    transition: 0.3s ease-in-out;
+}
+
+/* .bboxMvv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 85vh;
+    width: 100%;
+    background-color: #dd4b39;
+}
+
+.tituloMvv{
+    display: flex;
+    height: 10vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #353c4a;
+}
+
+.conteudoMvvFormatacao{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 45vh;
+    background-color: #d3d3d3;
+}
+
+.conteudoMvv{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+    width: 45vw;
+
+    background-color: #00ACED;
+}
+
+.conteudoMvvValores{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+    width: 70vw;
+
+    background-color: #00ACED;
+}
+
+.boxImagemMvv{
+    width: 15vw;
+    height: 30vh;
+
+    background-color: #ffffff;
+}
+
+.boxMvvConteudo{
+    height: 30vh;
+    width: 30vw;
+
+    background-color: #FFD700;
+}
+
+.boxMvvConteudoValores{
+    display: flex;
+    flex-direction: row;
+    height: 30vh;
+    width: 55vw;
+
+    background-color: #FFD700;
+} */
+
+
+
 
 .mvv {
     text-align: center;
@@ -206,64 +421,12 @@ body {
     justify-content: center;
     align-items: center;
     height: 45vh;
+    width: 100%;
     margin: 0;
+    
+    /* background-color: #00ACED; */
 }
 
-.nossoTrabalho {
-    text-align: center;
-    margin-top: -10vh;
-}
-
-.nossoTrabalho img {
-    margin-top: -18vh;
-}
-
-.boxTrabalho {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.monitoramento {
-    padding: 3vh;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.monitoramento img {
-    width: 50vh;
-    height: 50vh;
-}
-
-.monitoramento p {
-    text-align: left;
-    color: white;
-    margin-left: 3vh;
-    font-weight: bold;
-    border: 0.2vh solid black;
-    box-shadow: 2vh 2vh #000;
-    padding: 5vh;
-    border-radius: 0.5vh;
-    background-color: rgb(104, 104, 104);
-    margin: 1vh;
-}
-
-.monitoramento:hover {
-    transform: scale(1.01);
-    transition: 0.4s ease-in-out;
-}
-
-.monitoramento span {
-    color: black;
-    font-weight: bolder;
-}
-
-.boxMvv:hover {
-    transform: scale(1.01);
-    transition: 0.4s ease-in-out;
-}
 
 .mvvbox p {
     text-align: left;
@@ -279,12 +442,17 @@ body {
 
 .mvvbox {
     background-color: black;
-    width: 139vh;
+    width: 70vw;
     height: 30vh;
     padding: 3vh;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.mvvbox:hover {
+    transform: scale(1.01);
+    transition: 0.4s ease-in-out;
 }
 
 .mvvbox img {
@@ -305,7 +473,6 @@ body {
     width: 90%;
     justify-content: center;
     align-items: center;
-    background-color: rgb(0, 255, 76);
 }
 
 
@@ -315,14 +482,22 @@ body {
     flex-direction: column;
     width: 100%;
     height: 40vh;
-    background-color: #d3d3d3;
+
+    background-color: #000;
 }
 
-.divTituloRodaPe {
+.divTituloRodaPe{
     display: flex;
     justify-content: center;
-    background-color: aquamarine;
-    height: 10%;
+    align-items: center;
+    width: 100%;
+    height: 10vh;
+}
+
+.divTituloRodaPe span{
+    font-size: 22px;
+    color: gold;
+    font-weight: bold;
 }
 
 .divBoxConteudoRodaPe {
@@ -330,17 +505,18 @@ body {
     flex-direction: row;
     height: 90%;
     width: 90%;
-    margin-top: 5vh;
-    background-color: #FFD700;
+    
+    
 }
 
 .divConteudo1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: azure;
-    width: 100%;
+    width: 100vw;
     font-weight: bold;
+    border-radius: 3vw 0vw 0vw 3vw;
+    background-color: azure;
 }
 
 .divBoxConteudo2 {
@@ -348,25 +524,22 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: rgb(0, 0, 0);
-    width: 100%;
+    width: 100vw;
     font-weight: bold;
+    border: 2px solid white;
+    border-radius: 0vw 3vw 3vw 0vw;
+    background-color: rgb(0, 0, 0);
 }
 
 .textoConteudo2 {
     display: flex;
-    background-color: rgb(0, 0, 0);
     width: 50%;
+
+    background-color: rgb(0, 0, 0);
 }
 
 .textoConteudo2 span {
     color: white;
-}
-
-.divBarraRodape {
-    height: 100%;
-    width: 0.5%;
-    background-color: #000;
 }
 
 .clip {
@@ -476,7 +649,7 @@ body {
     height: 60vh;
     width: 100%;
 
-    background-color: #dd4b39;
+    
 }
 
 
@@ -486,7 +659,6 @@ body {
     height: 100%;
     width: 95%;
 
-    background-color: #ffffff;
 }
 
 .boxTitulo {
@@ -495,7 +667,7 @@ body {
     height: 100%;
     justify-content: center;
 
-    background-color: #3b5998;
+    
 }
 
 .titulo {
@@ -503,9 +675,9 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
-    width: 80%;
+    width: 100%;
 
-    background-color: #dd4b39;
+
 }
 
 .divLinhaSepara {
@@ -522,16 +694,17 @@ body {
     width: 80%;
     height: 100%;
 
-    background-color: aqua;
+    
 }
 
 .conteudo {
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 80%;
     width: 95%;
 
-    background-color: #dd4b39;
+    
 }
 
 .txt {
@@ -539,32 +712,44 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    width: 100%;
+    width: 95%;
     height: 60%;
 
-    background-color: rgb(0, 0, 0);
+    border: 0.2vh solid black;
+    box-shadow: 2vh 2vh #000;
+    /* background-color: rgb(0, 0, 0); */
+    background-color: rgb(86, 86, 86);
 }
 
-.txt span {
+
+
+.titulo span {
+    color: gold;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.conteudo span{
     color: gold;
 }
 
 .txt p {
     text-align: justify;
+    font-size: 21px;
     color: white;
 }
 
 .slider {
     margin: 0 auto;
     height: 400px;
-    width: 100vw;
+    width: 100%;
     padding: 0;
 
     overflow: hidden;
 }
 
 .slides {
-    width: 400vw;
+    width: 400%;
     height: 400px;
     display: flex;
 
@@ -574,11 +759,10 @@ body {
     display: none;
 }
 
-.slide,
-#primerioSlide {
+.slide,#primerioSlide {
     display: flex;
     justify-content: center;
-    width: 100vw;
+    width: 100vw    ;
     position: relative;
     transition: all 3s ease-in;
 }
@@ -670,6 +854,16 @@ body {
 
 /* Carrossel  FEEDBACKS */
 
+/* .sliderFeedBack {
+    margin: 0 auto;
+    height: 400px;
+    width: 100vw;
+    padding: 0;
+
+    overflow: hidden;
+
+}
+
 .boxImgFeedBack {
     display: flex;
     flex-direction: column;
@@ -689,14 +883,48 @@ body {
 
 .divNomeFeedBack {
     background-color: #d3d3d3;
-    margin-top: 2vh;
-    width: 7vw;
+    /* margin-top: 2vh; */
+    /* width: 7vw;
     height: 3vh;
 }
 
+.divBoxNotaFeedBack{
+    display: flex;
+    flex-direction: row;
+    background-color: #ff0000;
+    
+    width: 7vw;
+    height: 3vh;
+}
+.divNotaFeedBack{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70vw;
 
-.slideFeedBack,
-#primerioSlide {
+background-color: #00ACED;
+}
+.divEstrela{
+    width: 30vw;
+    background-image: ;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    background-color: #f3f3f3;
+}
+
+.txtFeedBack {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 95%;
+    height: 60%;
+
+    background-color: #d3d3d3;
+}
+
+.slideFeedBack, #primerioSlide {
     display: flex;
     justify-content: center;
     width: 100vw;
@@ -762,6 +990,6 @@ body {
 
 #radioFeedBack5:checked~.navigation-autoFeedBack .auto-btnFeedBack5 {
     background-color: black;
-}
+} */ 
 
 /* carrossel FEEDBACKS final */

@@ -56,7 +56,7 @@ body{
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    
+   
 }
 
 .preencher-login{
@@ -75,9 +75,9 @@ body{
     background-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     font-size: 12pt;    
-    box-sizing: border-box; 
+    box-sizing: border-box;
     border-bottom: 2px solid rgb(255, 255, 255);
-    
+   
 }
 .preencher-login input:focus{
     border-style: 0 none;
@@ -131,37 +131,36 @@ body{
     }
 
     .container-login {
-      width: auto; 
-      top: 5vh; 
+      width: auto;
+      top: 5vh;
       margin: 0;
     }
-  
+ 
     .card-login {
-      width: auto; 
+      width: auto;
       height: auto;
       margin: 0;
     }
-  
+ 
     .preencher-login input {
       width: 100%;
     }
   }
-  
+ 
   @media only screen and (max-width: 1300px) {  
    
    
     .container-login {
-      width: 80%; 
-      top: 5vh; 
+      width: 80%;
+      top: 5vh;
     }
-  
+ 
     .card-login {
-      width: 80%; 
+      width: 80%;
       height: auto;
     }
-  
+ 
     .preencher-login input {
       width: 70%;
     }
   }
-
