@@ -13,6 +13,7 @@ body{
     background-size: cover;
 }
 
+
 .container-login{
     width: 60%;
     height:90%;
@@ -152,7 +153,7 @@ a{
     }
   }
  
-  @media only screen and (max-width: 1300px) {  
+  @media only screen and (max-width: 1024px) {  
    
    
     .container-login {
