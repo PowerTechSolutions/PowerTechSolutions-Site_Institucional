@@ -173,8 +173,11 @@ body{
 }
 
 @media only screen and (max-width: 1024px) {  
-    .boxCadastro{
-        flex-direction: row;
+    .divBoxCadastro{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
 
     .conteudoCadastro1 {
@@ -190,6 +193,11 @@ body{
     .tituloCadastro span {
         width: 30vh;
         height: 5vh;
+    }
+
+    .imgCadastro img{
+        display: none;
+        float: right;
     }
     
     }
