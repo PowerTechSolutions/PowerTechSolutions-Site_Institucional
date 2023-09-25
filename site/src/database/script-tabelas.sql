@@ -13,16 +13,14 @@ create table Empresa(
 
 create table Usuario(
 	idUsuario int primary key auto_increment,
-    email varchar (45),
-    senha varchar(30),
-    usuarioAdm int,
-    fkEmpresa int,
-    
+  email varchar (45),
+  senha varchar(30),
+  usuarioAdm int,
+  fkEmpresa int,
     constraint usuarioAdm foreign key (usuarioAdm)
-		references Usuario(idUsuario),
-        
-	constraint fkEmpresa foreign key(fkEmpresa)
-		references Empresa(idEmpresa)
+	    references Usuario(idUsuario),
+	  constraint fkEmpresa foreign key(fkEmpresa)
+		  references Empresa(idEmpresa)
 );
 
 create table HelpDesk(
