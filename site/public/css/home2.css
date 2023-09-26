@@ -696,7 +696,8 @@ body {
     display: flex;
     align-items: center;
     height: 100%;
-    width: 95%;
+    width: 100%;
+    justify-content: center;
 
 }
 
@@ -746,13 +747,14 @@ body {
 
 }
 
+
 .txt {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    width: 95%;
-    height: 60%;
+    width: 70%;
+    height: 50%;
     border: 0.2vh solid black;
     box-shadow: 2vh 2vh #000;
     background-color: rgb(86, 86, 86);
@@ -762,7 +764,7 @@ body {
 
 .titulo span {
     color: gold;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -772,7 +774,7 @@ body {
 
 .txt p {
     text-align: justify;
-    font-size: 21px;
+    font-size: 17px;
     color: white;
 }
 

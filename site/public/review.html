@@ -18,6 +18,9 @@
                   <a href=""><b>Monitoramento</b></a>
                 </li> -->
                 <li>
+                  <a href="review.html"><b>Feedback</b></a>
+                </li>
+                <li>
                     <a href="cadastro.html"><b>Cadastro</b></a>
                 </li>
                 <li class="agora">
@@ -33,10 +36,10 @@
         <div class="central">
             <div class="resenha">
                 <div class="parte1">
-                    <span> Review </span>
-                    <p>Compartilhe conosco sua experiência com a Power Tech Solutions. Deixe sua review!</p>
+                    <span> Feedback </span>
+                    <p>Compartilhe conosco sua experiência com a Power Tech Solutions. Deixe seu feedback!</p>
                     <input id="review_input" type="text">
-                    <div><button onclick="publicar()"> Publicar </button></div>
+                    <button onclick="publicar()"> Publicar </button>
 
                 </div>
                 <div class="parte2">
@@ -145,3 +148,13 @@
     <a href="https://storyset.com/user">User illustrations by Storyset</a>
 </body>
 </html>
+<script>
+  function publicar(){
+    var texto = review_input.value
+    if(texto == undefined){
+      alert("Impossível publicar resenha em branco")
+    } else {
+      alert("Resenha enviada")
+    }
+  }
+</script>
