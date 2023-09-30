@@ -48,14 +48,13 @@ body {
     justify-content: space-between;
     align-items: center;
     color: #FFD700;
-    width: 37vh;
+    /* width: 37vh; */
 }
 
 .header li a {
     color: #FFD700;
     text-decoration: none;
     display: block;
-    padding: 1vh 2vh;
     cursor: pointer;
     border: 0.5vh solid;
     border-radius: 0.5vh;
