@@ -28,16 +28,24 @@
                 <div class="perfil_usuario">
                     <img class="foto" src="../assets/imgs_power/perfil.png">
                     <span> Allan Hanz </span>
-                    <img class="seta" src="../assets/imgs_power/seta.png">
-                    <div class="sair">
-                        <h2> Sair </h2>
-                    </div>
+                    <details class="custom-select">
+                        <ul class="list">
+                            <li>
+                                <label for="item1">
+                                    Log out
+                                    <span></span>
+                                </label>
+                            </li>
+                        </ul>
+                        <summary class="radios">
+                        </summary>
+                    </details>
                 </div>
             </div>
         </div>
         <div class="permissoes_usuario">
             <div class="container_permissoes">
-                <h2> Usuários: </h2>
+                <h2 class="usuario"> Usuários: </h2>
 
                 <div class="campos_gerais">
                     <h2> Id </h2>
@@ -96,7 +104,7 @@
 
                     <div>
                         <select name="usuario" id="usuario">
-                            <option value="permissao"> Escolher permissão V </option>
+                            <option value="permissao"> Escolher permissão </option>
                             <option value="admin"> Administrador </option>
                             <option value="visualizador"> Visualizador </option>
                             <option value="sem"> Sem permissão </option>

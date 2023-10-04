@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body{
     background-color: #000;
-    font-family: 'Mulish', sans-serif;
+    font-family: 'Barlow', "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     margin:0;
     padding:0;
     color:#FFF;
@@ -26,7 +26,12 @@ body{
     border-radius: 0px 20px 20px 0px;
     background: #15151a;
     height:100%;
-    width:20%;
+  width:20%;
+}
+.barra li:hover{
+  border-radius: 10px;
+  background: #F7E11B;
+  color:black;
 }
 .logo img{
     width:50%;
@@ -35,15 +40,19 @@ body{
     display:flex;
     justify-content: center;
     margin-top:15px;
-
+}
+li{
+  height:40px;
+  width:80%;
 }
 .marcado{
 
-    border-radius: 10px;
+border-radius: 10px;
 background: #F7E11B;
 width:80%;
 color:black;
 height:40px;
+
 }
 .log_out{
     margin-top:45px;
@@ -54,11 +63,14 @@ height:40px;
     background-color: rgb(134, 134, 255);
     border-radius:20px;
     width:15%;
-
+    margin-right:5px;
 }
 .perfil_usuario{
     margin-top:25px;
-    margin-left:35px;;
+    margin-left:35px;
+    display:flex;
+    flex-direction: row;
+    align-items: start;
 }
 .perfil_usuario select{
     border:none;
@@ -66,15 +78,113 @@ height:40px;
     cursor:pointer;
     
 }
-.perfil_usuario .sair{
-    display:none;
-}
-.seta:hover{
-    .perfil_usuario .sair{
-        display:none;
-    }
-}
 
+details {
+    position: relative;
+    margin-right: 1rem;
+    margin-top: 10.5px;
+  }
+  
+  details[open] {
+    z-index: 1;
+  }
+  
+  summary {
+    padding: 1rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  details[open] summary:before {
+    content: '';
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  
+  summary:after {
+    content: '';
+    display: inline-block;
+    float: right;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-bottom: 1px solid currentColor;
+    border-left: 1px solid currentColor;
+    border-bottom-left-radius: 2px;
+    transform: rotate(315deg) translate(50%, 0%);
+    transform-origin: center center;
+    color: white;
+  }
+  
+  summary:focus {
+    outline: none;
+  }
+  
+  details[open] summary:after {
+    transform: rotate(135deg) translate(0%, 0%);
+  }
+  
+  .list ul {
+    margin: 0;
+  }
+  
+  .list li {
+    list-style: none;
+    color: #fff;
+    margin: 0;
+    padding: 1rem 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .list li:first-child {
+    padding-top: 0;
+  }
+  
+  li:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  
+  /* FAKE SELECT */
+  
+  summary.radios {
+    counter-reset: radios;
+  }
+  
+  summary.radios:before {
+    content: var(--selection);
+  }
+  
+  .list ul.list {
+    counter-reset: labels;
+  }
+  
+  details label {
+    width: 200px;
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    position: absolute;
+    top: -30px;
+    right: -127px;
+  }
+  
+  label span {
+    --display: none;
+    display: var(--display);
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid #727272;
+    border-radius: 3px;
+  }
 .container_permissoes{
 background-color: #1D1D20;
     width:100%;
@@ -89,6 +199,10 @@ background-color: #1D1D20;
 .container_permissoes h2{
     align-self:start;
     margin-left:15px;
+
+}
+.container_permissoes .usuario{
+  margin-left:40px;
 }
 .container_mudar_permissoes{
     background-color: #1D1D20;
@@ -104,14 +218,6 @@ background-color: #1D1D20;
     justify-content: space-evenly;
     font-size: 13px;
     margin-right: 25%;
-}
-
-.info_usuario .deletar:hover{
-    cursor: pointer;
-}
-
-.info_usuario h2{
-    margin-right: 280px;
 }
 
 .campos_preenchidos{
@@ -185,4 +291,10 @@ select{
     border-bottom:1px solid #FFF;
     font-size:16px;
     margin-top: 20px;
+    text-align: center;
+    color:white;
+}
+option{
+  background-color:rgb(85, 81, 81);
+  border:2px solid purple;
 }
