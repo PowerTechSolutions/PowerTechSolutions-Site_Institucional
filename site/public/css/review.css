@@ -1,12 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Quicksand', sans-serif;
-    background: #d3d3d3;
-    color:white;
-}
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -17,91 +10,255 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background-color: black;
+    border-radius: 12px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background-color: #FFD700;
-}
-.divPlanoFundo {
-    background: rgb(211, 211, 211);
-    background: linear-gradient(180deg, rgba(211, 211, 211, 1) 20%, rgba(124, 124, 124, 1) 65%, rgba(0, 0, 0, 1) 100%);
-}
-.central{
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    height:550px;
-    background-color: none;
-    
-}
-.central .resenha{
-    background-color: rgb(104, 104, 104);
-    height:60%;
-    display:flex;
-    box-shadow: 2vh 2vh #000;
-
-}
-span{
-    color:gold;
-    font-size: 25px;
-    font-weight: 800;
-   
+::-moz-scrollbar {
+    width: 10px;
 }
 
-.central .resenha .parte1{
-    width:50%;
+::-moz-scrollbar-track {
+    background-color: gray;
+}
+
+::-moz-scrollbar-thumb {
+    background-color: black;
+    border-radius: 12px;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Quicksand', sans-serif;
+    background: #FFD700;
+}
+
+.central {
+    background-color: whitesmoke;
+    max-width: 90%;
     display: flex;
-    justify-content: center;
+    margin-left: 5%;
+    margin-top: 5%;
+    height: 160vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.feedbacks {
+    display: inline-block;
+    margin-left: 4%;
+    margin-top: 2%;
+}
+
+.feed {
+    display: flex;
+    justify-content: space-evenly;
+    max-width: 90%;
+    margin-left: 2%;
+}
+
+
+/* no responsivo colocar margin-left 10% */
+
+.titulo {
+    text-align: center;
+}
+
+.feedbacks h2 {
+    color: black;
+    font-size: 35px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.feedbacks p {
+    color: #000;
+    font-size: 25px;
+}
+
+.post {
+    margin-top: 4%;
+    border: 2px rgb(167, 164, 164) solid;
+    height: 24vh;
+    display: inline-block;
+    flex-direction: row;
+    width: 30%;
+    justify-content: space-evenly;
+    background-color: #ffff;
+}
+
+.classificacao {
+    display: flex;
+    max-width: 60%;
+    align-items: center;
+    margin-left: 2%;
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+    margin-left: 4%;
+    margin-top: 3%;
+}
+
+.nome {
+    color: #000;
+    font-weight: bold;
+    width: 40%;
+    text-align: start;
+}
+
+.icon {
+    height: 6vh;
+}
+
+.estrelas {
+    margin-left: 10%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.estrelas img {
+    height: 4vh;
+}
+
+.descricao {
+    margin-top: 1%;
+    color: #000;
+    width: 100%;
+    text-wrap: wrap;
+}
+
+.form {
+    flex-direction: column;
+    display: flex;
+    max-width: 100%;
+}
+
+.form h2 {
+    font-size: 35px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    letter-spacing: 0.856px;
+}
+
+.campos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4%;
+}
+
+.campos button {
+    margin-top: 2%;
+    border-radius: 12px;
+    background: #F9C903;
+    border: none;
+    width: 104px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.dados_form {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+}
+
+.dados_form input {
+    margin-top: 4%;
+    height: 4vh;
+}
+
+.dados_form span {
+    font-size: 22px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.classif_estrelas {
+    margin-top: 3%;
+    display: flex;
     align-items: center;
     flex-direction: column;
-    text-align: center;
-}
-.parte1 button{
-    background-color:black;
-    border:2px solid gold;
-    color:gold;
-    width:120px;
-    height:40px;
-    margin-top:10px;
-}
-.parte1 button:hover{
-    cursor:pointer;
-    mix-blend-mode: lighten;
-}
-.parte1 button:active{
-    animation-name: slide-div;
-    animation-duration: 3s;
-    position:relative;
-}
-@keyframes slide-div{
-    from{right:0px;}
-    to{right:9000px;}
-}
-.parte1 input{
-    width:70%;
-    /* height:30%; */
-    cursor:pointer;
-    text-align: center;
-    background:transparent;
-    border:none;
-    border-bottom:2px solid black;
 }
 
-
-.resenha:hover{
-    transition-duration: 1s;
-    height:63%;
+.classif_estrelas span {
+    font-size: 22px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.parte2{
+.dar_estrelas {
     display: flex;
     align-items: center;
-    justify-content: center;
 }
-.parte2 #img_review{
-    width: 100%;
-    height:100%;
+
+.estrela {
+    width: 50px;
+    height: 50px;
+    background-image: url(../assets/imgs_power/estrela_opaca.png);
+    background-size: cover;
+    margin-right: 5px;
+    cursor: pointer;
 }
+
+.estrela:hover {
+    background-image: url(../assets/imgs_power/estrela.png);
+    background-size: cover;
+    z-index: 1;
+}
+
+.estrela:hover:active {
+    background-image: url(../assets/imgs_power/estrela.png);
+    background-size: cover;
+    z-index: 1;
+}
+
+.sugestao {
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sugestao span {
+    font-size: 22px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+.sugestao textarea {
+    margin-top: 3%;
+    background-color: #ffff;
+    border: none;
+    border-radius: 12px;
+    text-align: center;
+    text-wrap: wrap;
+}   
+
+.form #likes{
+    margin-top: 2%;
+    height: 100vh;
+    width: auto;
+    position: absolute;
+    margin-left: 55%;
+}
+
+.form #logo{
+    margin-top: 8%;
+    height: 60vh;
+    position: absolute;
+    margin-left: 5%;
+}
+
+input {
+    background-color: #ffff;
+    border: none;
+    border-radius: 12px;
+    text-align: center;
+    text-wrap: wrap;
+}
+
+
 .divBoxRodaPe {
     display: flex;
     align-items: center;
@@ -109,7 +266,7 @@ span{
     flex-direction: column;
     width: 100%;
     height: 45vh;
-    margin-top:20%;
+    margin-top: 20%;
 
 }
 
