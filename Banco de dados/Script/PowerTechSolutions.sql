@@ -5,9 +5,12 @@ CREATE DATABASE IF NOT EXISTS PowerTechSolutions;
 
 USE PowerTechSolutions;
 
+-- Criação das tabelas 
+
 CREATE TABLE IF NOT EXISTS Grupo_Empresa(
 	IDGrupo_Empresa INT PRIMARY KEY AUTO_INCREMENT,
-    Apelido_Interno_Grupo VARCHAR(100)
+    Apelido_Interno_Grupo VARCHAR(100),
+    Razao_social VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS Unidade_de_negocio(
@@ -15,7 +18,6 @@ CREATE TABLE IF NOT EXISTS Unidade_de_negocio(
     Cnpj CHAR(14),
     Apelido_interno VARCHAR(100),
 	Nome_Fantasia VARCHAR(100),
-    Razao_social VARCHAR(100),
     FKGrupo_empresa INT,
 		CONSTRAINT FKGrupo_Com_Unidade FOREIGN KEY (FKGrupo_empresa)
 			REFERENCES Grupo_Empresa(IDGrupo_Empresa)
@@ -65,6 +67,26 @@ CREATE TABLE IF NOT EXISTS Usuario_Dashboard(
 		CONSTRAINT PKUsuario_Nivel_acesso PRIMARY KEY (IDUsuario,FKNivel_acesso)
 );
 
+CREATE TABLE IF NOT EXISTS Votacao_feedback(
+	IDVotacao_feedback INT PRIMARY KEY AUTO_INCREMENT,
+    1_ESTRELA TINYINT,
+    2_ESTRELA TINYINT,
+    3_ESTRELA TINYINT,
+    4_ESTRELA TINYINT,
+    5_ESTRELA TINYINT
+);
+
+CREATE TABLE IF NOT EXISTS Feedbacks(
+	IDFeedback INT PRIMARY KEY AUTO_INCREMENT,
+    Feedbacks VARCHAR(250),
+    FKVotacao INT,
+		CONSTRAINT FKVotacao_Feedback FOREIGN KEY (FKVotacao)
+			REFERENCES Votacao_feedback(IDVotacao_feedback),
+	FKUsuario INT,
+		CONSTRAINT FKUsuario_Feedback FOREIGN KEY (FKUsuario)
+			REFERENCES Usuario_Dashboard(IDUsuario)
+);
+
 CREATE TABLE IF NOT EXISTS Funcionarios(
 	IDFuncionario INT PRIMARY KEY AUTO_INCREMENT,
     Nome VARCHAR(100),
@@ -75,28 +97,33 @@ CREATE TABLE IF NOT EXISTS Funcionarios(
 			REFERENCES Unidade_de_negocio(IDUnidade)
 );
 
-CREATE TABLE IF NOT EXISTS Maquinas_Fisicas(
-	IDMaquina_fisica INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS Maquinas(
+	IDMaquina INT PRIMARY KEY AUTO_INCREMENT,
     Apelido VARCHAR(100),
     FKFuncionario INT,
 		CONSTRAINT FKFuncionario_maquina_fisica FOREIGN KEY (FKFuncionario)
 			REFERENCES Funcionarios(IDFuncionario)
 );
 
-CREATE TABLE IF NOT EXISTS Componentes_maquina_MF(
-	IDComponente INT PRIMARY KEY AUTO_INCREMENT,
-    Apelido VARCHAR(100),
-    FKMaquina_fisica INT,
-		CONSTRAINT FKMaquina_fisica_Componente FOREIGN KEY (FKMaquina_fisica)
-			REFERENCES Maquinas_Fisicas(IDMaquina_fisica)
+CREATE TABLE IF NOT EXISTS Tipo_maquina(
+	IDTipo INT PRIMARY KEY AUTO_INCREMENT,
+    Apelido VARCHAR(80)
 );
 
-CREATE TABLE IF NOT EXISTS Parametros_componente_MF(
+CREATE TABLE IF NOT EXISTS Componentes_maquina(
+	IDComponente INT PRIMARY KEY AUTO_INCREMENT,
+    Apelido VARCHAR(100),
+    FKMaquina INT,
+		CONSTRAINT FKMaquina_Componente FOREIGN KEY (FKMaquina)
+			REFERENCES Maquinas(IDMaquina)
+);
+
+CREATE TABLE IF NOT EXISTS Parametros_componente(
 	IDParametro INT PRIMARY KEY AUTO_INCREMENT,
     Parametro DOUBLE,
     FKComponente INT,
-		CONSTRAINT FKComponente_MF_Parametro FOREIGN KEY (FKComponente)
-			REFERENCES Componentes_maquina_MF(IDComponente)
+		CONSTRAINT FKComponente_Parametro FOREIGN KEY (FKComponente)
+			REFERENCES Componentes_maquina(IDComponente)
 );
 
 CREATE TABLE IF NOT EXISTS Componentes_cadastrados(
@@ -104,133 +131,75 @@ CREATE TABLE IF NOT EXISTS Componentes_cadastrados(
     Apelido VARCHAR(100)
 );
 
-CREATE TABLE IF NOT EXISTS Componentes_monitorados_MF(
+CREATE TABLE IF NOT EXISTS Componentes_monitorados(
 	IDComponente_monitorado INT AUTO_INCREMENT,
     FKComponente_cadastrado INT,
-    FKMaquina_fisica INT,
-		CONSTRAINT FKCompoenente_C_Componente_M_maquina_fisica FOREIGN KEY (FKComponente_cadastrado)
+    FKMaquina INT,
+		CONSTRAINT FKCompoenente_C_Componente_M FOREIGN KEY (FKComponente_cadastrado)
 			REFERENCES Componentes_cadastrados(IDComponente_cadastrado),
-		CONSTRAINT FKMaquina_fisica_Componente_M FOREIGN KEY (FKMaquina_fisica)
-			REFERENCES Maquinas_Fisicas(IDMaquina_fisica),
+		CONSTRAINT FKMaquina_Componente_M FOREIGN KEY (FKMaquina)
+			REFERENCES Maquinas(IDMaquina),
 		CONSTRAINT PKComponente_C_Componente_M PRIMARY KEY (IDComponente_monitorado,FKComponente_cadastrado)
 );
 
-CREATE TABLE IF NOT EXISTS Monitoramento_RAW_MF(
-	IDMonitoramento_MF INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS Monitoramento_RAW(
+	IDMonitoramento INT PRIMARY KEY AUTO_INCREMENT,
     Data_Hora_Captura DATETIME DEFAULT CURRENT_TIMESTAMP,
     Dado_Capturado DOUBLE,
-    FKComponente_Monitorado_MF INT,
-		CONSTRAINT FKMonitoramento_Componente_maquina_fisica FOREIGN KEY (FKComponente_Monitorado_MF)
-			REFERENCES Componentes_monitorados_MF(IDComponente_monitorado)
+    FKComponente_Monitorado INT,
+		CONSTRAINT FKMonitoramento_RAW_Componente_maquina FOREIGN KEY (FKComponente_Monitorado)
+			REFERENCES Componentes_monitorados(IDComponente_monitorado)
 );
 
-CREATE TABLE IF NOT EXISTS Endereco_hidreletrica(
-	IDEndereco_hidreletrica INT PRIMARY KEY AUTO_INCREMENT,
-    Rio VARCHAR(80),
-    Bacia_hidrografica VARCHAR(80),
-    Sub_Bacia_hidrografica VARCHAR(80),
-    UF CHAR(2)
-);
-
-CREATE TABLE IF NOT EXISTS Hidreletrica(
-	IDHidreletrica INT PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(100),
-    FKEndereco_hidreletrica INT,
-		CONSTRAINT FKHidreletrica_Endereco FOREIGN KEY (FKEndereco_hidreletrica)
-			REFERENCES Endereco_hidreletrica(IDEndereco_hidreletrica)
-);
-
-CREATE TABLE IF NOT EXISTS Servidores(
-	IDServidor INT PRIMARY KEY AUTO_INCREMENT,
-    Apelido VARCHAR(100),
-    FKUnidade_negocio INT,
-		CONSTRAINT FKServidor_unidade_negocio FOREIGN KEY (FKUnidade_negocio)
-			REFERENCES Unidade_de_negocio(IDUnidade)
-);
-
-CREATE TABLE IF NOT EXISTS Maquinas_Virtuais(
-	IDMaquina_virtual INT PRIMARY KEY AUTO_INCREMENT,
-    Apelido VARCHAR(100),
-    Software_instalado VARCHAR(150),
-    FKServidor INT,
-    FKHidreletrica INT,
-		CONSTRAINT FKServidor_Maquina_Virtual FOREIGN KEY (FKServidor)
-			REFERENCES Servidores(IDServidor),
-		CONSTRAINT FKHidreletrica_Maquina_Virtual FOREIGN KEY (FKHidreletrica)
-			REFERENCES Hidreletrica(IDHidreletrica)
-);
-
-CREATE TABLE IF NOT EXISTS Componentes_maquina_MV(
-	IDComponente INT PRIMARY KEY AUTO_INCREMENT,
-    Apelido VARCHAR(100),
-    FKMaquina_virtual INT,
-		CONSTRAINT FKMaquina_virtual_Componente FOREIGN KEY (FKMaquina_virtual)
-			REFERENCES Maquinas_Virtuais(IDMaquina_virtual)
-);
-
-CREATE TABLE IF NOT EXISTS Parametros_componente_MV(
-	IDParametro INT PRIMARY KEY AUTO_INCREMENT,
-    Parametro DOUBLE,
-    FKComponente INT,
-		CONSTRAINT FKComponente_MV_Parametro FOREIGN KEY (FKComponente)
-			REFERENCES Componentes_maquina_MV(IDComponente)
-);
-
-CREATE TABLE IF NOT EXISTS Componentes_monitorados_MV(
-	IDComponente_monitorado INT AUTO_INCREMENT,
-    FKComponente_cadastrado INT,
-    FKMaquina_virtual INT,
-		CONSTRAINT FKCompoenente_C_Componente_M_maquina_virtual FOREIGN KEY (FKComponente_cadastrado)
-			REFERENCES Componentes_cadastrados(IDComponente_cadastrado),
-		CONSTRAINT FKMaquina_virtual_Componente_M FOREIGN KEY (FKMaquina_virtual)
-			REFERENCES Maquinas_Virtuais(IDMaquina_virtual),
-		CONSTRAINT PKComponente_C_Componente_M PRIMARY KEY (IDComponente_monitorado,FKComponente_cadastrado)
-);
-
-CREATE TABLE IF NOT EXISTS Monitoramento_RAW_MV(
-	IDMonitoramento_MV INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS Monitoramento_Trusted(
+	IDMonitoramento INT PRIMARY KEY,
     Data_Hora_Captura DATETIME DEFAULT CURRENT_TIMESTAMP,
     Dado_Capturado DOUBLE,
-    FKComponente_Monitorado_MV INT,
-		CONSTRAINT FKMonitoramento_Componente_maquina_virtual FOREIGN KEY (FKComponente_Monitorado_MV)
-			REFERENCES Componentes_monitorados_MV(IDComponente_monitorado)
-);
-
-CREATE TABLE IF NOT EXISTS Monitoramento_Trusted_MF(
-	IDMonitoramento_MF INT PRIMARY KEY,
-    Data_Hora_Captura DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Dado_Capturado DOUBLE,
-    FKComponente_Monitorado_MF INT
-);
-
-CREATE TABLE IF NOT EXISTS Monitoramento_Trusted_MV(
-	IDMonitoramento_MV INT PRIMARY KEY,
-    Data_Hora_Captura DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Dado_Capturado DOUBLE,
-    FKComponente_Monitorado_MV INT
+    FKComponente_Monitorado INT,
+    CONSTRAINT FKMonitoramento_TRUSTED_Componente_maquina FOREIGN KEY (FKComponente_Monitorado)
+			REFERENCES Componentes_monitorados(IDComponente_monitorado)
 );
 
 CREATE TABLE IF NOT EXISTS Nivel_alerta(
 	IDNivel_alerta INT PRIMARY KEY AUTO_INCREMENT,
-    Nivel VARCHAR(30),
-    Descricao_nivel VARCHAR(100)
+    Nivel VARCHAR(30)
 );
 
 CREATE TABLE IF NOT EXISTS Alertas(
 	IDAlerta INT PRIMARY KEY AUTO_INCREMENT,
-    FKUsuario INT,
-    FKMonitoramento_MF INT,
-	FKMonitoramento_MV INT,
+    FKMonitoramento INT,
     FKNivel_alerta INT,
-		CONSTRAINT FKUsuario_alerta FOREIGN KEY (FKUsuario)
-			REFERENCES Usuario_Dashboard(IDUsuario),
-		CONSTRAINT FKMonitoramento_MF_alerta FOREIGN KEY (FKMonitoramento_MF)
-			REFERENCES Monitoramento_Trusted_MF(IDMonitoramento_MF),
-		CONSTRAINT FKMonitoramento_MV_alerta FOREIGN KEY (FKMonitoramento_MV)
-			REFERENCES Monitoramento_Trusted_MV(IDMonitoramento_MV),
+    FKUnidade_negocio INT,
+		CONSTRAINT FKMonitoramento_alerta FOREIGN KEY (FKMonitoramento)
+			REFERENCES Monitoramento_Trusted(IDMonitoramento),
 		CONSTRAINT FKNivel_alerta FOREIGN KEY (FKNivel_alerta)
-			REFERENCES Nivel_alerta(IDNivel_alerta)
+			REFERENCES Nivel_alerta(IDNivel_alerta),
+		CONSTRAINT FKUnidade_negocio_alerta FOREIGN KEY (FKUnidade_negocio)
+			REFERENCES Unidade_de_negocio(IDUnidade)
 );
 
+-- Aréa de inserts para testes de funcionalidade 
 
+INSERT INTO Grupo_Empresa VALUES
+(null,'EDP Smart','EDP ENERGIAS DO BRASIL S.A.'),
+(null,'Matrix','Matrix Comercio e Servicos LTDA'),
+(null,'AES Tietê','AES TIETE INTEGRA SOLUCOES EM ENERGIA LTDA.');
+
+SELECT * FROM Grupo_Empresa;
+
+INSERT INTO Unidade_de_negocio VALUES
+(null,'28630316000186','EDP Smart Sede','EDP Energias do Brasil',1),
+(null,'28630316000286','EDP Smart Faria Lima','EDP Energias do Brasil',1),
+(null,'28630316000386','EDP Smart Suzano','EDP Energias do Brasil',1),
+(null,'01564634000130','Matrix Sede','Matrix',2),
+(null,'01564634000230','Matrix Mogi das Cruzes','Matrix',2),
+(null,'26203837000121','AES Tiete Sede','AES TIETE INTEGRA',3);
+
+SELECT * FROM Unidade_de_negocio;
+
+INSERT INTO Permissoes VALUES
+(NULL,1,1,1,1),
+(NULL,1,0,0,0);
+
+SELECT * FROM Permissoes;
 
