@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Lora:wght@500&family=Montserrat&family=Red+Hat+Display&display=swap');
 
 body {
     margin: 0;
@@ -11,7 +11,10 @@ body {
 
 .divPlanoFundo {
     background: rgb(211, 211, 211);
-    /* background: linear-gradient(180deg, rgba(211, 211, 211, 1) 30%, rgba(0, 0, 0, 1) 70%); */
+}
+
+.aqui{
+    border-bottom: 4px solid rgb(253, 213, 12);
 }
 
 ::-webkit-scrollbar {
@@ -53,7 +56,8 @@ body {
     display: flex;
     width: 110%;
     height: auto;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
+    margin-right: 130%;
 }
 
 .parte2 {
@@ -62,11 +66,13 @@ body {
     justify-content: center;
 }
 
-.parte2 ul{
+.parte2 ul {
     display: flex;
     flex-direction: row;
-    width: 35vw;
+    font-weight: 600;
+    width: 42vw;
     justify-content: space-between;
+    margin-left: 30%;
 }
 
 .parte2 li {
@@ -85,7 +91,7 @@ a:hover {
 
 }
 
-.guardar{
+.guardar {
     display: flex;
     justify-content: end;
     align-items: end;
@@ -103,36 +109,35 @@ a:hover {
 }
 
 .banner button {
-    width: 30vh;
+    width: 22%;
     height: 6vh;
     font-family: 'Quicksand', sans-serif;
-    font-weight: bold;
-    color: white;
-    background-color: #000;
+    color: rgb(0, 0, 0);
+    background-color:#FFD64F;
     cursor: pointer;
-    border: 0.5vh solid;
     border-radius: 1vh;
-    font-size: 2vh;
+    font-size: 13px;
+    border: none;
 }
 
 .banner button:hover {
-    color: #FFD700;
+    color: black;
     transform: scale(1.08);
     transition: 0.10s ease-in-out;
 }
 
-.textoBanner h1{
-    font-size: 15px;
-    font-family: 'Montserrat', sans-serif;
+.textoBanner h1 {
+    font-family: 'Lora', sans-serif;
+    font-family: 'Red Hat Display', sans-serif;
 }
 
-.textoBanner h1{
-    font-size: 25px;
-    color: #FFD700;
+.textoBanner h1 {
+    font-size: 27px;
+    color: #ffd64fd6;
 
 }
 
-.textoBanner h3{
+.textoBanner h3 {
     color: white;
 }
 
@@ -157,52 +162,89 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     height: 80vh;
-    width: 90vw;
+    width: 80vw;
+    margin-left: 1%;
 }
 
 .divConteudoSobreNos1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100vw;
     height: 70vh;
     margin-bottom: 20px;
     border-radius: 30px;
-    box-shadow: 5px 5px 5px #ffd64fb7;
 }
 
 .divConteudoSobreNos1 {
-    background-image: url(img/empresa.jpg);
-    width: 80%;
+    width: 88%;
     height: 60vh;
     background-size: cover;
 }
 
-.divConteudoSobreNos2{
+.divConteudoSobreNos2 {
     display: flex;
-    justify-content: center;
+    justify-content: end;
     flex-direction: column;
-    height: 70vh;
-    width: 100%;
+    height: 60vh;
+    width: 85%;
+    border-left: 4px solid #FFD64F;
+    margin-right: 9%;
+    
 }
 
 .divConteudoSobreNos2 p {
     font-size: 20px;
-    text-align: justify;
+    text-align: right;
     font-weight: bold;
     margin: 5vh;
     line-height: 35px;
 }
 
-.divConteudoSobreNos2 h1{
+.divConteudoSobreNos2 h1 {
     display: flex;
-    margin-left: 4%;
+    margin-left: 5%;
     font-weight: bold;
     font-size: 25px;
     font-family: 'Montserrat', sans-serif;
-    
+
+}
+
+.dentro{
+    display: flex;
+    align-items: self-end;
+    justify-content: end;
+    flex-direction: column;
+    width: 50%;
+    height: 30vh;
+    background-color: red;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    margin-left: 2%;
+}
+
+.dentro p {
+    text-align: -webkit-right;
+}
+
+.more{
+    width: 100%;
+}
+
+.more{
+    background-image: url(img/empresa.jpg);
+    width: 36%;
+    height: 40vh;
+    background-size: cover;
+    margin-left: 49%;
+    margin-top: -17%;
+}
+
+.page{
+    width: 100%;
+    height: 60vh;
 }
 
 .css-waves {
@@ -329,26 +371,231 @@ a:hover {
     justify-content: center;
     justify-content: space-evenly;
     text-align: center;
-
 }
 
 .numeros span {
     font-size: 26px;
     font-weight: bold;
+    color: #ffd64f;
 }
 
 .numeros p {
     font-size: 20px;
+    color: #ffd64f;
 }
 
 .negocios {
     text-align: center;
     padding: 6%;
     font-weight: bold;
-    background-color: #ffd64f;
+    background-color: #ffd64fd6;
+    background: linear-gradient(0deg, rgba(22, 21, 21, 0.8) 100%, rgba(0, 0, 0, 0.8) 100%), url(../css/img/tentativa2.png);
+    background-size: cover;
+    z-index: 1;
     height: 10vh;
-    margin-bottom: 5%;
+    margin-top: 7%;
 }
+
+/* css slide da equipe */
+
+.tituloequipe {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 5%;
+}
+
+.tituloequipe h1 {
+    display: flex;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.slide-container{
+    max-width: 1120px;
+    width: 100%;
+    padding: 40px 0;
+}
+.slide-content{
+    margin: 0 40px;
+    overflow: hidden;
+    border-radius: 25px;
+}
+.card {
+    border-radius: 25px;
+    background-color: #fff;
+}
+
+.image-content,
+.card-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 14px;
+}
+
+.image-content{
+    position: relative;
+    row-gap: 5px;
+    padding: 25px 0;
+}
+
+.overlay{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #2e2e2e;
+    border-radius: 25px 25px 0 25px;
+}
+
+.overlay::before,
+.overlay::after{
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -40px;
+    height: 40px;
+    width: 40px;
+    background-color: #2e2e2e;
+}
+
+.overlay::after{
+    border-radius: 0 25px 0 0;
+    background-color: #fff;
+}
+
+.card-image {
+    position: relative;
+    height: 10vh;
+    width: 20%;
+    border-radius: 50%;
+    margin-left: 38%;
+    margin-top: 2%;
+}
+
+.card-image .card-img {
+    height: 10vh;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #FFD64F;
+}
+
+.name{
+    font-size: 18px;
+    color: #000000;
+    margin-top: 10%;
+}
+
+.description{
+    font-size: 15px;
+    color: #707070;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.funcao{
+    font-size: 16px;
+    color: #000000;
+    margin: 14px;
+}
+
+funcao:hover{
+    background: #FFD64F;
+
+}
+
+.swiper-navBtn{
+    color: #707070;
+    transition: color 0.3s ease;
+}
+
+.swiper-navBtn:hover{
+    color: #000000;
+}
+
+.swiper-navBtn::before,
+.swiper-navBtn::after{
+    font-size: 40px;
+}
+
+.swiper-button-next{
+    right: 0;
+}
+
+.swiper-button-prev{
+    left: 0;
+}
+
+.swiper-pagination-bullet{
+    background-color: #707070;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active{
+    background-color: #FFD700;
+}
+
+.missao_frases {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#missao_text {
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.ticks {
+    width: 5%;
+    height: 4vh;
+    padding-right: 3%;
+}
+
+.missao_empresa {
+    border: none;
+    border-right: 3px solid #FFD64F;
+    width: 95%;
+    height: 55vh;
+    color: black;
+    margin-right: 2%;
+}
+
+.missao_empresa h2 {
+    display: flex;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 5%;
+}
+
+.missao_frases p {
+    margin-left: 20px;
+    margin: 2%;
+    color: black;
+}
+
+.missao {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
+    align-items: center;
+    margin-left: 7%;
+    margin-top: 7%;
+}
+
+.img_missao {
+    width: 80%;
+    margin-left: 10px;
+}
+
 
 .boxNossoTrabalho {
     width: 100%;
@@ -360,6 +607,14 @@ a:hover {
     align-items: center;
     justify-content: center;
     width: 100%;
+}
+
+.tituloNossoTrabalho h1{
+    display: flex;
+    margin-left: 4%;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .tituloNossoTrabalho span {
@@ -387,35 +642,30 @@ a:hover {
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    height: 35vh;
+    height: 40vh;
+    margin-top: 5%;
 }
 
 .boxMonitoramento {
     display: flex;
     align-items: center;
-
-    height: 23vh;
-    width: 26vw;
-    border: 0.2vh solid black;
-    box-shadow: 2vh 2vh #000;
+    flex-direction: column;
+    height: 35vh;
+    width: 29vw;
     padding: 2vh;
     border-radius: 0.5vh;
-    background-color: rgb(104, 104, 104);
-
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 .boxMonitoramento p {
-    text-align: justify;
-    color: white;
-}
-
-.boxMonitoramento span {
+    text-align: center;
+    color: rgb(0, 0, 0);
     font-weight: bold;
 }
 
-.BoxMonitoramento:hover {
-    transform: scale(1.01);
-    transition: 0.3s ease-in-out;
+.boxMonitoramento h1{
+    text-align: center;
 }
 
 .mvv {
@@ -482,13 +732,26 @@ a:hover {
     align-items: center;
 }
 
+.map{
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    height: 1vh;
+    width: 100%;
+}
+
+.map iframe{
+    height: 35vh;
+    width: 100%;
+}
+
 
 .divBoxRodaPe {
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
-    height: 40vh;
+    /* height: 60vh; */
+    background-color: #ffd64f;
 }
 
 .divTituloRodaPe {
@@ -510,8 +773,7 @@ a:hover {
     flex-direction: row;
     height: 90%;
     width: 90%;
-
-
+    margin-top: 12%;
 }
 
 .divConteudo1 {
@@ -521,7 +783,6 @@ a:hover {
     width: 100vw;
     font-weight: bold;
     border-radius: 3vw 0vw 0vw 3vw;
-    background-color: azure;
 }
 
 .divBoxConteudo2 {
@@ -530,21 +791,20 @@ a:hover {
     align-items: center;
     flex-direction: column;
     width: 100vw;
+    height: 35vh;
     font-weight: bold;
-    border: 2px solid white;
-    border-radius: 0vw 3vw 3vw 0vw;
     background-color: rgb(0, 0, 0);
 }
 
 .textoConteudo2 {
     display: flex;
     width: 50%;
-
     background-color: rgb(0, 0, 0);
 }
 
 .textoConteudo2 span {
     color: white;
+    margin-left: 18%;
 }
 
 .clip {
@@ -646,356 +906,3 @@ a:hover {
 
 
 
-
-/* Carrossel BENEFÍCIOS QUE SÓ A POWER TECH SOLUTIONS PODE OFERECER */
-.divBoxSlider {
-    display: flex;
-    align-items: center;
-    height: 60vh;
-    width: 100%;
-
-
-}
-
-
-.boxSlide {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    justify-content: center;
-
-}
-
-.boxTitulo {
-    display: flex;
-    width: 20%;
-    height: 100%;
-    justify-content: center;
-    white-space: nowrap;
-
-}
-
-.titulo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-
-
-}
-
-.divLinhaSepara {
-    width: 0.2%;
-    height: 85%;
-    background-color: white;
-
-}
-
-.boxConteudo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    height: 100%;
-
-
-}
-
-.conteudo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80%;
-    width: 95%;
-
-
-}
-
-
-.txt {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    width: 70%;
-    height: 50%;
-    border: 0.2vh solid black;
-    box-shadow: 2vh 2vh #000;
-    background-color: rgb(86, 86, 86);
-}
-
-
-
-.titulo span {
-    color: gold;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.conteudo span {
-    color: gold;
-}
-
-.txt p {
-    text-align: justify;
-    font-size: 17px;
-    color: white;
-}
-
-.slider {
-    margin: 0 auto;
-    height: 400px;
-    width: 100%;
-    padding: 0;
-
-    overflow: hidden;
-}
-
-.slides {
-    width: 400%;
-    height: 400px;
-    display: flex;
-
-}
-
-.slides input {
-    display: none;
-}
-
-.slide,
-#primerioSlide {
-    display: flex;
-    justify-content: center;
-    width: 100vw;
-    position: relative;
-    transition: all 3s ease-in;
-}
-
-.manual-navigation {
-    position: absolute;
-    width: 100%;
-    margin-top: -40px;
-    display: flex;
-    justify-content: center;
-}
-
-.manual-btn {
-    border: 2px solid rgb(255, 255, 255);
-    padding: 5px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 1s;
-}
-
-.manual-btn:not(:last-child) {
-    margin-right: 3%;
-}
-
-.manual-btn:hover {
-    background-color: #FFD700;
-}
-
-#radio1:checked~.first {
-    margin-left: 0%;
-}
-
-#radio2:checked~.first {
-    margin-left: -25%;
-}
-
-#radio3:checked~.first {
-    margin-left: -50%;
-}
-
-#radio4:checked~.first {
-    margin-left: -75%;
-}
-
-#radio5:checked~.first {
-    margin-left: -100%;
-}
-
-.navigation-auto div {
-    border: 2px solid blue;
-    padding: 5px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.navigation-auto {
-    position: absolute;
-    width: 100%;
-    margin-top: 360px;
-    display: flex;
-    justify-content: center;
-}
-
-.navigation-auto div:not(:last-child) {
-    margin-right: 3%;
-}
-
-#radio1:checked~.navigation-auto .auto-btn1 {
-    background-color: black;
-}
-
-#radio2:checked~.navigation-auto .auto-btn2 {
-    background-color: black;
-}
-
-#radio3:checked~.navigation-auto .auto-btn3 {
-    background-color: black;
-}
-
-#radio4:checked~.navigation-auto .auto-btn4 {
-    background-color: black;
-}
-
-#radio5:checked~.navigation-auto .auto-btn5 {
-    background-color: black;
-}
-
-/* Carrossel BENEFÍCIOS QUE SÓ A POWER TECH SOLUTIONS PODE OFERECER Final */
-
-/* Carrossel  FEEDBACKS */
-
-/* .sliderFeedBack {
-    margin: 0 auto;
-    height: 400px;
-    width: 100vw;
-    padding: 0;
-
-    overflow: hidden;
-
-}
-
-.boxImgFeedBack {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-
-    background-color: #3b5998;
-}
-
-.imgFeedBack {
-    width: 7vw;
-    height: 14vh;
-    background-color: #000;
-}
-
-.divNomeFeedBack {
-    background-color: #d3d3d3;
-    /* margin-top: 2vh; */
-/* width: 7vw;
-    height: 3vh;
-}
-
-.divBoxNotaFeedBack{
-    display: flex;
-    flex-direction: row;
-    background-color: #ff0000;
-    
-    width: 7vw;
-    height: 3vh;
-}
-.divNotaFeedBack{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70vw;
-
-background-color: #00ACED;
-}
-.divEstrela{
-    width: 30vw;
-    background-image: ;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    background-color: #f3f3f3;
-}
-
-.txtFeedBack {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    width: 95%;
-    height: 60%;
-
-    background-color: #d3d3d3;
-}
-
-.slideFeedBack, #primerioSlide {
-    display: flex;
-    justify-content: center;
-    width: 100vw;
-    position: relative;
-    transition: all 3s ease-in;
-}
-
-.manual-btnFeedBack {
-    border: 2px solid rgb(0, 0, 0);
-    padding: 5px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 1s;
-}
-
-.manual-btnFeedBack:not(:last-child) {
-    margin-right: 3%;
-}
-
-.manual-btnFeedBack:hover {
-    background-color: #FFD700;
-}
-
-#radioFeedBack1:checked~.first {
-    margin-left: 0%;
-}
-
-#radioFeedBack2:checked~.first {
-    margin-left: -25%;
-}
-
-#radioFeedBack3:checked~.first {
-    margin-left: -50%;
-}
-
-#radioFeedBack4:checked~.first {
-    margin-left: -75%;
-}
-
-#radioFeedBack5:checked~.first {
-    margin-left: -100%;
-}
-
-.navigation-autoFeedBack div:not(:last-child) {
-    margin-right: 3%;
-}
-
-#radioFeedBack1:checked~.navigation-autoFeedBack .auto-btnFeedBack1 {
-    background-color: black;
-}
-
-#radioFeedBack2:checked~.navigation-autoFeedBack .auto-btnFeedBack2 {
-    background-color: black;
-}
-
-#radioFeedBack3:checked~.navigation-autoFeedBack .auto-btnFeedBack3 {
-    background-color: black;
-}
-
-#radioFeedBack4:checked~.navigation-autoFeedBack .auto-btnFeedBack4 {
-    background-color: black;
-}
-
-#radioFeedBack5:checked~.navigation-autoFeedBack .auto-btnFeedBack5 {
-    background-color: black;
-} */
-
-/* carrossel FEEDBACKS final */

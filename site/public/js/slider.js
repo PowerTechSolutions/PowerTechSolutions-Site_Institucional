@@ -1,18 +1,18 @@
-let count = 1;
-document.getElementById("radio1").checked = true;
-
-
-  setInterval(function() {
-    proximaImage();
-  }, 6000); 
-
-  function proximaImage() {
-    count++;
-    if (count > 5) {
-      count = 1;
-    }
-
-    document.getElementById("radio" + count).checked = true;
-  }
-
-
+var swiper = new Swiper(".slide-content", {
+  slidesPerView: 3,
+  spaceBetween: 25,
+  loop: true,
+  centerSlide: 'true',
+  fade: 'true',
+  grabCursor: 'true',
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+    dynamicBullets: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+}
+);

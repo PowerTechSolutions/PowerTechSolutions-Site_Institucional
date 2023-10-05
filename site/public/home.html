@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -7,6 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>HOME</title>
+
+  <!-- slider -->
+  <link rel="stylesheet" href="css/unpkg.com_swiper@8.1.6_swiper-bundle.min.css">
 
   <link rel="icon" href="assets/imgs_power/power_tech_solutions_logo_semfundo.png" />
   <link rel="stylesheet" href="css/home2.css" />
@@ -24,7 +28,7 @@
         </div>
         <div class="parte2">
             <ul>
-                <li><a href="home.html">Home</a></li>
+                <li><a class="" href="home.html">Home</a></li>
                 <li><a href="#">Feedback</a></li>
                 <li><a href="login.html">Painel de Monitoramento</a></li>
                 </ul>
@@ -36,9 +40,8 @@
       <div class="textoBanner">
         <h1>REVOLUCIONANDO O MERCADO DE ENERGIA LIVRE</h1> 
         <h3>Soluções de monitoramento
-          de hardware avançadas para empresas em trending de energia. Mantenha-se à frente da concorrência com nossa
-          tecnologia de ponta.</h3>
-          <button id="scrollButton"><b>CONHEÇA A POWERTECH</b></button>
+          de hardware avançadas para empresas em trending de energia.</h3>
+          <button id="scrollButton"><b>Conheça a PowerTech</b></button>
       </div>
     </div>
     <div class="your-container">
@@ -61,25 +64,32 @@
       
       <div class="boxSobreNos">
 
-        <div class="divConteudoSobreNos1">
-        </div>
+        <!-- <div class="divConteudoSobreNos1">
+        </div> -->
         <div class="divConteudoSobreNos2">
           <h1>NOSSA EMPRESA</h1>
           <p>
             A Power Tech Solutions busca fazer a diferença na indústria de
             energia, oferecendo soluções de monitoramento de hardware de última geração para empresas em constante
             evolução.
-            Trabalhamos em colaboração com nossos clientes personalizando nossas soluções, garantindo que
-            atendam às demandas específicas de seus negócios.
           </p>
+          <div class="dentro">
+            <p>Trabalhamos em colaboração com nossos clientes personalizando nossas soluções, garantindo que
+              atendam às demandas específicas de seus negócios.</p>
+          </div>
         </div>
       </div>
     </div>
 
+    <div class="more">
+
+    </div>
+
+
     <div class="negocios">
 
       <div class="numeros">
-          <div><span> 10 ANOS </span>
+          <div><span> 5 ANOS </span>
               <p> Em funcionamento </p>
           </div>
           <div><span> 75,000+ </span>
@@ -94,93 +104,190 @@
       </div>
   </div>
 
+  <div class="tituloequipe">
+    <h1>
+      EQUIPE DE DESENVOLVIMENTO
+    </h1>
+  </div>
 
-    <div class="boxNossoTrabalho">
-      <div class="tituloNossoTrabalho">
-        <h1>
-          CONHEÇA NOSSO PROJETO
-        </h1>
-      </div>
-      <div class="boxNossoTrabalhoConteudo">
-        <div class="boxMonitoramento">
-          <p>
-            <span>Nosso monitoramento em hardwares.</span> Acompanhe o desempenho dos ativos críticos em tempo real. Maximize
-              a
-              eficiência e tome decisões informadas para um sucesso duradouro. Junte-se a nós na vanguarda da gestão de
-              energia.
-          </p>
+  <div class="slide-container swiper">
+    <div class="slide-content">
+      <div class="card-wrapper swiper-wrapper">
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay">
+
+              <div class="card-image">
+                <img src="css/img/davi.jpg" alt="" class="card-img">
+              </div>
+            </span>
+          </div>
+
+          <div class="card-content">
+            <h2 class="name">Davi Rodriges da Silva</h2>
+            <p class="description"><b>"Excelência é nosso padrão, e estamos empenhados em oferecer produtos de alta qualidade."</b></p>
+
+            <h3 class="funcao">Desenvolvedor Back End</h3>
+          </div>
         </div>
-        <div class="boxMonitoramento">
-          <p>
-            <span>Nosso monitoramento em Máquinas Virtuais e Softwares.</span> Obtenha visibilidade em tempo real sobre o
-              desempenho dos seus
-              softwares. Maximize a eficiência e tome decisões informadas para alcançar seus objetivos. Junte-se a nós
-              na excelência da gestão de software.
-          </p>
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay">
+
+              <div class="card-image">
+                <img src="css/img/erica.jpg" alt="" class="card-img">
+              </div>
+            </span>
+          </div>
+
+          <div class="card-content">
+            <h2 class="name">Erica Rodriges da Cunha</h2>
+            <p class="description"><b>"Nossa dedicação é refletida em cada linha de código que escrevemos com capricho."</b></p>
+
+            <h3 class="funcao">Desenvolvedor Front-End</h3>
+          </div>
         </div>
-        <div class="boxMonitoramento">
-          <p>
-             <span> Nosso monitoramento em computadores dos Trending's. </span> Acompanhe o desempenho dos computadores de forma
-              contínua. Maximiza
-              a eficiência e toma decisões informadas para manter a tendência. Junte-se a nós para liderar na gestão de
-              tendências em computação.
-          </p>
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay">
+
+              <div class="card-image">
+                <img src="css/img/henry.jpg" alt="" class="card-img">
+              </div>
+            </span>
+          </div>
+
+          <div class="card-content">
+            <h2 class="name">Henrique Lipert</h2>
+            <p class="description"><b>"Trabalhamos juntos como uma equipe coesa, transformando ideias em soluções práticas."</b></p>
+
+            <h3 class="funcao">Gestor da Ferramenta de Suporte</h3>
+          </div>
+        </div>
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay">
+
+              <div class="card-image">
+                <img src="css/img/kaori.jpg" alt="" class="card-img">
+              </div>
+            </span>
+          </div>
+
+          <div class="card-content">
+            <h2 class="name">Michelly Kaori</h2>
+            <p class="description"><b>"Nosso compromisso é melhorar continuamente a maneira como o monitoramento é feito."</b></p>
+
+            <h3 class="funcao">Scrum Master</h3>
+          </div>
+        </div>
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay">
+
+              <div class="card-image">
+                <img src="css/img/sarah.jpg" alt="" class="card-img">
+              </div>
+            </span>
+          </div>
+
+          <div class="card-content">
+            <h2 class="name">Sarah Oliveira</h2>
+            <p class="description"><b>"Combinamos expertise técnica e criatividade para criar soluções de monitoramento excepcionais."</b></p>
+
+            <h3 class="funcao">Producter Owner</h3>
+          </div>
+        </div>
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay">
+
+              <div class="card-image">
+                <img src="css/img/gabi.jpg" alt="" class="card-img">
+              </div>
+            </span>
+          </div>
+
+          <div class="card-content">
+            <h2 class="name">Gabriella Inácio</h2>
+            <p class="description"><b>"Nossa equipe está na vanguarda do desenvolvimento, trazendo inovação para a área de monitoramento."</b></p>
+
+            <h3 class="funcao">Administradora de Banco de Dados</h3>
+          </div>
         </div>
       </div>
     </div>
 
+    <div class="swiper-button-next swiper-navBtn"></div>
+      <div class="swiper-button-prev swiper-navBtn"></div>
+      <div class="swiper-pagination"></div>
+  </div>
 
-    <div class="beneficios">
-      
-    </div>
-
-
-    <div class="mvv">
-      <h1>MAIS SOBRE A POWER TECH SOLUTIONS</h1>
-    </div>
-    <div class="boxMvv">
-      <div class="mvvbox">
-        <img src="assets/imgs_power/missao.png" alt="">
-        <div class="line"></div>
-        <p>Nossa missão é <span> proporcionar soluções de monitoramento de hardware de energia elétrica de ponta que
-            capacitam
-            nossos clientes a otimizar o uso, a eficiência e a confiabilidade de seus sistemas elétricos.</span>
-          Buscamos
-          oferecer
-          tecnologia inovadora e insights precisos que permitam a gestão inteligente da energia, contribuindo para a
-          sustentabilidade ambiental e o crescimento econômico.</p>
+    
+    <div class="missao">
+      <div class="missao_empresa">
+          <h2> VALORES </h2>
+          <div class="missao_frases">
+              <img class="ticks" src="css/img/check.png" alt="tick">
+              <p> <b>Sustentabilidade: </b>Nossos produtos promovem o uso responsável da energia elétrica, visando a
+                redução do
+                desperdício, menor impacto ambiental e um futuro mais sustentável. </p>
+          </div>
+          <div class="missao_frases">
+              <img class="ticks" src="css/img/check.png" alt="tick">
+              <p> <b>Comunicação: </b>A comunicação é fundamental em todas as nossas interações, conectando
+                colaboradores,
+                clientes e parceiros de maneira clara e eficaz, construindo confiança e fomentando colaboração e
+                produtividade. </p>
+          </div>
+          <div class="missao_frases">
+              <img class="ticks" src="css/img/check.png" alt="tick">
+              <p> <b>Foco: </b>Buscamos
+                oferecer
+                tecnologia inovadora e insights precisos que permitam a gestão inteligente da energia, contribuindo para o crescimento econômico. </p>
+          </div>
       </div>
-    </div>
-    <div class="boxMvv">
-      <div class="mvvbox">
-        <img src="assets/imgs_power/visao.png" alt="">
-        <div class="line"></div>
-        <p>Nossa visão é <span>ser líder no mercado de monitoramento de hardware de energia elétrica, reconhecidos por
-            nossa
-            excelência tecnológica, compromisso com a qualidade e impacto positivo no setor de energia.</span> Almejamos
-          criar um
-          futuro em que o uso inteligente da energia seja uma realidade acessível a todos, impulsionando a eficiência
-          energética global e aprimorando a infraestrutura elétrica para as gerações presentes e futuras.</p>
+      <div class="type_2">
+          <img class="img_missao" src="css/img/grupo-de-pessoas-trabalhando-no-plano-de-negocios-em-um-escritorio.jpg" alt="imagem missão">
       </div>
+  </div>
+
+
+  <div class="boxNossoTrabalho">
+    <div class="tituloNossoTrabalho">
+      <h1>
+        CONHEÇA NOSSO PROJETO DE MONITORAMENTO
+      </h1>
     </div>
-    <div class="boxMvv">
-      <div class="mvvbox">
-        <img src="assets/imgs_power/valores.png" alt="">
-        <div class="line"></div>
-        <p><span>Inovação:</span><br>
-          Estamos comprometidos em melhorar nosso hardware de monitoramento de energia elétrica para atender às
-          necessidades em constante evolução de nossos clientes.</p>
-        <p><span>Sustentabilidade:</span><br> Nossos produtos promovem o uso responsável da energia elétrica, visando a
-          redução do
-          desperdício, menor impacto ambiental e um futuro mais sustentável.</p>
-        <p><span>Comunicação:</span><br> A comunicação é fundamental em todas as nossas interações, conectando
-          colaboradores,
-          clientes e parceiros de maneira clara e eficaz, construindo confiança e fomentando colaboração e
-          produtividade.
+    <div class="boxNossoTrabalhoConteudo">
+      <div class="boxMonitoramento">
+        <p>
+          <h3>Hardwares:</h3> <p>Acompanhe o desempenho dos ativos críticos em tempo real. Maximize
+            a
+            eficiência e tome decisões informadas para um sucesso duradouro. Junte-se a nós na vanguarda da gestão de
+            energia.</p> 
         </p>
-        </p> <br>
+      </div>
+      <div class="boxMonitoramento">
+        <p>
+          <h3>Máquinas Virtuais e Softwares</h3> <p>Obtenha visibilidade em tempo real sobre o
+            desempenho dos seus
+            softwares. Maximize a eficiência e tome decisões informadas para alcançar seus objetivos. Junte-se a nós
+            na excelência da gestão de software.</p> 
+        </p>
+      </div>
+      <div class="boxMonitoramento">
+        <p>
+          <h3>Computadores dos Trending's:</h3> <p>Acompanhe o desempenho dos computadores de forma
+            contínua. Maximiza
+            a eficiência e toma decisões informadas para manter a tendência. Junte-se a nós para liderar na gestão de
+            tendências em computação</p> 
+        </p>
       </div>
     </div>
+  </div>
+    
+
 
     <div class="divTituloRodaPe">
       
@@ -189,10 +296,10 @@
     <div class="divBoxRodaPe">
       <div class="divBoxConteudoRodaPe">
         <div class="divConteudo1">
-          <span>
-            Nossa sede: <br>
-            Rua Haddock Lobo, 595 São Paulo - SP <br>
-            Andar 2 - Sala A
+            <div class="map">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.2874821817004!2d-46.66418892540598!3d-23.558116361471544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59d2b063f663%3A0xc567c0d16d0bc582!2sS%C3%A3o%20Paulo%20Tech%20School!5e0!3m2!1spt-BR!2sbr!4v1696473908341!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            
 
           </span>
 
@@ -281,7 +388,12 @@
   </div>
   </div>
 
-  <script src="js/slider.js"></script>
-  <script src="js/script.js"></script>
+ 
 
 </body>
+
+<!-- slider -->
+<script src="js/unpkg.com_swiper@8.1.6_swiper-bundle.min.js"></script>
+<script src="js/slider.js"></script>
+
+</html>
