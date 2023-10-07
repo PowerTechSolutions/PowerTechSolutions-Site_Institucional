@@ -77,8 +77,8 @@
             <div class="info_acc">
                 <div class="profile">
                     <img src="pngimg.com - businessman_PNG6566.png" alt="">
-                    <span id="name">Armin Yeager</span>
-                    <span id="email">Email: arminyeager@gmail.com</span>
+                    <span id="nome_usuario"></span>
+                    <span id="email_usuario"></span>
                 </div>
             </div>
             <div class="cards" id="firstpart">
@@ -216,7 +216,8 @@
         window.location("cards.html")
     }
 
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    nome_usuario.innerHTML = "Nome: " + sessionStorage.Nome_Usuario;
+    email_usuario.innerHTML = "Email: " + sessionStorage.Email_Usuario;
     var idUsuario = sessionStorage.ID_USUARIO;
     // temp_aquario_1.innerHTML = sessionStorage
     function updateFeed() {
