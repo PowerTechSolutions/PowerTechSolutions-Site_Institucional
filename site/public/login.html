@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="branco">
+    <!-- <div class="branco">
         <div class="log_info">
             <h1>Login</h1>
             E-mail:
@@ -40,7 +40,7 @@
             <p>Esqueceu sua senha? <a href="">Recuperar Senha</a></p>
             <button class="botao_entrar" onclick="entrar()">Entrar</button>
         </div>
-    </div>
+    </div> -->
     <div class="preto">
         <!-- <div class="textinho">
             <h1>Bem vindo de volta! Digite seus dados para entrar.</h1> 
@@ -61,11 +61,11 @@
             <div class="log_info">
                 <h1>Login</h1>
                 E-mail:
-                <input type="text" placeholder="email...">
+                <input type="text" id="email" placeholder="email...">
                 Senha:
-                <input type="password" placeholder="********">
+                <input type="password" id="senha" placeholder="********">
                 <p>Esqueceu sua senha? <a href="">Recuperar Senha</a></p>
-                <button class="botao_entrar">Entrar</button>
+                <button class="botao_entrar" onclick="entrar()">Entrar</button>
             </div>
         </div>
         <div class="preto">
@@ -84,6 +84,7 @@
 </html>
 
 <script>
+
     function entrar() {
 
         aguardar();
@@ -101,8 +102,6 @@
             mensagem_erro.innerHTML = "Senha precisa ter 8 digitos"
             finalizarAguardar();
             return false;
-        }else {
-          setInterval(sumirMensagem, 5000)
         }
     
         console.log("FORM LOGIN: ", emailVar);
@@ -122,20 +121,21 @@
     
           console.log(resposta);
     
-          if (resposta.ok) {
+          if (resposta) {
             console.log(resposta);
     
             resposta.json().then(json => {
               console.log(json);
               console.log(JSON.stringify(json));
               
-              sessionStorage.setItem("ID_USUARIO", json.IDUsuario);
-              sessionStorage.setItem("NOME_USUARIO", json.Nome);
-              sessionStorage.setItem("EMAIL_USUARIO", json.Email);
-    
+              sessionStorage.setItem("ID_Usuario", json.IDUsuario);
+              sessionStorage.setItem("Nome_Usuario", json.Nome);
+              sessionStorage.setItem("FKUnidade", json.FKUnidade);
+              sessionStorage.setItem("FKNivel_acesso", json.FKNivel_acesso);
+              
               setTimeout(function () {
-                  window.location = "DashBords/dashboard.html";
-              }, 1000); // apenas para exibir o loading
+                window.location.href = "./dashboard/dash_pt/cards.html";
+            }, 1000); // apenas para exibir o loading
     
           });
     
@@ -155,8 +155,8 @@
     
         return false;
       }
-    
-      function sumirMensagem() {
-        cardErro.style.display = "none";
-      }
+
+      //function sumirMensagem() {
+      //  cardErro.style.display = "none";
+      //}
 </script>
