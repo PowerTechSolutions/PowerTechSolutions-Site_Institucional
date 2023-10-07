@@ -19,11 +19,18 @@
         rel="stylesheet">
 </head>
 
-<body onload="updateFeed(), obterDadosGrafico(sessionStorage.ID_USUARIO), updateNivel()">
-    <!-- onload="validarSessao(), atualizacaoPeriodica()" -->
+<body>
     <div class="janela">
 
-
+        <div id="div_erros_login">
+            <div class="alerta_erro">
+              <div class="card_erro" id="cardErro">
+                  <span id="mensagem_erro"></span>
+              </div>
+            </div>
+          </div>
+          <div id="div_aguardar" class="loading-div">
+          </div>
         <div class="header-left dash-header">
             <div class="sepration">
                     <img class="perfil" src="power_tech_solutions_logo_semfundo.png" alt="">
@@ -42,7 +49,7 @@
                 </button>
                 <div class="crd2_sept">
                     <img src="pngimg.com - businessman_PNG6566.png" alt="">
-                    <p>Alerts</p>
+                    <p id="nome_usuario"></p>
                     <!-- <div class="dropdown_selection">
                         <select name="cars" id="log">
                             <option value="volvo">January</option>
@@ -55,7 +62,7 @@
                         <ul class="list">
                             <li>
                                 <label for="item1">
-                                    Log out
+                                    <a href="../../index.html">Log out</a>
                                     <span></span>
                                 </label>
                             </li>
@@ -84,7 +91,7 @@
                             </div>
                             <div id="reminder">
                                 <p>Quick reminder ⚠️</p>
-                                <p>23/08/1203</p>
+                                <p id="data_atual">23/08/1203</p>
                                 <p>Don't let your CPU reach till 66% and your Disk till 80%
                                 </p>
                             </div>
@@ -97,56 +104,7 @@
                                 <h3>Date</h3>
                                 <h3>Status</h3>
                             </div>
-                            <div class="arrangement">
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                            </div>
+                            <div class="arrangement" id="arrangement"></div>
                         </div>
                     </div>
                     <div id="calendar">
@@ -175,6 +133,14 @@
 
 <script>
 
+    var data = new Date();
+    var dia = String(data.getDate()).padStart(2, '0');
+    var mes = String(data.getMonth() + 1).padStart(2, '0');
+    var ano = data.getFullYear();
+    var dataAtual = dia + '/' + mes + '/' + ano;
+
+    data_atual.innerHTML = dataAtual;
+
     function geral(){
         window.location("cards.html")
     }
@@ -182,8 +148,10 @@
         window.location("viewpoint.html")
     }
 
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    nome_usuario.innerHTML = sessionStorage.Nome_Usuario;
     var idUsuario = sessionStorage.ID_USUARIO;
+    window.onload = atualizarFeed_usuarios();
+
     // temp_aquario_1.innerHTML = sessionStorage
     function updateFeed() {
         //aguardar();
@@ -380,6 +348,82 @@
             });
 
     }
+
+    function atualizarFeed_usuarios() {
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+
+        fetch("/usuarios/listar_usuarios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                idEmpServer: IDEmpresaVar,
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                        var feed = document.getElementById("arrangement");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("arrangement");
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+                        // criando e manipulando elementos do HTML via JavaScript
+
+                        var usuario = document.createElement("div");
+                        usuario.className = "infoemp";
+
+                        var id = document.createElement("p");
+                        id.innerHTML = publicacao.IDUsuario;
+                        usuario.appendChild(id);
+
+                        var nome = document.createElement("p");
+                        nome.innerHTML = publicacao.Nome;
+                        usuario.appendChild(nome);
+
+                        var data = new Date();
+                        var dia = String(data.getDate()).padStart(2, '0');
+                        var mes = String(data.getMonth() + 1).padStart(2, '0');
+                        var ano = data.getFullYear();
+                        var dataAtual = dia + '/' + mes + '/' + ano;
+
+                        var data = document.createElement("p");
+                        data.innerHTML = dataAtual;
+                        usuario.appendChild(data);
+
+                        var situacao = document.createElement("p");
+                        situacao.innerHTML = "Normal";
+                        usuario.appendChild(situacao);
+
+                        feed.appendChild(usuario)
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
 </script>
 
 </html>
