@@ -12,6 +12,16 @@ function cadastrarFeedbacks(feedback, estrela) {
     return database.executar(instrucao);
 }
 
+function listar_feedbacks() {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar_usuario()");
+    var instrucao = `
+    SELECT * FROM Feedbacks ORDER BY IDFeedback ASC LIMIT 3;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
-    cadastrarFeedbacks
+    cadastrarFeedbacks,
+    listar_feedbacks
 };

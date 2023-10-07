@@ -37,58 +37,7 @@
 
       </div>
 
-      <div class="feed">
-        <div class="post">
-          <div class="classificacao">
-            <img class="icon" src="./assets/imgs_power/avatar_icon.png">
-            <div class="estrelas">
-              <img src="./assets/imgs_power/estrela.png">
-              <img src="./assets/imgs_power/estrela.png">
-              <img src="./assets/imgs_power/estrela.png">
-              <img src="./assets/imgs_power/estrela.png">
-              <img src="./assets/imgs_power/estrela.png">
-            </div>
-          </div>
-          <div class="user">
-            <span class="nome">Sarah Oliveira</span>
-            <span class="descricao">Tenho gostado muito da minha experiência com a PowerTech Solutions, eles
-              responderam todas as minhas dúvidas.</span>
-          </div>
-        </div>
-        <div class="post">
-          <div class="classificacao">
-            <img class="icon" src="./assets/imgs_power/avatar_icon.png">
-            <div class="estrelas">
-              <img src="./assets/imgs_power/estrela.png">
-              <img src="./assets/imgs_power/estrela.png">
-              <img src="./assets/imgs_power/estrela.png">
-              <img src="./assets/imgs_power/estrela.png">
-              <img src="./assets/imgs_power/estrela_opaca.png">
-            </div>
-          </div>
-          <div class="user">
-            <span class="nome">Davi Rodrigues</span>
-            <span class="descricao">Tenho gostado muito da minha experiência com a PowerTech Solutions, eles
-              responderam todas as minhas dúvidas.</span>
-          </div>
-        </div>
-        <div class="post">
-          <div class="classificacao">
-            <img class="icon" src="./assets/imgs_power/avatar_icon.png">
-            <div class="estrelas">
-              <img src="./assets/imgs_power/estrela.png">
-              <img src="./assets/imgs_power/estrela.png">
-              <img src="./assets/imgs_power/estrela.png">
-              <img src="./assets/imgs_power/estrela.png">
-              <img src="./assets/imgs_power/estrela.png">
-            </div>
-          </div>
-          <div class="user">
-            <span class="nome">Henrique Lipert</span>
-            <span class="descricao">Tenho gostado muito da minha experiência com a PowerTech Solutions, eles
-              responderam todas as minhas dúvidas.</span>
-          </div>
-        </div>
+      <div class="feed" id="feed">
 
       </div>
     </div>
@@ -141,6 +90,8 @@
 
 </html>
 <script>
+
+  window.onload = atualizarFeed_feedbacks();
 
   function cadastrarFeedback() {
     aguardar();
@@ -223,4 +174,104 @@ function sumirMensagem() {
     cardErro.style.display = "none"
 }
   
+function atualizarFeed_feedbacks() {
+  aguardar();
+
+  fetch("/feedbacks/listar_feedbacks", {
+      method: "GET",
+      headers: {
+          "Content-Type": "application/json"
+      }
+  }).then(function (resposta) {
+
+      console.log("resposta: ", resposta);
+
+      if (resposta.ok) {
+
+          if (resposta.status == 204) {
+                  var feed = document.getElementById("feed");
+                  var mensagem = document.createElement("span");
+                  mensagem.innerHTML = "Nenhum resultado encontrado."
+                  feed.appendChild(mensagem);
+                  throw "Nenhum resultado encontrado!!";
+              }
+
+              resposta.json().then(function (resposta) {
+              console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+              var feed = document.getElementById("feed");
+              feed.innerHTML = "";
+              for (let contador_feedbacks = 0; contador_feedbacks < resposta.length; contador_feedbacks++) {
+                  var publicacao = resposta[contador_feedbacks];
+                  // criando e manipulando elementos do HTML via JavaScript
+                  var post = document.createElement("div");
+                  post.className = "post";
+                  feed.appendChild(post);
+
+                  var classificacao = document.createElement("div");
+                  classificacao.className = "classificacao";
+                  post.appendChild(classificacao);
+
+                  var avatar = document.createElement("img");
+                  avatar.src = "./assets/imgs_power/avatar_icon.png";
+                  avatar.className = "icon";
+                  classificacao.appendChild(avatar);
+
+                  var estrelas = document.createElement("div");
+                  estrelas.className = "estrelas";
+                  classificacao.appendChild(estrelas);
+
+                  var i = 1
+                  var diferenca = 5 - publicacao.Estrelas;
+                  while(i<=5){
+
+                    if(diferenca > 0){
+                      var contadorDiferenca = 1;
+                      while(contadorDiferenca <= diferenca){
+                        var estrela_opaca = document.createElement("img");
+                        estrela_opaca.src = "./assets/imgs_power/estrela_opaca.png";
+                        estrelas.appendChild(estrela_opaca);
+                        contadorDiferenca++;
+                        diferenca--;
+                      }
+                    }else{
+                      var estrela_cheia = document.createElement("img");
+                      estrela_cheia.src = "./assets/imgs_power/estrela.png";
+                      estrelas.appendChild(estrela_cheia);
+                    }
+
+                    i++
+                  }
+
+                  var user = document.createElement("div");
+                  user.className = "user";
+                  post.appendChild(user);
+
+                  var nome = document.createElement("span");
+                  nome.className = "nome";
+                  nome.innerHTML = "Teste";
+                  user.appendChild(nome);
+
+                  var descricao = document.createElement("span");
+                  descricao.className = "descricao";
+                  descricao.innerHTML = publicacao.Feedbacks;
+                  user.appendChild(descricao)
+
+              }
+
+              finalizarAguardar();
+          });
+      } else {
+          throw ("Houve um erro ao tentar realizar A pesquisa!");
+      }
+  }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+      finalizarAguardar();
+  });
+
+  return false;
+}
+
+
+
 </script>
