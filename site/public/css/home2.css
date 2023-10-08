@@ -1,6 +1,180 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Lora:wght@500&family=Montserrat&family=Red+Hat+Display&display=swap');
+@media only screen and (max-width: 768px) {
+    #navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #navbar ul {
+        display: flex;
+        flex-direction: row;
+        min-width: 100%;
+        justify-content: space-between;
+        margin-left: 0px;
+    }
+
+    .header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #scrollButton {
+        min-width: 50%;
+    }
+
+    #guardar_media {
+        margin-left: 0px;
+    }
+
+    #text {
+        margin-top: 0px;
+    }
+
+    #conteudoSobrenos {
+        min-width: 100%;
+        margin-left: 0px;
+    }
+
+    #dentro {
+        min-width: 65%;
+        min-height: 53%;
+    }
+
+    #dentro p {
+        font-size: 18px;
+    }
+
+    #picture_more {
+        min-width: 50%;
+        margin-left: 323px;
+        margin-top: -50px;
+        box-shadow: 0px 4px 4px 0px black(0, 0, 0, 0.25);
+    }
+
+    #numbers {
+        min-width: 100%;
+        margin-top: -10ox;
+        min-height: 100%;
+        margin-top: -20px;
+    }
+
+    #text_num {
+        width: 400px;
+    }
+
+    #space {
+        display: block;
+    }
+
+    #space2 {
+        display: none;
+    }
+
+    #team {
+        min-width: 50%;
+    }
+
+    #mission {
+        display: flex;
+        flex-direction: column;
+        margin-left: 0%;
+        justify-content: center;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #picture_us {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #foco {
+        margin-bottom: 20px;
+    }
+
+    #picture_us img {
+        margin-left: 0px;
+        margin-top: 20px;
+        height: 350px;
+        width: 540px;
+    }
+
+    #missao_empresa {
+        border-right: none;
+        border-bottom: 3px solid #FFD64F;
+        height: auto;
+        width: 60%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-right: 0px;
+    }
+
+    #missao_empresa p {
+        margin: 3%;
+        font-size: 16px;
+    }
+
+    #missao_empresa h2 {
+        margin-top: 2%;
+    }
+
+    #frases {
+        margin-left: 0%;
+    }
+
+    #ticks {
+        width: auto;
+    }
+
+    #monBox h3 {
+        margin-bottom: 0px;
+        text-align: center;
+    }
+
+    #monBox p {
+        font-size: 15px;
+    }
+
+    #box_footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 0px;
+    }
+    #box_footer h2{
+        margin-bottom: 0px;
+        margin-left: 10px;
+        margin-top: 50px;
+    }
+
+    #map {
+        padding-bottom: 0%;
+        height: auto;
+        width: 100%;
+    }
+}
+
+.type1 {
+    display: none;
+}
+
+.type2 {
+    display: block;
+}
+
+
+#box {
+    min-width: 100%;
+    min-height: 100%;
+    height: auto;
+    margin-top: 100px;
+}
 
 body {
     margin: 0;
@@ -13,7 +187,7 @@ body {
     background: rgb(211, 211, 211);
 }
 
-.aqui{
+.aqui {
     border-bottom: 4px solid rgb(253, 213, 12);
 }
 
@@ -91,10 +265,14 @@ a:hover {
 
 }
 
+#text {
+    margin-top: 50px;
+}
+
 .guardar {
     display: flex;
     justify-content: end;
-    align-items: end;
+    align-items: center;
     width: 50%;
     height: 50vh;
     text-align: left;
@@ -113,7 +291,7 @@ a:hover {
     height: 6vh;
     font-family: 'Quicksand', sans-serif;
     color: rgb(0, 0, 0);
-    background-color:#FFD64F;
+    background-color: #FFD64F;
     cursor: pointer;
     border-radius: 1vh;
     font-size: 13px;
@@ -191,7 +369,7 @@ a:hover {
     width: 85%;
     border-left: 4px solid #FFD64F;
     margin-right: 9%;
-    
+
 }
 
 .divConteudoSobreNos2 p {
@@ -211,7 +389,7 @@ a:hover {
 
 }
 
-.dentro{
+.dentro {
     display: flex;
     align-items: self-end;
     justify-content: end;
@@ -229,20 +407,20 @@ a:hover {
     text-align: -webkit-right;
 }
 
-.more{
+.more {
     width: 100%;
 }
 
-.more{
+.more {
     background-image: url(img/empresa.jpg);
     width: 36%;
     height: 40vh;
     background-size: cover;
     margin-left: 49%;
-    margin-top: -17%;
+    margin-top: -10%;
 }
 
-.page{
+.page {
     width: 100%;
     height: 60vh;
 }
@@ -314,7 +492,7 @@ a:hover {
         flex-direction: column;
     }
 
-    .divConteudoSobreNos1 img {
+    /* .divConteudoSobreNos1 img {
         width: 80%;
         height: 80vh;
     }
@@ -332,7 +510,7 @@ a:hover {
     .divConteudoSobreNos2 p {
         font-size: 25px;
 
-    }
+    } */
 
 }
 
@@ -414,36 +592,38 @@ a:hover {
 
 }
 
-.slide-container{
+.slide-container {
     max-width: 1120px;
     width: 100%;
     padding: 40px 0;
 }
-.slide-content{
+
+.slide-content {
     margin: 0 40px;
     overflow: hidden;
     border-radius: 25px;
 }
+
 .card {
     border-radius: 25px;
     background-color: #fff;
 }
 
 .image-content,
-.card-content{
+.card-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px 14px;
 }
 
-.image-content{
+.image-content {
     position: relative;
     row-gap: 5px;
     padding: 25px 0;
 }
 
-.overlay{
+.overlay {
     position: absolute;
     left: 0;
     top: 0;
@@ -454,7 +634,7 @@ a:hover {
 }
 
 .overlay::before,
-.overlay::after{
+.overlay::after {
     content: '';
     position: absolute;
     right: 0;
@@ -464,7 +644,7 @@ a:hover {
     background-color: #2e2e2e;
 }
 
-.overlay::after{
+.overlay::after {
     border-radius: 0 25px 0 0;
     background-color: #fff;
 }
@@ -486,58 +666,58 @@ a:hover {
     border: 4px solid #FFD64F;
 }
 
-.name{
+.name {
     font-size: 18px;
     color: #000000;
     margin-top: 10%;
 }
 
-.description{
+.description {
     font-size: 15px;
     color: #707070;
     text-align: center;
     letter-spacing: 1px;
 }
 
-.funcao{
+.funcao {
     font-size: 16px;
     color: #000000;
     margin: 14px;
 }
 
-funcao:hover{
+funcao:hover {
     background: #FFD64F;
 
 }
 
-.swiper-navBtn{
+.swiper-navBtn {
     color: #707070;
     transition: color 0.3s ease;
 }
 
-.swiper-navBtn:hover{
+.swiper-navBtn:hover {
     color: #000000;
 }
 
 .swiper-navBtn::before,
-.swiper-navBtn::after{
+.swiper-navBtn::after {
     font-size: 40px;
 }
 
-.swiper-button-next{
+.swiper-button-next {
     right: 0;
 }
 
-.swiper-button-prev{
+.swiper-button-prev {
     left: 0;
 }
 
-.swiper-pagination-bullet{
+.swiper-pagination-bullet {
     background-color: #707070;
     opacity: 1;
 }
 
-.swiper-pagination-bullet-active{
+.swiper-pagination-bullet-active {
     background-color: #FFD700;
 }
 
@@ -580,6 +760,7 @@ funcao:hover{
     margin-left: 20px;
     margin: 2%;
     color: black;
+    font-size: 18px;
 }
 
 .missao {
@@ -609,9 +790,8 @@ funcao:hover{
     width: 100%;
 }
 
-.tituloNossoTrabalho h1{
+.tituloNossoTrabalho h1 {
     display: flex;
-    margin-left: 4%;
     font-weight: bold;
     font-size: 25px;
     font-family: 'Montserrat', sans-serif;
@@ -648,6 +828,7 @@ funcao:hover{
 
 .boxMonitoramento {
     display: flex;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     height: 35vh;
@@ -664,8 +845,12 @@ funcao:hover{
     font-weight: bold;
 }
 
-.boxMonitoramento h1{
+.boxMonitoramento h1 {
     text-align: center;
+}
+
+.boxMonitoramento h3 {
+    font-weight: bold;
 }
 
 .mvv {
@@ -732,14 +917,20 @@ funcao:hover{
     align-items: center;
 }
 
-.map{
+.map {
     overflow: hidden;
     padding-bottom: 56.25%;
     height: 1vh;
     width: 100%;
+    margin-top: -30px;
 }
 
-.map iframe{
+.map h2{
+    margin-bottom: 0px;
+    margin-top:0px ;
+}
+
+.map iframe {
     height: 35vh;
     width: 100%;
 }
@@ -751,7 +942,6 @@ funcao:hover{
     flex-direction: column;
     width: 100%;
     /* height: 60vh; */
-    background-color: #ffd64f;
 }
 
 .divTituloRodaPe {
@@ -773,7 +963,7 @@ funcao:hover{
     flex-direction: row;
     height: 90%;
     width: 90%;
-    margin-top: 12%;
+    margin-top: 10%;
 }
 
 .divConteudo1 {
@@ -839,7 +1029,6 @@ funcao:hover{
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
     /* background-color: #00ACED; */
 }
 
@@ -901,8 +1090,3 @@ funcao:hover{
         box-shadow: 0 0 24px 0 #dd4b39
     }
 }
-
-
-
-
-
