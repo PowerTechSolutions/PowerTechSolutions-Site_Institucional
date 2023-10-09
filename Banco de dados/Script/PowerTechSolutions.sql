@@ -67,21 +67,11 @@ CREATE TABLE IF NOT EXISTS Usuario_Dashboard(
 		CONSTRAINT PKUsuario_Nivel_acesso PRIMARY KEY (IDUsuario,FKNivel_acesso)
 );
 
-CREATE TABLE IF NOT EXISTS Votacao_feedback(
-	IDVotacao_feedback INT PRIMARY KEY AUTO_INCREMENT,
-    1_ESTRELA TINYINT,
-    2_ESTRELA TINYINT,
-    3_ESTRELA TINYINT,
-    4_ESTRELA TINYINT,
-    5_ESTRELA TINYINT
-);
-
 CREATE TABLE IF NOT EXISTS Feedbacks(
 	IDFeedback INT PRIMARY KEY AUTO_INCREMENT,
     Feedbacks VARCHAR(250),
-    FKVotacao INT,
-		CONSTRAINT FKVotacao_Feedback FOREIGN KEY (FKVotacao)
-			REFERENCES Votacao_feedback(IDVotacao_feedback),
+    Estrelas INT,
+		CHECK (Estrelas < 5 AND Estrelas > 0),
 	FKUsuario INT,
 		CONSTRAINT FKUsuario_Feedback FOREIGN KEY (FKUsuario)
 			REFERENCES Usuario_Dashboard(IDUsuario)
@@ -203,3 +193,11 @@ INSERT INTO Permissoes VALUES
 
 SELECT * FROM Permissoes;
 
+INSERT INTO Nivel_acesso VALUES
+(NULL,'Eng NOC',1),
+(NULL,'Gestor',2);
+
+SELECT*FROM Nivel_acesso;
+
+INSERT into Usuario_Dashboard VALUES
+(NULL,'davi','davi@teste.com','98765432101','12345678',3,1);
