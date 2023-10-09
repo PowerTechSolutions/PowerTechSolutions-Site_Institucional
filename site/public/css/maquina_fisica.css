@@ -81,6 +81,7 @@ p {
     height: 57px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .geral span {
@@ -100,6 +101,7 @@ p {
     /* margin-top: 16%; */
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .mf span {
@@ -121,6 +123,7 @@ p {
     /* margin-top: 16%; */
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .mv span {
@@ -143,6 +146,7 @@ p {
     /* margin-top: 16%; */
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .permissao span {
@@ -169,6 +173,7 @@ p {
     align-items: center;
     /* justify-content: space-evenly; */
     margin-left: 20%;
+    cursor: pointer;
 }
 
 .ajuda span {
@@ -356,7 +361,7 @@ p {
     margin-top: 1.5%;
     width: auto;
     display: flex;
-
+    font-size: 18px;
 }
 
 .dados_t #email {
@@ -373,6 +378,7 @@ p {
 .alerta {
     margin-top: 2%;
     max-width: 80%;
+    font-weight: bold;
 }
 
 .estado_maquinas {
@@ -466,7 +472,7 @@ p {
 }
 
 .uso_disk {
-    margin-right: 9%;
+    margin-right: 8%;
     height: 37%;
     display: flex;
     justify-content: space-evenly;
@@ -543,5 +549,45 @@ p {
 }
 
 .chart{
-    
+    height: 80%;
+    width: 88%;
+    background-color: #1D1D20;
+    margin-top: -28%; 
+    margin-right: 5%;
+    border-radius: 20px;
+}
+
+.nav_bar_chart{
+    margin-top: 2%;
+    max-width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.nav_cpu{
+    margin-left: 3%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.nav_cpu img{
+    margin-left: 3%;
+    cursor: pointer;
+}
+
+#menu_ram{
+    display: block;
+    background-color: #6a6b6f;
+    width: 10%;
+    text-align: center;
+    position: absolute;
+    margin-top: 5%;
+    cursor: pointer;
+}
+
+.nav_cpu span{
+    font-size:25px;
 }
