@@ -4,21 +4,20 @@
 @media only screen and (max-width: 768px) {
     #navbar {
         display: flex;
+        justify-content: space-between;
         align-items: center;
+        padding: 10px 31px 10px 31px;
     }
-
-    #navbar ul {
+    #part1 img{
         display: flex;
-        flex-direction: row;
-        min-width: 100%;
-        justify-content: space-between;
-        margin-left: 0px;
+        width: 172%;
+        height: auto;
+        margin-bottom: 15px;
+        margin-left: 12px;
     }
-
-    #part2 {
-        justify-content: space-between;
+    #part2 ul{
+        width: 38vw;
     }
-
     .header .container {
         display: flex;
         justify-content: space-between;
@@ -67,7 +66,9 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Quicksand', sans-serif;
-    background: #d3d3d3;
+    background: linear-gradient( to top, rgb(253, 213, 12) 0%, rgb(253, 213, 12) 50%, white 50%, white 100% );
+    width: 100%;
+    height: 100vh;
 }
 
 .divPlanoFundo {
@@ -99,11 +100,12 @@ body {
 
 .navBar {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     color: white;
     font-weight: 600;
     font-size: 17px;
-    padding: 10px;
+    /* padding: 10px 31px 10px 31px; */
+    padding: 10px 152px 10px 150px;
 }
 
 .parte1 {
@@ -119,7 +121,6 @@ body {
     width: 110%;
     height: auto;
     margin-bottom: 15px;
-    margin-right: 130%;
 }
 
 .parte2 {
@@ -132,9 +133,10 @@ body {
     display: flex;
     flex-direction: row;
     font-weight: 600;
-    width: 42vw;
+    /* width: 38vw; */
+    width: 19.5vw;
     justify-content: space-between;
-    margin-left: 30%;
+    padding-inline-start: 0px;
 }
 
 .parte2 li {
@@ -166,20 +168,29 @@ a:hover {
     bottom: 10%;
     width: 30%;
     height: 50vh;
-    background-color: #ffd64f;
+    background-image: url(../css/img/homeb.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
     margin-bottom: 5.5%;
     margin-left: 5%;
 }
-
+.shadow{
+    width: 100%;
+    height: 100%;
+    background-color: #1212128a;
+    display: flex;
+    justify-content: center;
+}
 .preto {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-shadow: rgb(0 0 0 / 40%) 0px 10px 20px, rgb(0 0 0 / 40%) 0px 6px 6px;
 }
 
 .preto img {
-    width: 300px;
+    width: 173px;
 }
 
 .textinho {
@@ -188,15 +199,18 @@ a:hover {
     justify-content: center;
     align-items: center;
     width: 99%;
-    color: black;
+    color: rgb(255, 255, 255);
 }
 
 .textinho h1 {
     font-size: 23px;
     margin-top: 40%;
     font-family: 'Red Hat Display', sans-serif;
-    padding: 0px 20px;
+    padding: 0px 10px;
     margin: 0;
+    text-shadow: 2px 2px 3px black;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .textinho span {
@@ -207,6 +221,8 @@ a:hover {
     font-size: 18px;
     padding: 10px 20px;
     margin: 0;
+    text-shadow: 2px 2px 3px black;
+    text-align: center;
 }
 
 .branco {
@@ -214,15 +230,16 @@ a:hover {
     left: 52%;
     transform: translateX(-39%);
     width: 44%;
-    height: 80vh;
+    height: 71vh;
     margin-top: 37%;
     /* margin-bottom: 23%; */
     background-color: rgb(244, 240, 240);
     margin-left: 2%;
+    box-shadow: rgb(0 0 0 / 40%) 0px 10px 20px, rgb(0 0 0 / 40%) 0px 6px 6px;
 }
 
 .log_info {
-    margin-top: 22%;
+    margin-top: 15%;
     text-align: start;
     width: 40%;
     height: 40vh;

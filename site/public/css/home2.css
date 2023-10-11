@@ -6,16 +6,18 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 10px 31px 10px 31px;
     }
-
-    #navbar ul {
+    #part1 img{
         display: flex;
-        flex-direction: row;
-        min-width: 100%;
-        justify-content: space-between;
-        margin-left: 0px;
+        width: 172%;
+        height: auto;
+        margin-bottom: 15px;
+        margin-left: 12px;
     }
-
+    #part2 ul{
+        width: 38vw;
+    }
     .header .container {
         display: flex;
         justify-content: space-between;
@@ -31,7 +33,7 @@
     }
 
     #text {
-        margin-top: 15px;
+        margin-top: 0px;
     }
 
     #conteudoSobrenos {
@@ -211,11 +213,12 @@ body {
 
 .navBar {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     color: white;
     font-weight: 600;
     font-size: 17px;
-    padding: 10px;
+    /* padding: 10px 31px 10px 31px; */
+    padding: 10px 141px 10px 150px;
 }
 
 .parte1 {
@@ -231,7 +234,6 @@ body {
     width: 110%;
     height: auto;
     margin-bottom: 15px;
-    margin-right: 130%;
 }
 
 .parte2 {
@@ -244,9 +246,10 @@ body {
     display: flex;
     flex-direction: row;
     font-weight: 600;
-    width: 42vw;
+    /* width: 38vw; */
+    width: 20vw;
     justify-content: space-between;
-    margin-left: 30%;
+    padding-inline-start: 0px;
 }
 
 .parte2 li {
