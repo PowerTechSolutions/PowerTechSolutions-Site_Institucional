@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="gestor11 copy.css">
     <link rel="stylesheet" href="stylegestor copy.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../../css/chat.css">
+    <script src="../../js/chat.js"></script>
 
     <script src="../js/funcoes.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -43,7 +45,7 @@
                 </button>
                 <div class="crd2_sept">
                     <img src="pngimg.com - businessman_PNG6566.png" alt="">
-                    <p>Alerts</p>
+                    <p id="nome_usuario"></p>
                     <!-- <div class="dropdown_selection">
                         <select name="cars" id="log">
                             <option value="volvo">January</option>
@@ -56,17 +58,13 @@
                         <ul class="list">
                             <li>
                                 <label for="item1">
-                                    Log out
+                                    Sair
                                     <span></span>
                                 </label>
                             </li>
                         </ul>
                         <summary class="radios">
-                            <input type="radio" name="item" id="item1" title="Item 1">
-                            <input type="radio" name="item" id="item2" title="Item 2">
-                            <input type="radio" name="item" id="item3" title="Item 3">
-                            <input type="radio" name="item" id="item4" title="Item 4">
-                            <input type="radio" name="item" id="item5" title="Item 5">
+
                         </summary>
                     </details>
                 </div>
@@ -206,6 +204,14 @@
                     </div>
                     <canvas id="myChart"></canvas>
                 </div>
+            </div>
+            <div class="boxes">
+                <button onclick="literate()"><img src="../../assets/imgs_power/message_icon.ico" alt=""></button>
+                    <div class="dropdown_lit" id="lit_dropdown">
+                        <button id="close3"  onclick="clickclose3()"><b>x</b></button>
+                        <span id="mensagem3"></span>
+                    </div>
+                </p>
             </div>
         </div>
 </body>

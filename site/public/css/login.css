@@ -1,12 +1,74 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Lora:wght@500&family=Montserrat&family=Red+Hat+Display&display=swap');
+@media only screen and (max-width: 768px) {
+    #navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 31px 10px 31px;
+    }
+    #part1 img{
+        display: flex;
+        width: 172%;
+        height: auto;
+        margin-bottom: 15px;
+        margin-left: 12px;
+    }
+    #part2 ul{
+        width: 38vw;
+    }
+    .header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #white {
+        position: absolute;
+        left: 47%;
+        transform: translateX(-39%);
+        width: 71%;
+        height: 68vh;
+        margin-top: 66%;
+        /* margin-bottom: 23%; */
+        background-color: rgb(244, 240, 240);
+        margin-left: 2%;
+    }
+
+    #log {
+        margin-top: 12%;
+        margin-left: 48%;
+    }
+
+    #black {
+        left: 2%;
+        bottom: 14.5%;
+        width: 39%;
+        background-color: #ffd64f;
+    }
+
+    #picture_black {
+        width: 250px;
+    }
+
+    #text h1 {
+        font-size: 20px;
+    }
+
+    #text h3 {
+        font-size: 15px;
+    }
+
+}
 
 body {
     margin: 0;
     padding: 0;
     font-family: 'Quicksand', sans-serif;
-    background: #d3d3d3;
+    background: linear-gradient( to top, rgb(253, 213, 12) 0%, rgb(253, 213, 12) 50%, white 50%, white 100% );
+    width: 100%;
+    height: 100vh;
 }
 
 .divPlanoFundo {
@@ -14,7 +76,7 @@ body {
     /* background: linear-gradient(180deg, rgba(211, 211, 211, 1) 30%, rgba(0, 0, 0, 1) 70%); */
 }
 
-.aqui{
+.aqui {
     border-bottom: 4px solid rgb(253, 213, 12);
 }
 
@@ -38,11 +100,12 @@ body {
 
 .navBar {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     color: white;
     font-weight: 600;
     font-size: 17px;
-    padding: 10px;
+    /* padding: 10px 31px 10px 31px; */
+    padding: 10px 152px 10px 150px;
 }
 
 .parte1 {
@@ -58,7 +121,6 @@ body {
     width: 110%;
     height: auto;
     margin-bottom: 15px;
-    margin-right: 130%;
 }
 
 .parte2 {
@@ -71,9 +133,10 @@ body {
     display: flex;
     flex-direction: row;
     font-weight: 600;
-    width: 42vw;
+    /* width: 38vw; */
+    width: 19.5vw;
     justify-content: space-between;
-    margin-left: 30%;
+    padding-inline-start: 0px;
 }
 
 .parte2 li {
@@ -92,9 +155,8 @@ a:hover {
 
 }
 
-.content{
+.content {
     width: 100%;
-    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -106,36 +168,61 @@ a:hover {
     bottom: 10%;
     width: 30%;
     height: 50vh;
-    background-color: #ffd64fd6;
-    margin-bottom: 4%;
+    background-image: url(../css/img/homeb.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 5.5%;
     margin-left: 5%;
 }
+.shadow{
+    width: 100%;
+    height: 100%;
+    background-color: #1212128a;
+    display: flex;
+    justify-content: center;
+}
+.preto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgb(0 0 0 / 40%) 0px 10px 20px, rgb(0 0 0 / 40%) 0px 6px 6px;
+}
 
-.textinho{
+.preto img {
+    width: 173px;
+}
+
+.textinho {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 99%;
-    height: 50vh;
-    background-color: #ffd64fd6;
-    color: black;
+    color: rgb(255, 255, 255);
 }
 
-.textinho h1{
+.textinho h1 {
     font-size: 23px;
-    text-align: justify;
     margin-top: 40%;
     font-family: 'Red Hat Display', sans-serif;
-    padding: 10%;
+    padding: 0px 10px;
     margin: 0;
+    text-shadow: 2px 2px 3px black;
+    text-align: center;
+    margin-top: 10px;
 }
 
-.textinho h3{
+.textinho span {
+    margin: 0%;
+}
+
+.textinho h3 {
     font-size: 18px;
-    text-align: justify;
-    padding: 10%;
+    padding: 10px 20px;
     margin: 0;
+    text-shadow: 2px 2px 3px black;
+    text-align: center;
 }
 
 .branco {
@@ -143,15 +230,16 @@ a:hover {
     left: 52%;
     transform: translateX(-39%);
     width: 44%;
-    height: 80vh;
-    margin-top: 16%;
-    margin-bottom: 23%;
+    height: 71vh;
+    margin-top: 37%;
+    /* margin-bottom: 23%; */
     background-color: rgb(244, 240, 240);
     margin-left: 2%;
+    box-shadow: rgb(0 0 0 / 40%) 0px 10px 20px, rgb(0 0 0 / 40%) 0px 6px 6px;
 }
 
 .log_info {
-    margin-top: 22%;
+    margin-top: 15%;
     text-align: start;
     width: 40%;
     height: 40vh;
@@ -218,14 +306,13 @@ a:hover {
     transition-duration: 1s;
 }
 
-.log_info input:focus{
+.log_info input:focus {
     outline: none;
 }
 
-.log_info input{
+.log_info input {
     text-align: start;
     display: flex;
     align-items: start;
     justify-content: start;
 }
-

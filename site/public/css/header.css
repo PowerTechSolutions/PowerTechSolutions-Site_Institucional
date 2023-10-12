@@ -16,12 +16,11 @@
 }
 
 .navbar {
-    margin-right: 5vh;
     list-style: none;
     display: flex;
     align-items: center;
     color: #FFD700;
-    width: 40vh;
+    width: 19.5vh;
 }
 
 .header li a {

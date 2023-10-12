@@ -22,11 +22,6 @@
     border: 1px solid white
 }
 
-* {
-    padding: 0;
-    margin: 0;
-}
-
 
 body {
     background-color: black;
@@ -231,8 +226,8 @@ p {
 }
 
 .box_info {
-    height: 40%;
-    width: 50%;
+    height: 50%;
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
     /* background-color: white; */
@@ -241,8 +236,7 @@ p {
 
 
 .box {
-    margin-top: 2.5%;
-    height: 40%;
+    height: 46%;
     width: 45%;
     background-color: #1D1D20;
     display: flex;
@@ -276,6 +270,8 @@ p {
     flex-direction: column;
     align-items: center;
     align-items: center;
+    font-size: 18px;
+    margin-right: 34px;
 }
 
 .entradas ul li {
@@ -324,13 +320,10 @@ p {
 }
 
 .dados_trader {
-    margin-right: 4%;
-    margin-top: 1%;
     background-color: #1D1D20;
-    height: 37%;
-    width: 40%;
+    height: 45%;
+    width: 98%;
     display: flex;
-    justify-content: space-evenly;
     font-size: 20px;
     border-radius: 20px;
 }
@@ -341,15 +334,20 @@ p {
     margin-left: 5%;
 }
 
-.perfil {
+.profile {
     margin-top: 2%;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     /* justify-content: space-evenly; */
 }
+.separador{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
 
-.perfil span {
+.profile span {
     margin-left: 10%;
 }
 
@@ -382,8 +380,9 @@ p {
 }
 
 .estado_maquinas {
-    max-width: 60%;
-    margin-left: 3.5%;
+    display: flex;
+    justify-content: center;
+    height: 40vh;
 }
 
 #card_employee {
@@ -394,7 +393,7 @@ p {
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 37%;
+    height: 99%;
     background-color: #212124;
 }
 
@@ -462,23 +461,42 @@ p {
 ::-webkit-scrollbar-thumb:hover {
     background: #ffffff;
 }
-
-.pt2 {
-    margin-top: 2%;
-    width: 100%;
+.container-kpis1 {
     display: flex;
+    width: 100%;
+    height: 89vh;
+    flex-direction: column;
     flex-direction: row;
+}
+
+.container-kpis2 {
+    display: flex;
+    width: 100%;
+    height: 70vh;
+    flex-direction: column;
+    align-items: center;
+}
+.pt1 {
+    width: 63%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.pt2 {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
 }
 
 .uso_disk {
-    margin-right: 8%;
-    height: 37%;
+    height: 46%;
     display: flex;
     justify-content: space-evenly;
     font-size: 20px;
     border-radius: 20px;
-    width: 54%;
+    width: 98%;
     background-color: #1D1D20;
 }
 
@@ -549,12 +567,12 @@ p {
 }
 
 .chart{
-    height: 80%;
-    width: 88%;
+    height: 96%;
+    justify-content: center;
+    width: 97%;
     background-color: #1D1D20;
-    margin-top: -28%; 
-    margin-right: 5%;
     border-radius: 20px;
+    margin-left: 17px;
 }
 
 .nav_bar_chart{

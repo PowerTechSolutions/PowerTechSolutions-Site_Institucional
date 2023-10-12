@@ -15,14 +15,14 @@
 
 <body>
     <div class="header">
-        <div class="navBar">
-            <div class="parte1">
+        <div class="navBar" id="navbar">
+            <div class="parte1" id="part1">
                 <img src="assets/imgs_power/power_tech_solutions_preto_sem_fundo.png" alt="">
             </div>
-            <div class="parte2">
+            <div class="parte2" id="part2">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="#">Feedback</a></li>
+                    <!-- <li><a href="#">Feedback</a></li> -->
                     <li><a href="login.html" class="pagina-atual">Painel de Monitorameno</a>
                 </ul>
                 </ul>
@@ -41,12 +41,12 @@
             <button class="botao_entrar" onclick="entrar()">Entrar</button>
         </div>
     </div> -->
-    <div class="preto">
-        <!-- <div class="textinho">
+    <!-- <div class="preto">
+         <div class="textinho">
             <h1>Bem vindo de volta! Digite seus dados para entrar.</h1> 
             <h3>Nossa plataforma de monitoramento aguarda por você.</h3>
-          </div> -->
-    </div>
+          </div
+    </div> -->
     <div id="div_erros_login">
         <div class="alerta_erro">
           <div class="card_erro" id="cardErro">
@@ -57,8 +57,8 @@
       <div id="div_aguardar" class="loading-div">
       </div>
     <div class="content">
-        <div class="branco">
-            <div class="log_info">
+        <div class="branco" id="white">
+            <div class="log_info" id="log">
                 <h1>Login</h1>
                 E-mail:
                 <input type="text" id="email" placeholder="email...">
@@ -68,11 +68,14 @@
                 <button class="botao_entrar" onclick="entrar()">Entrar</button>
             </div>
         </div>
-        <div class="preto">
-            <div class="textinho">
-                <h1>Bem vindo de volta undefined ! <br>Digite seus dados de acesso</h1> 
+        <div class="preto" id="black">
+          <div class="shadow">
+            <div class="textinho" id="text">
+              <img src="assets/imgs_power/power_tech_solutions_preto_sem_fundo(1).png" alt="">
+                <h1>Bem vindo de volta <span>Usuário</span>!</h1> 
                 <h3>Nossa plataforma de monitoramento aguarda por você. </h3>
               </div>
+            </div>
         </div>
     </div>
 

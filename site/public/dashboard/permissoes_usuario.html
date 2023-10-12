@@ -6,10 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuários</title>
     <link rel="stylesheet" href="../css/permissoes_usuarios.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/dropdown.css">
+    <link rel="stylesheet" href="../css/chat.css">
+    <script src="../js/chat.js"></script>
 </head>
 
 <body>
-    <div class="geral">
+    <!-- <div class="geral">
         <div class="barra">
             <div class="logo">
                 <img src="../assets/imgs_power/logo_power.png" alt="logo powertech">
@@ -137,6 +141,167 @@
 
 
 
+            </div>
+        </div> -->
+
+
+
+    <div class="janela">
+        <div class="header-left dash-header">
+            <div class="sepration">
+                <img class="perfil" src="dash_pt/power_tech_solutions_logo_semfundo.png" alt="">
+                <button onclick="geral()" id="fist_top"><img src="dash_pt/bar-line-chart.png" alt="" id="first"><img
+                        src="dash_pt/Group 1171274974.png" alt="" id="second">
+                    <p>Geral</p>
+                </button>
+
+                <button onclick="viewpoint()"><img src="dash_pt/element-3.png" id="fst" alt=""> <img id="send"
+                        src="dash_pt/element-3 (1).png" alt="">
+                    <p>MFs</p>
+                </button>
+
+                <button onclick="viewpoint()"><img src="dash_pt/vms.png.png" id="fst" alt=""> <img id="send"
+                        src="dash_pt/icon13.png" alt="">
+                    <p>VMs</p>
+                </button>
+
+                <button onclick="viewpoint()"><img src="dash_pt/perm.png.png" id="fst" alt=""> <img id="send"
+                        src="dash_pt/pessoa.png" alt="">
+                    <p>Add Permissões</p>
+                </button>
+            </div>
+            <div class="sepration2">
+                <button class="helpbutton"><img src="dash_pt/help-circle.png" alt="">
+                    <p>Help Center</p>
+                </button>
+                <div class="crd2_sept">
+                    <img src="dash_pt/pngimg.com - businessman_PNG6566.png" alt="">
+                    <p id="nome_usuario"></p>
+                    <!-- <div class="dropdown_selection">
+                        <select name="cars" id="log">
+                            <option value="volvo">January</option>
+                            <option value="saab">Febuary</option>
+                            <option value="mercedes">March</option>
+                            <option value="audi">April</option>
+                        </select>
+                    </div> -->
+                    <details class="custom-select">
+                        <ul class="list">
+                            <li>
+                                <label for="item1">
+                                    <a href="../../index.html">Sair</a>
+                                    <span></span>
+                                </label>
+                            </li>
+                        </ul>
+                        <summary class="radios">
+                        </summary>
+                    </details>
+                </div>
+            </div>
+        </div>
+
+        <div class="dash" id="dash">
+            <div class="container_permissoes">
+                <div id="card_employee">
+                    <h2 class="usuario"> Usuários: </h2>
+
+                    <div class="campos_gerais">
+                        <h2> Id </h2>
+                        <h2 id="name"> Nome </h2>
+                        <h2 id="cp"> CPF </h2>
+                    </div>
+                    <div class="arrangement">
+                        <div class="infoemp" >
+                            <p>001</p>
+                            <p>Michelly Kaori</p>
+                            <p>000000000000</p>
+                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                            </div></button>
+                        </div>
+                        <div class="infoemp">
+                            <p>001</p>
+                            <p>Michelly Kaori</p>
+                            <p>000000000000</p>
+                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                            </div></button>
+                        </div>
+                        <div class="infoemp">
+                            <p>001</p>
+                            <p>Michelly Kaori</p>
+                            <p>000000000000</p>
+                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                            </div></button>
+                        </div>
+                        <div class="infoemp">
+                            <p>001</p>
+                            <p>Michelly Kaori</p>
+                            <p>000000000000</p>
+                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                            </div></button>
+                        </div>
+                        <div class="infoemp">
+                            <p>001</p>
+                            <p>Michelly Kaori</p>
+                            <p>000000000000</p>
+                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                            </div></button>
+                        </div>
+                        <div class="infoemp">
+                            <p>001</p>
+                            <p>Michelly Kaori</p>
+                            <p>000000000000</p>
+                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                            </div></button>
+                        </div>
+                        <div class="infoemp">
+                            <p>001</p>
+                            <p>Michelly Kaori</p>
+                            <p>000000000000</p>
+                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                            </div></button>
+                        </div>
+                        <div class="infoemp">
+                            <p>001</p>
+                            <p>Michelly Kaori</p>
+                            <p>000000000000</p>
+                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                            </div></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container_mudar_permissoes">
+                <div class="mudancas">
+                    <div>
+
+                        <h1> Mudar permissão: </h1>
+                        <p>Nome: Pranjalpets Armimda</p>
+                        <p>Email: pranjalpets.email.com</p>
+                        <p>CPF: 10939203912</p>
+
+                    </div>
+
+                    <div>
+                        <select name="usuario" id="usuario">
+                            <option value="permissao"> Escolher permissão </option>
+                            <option value="admin"> Administrador </option>
+                            <option value="visualizador"> Visualizador </option>
+                            <option value="sem"> Sem permissão </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="botao_salvar">
+                    <button id="botao" onclick="salvar()"> Salvar mudanças </button>
+                </div>
+            </div>
+            <div class="boxes">
+                <button onclick="literate()"><img src="../assets/imgs_power/message_icon.ico" alt=""></button>
+                    <div class="dropdown_lit" id="lit_dropdown">
+                        <button id="close3"  onclick="clickclose3()"><b>x</b></button>
+                        <span id="mensagem3"></span>
+                    </div>
+                </p>
             </div>
         </div>
 </body>
