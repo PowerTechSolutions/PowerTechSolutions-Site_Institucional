@@ -8,8 +8,8 @@ body {
 }
 
 .perfil {
-  height: 110px;
-  width: 160px;
+  height: 163px;
+  width: 185px;
   display: flex;
 }
 
@@ -81,8 +81,10 @@ body {
 }
 
 .profile {
+  width: 50%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 #name {
@@ -410,7 +412,7 @@ input {
   border: 0;
   border-radius: 5px;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 15px;
   padding: 10px 15px;
   color: white;
   border-color: 2px solid white;
@@ -467,7 +469,7 @@ input {
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: 18px;
+  font-size: 15px;
   border: none;
   border-radius: 10px;
   color: #fff;
@@ -488,7 +490,7 @@ input {
 .sepration {
   flex-direction: column;
   width: 85%;
-  height: 50%;
+  height: 60%;
   border-bottom: 2px solid #F7E11B;
   display: flex;
   align-items: center;
@@ -497,7 +499,7 @@ input {
 .sepration2 {
   flex-direction: column;
   width: 85%;
-  height: 45%;
+  height: 37%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -510,7 +512,7 @@ input {
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: 18px;
+  font-size: 15px;
   border: none;
   border-radius: 10px;
   color: #fff;

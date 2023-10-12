@@ -617,14 +617,18 @@ ul.list {
 }
 
 #chartuso1 label {
-  width: 200px;
+  width: 155px;
   display: flex;
   cursor: pointer;
-  justify-content: space-between;
+  justify-content: center;
   position: absolute;
   top: 52px;
-  right: -53px;
-  font-size: 18px;
+  right: 1px;
+  height: 45px;
+  align-items: center;
+  font-size: 20px;
+  background-color: #ffffff45;
+  border-top: 2px solid gold;
 }
 
 label span {
