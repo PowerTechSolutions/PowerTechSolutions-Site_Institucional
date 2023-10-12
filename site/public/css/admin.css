@@ -855,6 +855,7 @@ ul.list {
 
 details {
     position: relative;
+    margin-top: 10.5px;
 }
 
 details[open] {
@@ -946,7 +947,7 @@ details label {
     justify-content: space-between;
     position: absolute;
     top: -30px;
-    right: -127px;
+    right: -147px;
 }
 
 label span {

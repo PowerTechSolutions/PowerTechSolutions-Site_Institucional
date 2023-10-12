@@ -8,6 +8,8 @@
 
     <!-- <link rel="stylesheet" href="../css/admin.css"> -->
     <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/chat.css">
+    <script src="../js/chat.js"></script>
 
 </head>
 
@@ -228,7 +230,7 @@
                         <ul class="list">
                             <li>
                                 <label for="item1">
-                                    <a href="../../index.html">Log out</a>
+                                    <a href="../../index.html">Sair</a>
                                     <span></span>
                                 </label>
                             </li>
@@ -389,6 +391,14 @@
                         </details>
                     </div>
                 </div>
+            </div>
+            <div class="boxes">
+                <button onclick="literate()"><img src="../assets/imgs_power/message_icon.ico" alt=""></button>
+                    <div class="dropdown_lit" id="lit_dropdown">
+                        <button id="close3"  onclick="clickclose3()"><b>x</b></button>
+                        <span id="mensagem3"></span>
+                    </div>
+                </p>
             </div>
         </div>
 </body>

@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="gestor11 copy.css">
     <link rel="stylesheet" href="stylegestor copy.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../../css/chat.css">
+    <script src="../../js/chat.js"></script>
 
     <script src="../js/funcoes.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -56,7 +58,7 @@
                         <ul class="list">
                             <li>
                                 <label for="item1">
-                                    Log out
+                                    Sair
                                     <span></span>
                                 </label>
                             </li>
@@ -202,6 +204,14 @@
                     </div>
                     <canvas id="myChart"></canvas>
                 </div>
+            </div>
+            <div class="boxes">
+                <button onclick="literate()"><img src="../../assets/imgs_power/message_icon.ico" alt=""></button>
+                    <div class="dropdown_lit" id="lit_dropdown">
+                        <button id="close3"  onclick="clickclose3()"><b>x</b></button>
+                        <span id="mensagem3"></span>
+                    </div>
+                </p>
             </div>
         </div>
 </body>
