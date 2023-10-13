@@ -13,7 +13,7 @@
     height: 69px;
 }
 
-.boxes button {
+.boxes #message {
     font-size: 18px;
     font-weight: bold;
     background-color: transparent;
@@ -24,6 +24,7 @@
     align-items: center;
     cursor: pointer;
 }
+
 
 .dropdown_lit {
     position: relative;
@@ -38,8 +39,11 @@
     border-color: transparent;
     font-size: 30px;
     font-weight: bold;
-    margin-left: 474px;
+    margin-left: 478px;
     cursor: pointer;
+    position: absolute;
+    z-index: 999;
+    top: 0%;
 }
 
 .dropdown_lit {
@@ -54,7 +58,7 @@
 }
 
 .dropdown_lit b {
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .dropdown_lit span {

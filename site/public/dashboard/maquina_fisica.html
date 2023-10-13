@@ -12,9 +12,14 @@ scale=1.0">
     <link rel="stylesheet" href="../css/dropdown.css">
     <link rel="stylesheet" href="../css/chat.css">
     <script src="../js/chat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../Teste_chatbot/chatbot.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </head>
 
-<body>
+<body onload="init()">
     <!-- <div class="side_bar">
         <img id="logo" src="../assets/imgs_power/power_tech_solutions_logo_semfundo.png">
         <div class="abas">
@@ -430,15 +435,29 @@ scale=1.0">
                 <canvas class="my_chart"></canvas>
             </div>
             <div class="boxes">
-                <button onclick="literate()"><img src="../assets/imgs_power/message_icon.ico" alt=""></button>
+                <button id="message" onclick="literate()"><img src="../assets/imgs_power/message_icon.ico" alt=""></button>
                     <div class="dropdown_lit" id="lit_dropdown">
+                        <div id="main">
+                            <h2>Chat de Ajuda</h2>
+                            <div id="msg">
+                                <div id="robot">
+                                    <div class="bot"></div>
+                                    <h3>Agent</h3>
+                                </div>
+                            </div>
+                            <div class="input">
+                                <input type="text" id="msg_send" placeholder="New Message">
+                                <button class="send" id="reply">Mandar <i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                        <script src="chatbot.js"></script>
                         <button id="close3"  onclick="clickclose3()"><b>x</b></button>
-                        <span id="mensagem3"></span>
                     </div>
                 </p>
             </div>
         </div>
         </div>
+        <script src="../Teste_chatbot/chatbot.js"></script>
 </body>
 
 </html>
