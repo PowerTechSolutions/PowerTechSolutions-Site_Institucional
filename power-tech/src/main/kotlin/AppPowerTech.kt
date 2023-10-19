@@ -1,26 +1,33 @@
+
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.swing.JOptionPane
+
 
 fun main() {
 
-        val funcionario_repositorio = FuncionarioRepositorio()
-        val maquina_repositorio = MaquinasRepositorio()
-        val servicoMonitoradorepositorio = ServicoMonitoradoRepositorio()
-        val servicoCadastradorepositorio = ServicoCadastradoRepositorio()
+    var dataAtual = LocalDateTime.now()
+
+        val usuario_repositorio:UsuarioRepositorio = UsuarioRepositorio()
+        val maquina_repositorio:MaquinasRepositorio = MaquinasRepositorio()
+        val servicoMonitoradorepositorio:ServicoMonitoradoRepositorio = ServicoMonitoradoRepositorio()
+        val servicoCadastradorepositorio:ServicoCadastradoRepositorio = ServicoCadastradoRepositorio()
 
         servicoCadastradorepositorio.iniciar()
         servicoMonitoradorepositorio.iniciar()
         maquina_repositorio.iniciar()
-        funcionario_repositorio.iniciar()
+        usuario_repositorio.iniciar()
 
         JOptionPane.showMessageDialog(null,"Bem vindo a PowerTech Por favor realize o login para utilizar nosso sistema")
 
         var Cpf:String = JOptionPane.showInputDialog(null,"Insira seu Cpf")
 
-        if (funcionario_repositorio.autenticar(Cpf)){
+        if (usuario_repositorio.autenticar(Cpf)){
 
-            var funcionario:Funcionarios = funcionario_repositorio.resgatarinfo(Cpf)
+            var funcionario:Usuario = usuario_repositorio.resgatarinfo(Cpf)
 
-            var maquinas:String = maquina_repositorio.pegarMaquinas(funcionario.IDFuncionario)
+            var maquinas:String = maquina_repositorio.pegarMaquinas(funcionario.IDUsuario)
 
             var maquinaEscolhida = JOptionPane.showInputDialog("Qual a numeração da maquina e está que está instalando o serviço? $maquinas").toInt()
 
@@ -54,51 +61,52 @@ fun main() {
             if (funcoes.contains("P")){
                 if (funcoes.contains("R") and funcoes.contains("J") and funcoes.contains("U")){
                     println("Capturar tudo")
-                    pegarTudo(servicos,maquinaEscolhida)
+                    pegarTudo(servicos,maquinaEscolhida,dataAtual)
+
                 }else if (funcoes.contains("R") and funcoes.contains("J")){
                     println("Não capturar USB")
-                    exceptUsb(servicos,maquinaEscolhida)
+
                 }else if (funcoes.contains("R") and funcoes.contains("U")){
                     println("Não capturar Janelas")
-                    exceptJanelas(servicos,maquinaEscolhida)
+
                 }else if (funcoes.contains("U") and funcoes.contains("J")){
                     println("Não capturar REDE")
-                    exceptRede(servicos,maquinaEscolhida)
+
                 }else if (funcoes.contains("R")){
                     println("Não capturar USB e Janelas")
-                    excepUsbAndJanelas(servicos,maquinaEscolhida)
+
                 }else if (funcoes.contains("J")){
                     println("Não capturar USB e redes")
-                    excepUsbAndRedes(servicos, maquinaEscolhida)
+
                 }else if (funcoes.contains("U")){
                     println("Não capturar Janelas e redes")
-                    excepJanelasAndRedes(servicos, maquinaEscolhida)
+
                 }else {
                     println("Não capturar Janelas e USB e redes")
-                    exceptLooca(servicos)
+
                 }
             }else{
                 if (funcoes.contains("R") and funcoes.contains("J") and funcoes.contains("U")){
                     println("Capturar tudo exceto Python")
-                    pegarTudoExcepPY(maquinaEscolhida)
+
                 }else if (funcoes.contains("R") and funcoes.contains("J")){
                     println("Não capturar USB exceto Python")
-                    exceptUsbExcepPY(maquinaEscolhida)
+
                 }else if (funcoes.contains("R") and funcoes.contains("U")){
                     println("Não capturar Janelas exceto Python")
-                    exceptJanelasExcepPY(maquinaEscolhida)
+
                 }else if (funcoes.contains("U") and funcoes.contains("J")){
                     println("Não capturar REDE exceto Python")
-                    exceptRedeExcepPY(maquinaEscolhida)
+
                 }else if (funcoes.contains("R")){
                     println("Não capturar USB e Janelas exceto Python")
-                    excepUsbAndJanelasExcepPY(maquinaEscolhida)
+
                 }else if (funcoes.contains("J")){
                     println("Não capturar USB e redes exceto Python")
-                    excepUsbAndRedesExcepPY(maquinaEscolhida)
+
                 }else if (funcoes.contains("U")){
                     println("Não capturar Janelas e redes exceto Python")
-                    excepJanelasAndRedesExcepPY(maquinaEscolhida)
+
                 }
             }
 
@@ -107,83 +115,76 @@ fun main() {
 
     }
 
+fun pegarTudo(servicos: MutableList<ServicosMonitorados>, maquinaEscolhida: Int, dataAtual: LocalDateTime){
+
+    var repositorio = Monitoramento_RAWRepositorio()
+    repositorio.iniciar()
+
+//    var dataDisco = LocalDateTime.now()
+//    var dataRedeJanelas = LocalDateTime.now()
+
+    while(true){
+
+//        var verificacaoDisco = repositorio.verificarDisco(maquinaEscolhida,"DISCO")
+//        var verificacaoJanela = repositorio.verificarRede(maquinaEscolhida)
+
+//        if (verificacaoDisco){
+//            dataDisco = repositorio.buscarData(maquinaEscolhida,"DISCO")
+//            if (dataDisco.dayOfWeek == dataAtual.dayOfWeek){
+//                println("Deu certo")
+//                monitoramentoSemanal(servicos)
+//            }else{
+//                println("não passou 1 semana")
+//            }
+//        }else{
+//            if (dataDisco.dayOfWeek == dataAtual.dayOfWeek){
+//                println("Deu certo")
+//                monitoramentoSemanal(servicos)
+//            }else{
+//                println("não passou 1 semana")
+//            }
+//        }
 
 
-fun pegarTudo(servicos:MutableList<ServicosMonitorados>,maquinaEscolhida:Int){
-    pegarRede(maquinaEscolhida)
-    pegarJanelas(maquinaEscolhida)
+
+
+
+//        if (verificacaoJanela){
+//            dataRedeJanelas = repositorio.buscarData(maquinaEscolhida,"REDE")
+//            if (dataRedeJanelas.hour+8==dataAtual.hour){
+//                println("Passou 8 horas")
+//                monitoramentoDiario(maquinaEscolhida)
+//            }else{
+//                println("Não passou 8 horas")
+//            }
+//        }else{
+//            if (dataRedeJanelas.hour==dataAtual.hour){
+//                println("Primeira captura")
+//                monitoramentoDiario(maquinaEscolhida)
+//            }else{
+//                println("Não passou 8 horas")
+//            }
+//        }
+        monitoramentoSemanal(servicos)
+        monitoramentoDiario(maquinaEscolhida)
+        monitoramentoConst(servicos,maquinaEscolhida)
+        Thread.sleep(5000)
+    }
+
+    }
+
+fun monitoramentoConst(servicos:MutableList<ServicosMonitorados>,maquinaEscolhida:Int){
     pegarusbs(maquinaEscolhida)
-    CodigoPython.execpython(servicos)
+    CodigoPythonConst.execpython(servicos)
 }
 
-fun exceptUsb(servicos:MutableList<ServicosMonitorados>,maquinaEscolhida:Int){
-    pegarRede(maquinaEscolhida)
+fun monitoramentoDiario(maquinaEscolhida:Int){
     pegarJanelas(maquinaEscolhida)
-    CodigoPython.execpython(servicos)
-}
-
-fun exceptJanelas(servicos:MutableList<ServicosMonitorados>,maquinaEscolhida:Int){
-    pegarRede(maquinaEscolhida)
-    pegarusbs(maquinaEscolhida)
-    CodigoPython.execpython(servicos)
-}
-
-fun exceptRede(servicos:MutableList<ServicosMonitorados>,maquinaEscolhida:Int){
-    pegarJanelas(maquinaEscolhida)
-    pegarusbs(maquinaEscolhida)
-    CodigoPython.execpython(servicos)
-}
-
-fun excepUsbAndJanelas(servicos:MutableList<ServicosMonitorados>,maquinaEscolhida:Int){
-    pegarRede(maquinaEscolhida)
-    CodigoPython.execpython(servicos)
-}
-
-fun excepUsbAndRedes(servicos:MutableList<ServicosMonitorados>,maquinaEscolhida:Int){
-    pegarJanelas(maquinaEscolhida)
-    CodigoPython.execpython(servicos)
-}
-
-fun excepJanelasAndRedes(servicos:MutableList<ServicosMonitorados>,maquinaEscolhida:Int){
-    pegarusbs(maquinaEscolhida)
-    CodigoPython.execpython(servicos)
-}
-
-fun exceptLooca(servicos:MutableList<ServicosMonitorados>){
-    CodigoPython.execpython(servicos)
-}
-
-fun pegarTudoExcepPY(maquinaEscolhida:Int){
-    pegarRede(maquinaEscolhida)
-    pegarJanelas(maquinaEscolhida)
-    pegarusbs(maquinaEscolhida)
-}
-
-fun exceptUsbExcepPY(maquinaEscolhida:Int){
-    pegarRede(maquinaEscolhida)
-    pegarJanelas(maquinaEscolhida)
-}
-
-fun exceptJanelasExcepPY(maquinaEscolhida:Int){
-    pegarRede(maquinaEscolhida)
-    pegarusbs(maquinaEscolhida)
-}
-
-fun exceptRedeExcepPY(maquinaEscolhida:Int){
-    pegarJanelas(maquinaEscolhida)
-    pegarusbs(maquinaEscolhida)
-}
-
-fun excepUsbAndJanelasExcepPY(maquinaEscolhida:Int){
     pegarRede(maquinaEscolhida)
 }
 
-fun excepUsbAndRedesExcepPY(maquinaEscolhida:Int){
-    pegarJanelas(maquinaEscolhida)
-}
-
-fun excepJanelasAndRedesExcepPY(maquinaEscolhida:Int){
-    pegarusbs(maquinaEscolhida)
+fun monitoramentoSemanal(servicos:MutableList<ServicosMonitorados>){
+    CodigoPythonPeri.execpython(servicos)
 }
 
 fun pegarRede(maquinaEscolhida: Int){
@@ -218,3 +219,5 @@ fun pegarusbs(maquinaEscolhida: Int){
     println("$inserts Registro inseridos em usbs")
 
 }
+
+

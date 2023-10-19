@@ -90,55 +90,8 @@
                                 <h3>Date</h3>
                                 <h3>Status</h3>
                             </div>
-                            <div class="arrangement">
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
+                            <div id="arrangement" class="arrangement">
+                                
                             </div>
                         </div>
                         <div class="column">
@@ -218,13 +171,91 @@
 
 <script>
 
+    nome_usuario.innerHTML = "Nome: " + sessionStorage.Nome_Usuario;
+    email_usuario.innerHTML = "Email: " + sessionStorage.Email_Usuario;
+    var idUsuario = sessionStorage.ID_USUARIO;
+    window.onload = atualizarFeed_usuarios()
+
     function geral() {
         window.location("cards.html")
     }
 
-    nome_usuario.innerHTML = "Nome: " + sessionStorage.Nome_Usuario;
-    email_usuario.innerHTML = "Email: " + sessionStorage.Email_Usuario;
-    var idUsuario = sessionStorage.ID_USUARIO;
+    function atualizarFeed_usuarios() {
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+
+        fetch("/usuarios/listar_usuarios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                idEmpServer: IDEmpresaVar,
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                        var feed = document.getElementById("arrangement");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("arrangement");
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+                        // criando e manipulando elementos do HTML via JavaScript
+
+                        var usuario = document.createElement("div");
+                        usuario.className = "infoemp";
+
+                        var id = document.createElement("p");
+                        id.innerHTML = publicacao.IDUsuario;
+                        usuario.appendChild(id);
+
+                        var nome = document.createElement("p");
+                        nome.innerHTML = publicacao.Nome;
+                        usuario.appendChild(nome);
+
+                        var data = new Date();
+                        var dia = String(data.getDate()).padStart(2, '0');
+                        var mes = String(data.getMonth() + 1).padStart(2, '0');
+                        var ano = data.getFullYear();
+                        var dataAtual = dia + '/' + mes + '/' + ano;
+
+                        var data = document.createElement("p");
+                        data.innerHTML = dataAtual;
+                        usuario.appendChild(data);
+
+                        var situacao = document.createElement("p");
+                        situacao.innerHTML = "Normal";
+                        usuario.appendChild(situacao);
+
+                        feed.appendChild(usuario);
+
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
     // temp_aquario_1.innerHTML = sessionStorage
     function updateFeed() {
         //aguardar();
