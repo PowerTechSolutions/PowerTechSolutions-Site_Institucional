@@ -10,18 +10,22 @@ body {
     display: flex;
     width: 96vw;
   }
-  
+  .crd2_sept img {
+    border-radius: 30px;
+    width: 50px;
+    height: 50px;
+  }
   .perfil {
     width: 80%;
     height: 25vh;
     margin-top: -20%;
   }
   
-  .container {
+  /* .container {
     width: 80%;
     margin: auto;
     display: flex;
-  }
+  } */
   
   .header-left a {
     text-decoration: none;
@@ -177,4 +181,7 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    height: 99vh;
+    justify-content: center;
   }
