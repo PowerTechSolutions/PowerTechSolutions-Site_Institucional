@@ -66,7 +66,7 @@ class Monitoramento_RAWRepositorio {
 
         var data_hora = data.Data_Hora_Captura
 
-        var dataTrasform = LocalDateTime.parse(data_hora,DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
+        var dataTrasform = LocalDateTime.parse(data_hora,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
         return dataTrasform
 

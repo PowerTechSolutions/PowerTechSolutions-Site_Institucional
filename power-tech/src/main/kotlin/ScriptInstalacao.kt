@@ -9,7 +9,7 @@ object ScriptInstalacao {
 #! /bin/bash
             
 echo "Deu certo"
-        """
+"""
 
         val nomeArquivoSHDefault = "ScriptInst.sh"
 

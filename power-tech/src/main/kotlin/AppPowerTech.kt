@@ -1,8 +1,8 @@
 
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.util.*
 import javax.swing.JOptionPane
+import kotlin.system.exitProcess
 
 
 fun main() {
@@ -120,55 +120,53 @@ fun pegarTudo(servicos: MutableList<ServicosMonitorados>, maquinaEscolhida: Int,
     var repositorio = Monitoramento_RAWRepositorio()
     repositorio.iniciar()
 
-//    var dataDisco = LocalDateTime.now()
-//    var dataRedeJanelas = LocalDateTime.now()
+    var dataDisco = LocalDateTime.now()
+    var dataRedeJanelas = LocalDateTime.now()
 
     while(true){
 
-//        var verificacaoDisco = repositorio.verificarDisco(maquinaEscolhida,"DISCO")
-//        var verificacaoJanela = repositorio.verificarRede(maquinaEscolhida)
+        var verificacaoDisco = repositorio.verificarDisco(maquinaEscolhida,"DISCO")
+        var verificacaoJanela = repositorio.verificarRede(maquinaEscolhida)
 
-//        if (verificacaoDisco){
-//            dataDisco = repositorio.buscarData(maquinaEscolhida,"DISCO")
-//            if (dataDisco.dayOfWeek == dataAtual.dayOfWeek){
-//                println("Deu certo")
-//                monitoramentoSemanal(servicos)
-//            }else{
-//                println("não passou 1 semana")
-//            }
-//        }else{
-//            if (dataDisco.dayOfWeek == dataAtual.dayOfWeek){
-//                println("Deu certo")
-//                monitoramentoSemanal(servicos)
-//            }else{
-//                println("não passou 1 semana")
-//            }
-//        }
+        if (verificacaoDisco){
+            dataDisco = repositorio.buscarData(maquinaEscolhida,"DISCO")
+            if (dataDisco.dayOfWeek == dataAtual.dayOfWeek){
+                println("Deu certo")
+                monitoramentoSemanal(servicos)
+            }else{
+                println("não passou 1 semana")
+            }
+        }else{
+            if (dataDisco.dayOfWeek == dataAtual.dayOfWeek){
+                println("Deu certo")
+                monitoramentoSemanal(servicos)
+            }else{
+                println("não passou 1 semana")
+            }
+        }
 
+        if (verificacaoJanela){
+            dataRedeJanelas = repositorio.buscarData(maquinaEscolhida,"REDE")
+            if (dataRedeJanelas.hour+8==dataAtual.hour){
+                println("Passou 8 horas")
+                monitoramentoDiario(maquinaEscolhida)
+            }else{
+                println("Não passou 8 horas")
+            }
+        }else{
+            if (dataRedeJanelas.hour==dataAtual.hour){
+                println("Primeira captura")
+                monitoramentoDiario(maquinaEscolhida)
+            }else{
+                println("Não passou 8 horas")
+            }
+        }
 
-
-
-
-//        if (verificacaoJanela){
-//            dataRedeJanelas = repositorio.buscarData(maquinaEscolhida,"REDE")
-//            if (dataRedeJanelas.hour+8==dataAtual.hour){
-//                println("Passou 8 horas")
-//                monitoramentoDiario(maquinaEscolhida)
-//            }else{
-//                println("Não passou 8 horas")
-//            }
-//        }else{
-//            if (dataRedeJanelas.hour==dataAtual.hour){
-//                println("Primeira captura")
-//                monitoramentoDiario(maquinaEscolhida)
-//            }else{
-//                println("Não passou 8 horas")
-//            }
-//        }
         monitoramentoSemanal(servicos)
         monitoramentoDiario(maquinaEscolhida)
         monitoramentoConst(servicos,maquinaEscolhida)
         Thread.sleep(5000)
+
     }
 
     }

@@ -213,7 +213,7 @@ INSERT INTO Nivel_acesso VALUES
 (NULL,'Gestor',2);
 
 INSERT into Usuario_Dashboard VALUES
-(NULL,'davi','davi@teste.com','98765432101','12345678',1,1);
+(NULL,'davi','davi@teste.com','48372073830','12345678',1,1);
 
 INSERT INTO Alertas VALUES
 (1,'Alerta de teste1',default,null,null,1),
@@ -249,3 +249,6 @@ INSERT INTO Componentes_monitorados VALUES
 (NULL,5,3),
 (NULL,6,3);
 
+CREATE VIEW Teste AS SELECT * FROM Componentes_monitorados;
+
+SELECT * FROM Teste;	
