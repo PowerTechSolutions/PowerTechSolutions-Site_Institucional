@@ -2,9 +2,11 @@ var medidaModel = require("../models/medidaModel");
 
 function log_alertas(req, res) {
 
+    var FKUnidade = req.params.FKUnidade;
+
     console.log(`Recuperando Quantidade de alertas`);
 
-    medidaModel.log_alertas().then(function (resultado) {
+    medidaModel.log_alertas(FKUnidade).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

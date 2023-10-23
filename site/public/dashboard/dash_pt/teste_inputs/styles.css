@@ -1,53 +1,13 @@
-/* ... (Previous CSS styles) */
-
-.slider-container {
+/* Add your CSS styles here */
+.div-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 325px;
-    overflow: hidden;
-    position: relative;
-    width: 164%;
-    background-color: #303030;
-    z-index: 999;
-    position: absolute;
-    float: left;
-    left: -261px;
-    top: -117px;
+    flex-wrap: wrap;
 }
 
-.slider-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #007BFF;
-    cursor: pointer;
-}
-
-#leftButton {
-    left: 20px;
-}
-
-#rightButton {
-    right: 20px;
-}
-
-.slider {
-    display: flex;
-    border-bottom: 2px solid white;
-    background-color: aqua;
-}
-
-.info-div {
-    min-width: 300px;
-    background-color: #f5f5f5;
+.form-div {
     border: 1px solid #ccc;
-    padding: 20px;
-    text-align: center;
+    padding: 10px;
     margin: 10px;
-    border-radius: 5px;
 }
+
 

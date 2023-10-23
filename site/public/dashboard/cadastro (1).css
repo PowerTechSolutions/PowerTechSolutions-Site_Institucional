@@ -7,10 +7,9 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
-  .cadastros{
+  .cadastros {
     width: 89%;
     height: 71vh;
-    background-color: #5a78c4;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,7 +52,7 @@
     transform: translate(5px)
   }
 
-  .first_page{
+  .first_page {
     margin-top: 20px;
   }
 
@@ -117,118 +116,203 @@
     position: absolute;
     z-index: 999;
     top: 1%;
-    font-family:cursive;
-}
+    font-family: cursive;
+  }
 
-form .page .field .close_disc {
-  background-color: transparent;
-  border-color: transparent;
-  font-size: 19px;
-  font-weight: bold;
-  color: #f0f0f0;
-  margin-left: 448px;
-  cursor: pointer;
-  position: absolute;
-  z-index: 999;
-  top: -2%;
-  font-family: cursive;
-}
+  form .page .field .close_disc {
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 19px;
+    font-weight: bold;
+    color: #f0f0f0;
+    /* margin-right: 426px; */
+    cursor: pointer;
+    position: absolute;
+    z-index: 999;
+    top: -2%;
+    font-family: cursive;
+    /* margin-right: 31px; */
+    left: 230px;
+  }
 
-form .page .field .close_cpu {
-  background-color: transparent;
-  border-color: transparent;
-  font-size: 19px;
-  font-weight: bold;
-  color: #f0f0f0;
-  margin-left: 448px;
-  cursor: pointer;
-  position: absolute;
-  z-index: 999;
-  top: -2%;
-  font-family: cursive;
-}
-#disco{
-  top: -28px;
-}
-#cpu{
-  top: -199px;
-}
-form .page .field .close_disc:hover {
-  background-color: transparent;
-  border-color: transparent;
-  font-size: 19px;
-  font-weight: bold;
-  color: #f0f0f0;
-  margin-left: 448px;
-  cursor: pointer;
-  position: absolute;
-  z-index: 999;
-  top: -2%;
-  font-family: cursive;
-}
+  #disco {
+    top: -108px;
+    width: 500px;
+    height: 46vh;
+    background-color: #232323;
+    left: -277px;
+    position: absolute;
+    z-index: 999;
+  }
 
-form .page .field .close_cpu:hover {
-  background-color: transparent;
-  border-color: transparent;
-  font-size: 19px;
-  font-weight: bold;
-  color: #f0f0f0;
-  margin-left: 448px;
-  cursor: pointer;
-  position: absolute;
-  z-index: 999;
-  top: -2%;
-  font-family: cursive;
-}
+  #ram {
+    top: -194px;
+    width: 500px;
+    height: 46vh;
+    background-color: #232323;
+    left: -277px;
+    position: absolute;
+    z-index: 999;
+  }
 
-form .page .field .close_ram {
-  background-color: transparent;
-  border-color: transparent;
-  font-size: 19px;
-  font-weight: bold;
-  color: #f0f0f0;
-  margin-left: 448px;
-  cursor: pointer;
-  position: absolute;
-  z-index: 999;
-  top: -2%;
-  font-family: cursive;
-}
+  #ram2 {
+    top: -262px;
+    width: 500px;
+    height: 46vh;
+    background-color: #232323;
+    left: -277px;
+    position: absolute;
+    z-index: 999;
+  }
 
-form .page .field .close_ram:hover {
-  background-color: transparent;
-  border-color: transparent;
-  font-size: 19px;
-  font-weight: bold;
-  color: #f0f0f0;
-  margin-left: 448px;
-  cursor: pointer;
-  position: absolute;
-  z-index: 999;
-  top: -2%;
-  font-family: cursive;
-}
+  #disco2 {
+    top: -178px;
+    width: 500px;
+    height: 46vh;
+    background-color: #232323;
+    left: -277px;
+    position: absolute;
+    z-index: 999;
+  }
 
-.register{
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-}
+  form .page .field .close_disc:hover {
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 19px;
+    font-weight: bold;
+    color: #f0f0f0;
+    cursor: pointer;
+    position: absolute;
+    z-index: 999;
+    top: -2%;
+    font-family: cursive;
+  }
 
-.cadastrar_novo{
-  background-color: #f7e11b;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+  form .page .field .close_ram {
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 19px;
+    font-weight: bold;
+    color: #f0f0f0;
+    cursor: pointer;
+    position: absolute;
+    z-index: 999;
+    top: -2%;
+    font-family: cursive;
+    left: 230px;
+  }
 
-.cadastrar_exixtente{
-  background-color: #18272F;
-  width: 50%;
-}
+  form .page .field .close_ram:hover {
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 19px;
+    font-weight: bold;
+    color: #f0f0f0;
+    cursor: pointer;
+    position: absolute;
+    z-index: 999;
+    top: -2%;
+    font-family: cursive;
+  }
+
+  .register {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cadastrar_novo {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1D1D20;
+    border-right: #f7e11b 2px solid;
+  }
+
+  .cadastrar_novo button {
+    width: 37%;
+    height: 50px;
+    border: none;
+    background: #f7e11b;
+    position: relative;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.5s ease;
+  }
+
+  .cadastrar_novo button:hover {
+    background-color: black;
+    border-color: transparent;
+    font-size: 19px;
+    color: #f0f0f0;
+    cursor: pointer;
+  }
+
+  .cadastrar_novo h1 {
+    margin-bottom: 0px;
+  }
+
+  .cadastrar_novo span {
+    text-align: center;
+    padding: 5%;
+  }
+
+  .cadastrar_exixtente {
+    background-color: #1D1D20;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cadastrar_exixtente button {
+    width: 37%;
+    height: 50px;
+    border: none;
+    background: #f7e11b;
+    position: relative;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.5s ease;
+  }
+
+  .cadastrar_exixtente button:hover {
+    background-color: black;
+    border-color: transparent;
+    font-size: 19px;
+    color: #f0f0f0;
+    cursor: pointer;
+  }
+
+  #frts img {
+    width: 27px;
+    height: 23px;
+    margin-left: 14px;
+    margin-right: 18px;
+  }
+
+  .cadastrar_exixtente h1 {
+    margin-bottom: 0px;
+  }
+
+  .cadastrar_exixtente span {
+    text-align: center;
+    padding: 5%;
+  }
 
   .container {
     background: #161618;
@@ -237,9 +321,36 @@ form .page .field .close_ram:hover {
     padding: 10px 10px 10px 10px;
     width: 74.5%;
     height: 82vh;
-    display: none;
     z-index: 999;
     position: absolute;
+  }
+
+  #cadastrar_novo_usuario2 #butao {
+    margin-top: 12vh;
+    left: 232px;
+  }
+
+  #page2 {
+    margin-top: 0%;
+  }
+
+  #info_maquina2 {
+    margin-left: -22px;
+  }
+
+  #feild {
+    left: 12vh;
+  }
+
+  /* width: 444%; 
+  left: 12vh;*/
+
+  #cadastrar_novo_usuario {
+    display: none;
+  }
+
+  #cadastrar_novo_usuario2 {
+    display: none;
   }
 
   #caixaid {
@@ -316,8 +427,8 @@ form .page .field .close_ram:hover {
   }
 
   select option:hover {
-      background-color: lime;
-    }
+    background-color: lime;
+  }
 
   .input__label4 {
     position: absolute;
@@ -347,63 +458,151 @@ form .page .field .close_ram:hover {
     align-items: center;
   }
 
-  form .page .field .btnsinfo{
+  form .page .field .btnsinfo {
     background-color: transparent;
     margin-left: 5px;
   }
 
-  form .page .field #salvar_ram{
+  form .page .field #salvar_ram {
     width: 24%;
     background: #f7e11b;
     height: 39px;
     font-size: 15px;
-    bottom: -128px;
+    position: absolute;
+    z-index: 999;
+    top: 277px;
+    left: 190px;
   }
 
-  form .page .field #salvar_cpu{
+  form .page .field #salvar_disc {
     width: 24%;
     background: #f7e11b;
     height: 39px;
     font-size: 15px;
-    bottom: -128px;
+    position: absolute;
+    z-index: 999;
+    top: 277px;
+    left: 190px;
   }
 
-  form .page .field #salvar_disc{
-    width: 24%;
+  #info_ram {
+    display: none;
+  }
+
+  #info_disc {
+    display: none;
+  }
+
+  #info_ram2 {
+    display: none;
+  }
+
+  #info_disc2 {
+    display: none;
+  }
+
+  #disco .slider {
+    overflow-y: scroll;
+    height: 79%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 21px;
+  }
+
+  #ram .slider {
+    overflow-y: scroll;
+    height: 79%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 21px;
+  }
+
+  #ram2_slider {
+    overflow-y: scroll;
+    height: 79%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 21px;
+  }
+
+  #disc2_slider {
+    overflow-y: scroll;
+    height: 79%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 21px;
+  }
+
+  #ram2_slider .form-div input {
+    background-color: transparent;
+    border: #f0f0f0 1px solid;
+    width: 154px;
+  }
+
+  #disc2_slider .form-div {
+    border: 1px solid #f7e11b;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  #disc2_slider .form-div input {
+    background-color: transparent;
+    border: #f0f0f0 1px solid;
+    width: 154px;
+  }
+
+  .form-div {
+    border: 1px solid #f7e11b;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .form-div h3 {
+    margin-top: 5px;
+  }
+
+  .form-div input {
+    background-color: transparent;
+    border: #f0f0f0 1px solid;
+    width: 154px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(226, 226, 226);
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
     background: #f7e11b;
-    height: 39px;
-    font-size: 15px;
-    bottom: -128px;
+    border-radius: 10px;
   }
 
-  #info_ram{
-    display: none;
-  }
 
-  #info_disc{
-    display: none;
-  }
-
-  #info_cpu{
-    display: none;
-  }
-
-  form .page .field #salvar_ram:hover{
+  form .page .field #salvar_ram:hover {
     background: #000;
     color: #f0f0f0;
   }
 
-  form .page .field #salvar_disc:hover{
+  form .page .field #salvar_disc:hover {
     background: #000;
     color: #f0f0f0;
   }
 
-  form .page .field #salvar_cpu:hover{
-    background: #000;
-    color: #f0f0f0;
-  }
-
-  form .page .field .btnsinfo:hover{
+  form .page .field .btnsinfo:hover {
     background-color: transparent;
   }
 
@@ -435,6 +634,7 @@ form .page .field .close_ram:hover {
     left: 27vw;
 
   }
+
   /* Fim do formulario de cadastro */
 
   /* Estilo das inputs */
@@ -621,7 +821,7 @@ form .page .field .close_ram:hover {
     display: flex;
     flex-direction: column;
   }
-  
+
   .btnsinfo {
     width: 20px;
     height: 20px;

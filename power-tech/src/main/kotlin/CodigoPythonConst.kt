@@ -1,6 +1,6 @@
 import java.io.File
 
-object CodigoPython {
+object CodigoPythonConst {
 
     fun execpython(servicos:MutableList<ServicosMonitorados>) {
 
@@ -11,8 +11,6 @@ object CodigoPython {
         var componenteCPU = 0
         var RAM = 0
         var componenteRAM = 0
-        var DISCO = 0
-        var componenteDISCO = 0
 
         for (servico in servicos){
 
@@ -27,10 +25,6 @@ object CodigoPython {
                     RAM += 1
                     componenteRAM = servico.IDComponente_monitorado
                 }
-                "DISCO" -> {
-                    DISCO += 1
-                    componenteDISCO = servico.IDComponente_monitorado
-                }
             }
 
         }
@@ -38,11 +32,11 @@ object CodigoPython {
 
         var codigoPython ="""
 import psutil
+import time
 import mysql.connector
 
 cpu = psutil.cpu_percent(interval=1)
 ram = psutil.virtual_memory()
-disco = psutil.disk_usage('/')
 
 try:
     mydb = mysql.connector.connect(host = 'localhost', user = 'root',password = '@myLOVEisthe0506',database = 'PowerTechSolutions')
@@ -59,23 +53,18 @@ try:
             valRAM = [round(ram.percent,2)]
             mycursor.execute(sql_querryRAM, valRAM)
             mydb.commit()
-        if $DISCO == 1:
-            sql_querryDISCO = 'INSERT INTO Monitoramento_RAW VALUES (NULL, CURRENT_TIMESTAMP(), %s,$componenteDISCO)'
-            valDISCO = [round(disco.percent,2)]
-            mycursor.execute(sql_querryDISCO, valDISCO)
-            mydb.commit()
 finally:
     if(mydb.is_connected()):
         mycursor.close()
         mydb.close()
 """
 
-        val nomeArquivoPyDefault = "CodigoPython.py"
+        val nomeArquivoPyDefault = "CodigoPythonConst.py"
 
         File(nomeArquivoPyDefault).writeText(codigoPython)
         Runtime.getRuntime().exec("python3 $nomeArquivoPyDefault")
 
-        println("Python excetudado")
+        println("Python excetudado para CPU/RAM")
 
     }
 

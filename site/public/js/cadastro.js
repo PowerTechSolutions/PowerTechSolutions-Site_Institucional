@@ -25,4 +25,5 @@ prevBtnSec.addEventListener("click", function () {
     current -= 1;
 });
 
+
 // Fim da animação do cadastro
