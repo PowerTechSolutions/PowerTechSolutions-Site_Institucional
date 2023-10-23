@@ -15,7 +15,12 @@
 
     <link rel="stylesheet" href="stylegestor.css">
     <link rel="stylesheet" href="gestor11.css">
+<<<<<<< HEAD
+    <script src="../../Teste_chatbot/chatbot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+=======
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+>>>>>>> 52c31cb9d305b2811a03e3011f9bee7a3f5d0261
     <link rel="stylesheet" href="../../css/chat.css">
     <script src="../../js/chat.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -54,10 +59,10 @@
             </div>
             <div class="sepration2">
                 <button class="helpbutton"><img src="help-circle.png" alt="">
-                    <p>Help Center</p>
+                    <p>Central de ajuda</p>
                 </button>
                 <div class="crd2_sept">
-                    <img src="pngimg.com - businessman_PNG6566.png" alt="">
+                    <img src="../../assets/imgs_power/do-utilizador.png" alt="">
                     <p id="nome_usuario"></p>
                     <!-- <div class="dropdown_selection">
                         <select name="cars" id="log">
@@ -95,22 +100,22 @@
                                 </div>
                                 <div class="sepration_prt2">
                                     <p>Status</p>
-                                    <p id="status_wifi">Safe</p>
+                                    <p id="status_wifi">Seguro</p>
                                 </div>
                             </div>
                             <div id="reminder">
-                                <p>Quick reminder ⚠️</p>
-                                <p id="data_atual">23/08/1203</p>
-                                <p>Don't let your CPU reach till 66% and your Disk till 80%
+                                <p>Lembrete ⚠️</p>
+                                <p id="data_atual">23/08/2023</p>
+                                <p>Não deixe sua CPU atingir 66% e seu disco 80%
                                 </p>
                             </div>
                         </div>
                         <div id="card_employee">
-                            <h2>Employee Status</h2>
+                            <h2>Status dos funcionários</h2>
                             <div class="title">
                                 <h3>ID</h3>
                                 <h3>Nome</h3>
-                                <h3>Date</h3>
+                                <h3>Data</h3>
                                 <h3>Status</h3>
                             </div>
                             <div class="arrangement" id="arrangement"></div>
@@ -123,22 +128,22 @@
             <div class="cards">
                 <div class="card2">
                     <div class="crd2_sept">
-                        <p>Alerts</p>
+                        <p>Alertas</p>
                         <div class="dropdown_selection">
-                            <label for="cars">Choose a month:</label>
+                            <label for="cars">Escolha um mês:</label>
                             <select name="cars" id="cars">
-                                <option value="January">January</option>
-                                <option value="Febuary">Febuary</option>
-                                <option value="March">March</option>
-                                <option value="April">April</option>
-                                <option value="May">May</option>
-                                <option value="June">June</option>
-                                <option value="July">July</option>
-                                <option value="August">August</option>
-                                <option value="semptember">semptember</option>
-                                <option value="october">october</option>
-                                <option value="november">november</option>
-                                <option value="december">december</option>
+                                <option value="January">Janeiro</option>
+                                <option value="Febuary">Fevereiro</option>
+                                <option value="March">Março</option>
+                                <option value="April">Abril</option>
+                                <option value="May">Maio</option>
+                                <option value="June">Junho</option>
+                                <option value="July">Julho</option>
+                                <option value="August">Agosto</option>
+                                <option value="semptember">Setembro</option>
+                                <option value="october">Outubro</option>
+                                <option value="november">Novembro</option>
+                                <option value="december">Dezembro</option>
                             </select>
                         </div>
                     </div>
@@ -156,11 +161,11 @@
                             <div id="msg">
                                 <div id="robot">
                                     <div class="bot"></div>
-                                    <h3>Agent</h3>
+                                    <h3>Agente</h3>
                                 </div>
                             </div>
                             <div class="input">
-                                <input type="text" id="msg_send" placeholder="New Message">
+                                <input type="text" id="msg_send" placeholder="Nova mensagem">
                                 <button class="send" id="reply">Mandar <i class="fas fa-paper-plane"></i></button>
                             </div>
                         </div>
@@ -174,6 +179,10 @@
 </body>
 
 <script>
+
+    
+window.onload = init();
+
 
     var data = new Date();
     var dia = String(data.getDate()).padStart(2, '0');

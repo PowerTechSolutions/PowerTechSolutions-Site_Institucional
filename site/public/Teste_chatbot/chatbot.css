@@ -16,7 +16,7 @@
     border-right: none;
 }
 
-.input {
+#main .input {
     height: 7%;
     background: linear-gradient(#ececee 50%, #f7e11b 50%);
     display: grid;

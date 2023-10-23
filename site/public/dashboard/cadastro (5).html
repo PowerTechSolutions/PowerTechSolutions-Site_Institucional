@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro | NOC LINE</title>
+    <link rel="stylesheet" href="dash_pt/teste_inputs/styles.css">
+
+    <link rel="stylesheet" href="cadastro (1).css">
+
+    <link rel="stylesheet" href="../css/navbar.css">
+    <script src="../Teste_chatbot/chatbot.js"></script>
+
+    <link rel="stylesheet" href="../css/dropdown.css">
+    <link rel="stylesheet" href="../css/chat.css">
+    <script src="../js/chat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../Teste_chatbot/chatbot.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+</head>
+
+<body>
+    <div class="janela">
+        <div class="header-left dash-header">
+            <div class="sepration">
+                <img class="perfil" src="dash_pt/power_tech_solutions_logo_semfundo.png" alt="">
+                <button onclick="geral()" id="fist_top"><img src="dash_pt/bar-line-chart.png" alt="" id="first"><img
+                        src="dash_pt/Group 1171274974.png" alt="" id="second">
+                    <p>Geral</p>
+                </button>
+
+                <button onclick="viewpoint()"><img src="dash_pt/element-3.png" id="fst" alt=""> <img id="send"
+                        src="dash_pt/element-3 (1).png" alt="">
+                    <p>MFs</p>
+                </button>
+
+                <button onclick="viewpoint()"><img src="dash_pt/vms.png.png" id="fst" alt=""> <img id="send"
+                        src="dash_pt/icon13.png" alt="">
+                    <p>VMs</p>
+                </button>
+
+                <button onclick="viewpoint()"><img src="dash_pt/perm.png.png" id="fst" alt=""> <img id="send"
+                        src="dash_pt/pessoa.png" alt="">
+                    <p>Adicionar permissões</p>
+                </button>
+                <button onclick="viewpoint()" id="frts"><img src="../assets/imgs_power/adicionar-usuario (1).png"
+                        id="fst" alt=""> <img id="send" src="../assets/imgs_power/adicionar-usuario.png" alt="">
+                    <p>Adicionar Usuario</p>
+                </button>
+            </div>
+            <div class="sepration2">
+                <button class="helpbutton"><img src="dash_pt/help-circle.png" alt="">
+                    <p>Central de ajuda</p>
+                </button>
+                <div class="crd2_sept">
+                    <img src="../assets/imgs_power/do-utilizador.png" alt="">
+                    <p id="nome_usuario"></p>
+                    <!-- <div class="dropdown_selection">
+                        <select name="cars" id="log">
+                            <option value="volvo">January</option>
+                            <option value="saab">Febuary</option>
+                            <option value="mercedes">March</option>
+                            <option value="audi">April</option>
+                        </select>
+                    </div> -->
+                    <details class="custom-select">
+                        <ul class="list">
+                            <li>
+                                <label for="item1">
+                                    <a href="../../index.html">Sair</a>
+                                    <span></span>
+                                </label>
+                            </li>
+                        </ul>
+                        <summary class="radios">
+                        </summary>
+                    </details>
+                </div>
+            </div>
+        </div>
+
+        <div class="dash" id="dash">
+            <div class="cadastros">
+                <div class="container" id="cadastrar_novo_usuario">
+                    <button id="fechar" onclick="fechar()"><b>x</b></button>
+                    <div class="form-outer">
+
+                        <form action="#">
+
+                            <div id="first_page" class="page slide-page">
+                                <div class="title">Informações do Usuário:</div>
+                                <div class="caixa_inputs">
+                                    <div class="inputs_login_esquerda">
+                                        <div class="field">
+                                            <div class="input">
+                                                <input class="input__field" id="input_nome" type="text" required />
+                                                <label for="password" class="input__label">Nome</label>
+                                                <img src="../assets/imgs_power/cartao-de-visitas.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+
+                                        <div class="field">
+                                            <div class="input">
+                                                <input class="input__field" id="input_cpf" type="text" required />
+                                                <label for="input_cpf" class="input__label">CPF</label>
+                                                <img src="../assets/imgs_power/cpf.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+
+                                        <div class="field">
+                                            <div class="input">
+                                                <input class="input__field" id="input_email_rep" type="text" required />
+                                                <label for="input_email" class="input__label">Email </label>
+                                                <img src="../assets/imgs_power/marketing-de-email.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="inputs_login_direita">
+                                        <div class="field">
+                                            <div class="input">
+                                                <input class="input__field" id="input_sobrenome" type="text" required />
+                                                <label for="password" class="input__label">Sobrenome</label>
+                                                <img src="../assets/imgs_power/passe-de-imprensa.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <div class="input">
+                                                <input class="input__field" id="input_senha_rep" type="password"
+                                                    required />
+                                                <label for="input_senha" class="input__label">Senha</label>
+                                                <img src="../assets/imgs_power/senha.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+
+                                        <div class="field">
+                                            <div class="input">
+                                                <input class="input__field" id="input_confirma_senha" type="password"
+                                                    required />
+                                                <label for="input_confirma_senha" class="input__label">Confirmação
+                                                    de
+                                                    senha</label>
+                                                <img src="../assets/imgs_power/senha (1).png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field btns">
+                                    <button class="firstNext next">Próximo</button>
+                                </div>
+
+                            </div>
+
+                            <div class="page ">
+                                <div class="title" id="info_maquina">Informações da Máquina:</div>
+                                <div class="caixa_inputs" id="caixaid">
+                                    <div class="inputs_login_esquerda">
+                                        <div class="field">
+                                            <div class="input">
+                                                <input class="input__field" id="input_nome_maquina" type="text"
+                                                    required />
+                                                <label for="input_nome_maquina" class="input__label">Nome</label>
+                                                <img src="../assets/imgs_power/eu-iria.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <div class="input">
+                                                <select id="input_plano">
+                                                    <option value="">Tipo da Máquina</option>
+                                                    <option value="Essentials">Máquina Virtual</option>
+                                                    <option value="Master">Máquina Física</option>
+                                                </select>
+                                                <label for="input_complemento" class="input__label4"></label>
+                                                <img src="../assets/imgs_power/computador.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <div class="input">
+                                                <select id="input_plano">
+
+                                                    <option value="">Tipo de Sistema Operacional</option>
+                                                    <option value="">Linux</option>
+                                                    <option value="Essentials">Windows</option>
+                                                    <option value="Master">Apple</option>
+                                                </select>
+                                                <label for="input_complemento" class="input__label4"></label>
+                                                <img src="../assets/imgs_power/sistema-operacional.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="inputs_login_direita">
+                                        <div class="field">
+                                            <div class="input">
+                                                <input class="input__field" id="input_nome_maquina" type="number"
+                                                    required />
+                                                <label for="input_nome_maquina" class="input__label">Total Cpu</label>
+                                                <img src="../assets/imgs_power/cpu.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+                                        <div class="field">
+
+                                            <div class="input">
+                                                <input class="input__field2" id="input_disco" type="number" min="1"
+                                                    required />
+                                                <label for="password" class="input__label">Quantidade de
+                                                    Disco</label>
+                                                <img src="../assets/imgs_power/drive-de-disco-rigido.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                            <button id="disc1" class="btnsinfo" onclick="disco()"><img id="btnsinfo"
+                                                    src="../assets/imgs_power/checkbox.png" alt=""></button>
+                                            <div id="info_disc" class="info_disc">
+                                                <div id="disco">
+                                                    <button class="close_disc" onclick="close_disc()"><b>x</b></button>
+                                                    <div class="slider" id="disc_1"></div>
+                                                    <button id="salvar_disc">Salvar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field">
+                                            <div class="input">
+                                                <input class="input__field2" id="input_ram" type="number" min="1"
+                                                    required />
+                                                <label for="password" class="input__label">Quantidade de
+                                                    RAM</label>
+                                                <img src="../assets/ram.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                            <button class="btnsinfo" onclick="ram()"><img
+                                                    src="../assets/imgs_power/checkbox.png" alt=""></button>
+                                            <div id="info_ram" class="info_ram">
+                                                <div id="ram" class="slider-container">
+                                                    <button class="close_ram" onclick="close_ram()"><b>x</b></button>
+                                                    <div class="slider" id="slider"></div>
+                                                    <button id="salvar_ram">Salvar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <button class="prev-1 prev">Anterior</button>
+                                    <button class="submit cadastro" onclick="cadastro()">Cadastrar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="container" id="cadastrar_novo_usuario2">
+                    <button id="fechar" onclick="fechar_adicionar()"><b>x</b></button>
+                    <div class="form-outer">
+
+                        <form action="#">
+
+                            <div class="page " id="page2">
+                                <div class="title" id="info_maquina2">Informações da Máquina:</div>
+                                <div class="caixa_inputs" id="caixaid">
+                                    <div class="inputs_login_esquerda">
+                                        <div class="field" id="feild">
+                                            <div class="input">
+                                                <input class="input__field" id="input_nome_maquina" type="text"
+                                                    required />
+                                                <label for="input_nome_maquina" class="input__label">Nome</label>
+                                                <img src="../assets/imgs_power/eu-iria.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+
+                                        <div class="field" id="feild">
+                                            <div class="input">
+                                                <input class="input__field" id="input_nome_maquina" type="text"
+                                                    required />
+                                                <label for="input_nome_maquina" class="input__label">Nome do
+                                                    responsável</label>
+                                                <img src="../assets/imgs_power/cartao-de-visitas.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+
+                                        <div class="field" id="feild">
+                                            <div class="input">
+                                                <input class="input__field" id="input_nome_maquina" type="text"
+                                                    required />
+                                                <label for="input_nome_maquina" class="input__label">Email do
+                                                    responsável</label>
+                                                <img src="../assets/imgs_power/marketing-de-email.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="field" id="feild">
+                                            <div class="input">
+                                                <select id="input_plano">
+                                                    <option value="">Tipo da Máquina</option>
+                                                    <option value="Essentials">Máquina Virtual</option>
+                                                    <option value="Master">Máquina Física</option>
+                                                </select>
+                                                <label for="input_complemento" class="input__label4"></label>
+                                                <img src="../assets/imgs_power/computador.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="inputs_login_direita">
+                                        <div class="field" id="feild">
+                                            <div class="input">
+                                                <select id="input_plano">
+
+                                                    <option value="">Tipo de Sistema Operacional</option>
+                                                    <option value="">Linux</option>
+                                                    <option value="Essentials">Windows</option>
+                                                    <option value="Master">Apple</option>
+                                                </select>
+                                                <label for="input_complemento" class="input__label4"></label>
+                                                <img src="../assets/imgs_power/sistema-operacional.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+                                        <div class="field" id="feild">
+                                            <div class="input">
+                                                <input class="input__field" id="input_nome_maquina" type="number"
+                                                    required />
+                                                <label for="input_nome_maquina" class="input__label">Total de
+                                                    CPU</label>
+                                                <img src="../assets/imgs_power/cpu.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                        </div>
+                                        <div class="field" id="feild">
+
+                                            <div class="input">
+                                                <input class="input__field2" id="input_disco2" type="number" min="1"
+                                                    required />
+                                                <label for="password" class="input__label">Quantidade de
+                                                    Disco</label>
+                                                <img src="../assets/imgs_power/drive-de-disco-rigido.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                            <button class="btnsinfo" onclick="disco2()"><img id="btnsinfo"
+                                                    src="../assets/imgs_power/checkbox.png" alt=""></button>
+                                            <div id="info_disc2" class="info_disc2">
+                                                <div id="disco2" class="slider-container">
+                                                    <button class="close_disc" onclick="close_disc2()"><b>x</b></button>
+                                                    <div class="slider" id="disco2_slider"></div>
+                                                    <button id="salvar_disc">Salvar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="field" id="feild">
+                                            <div class="input">
+                                                <input class="input__field2" id="input_ram2" type="number" min="1"
+                                                    required />
+                                                <label for="password" class="input__label">Quantidade de
+                                                    RAM</label>
+                                                <img src="../assets/ram.png" alt=""
+                                                    class="material-symbols-outlined">
+                                            </div>
+                                            <button class="btnsinfo" onclick="ram2()"><img
+                                                    src="../assets/imgs_power/checkbox.png" alt=""></button>
+                                            <div id="info_ram2" class="info_ram">
+                                                <div id="ram2" class="slider-container">
+                                                    <button class="close_ram" onclick="close_ram2()"><b>x</b></button>
+                                                    <div class="slider" id="ram2_slider"></div>
+                                                    <button id="salvar_ram">Salvar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field btns" id="feild">
+                                    <button id="butao" class="submit cadastro"
+                                        onclick="adicionar_novo()">Cadastrar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="register">
+                    <div class="cadastrar_novo">
+                        <img src="../assets/imgs_power/nova-conta.png" alt="">
+                        <h1>Cadastrar novo usuario:</h1>
+                        <span>Por favor, preencha os formulários corretamente: Isso é uma forma de adicionar um novo usuário e sua máquina!</span>
+                        <button onclick="cadastrar()">Cadastrar</button>
+                    </div>
+                    <div class="cadastrar_exixtente">
+                        <img src="../assets/imgs_power/novo-cartao.png" alt="">
+                        <h1>Adicionar nova Maquina:</h1>
+                        <span>Por favor, preencha os formulários corretamente: Isso é uma forma de adicionar um novo usuário e sua máquina!</span>
+                        <button onclick="adicionar()">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="boxes">
+                <button id="message" onclick="literate()"><img src="../assets/imgs_power/message_icon.ico"
+                        alt=""></button>
+                <div class="dropdown_lit" id="lit_dropdown">
+                    <div id="main">
+                        <h2>Chat de Ajuda</h2>
+                        <div id="msg">
+                            <div id="robot">
+                                <div class="bot"></div>
+                                <h3>Agent</h3>
+                            </div>
+                        </div>
+                        <div class="input">
+                            <input type="text" id="msg_send" placeholder="New Message">
+                            <button class="send" id="reply">Mandar<i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                    <script src="../Teste_chatbot/chatbot.js"></script>
+                    <button id="close3" onclick="clickclose3()"><b>x</b></button>
+                </div>
+                </p>
+            </div>
+        </div>
+        <script src="../Teste_chatbot/chatbot.js"></script>
+
+
+
+
+</body>
+<script src="../js/cadastro.js"></script>
+
+</html>
+<script>
+
+
+
+    window.onload = init()
+
+    function cadastro() {
+        cadastrarEmpresa()
+        cadastrarColaborador()
+        cadastrarEndereco()
+    }
+
+
+</script>

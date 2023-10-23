@@ -2,35 +2,36 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets/imgs_power/power_tech_solutions_logo_semfundo.png" />
-    <link rel="stylesheet" href="css/login.css">
-    <script src="js/funcoes.js"></script>
-    <!-- <link rel="stylesheet" href="css/rodape.css"> -->
-    <!-- <link rel="stylesheet" href="css/header.css"> -->
-    <title> LOGIN</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="assets/imgs_power/power_tech_solutions_logo_semfundo.png" />
+  <link rel="stylesheet" href="css/login.css">
+  <script src="js/funcoes.js"></script>
+  <!-- <link rel="stylesheet" href="css/rodape.css"> -->
+  <!-- <link rel="stylesheet" href="css/header.css"> -->
+  <title> LOGIN</title>
 
 </head>
 
 <body>
-    <div class="header">
-        <div class="navBar" id="navbar">
-            <div class="parte1" id="part1">
-                <img src="assets/imgs_power/power_tech_solutions_preto_sem_fundo.png" alt="">
-            </div>
-            <div class="parte2" id="part2">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <!-- <li><a href="#">Feedback</a></li> -->
-                    <li><a href="login.html" class="pagina-atual">Painel de Monitorameno</a>
-                </ul>
-                </ul>
-            </div>
-        </div>
-    </div>
 
-    <!-- <div class="branco">
+  <div class="header">
+    <div class="navBar" id="navbar">
+      <div class="parte1" id="part1">
+        <img src="assets/imgs_power/power_tech_solutions_preto_sem_fundo.png" alt="">
+      </div>
+      <div class="parte2" id="part2">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <!-- <li><a href="#">Feedback</a></li> -->
+          <li><a href="login.html" class="pagina-atual">Painel de Monitorameno</a>
+        </ul>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="branco">
         <div class="log_info">
             <h1>Login</h1>
             E-mail:
@@ -41,43 +42,57 @@
             <button class="botao_entrar" onclick="entrar()">Entrar</button>
         </div>
     </div> -->
-    <!-- <div class="preto">
+  <!-- <div class="preto">
          <div class="textinho">
             <h1>Bem vindo de volta! Digite seus dados para entrar.</h1> 
             <h3>Nossa plataforma de monitoramento aguarda por você.</h3>
           </div
     </div> -->
-    <div id="div_erros_login">
-        <div class="alerta_erro">
-          <div class="card_erro" id="cardErro">
-              <span id="mensagem_erro"></span>
-          </div>
-        </div>
+  <div id="div_erros_login">
+    <div class="alerta_erro">
+      <div class="card_erro" id="cardErro">
+        <span id="mensagem_erro"></span>
       </div>
-      <div id="div_aguardar" class="loading-div">
-      </div>
-    <div class="content">
-        <div class="branco" id="white">
-            <div class="log_info" id="log">
-                <h1>Login</h1>
-                E-mail:
-                <input type="text" id="email" placeholder="email...">
-                Senha:
-                <input type="password" id="senha" placeholder="********">
-                <p>Esqueceu sua senha? <a href="">Recuperar Senha</a></p>
-                <button class="botao_entrar" onclick="entrar()">Entrar</button>
-            </div>
-        </div>
-        <div class="preto" id="black">
-          <div class="shadow">
-            <div class="textinho" id="text">
-              <img src="assets/imgs_power/power_tech_solutions_preto_sem_fundo(1).png" alt="">
-                <h1>Bem vindo de volta <span>Usuário</span>!</h1> 
-                <h3>Nossa plataforma de monitoramento aguarda por você. </h3>
-              </div>
-            </div>
-        </div>
     </div>
+  </div>
+  <div id="div_aguardar" class="loading-div">
+  </div>
+  <div class="content">
+    <div class="your-container">
+      <svg class="css-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="wave-pattern" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+        </defs>
+        <g class="animated-waves">
+          <use href="#wave-pattern" x="10" y="12" fill="rgba(253, 213, 12,0.95)"></use>
+          <use href="#wave-pattern" x="10" y="12" fill="rgba(253, 213, 12,0.7)"></use>
+          <use href="#wave-pattern" x="10" y="12" fill="rgba(253, 213, 12,0.5)"></use>
+          <use href="#wave-pattern" x="10" y="12" fill="rgba(253, 213, 12,0.3)"></use>
+        </g>
+      </svg>
+    </div>
+    <div class="branco" id="white">
+      <div class="log_info" id="log">
+        <h1>Login</h1>
+        E-mail:
+        <input type="text" id="email" placeholder="email...">
+        Senha:
+        <input type="password" id="senha" placeholder="********">
+        <p>Esqueceu sua senha? <a href="">Recuperar Senha</a></p>
+        <button class="botao_entrar" onclick="entrar()">Entrar</button>
+      </div>
+    </div>
+    <div class="preto" id="black">
+      <div class="shadow">
+        <div class="textinho" id="text">
+          <img src="assets/imgs_power/energia-da-agua.png" alt="">
+          <h1>Bem vindo de volta <span>Usuário</span>!</h1>
+          <h3>Nossa plataforma de monitoramento aguarda por você. </h3>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 
@@ -85,79 +100,79 @@
 
 <script>
 
-    function entrar() {
+  function entrar() {
 
-        aguardar();
-    
-        var emailVar = email.value;
-        var senhaVar = senha.value;
-    
-        if (emailVar == "" || senhaVar == "") {
-          cardErro.style.display = "block"
-          mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-          finalizarAguardar();
-          return false;
-        }else if (senhaVar.lenght < 8 || senhaVar.lenght > 8){
-            cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "Senha precisa ter 8 digitos"
-            finalizarAguardar();
-            return false;
-        }
-    
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
-    
-        fetch("/usuarios/autenticar", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            emailServer: emailVar,
-            senhaServer: senhaVar,
-          })
-        }).then(function (resposta) {
-          console.log("ESTOU NO THEN DO entrar()!")
-    
-          console.log(resposta);
-    
-          if (resposta) {
-            console.log(resposta);
-    
-            resposta.json().then(json => {
-              console.log(json);
-              console.log(JSON.stringify(json));
-              
-              sessionStorage.setItem("ID_Usuario", json.IDUsuario);
-              sessionStorage.setItem("Nome_Usuario", json.Nome);
-              sessionStorage.setItem("Email_Usuario", json.Email);
-              sessionStorage.setItem("FKUnidade", json.FKUnidade);
-              sessionStorage.setItem("FKNivel_acesso", json.FKNivel_acesso);
-              
-              setTimeout(function () {
-                window.location.href = "./dashboard/dash_pt/cards.html";
-            }, 1000); // apenas para exibir o loading
-    
-          });
-    
-          } else {
-    
-            console.log("Houve um erro ao tentar realizar o login!");
-    
-            resposta.text().then(texto => {
-              console.error(texto);
-              finalizarAguardar(texto);
-            });
-          }
-    
-        }).catch(function (erro) {
-          console.log(erro);
-        })
-    
-        return false;
+    aguardar();
+
+    var emailVar = email.value;
+    var senhaVar = senha.value;
+
+    if (emailVar == "" || senhaVar == "") {
+      cardErro.style.display = "block"
+      mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+      finalizarAguardar();
+      return false;
+    } else if (senhaVar.lenght < 8 || senhaVar.lenght > 8) {
+      cardErro.style.display = "block"
+      mensagem_erro.innerHTML = "Senha precisa ter 8 digitos"
+      finalizarAguardar();
+      return false;
+    }
+
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
+
+    fetch("/usuarios/autenticar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+      })
+    }).then(function (resposta) {
+      console.log("ESTOU NO THEN DO entrar()!")
+
+      console.log(resposta);
+
+      if (resposta) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          sessionStorage.setItem("ID_Usuario", json.IDUsuario);
+          sessionStorage.setItem("Nome_Usuario", json.Nome);
+          sessionStorage.setItem("Email_Usuario", json.Email);
+          sessionStorage.setItem("FKUnidade", json.FKUnidade);
+          sessionStorage.setItem("FKNivel_acesso", json.FKNivel_acesso);
+
+          setTimeout(function () {
+            window.location.href = "./dashboard/dash_pt/cards.html";
+          }, 1000); // apenas para exibir o loading
+
+        });
+
+      } else {
+
+        console.log("Houve um erro ao tentar realizar o login!");
+
+        resposta.text().then(texto => {
+          console.error(texto);
+          finalizarAguardar(texto);
+        });
       }
 
-      //function sumirMensagem() {
-      //  cardErro.style.display = "none";
-      //}
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+
+    return false;
+  }
+
+  //function sumirMensagem() {
+  //  cardErro.style.display = "none";
+  //}
 </script>
