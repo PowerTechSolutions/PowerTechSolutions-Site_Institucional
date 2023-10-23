@@ -2,6 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Lora:wght@500&family=Montserrat&family=Red+Hat+Display&display=swap');
 @media only screen and (max-width: 768px) {
+    body{
+        background: linear-gradient(to top, rgb(253, 213, 12) 0%, rgb(253, 213, 12) 48%, white 24%, white 100%);
+    }
+
+    .your-container{
+        margin-top: 16vh;
+    }
+    .animated-waves {
+        margin-bottom: 20px;
+    }
     #navbar {
         display: flex;
         justify-content: space-between;
@@ -30,7 +40,7 @@
         transform: translateX(-39%);
         width: 71%;
         height: 68vh;
-        margin-top: 66%;
+        margin-top: 5%;
         /* margin-bottom: 23%; */
         background-color: rgb(244, 240, 240);
         margin-left: 2%;
@@ -243,7 +253,7 @@ a:hover {
 }
 
 .preto img {
-    width: 173px;
+    width: 119px;
 }
 
 .textinho {
