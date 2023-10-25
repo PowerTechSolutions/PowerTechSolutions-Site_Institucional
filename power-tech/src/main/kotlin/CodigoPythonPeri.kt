@@ -37,7 +37,7 @@ try:
         db_info = mydb.get_server_info()
         mycursor = mydb.cursor()
         sql_querryDISCO = 'INSERT INTO Monitoramento_RAW VALUES (NULL, CURRENT_TIMESTAMP(), %s,$componenteDISCO)'
-        valDISCO = [round(disco,2)]
+        valDISCO = [round(disco.percent,2)]
         mycursor.execute(sql_querryDISCO, valDISCO)
         mydb.commit()
 finally:

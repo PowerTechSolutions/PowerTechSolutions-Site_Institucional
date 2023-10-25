@@ -13,37 +13,29 @@ class Monitoramento_RAWRepositorio {
         jdbcTemplate = Conexao.jdbcTemplate!!
     }
 
-    fun verificarDisco(FKMaquina:Int,componente:String):Boolean{
-        var data = jdbcTemplate.queryForObject("""
-            SELECT 
-	            Data_Hora_Captura 
-                FROM 
-		            Monitoramento_RAW JOIN Componentes_monitorados 
-		                ON FKComponente_Monitorado = IDComponente_monitorado 
-			                JOIN Componentes_cadastrados 
-				                ON FKComponente_cadastrado = IDComponente_cadastrado
-					                JOIN Maquinas 
-						                ON FKMaquina = IDMaquina
-							                WHERE FKMaquina = $FKMaquina
-								                AND Componentes_cadastrados.Apelido = "$componente"
-                                                    LIMIT 1;
-        """, BeanPropertyRowMapper(Monitoramento_RAW::class.java))
+    fun buscarDataRede(FKMaquina: Int):LocalDateTime{
 
-        return data != null
+        var data:String = jdbcTemplate.queryForObject(
+            """
+            SELECT Data_Hora_Conexao FROM Redes_conectadas WHERE FKMaquina = 1;
+            """, BeanPropertyRowMapper(String::class.java))
+
+        var dataTrasform = LocalDateTime.parse(data, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
+        return dataTrasform
 
     }
 
-    fun verificarRede(FKMaquina:Int):Boolean{
+    fun buscarDataJanela(FKMaquina: Int):LocalDateTime{
 
-        var data = jdbcTemplate.queryForObject("""
-            SELECT 
-	            Data_Hora_Conexao 
-                FROM 
-		            Redes_conectadas WHERE FKMaquina = $FKMaquina
-                        LIMIT 1;
-        """, BeanPropertyRowMapper(RedesCapturadas::class.java))
+        var data:String = jdbcTemplate.queryForObject(
+            """
+            SELECT Data_Hora_Conexao FROM Janelas_Abertas WHERE FKMaquina = 1;
+            """, BeanPropertyRowMapper(String::class.java))
 
-        return data != null
+        var dataTrasform = LocalDateTime.parse(data, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
+        return dataTrasform
 
     }
 

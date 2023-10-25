@@ -248,7 +248,3 @@ INSERT INTO Componentes_monitorados VALUES
 (NULL,4,3),
 (NULL,5,3),
 (NULL,6,3);
-
-CREATE VIEW Teste AS SELECT * FROM Componentes_monitorados;
-
-SELECT * FROM Teste;	
