@@ -161,7 +161,8 @@
                             </ul>
                         </details>
                     </div>
-                    <canvas id="myChart"></canvas>
+                    <canvas id="myChart_RAM" style="display: none;"></canvas>
+                    <canvas id="myChart_CPU" style="display: none;"></canvas>
                 </div>
             </div>
             <div class="boxes">
@@ -187,6 +188,7 @@
             </div>
         </div>
         <script src="../../Teste_chatbot/chatbot.js"></script>
+
 </body>
 
 <script>
@@ -199,6 +201,16 @@
 
     function geral() {
         window.location.href = "cards.html"
+    }
+
+    function fazerbusca(ID_USUARIO){
+        buscarDisco(ID_USUARIO)
+        buscarRede(ID_USUARIO)
+        obterDadosGrafico_CPU(ID_USUARIO)
+        obterDadosGrafico_RAM(ID_USUARIO)
+    }
+
+    function buscarDiscos(ID_USUARIO){
     }
 
     function atualizarFeed_usuarios() {
@@ -238,13 +250,14 @@
                         // criando e manipulando elementos do HTML via JavaScript
 
                         var usuario = document.createElement("div");
+                        usuario.onchange = "fazerbusca(publicacao.IDUsuario)";
                         usuario.className = "infoemp";
 
                         var id = document.createElement("p");
                         id.innerHTML = publicacao.IDUsuario;
                         usuario.appendChild(id);
 
-                        var nome = document.createElement("p");
+                        var nome = document.createElement("a");
                         nome.innerHTML = publicacao.Nome;
                         usuario.appendChild(nome);
 
@@ -277,63 +290,6 @@
         return false;
     }
 
-    // temp_aquario_1.innerHTML = sessionStorage
-    function updateFeed() {
-        //aguardar();
-
-        fetch(`/personagens/pontos/${idUsuario}`)
-            .then(resposta => {
-                if (resposta.ok) {
-
-                    if (resposta.status == 204) {
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
-
-                    resposta.json().then(function (resposta) {
-                        var answer = JSON.stringify(resposta[0][`sum(qtdAcertos)`])
-                        console.log("Dados recebidos: ", JSON.stringify(resposta[0]["sum(qtdAcertos)"]));
-                        if (answer == 'null') {
-                            points.innerHTML = `Você têm 0 pontos`;
-
-                        } else {
-                            points.innerHTML = `Você têm ` + (resposta[0]["sum(qtdAcertos)"]) + ` pontos`;
-                        }
-                    });
-                } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-                // finalizarAguardar();
-            });
-    }
-    function updateNivel() {
-        //aguardar();
-
-        fetch(`/usuarios/nivelamento/${idUsuario}`)
-            .then(resposta => {
-                if (resposta.ok) {
-
-                    if (resposta.status == 204) {
-                        mensagem.innerHTML = "Nenhum resultado encontrado."
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
-
-                    resposta.json().then(function (resposta) {
-                        console.log("Dados recebidos: ", JSON.stringify(resposta[0]["nivel"]));
-                        level.innerHTML = `Você está no nivel ` + resposta[0]["nivel"];
-                    });
-                } else {
-                    throw ('Houve um erro na API!');
-                }
-            }).catch(function (resposta) {
-                console.error(resposta);
-                // finalizarAguardar();
-            });
-    }
-
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
     // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
@@ -345,7 +301,7 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico(idUsuario) {
+    function obterDadosGrafico_CPU(idUsuario) {
 
         // alterarTitulo(idUsuario)
 
@@ -353,13 +309,13 @@
         //     clearTimeout(proximaAtualizacao);
         // }
 
-        fetch(`/medidas/ultimas/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/medidas/ultimas_CPU/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    plotarGrafico(resposta, idUsuario);
+                    plotarGrafico_CPU(resposta, idUsuario);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -373,7 +329,7 @@
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, idUsuario) {
+    function plotarGrafico_CPU(resposta, idUsuario) {
 
         // console.log('iniciando plotagem do gráfico...');
 
@@ -425,11 +381,11 @@
 
         // Adicionando gráfico criado em div na tela
         let myChartP = new Chart(
-            document.getElementById(`myChart`),
+            document.getElementById(`myChart_CPU`),
             config
         );
 
-        // setTimeout(() => atualizarGrafico(idUsuario, dados, myChartP), 2000);
+        setTimeout(() => atualizarGrafico_CPU(idUsuario, dados, myChartP), 2000);
     }
 
 
@@ -438,11 +394,11 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(idUsuario, dados, myChartP) {
+    function atualizarGrafico_CPU(idUsuario, dados, myChartP) {
 
 
 
-        fetch(`/medidas/tempo-real/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/medidas/tempo-real_CPU/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (novoRegistro) {
 
@@ -460,12 +416,12 @@
                     // }
 
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idUsuario, dados, myChartP), 2000);
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico_CPU(idUsuario, dados, myChartP), 2000);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idUsuario, dados, myChartP), 2000);
+                proximaAtualizacao = setTimeout(() => atualizarGrafico_CPU(idUsuario, dados, myChartP), 2000);
             }
         })
             .catch(function (error) {

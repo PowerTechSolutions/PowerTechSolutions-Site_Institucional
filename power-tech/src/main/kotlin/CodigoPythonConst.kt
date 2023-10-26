@@ -45,12 +45,12 @@ try:
         mycursor = mydb.cursor()
         if $CPU == 1:
             sql_querryCPU = 'INSERT INTO Monitoramento_RAW VALUES (NULL, CURRENT_TIMESTAMP(), %s,$componenteCPU)'
-            valCPU = [round(cpu,2)]
+            valCPU = [cpu]
             mycursor.execute(sql_querryCPU, valCPU)
             mydb.commit()
         if $RAM == 1:
             sql_querryRAM = 'INSERT INTO Monitoramento_RAW VALUES (NULL, CURRENT_TIMESTAMP(), %s,$componenteRAM)'
-            valRAM = [round(ram.percent,2)]
+            valRAM = [ram.percent]
             mycursor.execute(sql_querryRAM, valRAM)
             mydb.commit()
 finally:

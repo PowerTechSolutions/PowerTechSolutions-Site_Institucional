@@ -326,11 +326,11 @@ window.onload = init();
         console.log(resposta)
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
-        //for (i = 0; i < resposta.length; i++) {
-        //    var registro = resposta[i];
-        //    labels.push(registro.momento_grafico);
-        //    dados.datasets[0].data.push(registro.Alertas);
-        //}
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.Alertas);
+        }
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')

@@ -55,6 +55,7 @@ SELECT
         WHERE FKMaquina = 1;
         
 SELECT 
+	IDRegistro,
 	IDJanela,
     PIDJanelas,
     Nome_Janelas,
