@@ -126,9 +126,14 @@
                                     <div class="inputs_login_direita">
                                         <div class="field">
                                             <div class="input">
-                                                <input class="input__field" id="input_sobrenome" type="text" required />
-                                                <label for="password" class="input__label">Sobrenome</label>
-                                                <img src="../assets/imgs_power/passe-de-imprensa.png" alt=""
+                                                <select id="input_plano">
+                                                    <option value="">Nível de Acesso</option>
+                                                    <option value="1">Sem permissão</option>
+                                                    <option value="2">Vizualizador</option>
+                                                    <option value="3">Admin Geral</option>
+                                                </select>
+                                                <label for="input_complemento" class="input__label4"></label>
+                                                <img src="../assets/imgs_power/acesso-privado.png" alt=""
                                                     class="material-symbols-outlined">
                                             </div>
                                         </div>
@@ -451,12 +456,11 @@
 
     function cadastrando() {
         var nomeVar = input_nome.value;
-        var sobrenomeVar = input_sobrenome.value
         var emailVar = email_input.value;
         var cpfVar = input_cpf.value
         var senhaVar = input_senha_rep.value;
         var senhaConfirmaVar = input_confirma_senha.value
-        if (nomeVar == "" || sobrenomeVar == "" || emailVar == "" || cpfVar == "" || senhaVar == "" || senhaConfirmaVar == "" ) {
+        if (nomeVar == "" || emailVar == "" || cpfVar == "" || senhaVar == "" || senhaConfirmaVar == "" ) {
             dropdown_erro.style.display = 'block'
             // alert(`Mensagem de erro para todos os campos em branco`)
             dropdown_erro.innerHTML = `<span style="color: red;">Têm campos está em branco</span>`;
@@ -506,7 +510,7 @@
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
-                nomeServer: nomeVar + sobrenomeVar,
+                nomeServer: nomeVar,
                 cpfServer: cpfVar,
                 emailServer: emailVar,
                 senhaServer: senhaVar
