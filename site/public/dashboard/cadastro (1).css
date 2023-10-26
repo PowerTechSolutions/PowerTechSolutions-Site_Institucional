@@ -1,4 +1,26 @@
 @media only screen {
+  .dropdown_erro {
+    display: none;
+    background-color: black;
+    border: red 2px solid;
+    width: 246px;
+    z-index: 999;
+    position: absolute;
+    left: 35.5%;
+    top: 37%;
+    height: 100px;
+    text-align: center;
+  }
+  .dropdown_erro span{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 36px;
+    height: 80%;
+    font-size: 20px;
+    font-weight: bold;
+  }
   body {
     margin: 0;
     background-image: url(../assets/banner.png);
