@@ -61,9 +61,6 @@ SELECT
     Data_Hora_Conexao
     FROM Janelas_Abertas WHERE FKMaquina = 1;
     
-SELECT Data_Hora_Conexao FROM Janelas_Abertas WHERE FKMaquina = 1;
-SELECT Data_Hora_Conexao FROM Redes_conectadas WHERE FKMaquina = 1;
-        
 SELECT
 	Data_Hora_Captura 
 		FROM 

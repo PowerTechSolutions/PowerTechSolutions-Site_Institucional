@@ -33,15 +33,6 @@
 <body onload="init()">
     <div class="janela">
 
-        <div id="div_erros_login">
-            <div class="alerta_erro">
-              <div class="card_erro" id="cardErro">
-                  <span id="mensagem_erro"></span>
-              </div>
-            </div>
-          </div>
-          <div id="div_aguardar" class="loading-div">
-          </div>
         <div class="header-left dash-header">
             <div class="sepration">
                     <img class="perfil" src="power_tech_solutions_logo_semfundo.png" alt="">
@@ -335,11 +326,11 @@ window.onload = init();
         console.log(resposta)
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.Alertas);
-        }
+        //for (i = 0; i < resposta.length; i++) {
+        //    var registro = resposta[i];
+        //    labels.push(registro.momento_grafico);
+        //    dados.datasets[0].data.push(registro.Alertas);
+        //}
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')

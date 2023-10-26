@@ -143,15 +143,22 @@
           console.log(json);
           console.log(JSON.stringify(json));
 
-          sessionStorage.setItem("ID_Usuario", json.IDUsuario);
+          sessionStorage.setItem("ID_Usuario", json.IDUsuario); 
           sessionStorage.setItem("Nome_Usuario", json.Nome);
           sessionStorage.setItem("Email_Usuario", json.Email);
           sessionStorage.setItem("FKUnidade", json.FKUnidade);
-          sessionStorage.setItem("FKNivel_acesso", json.FKNivel_acesso);
+          sessionStorage.setItem("IDNivel_acesso", json.IDNivel_acesso);
+          sessionStorage.setItem("Apelido_acesso", json.Apelido);
 
-          setTimeout(function () {
-            window.location.href = "./dashboard/dash_pt/cards.html";
-          }, 1000); // apenas para exibir o loading
+          if(json.Apelido == "Eng NOC"){
+            setTimeout(function () {
+              window.location.href = "./dashboard/geralAdm.html"
+            }, 1000);
+          }else if(json.Apelido == "Gestor"){
+            setTimeout(function () {
+              window.location.href = "./dashboard/dash_pt/cards.html";
+            }, 1000); // apenas para exibir o loading
+          }
 
         });
 
