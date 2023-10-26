@@ -7,7 +7,7 @@ object Captura {
 
         var inserts = capturarede.inserirBanco(maquinaEscolhida)
 
-        println("$inserts Registros inseridos em redes")
+        println("$inserts Registro(s) inseridos em redes")
 
     }
 
@@ -18,7 +18,7 @@ object Captura {
 
         var inserts = capturajanela.inserirBanco(maquinaEscolhida)
 
-        println("$inserts Registro inseridos em janelas")
+        println("$inserts Registro(s) inseridos em janelas")
 
     }
 
@@ -29,7 +29,7 @@ object Captura {
 
         var inserts = capturausb.inserirBanco(maquinaEscolhida)
 
-        println("$inserts Registro inseridos em usbs")
+        println("$inserts Registro(s) inseridos em usbs")
 
     }
 

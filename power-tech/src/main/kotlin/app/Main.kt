@@ -122,30 +122,29 @@ open class Main {
                 if (capturaREDE == 1 || capturaJANELAS == 1){
 
                     if (verificacaoDiaria == 0){
+
                         if (capturaREDE == 1){
+
                             if (verificacaoRede){
                                 var dataRede = repositorio.buscarDataRede(maquinaEscolhida)
-                                if (dataRede.hour+8==dataAtual.hour){
-//                            captura.pegarJanelas(maquinaEscolhida)
+                                if (dataRede.dayOfMonth+1 ==dataAtual.dayOfMonth){
                                     captura.pegarRede(maquinaEscolhida)
                                 }
                             }else{
-//                        captura.pegarJanelas(maquinaEscolhida)
                                 captura.pegarRede(maquinaEscolhida)
                                 verificacaoRede = true
                             }
 
                         }
+
                         if (capturaJANELAS == 1){
                             if (verificacaoJanela){
                                 var dataJanelas = repositorio.buscarDataJanela(maquinaEscolhida)
-                                if (dataJanelas.hour+8==dataAtual.hour){
+                                if (dataJanelas.dayOfMonth+1 ==dataAtual.dayOfMonth){
                                     captura.pegarJanelas(maquinaEscolhida)
-//                            captura.pegarRede(maquinaEscolhida)
                                 }
                             }else{
                                 captura.pegarJanelas(maquinaEscolhida)
-//                      captura.pegarRede(maquinaEscolhida)
                                 verificacaoJanela = true
                             }
                         }

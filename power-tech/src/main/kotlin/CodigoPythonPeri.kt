@@ -7,7 +7,6 @@ object CodigoPythonPeri {
         val servicoCadastradorepositorio = ServicoCadastradoRepositorio()
         servicoCadastradorepositorio.iniciar()
 
-        var DISCO = 0
         var componenteDISCO = 0
 
         for (servico in servicos){
@@ -16,7 +15,6 @@ object CodigoPythonPeri {
 
             when(apelido){
                 "DISCO" -> {
-                    DISCO += 1
                     componenteDISCO = servico.IDComponente_monitorado
                 }
             }
@@ -37,7 +35,7 @@ try:
         db_info = mydb.get_server_info()
         mycursor = mydb.cursor()
         sql_querryDISCO = 'INSERT INTO Monitoramento_RAW VALUES (NULL, CURRENT_TIMESTAMP(), %s,$componenteDISCO)'
-        valDISCO = [round(disco.percent,2)]
+        valDISCO = [disco.percent]
         mycursor.execute(sql_querryDISCO, valDISCO)
         mydb.commit()
 finally:

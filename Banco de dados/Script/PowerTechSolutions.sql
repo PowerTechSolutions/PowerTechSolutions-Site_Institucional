@@ -218,10 +218,10 @@ INSERT into Usuario_Dashboard VALUES
 
 INSERT INTO Alertas VALUES
 (1,'Alerta de teste1',default,null,null,1),
-(5,'Alerta de teste2',default,null,null,1),
-(2,'Alerta de teste2',default,null,null,1),
-(9,'Alerta de teste3',default,null,null,1),
-(3,'Alerta de teste4',default,null,null,1);
+(3,'Alerta de teste2',default,null,null,1),
+(4,'Alerta de teste2',default,null,null,1),
+(5,'Alerta de teste3',default,null,null,1),
+(9,'Alerta de teste4',default,null,null,1);
 
 INSERT INTO Componentes_cadastrados values
 (null,'CPU'),
