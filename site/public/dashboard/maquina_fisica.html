@@ -20,7 +20,7 @@ scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </head>
 
-<body onload="init()">
+<body onload="">
     <!-- <div class="side_bar">
         <img id="logo" src="../assets/imgs_power/power_tech_solutions_logo_semfundo.png">
         <div class="abas">
@@ -405,8 +405,7 @@ scale=1.0">
                                 <div class="disk1">
                                     <div class="info_disk">
                                         <img class="seta direita" src="../assets/imgs_power/seta_left.png">
-                                        <span>Disco 1</span>
-                                        <span>50%</span>
+                                        <span id="discos"></span>
                                         <img class="seta direita" src="../assets/imgs_power/seta_right.png">
                                     </div>
                                     <div class="barra">
@@ -426,7 +425,7 @@ scale=1.0">
                 
             <div class="chart">
                 <div class="nav_bar_chart">
-                    <div class="nav_cpu">
+                     <!-- <div class="nav_cpu">
                         <span>Uso de CPU</span>
                         <img id="menu_cpu" onclick="troca2()" src="../assets/imgs_power/menu_alto.png">
                         <div id="menu_ram"></div>
@@ -435,7 +434,12 @@ scale=1.0">
                         <span>Outubro</span>
                         <img id="menu_mes" onclick="troca3()" src="../assets/imgs_power/menu_baixo.png">
                         <div id="meses"></div>
-                    </div>
+                    </div> -->
+                    <select class="select_graph" onchange="exibirgraph(this.value)">
+                        <option value=1 aria-checked="true">Uso de RAM</option>
+                        <option value=2>Uso de CPU</option>
+                    </select>
+                    <span id="avisoCaptura"></span>
                 </div>
                 <canvas class="my_chart"></canvas>
             </div>
@@ -472,6 +476,8 @@ scale=1.0">
     menu_user.src = '../assets/imgs_power/menu_baixo.png'
     var botao_icon2 = "../assets/imgs_power/menu_alto.png"
     var contador = 0;
+
+    window.onload = buscarDiscos(1);
 
     function troca_menu() {
         contador += 1
@@ -512,4 +518,84 @@ scale=1.0">
         //esse alert é um teste para ver se funcionou criar a function pelo script
         alert('agora o gráfico será de uso de ram ')
     }
+
+    function exibirgraph(valor){
+
+var grafico_RAM = document.getElementById("myChart_RAM")
+var grafico_CPU = document.getElementById("myChart_CPU")
+
+if(valor == 1){
+    
+    obterDadosGrafico_RAM(1)
+    
+    grafico_CPU.style.display = "none";
+    grafico_RAM.style.display = "block";
+
+}else if(valor == 2){
+    
+    obterDadosGrafico_CPU(1)
+    
+    grafico_RAM.style.display = "none";
+    grafico_CPU.style.display = "block";
+
+}
+}
+
+function buscarDiscos(FKMAQUINA){
+
+fetch(`/medidas/buscarDiscos/${FKMAQUINA}`, {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json"
+    }
+}).then(function (resposta) {
+
+    console.log("resposta: ", resposta);
+    var feed = document.getElementById("discos");
+    feed.innerHTML = "";
+
+    if (resposta.ok) {
+
+        if (resposta.status == 204) {
+                var feed = document.getElementById("discos");
+                var mensagem = document.createElement("span");
+                mensagem.innerHTML = "Nenhum resultado encontrado."
+                feed.appendChild(mensagem);
+                throw "Nenhum resultado encontrado!!";
+            }
+
+            resposta.json().then(function (resposta) {
+            console.log("Dados recebidos: ", JSON.stringify(resposta));
+            var feed = document.getElementById("discos");
+            feed.innerHTML = "";
+            for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                var publicacao = resposta[contador_usuario];
+                // criando e manipulando elementos do HTML via JavaScript
+
+                var disco = document.createElement("span");
+                disco.id = `disco${publicacao.IDMonitoramento}`;
+
+                var label = document.createElement("span");
+                label.innerHTML = `Disco ${contador_usuario+1} - `;
+                disco.appendChild(label);
+
+                var porcentagem = document.createElement("span");
+                porcentagem.id = `porcentage${publicacao.IDMonitoramento}`;
+                porcentagem.innerHTML = `${publicacao.Uso_DIsco}`;
+                disco.appendChild(porcentagem)
+
+                feed.appendChild(disco)
+
+            }
+        });
+    } else {
+        throw ("Houve um erro ao tentar realizar A pesquisa!");
+    }
+}).catch(function (resposta) {
+    console.log(`#ERRO: ${resposta}`);
+    //finalizarAguardar();
+});
+
+return false;
+}  
 </script>
