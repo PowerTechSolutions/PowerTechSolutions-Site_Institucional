@@ -23,7 +23,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </head>
 
-<body>
+<body onload="">
     <div class="janela">
         <div class="header-left dash-header">
             <div class="sepration">
@@ -92,6 +92,8 @@
                         <form action="#">
 
                             <div id="first_page" class="page slide-page">
+                                <div class="dropdown_erro">
+                                </div>
                                 <div class="title">Informações do Usuário:</div>
                                 <div class="caixa_inputs">
                                     <div class="inputs_login_esquerda">
@@ -125,9 +127,14 @@
                                     <div class="inputs_login_direita">
                                         <div class="field">
                                             <div class="input">
-                                                <input class="input__field" id="input_sobrenome" type="text" required />
-                                                <label for="password" class="input__label">Sobrenome</label>
-                                                <img src="../assets/imgs_power/passe-de-imprensa.png" alt=""
+                                                <select id="input_plano">
+                                                    <option value="">Nível de Acesso</option>
+                                                    <option value="1">Sem permissão</option>
+                                                    <option value="2">Vizualizador</option>
+                                                    <option value="3">Admin Geral</option>
+                                                </select>
+                                                <label for="input_complemento" class="input__label4"></label>
+                                                <img src="../assets/imgs_power/acesso-privado.png" alt=""
                                                     class="material-symbols-outlined">
                                             </div>
                                         </div>
@@ -155,12 +162,14 @@
                                     </div>
                                 </div>
                                 <div class="field btns">
-                                    <button class="firstNext next">Próximo</button>
+                                    <button class="firstNext next" onclick="cadastrando()">Próximo</button>
                                 </div>
 
                             </div>
 
                             <div class="page ">
+                                <div class="dropdown_erro">
+                                </div>
                                 <div class="title" id="info_maquina">Informações da Máquina:</div>
                                 <div class="caixa_inputs" id="caixaid">
                                     <div class="inputs_login_esquerda">
@@ -205,7 +214,7 @@
                                             <div class="input">
                                                 <input class="input__field" id="input_nome_maquina" type="number"
                                                     required />
-                                                <label for="input_nome_maquina" class="input__label">Total Cpu</label>
+                                                <label for="input_nome_maquina" class="input__label">Total de Cpu</label>
                                                 <img src="../assets/imgs_power/cpu.png" alt=""
                                                     class="material-symbols-outlined">
                                             </div>
@@ -267,6 +276,8 @@
                         <form action="#">
 
                             <div class="page " id="page2">
+                                <div class="dropdown_erro">
+                                </div>
                                 <div class="title" id="info_maquina2">Informações da Máquina:</div>
                                 <div class="caixa_inputs" id="caixaid">
                                     <div class="inputs_login_esquerda">
@@ -444,11 +455,93 @@
 
     window.onload = init()
 
-    function cadastro() {
-        cadastrarEmpresa()
-        cadastrarColaborador()
-        cadastrarEndereco()
+    function cadastrando() {
+        var nomeVar = input_nome.value;
+        var emailVar = email_input.value;
+        var cpfVar = input_cpf.value
+        var senhaVar = input_senha_rep.value;
+        var senhaConfirmaVar = input_confirma_senha.value
+        if (nomeVar == "" || emailVar == "" || cpfVar == "" || senhaVar == "" || senhaConfirmaVar == "" ) {
+            dropdown_erro.style.display = 'block'
+            // alert(`Mensagem de erro para todos os campos em branco`)
+            dropdown_erro.innerHTML = `<span style="color: red;">Têm campos está em branco</span>`;
+            return false;
+        }
+        else if (cpfVar < 11 || cpfVar > 11){
+            dropdown_erro.style.display = 'block'
+            // alert(`Senha Incorreta`)
+            dropdown_erro.innerHTML = `<span style="color: red;">Verifique seu cpf</span>`;
+            // mensagem_erro.innerHTML = `<span style="color: red;">Senha Incorreta</span> `;
+            return false;
+        }
+        else if (senhaConfirmaVar != senhaVar) {
+            dropdown_erro.style.display = 'block'
+            // alert(`Senha Incorreta`)
+            dropdown_erro.innerHTML = `<span style="color: red;">Senha Incorreta</span>`;
+            // mensagem_erro.innerHTML = `<span style="color: red;">Senha Incorreta</span> `;
+            return false;
+        }
+        else if (emailVar.indexOf('@') < 0 || emailVar.indexOf('.com') < 0) {
+            dropdown_erro.style.display = 'block'
+            // cardErro.style.display = "block"
+            // alert(`Email inválido`)
+            dropdown_erro.innerHTML = `<span style="color: red;">Email inválido</span>`;
+            // mensagem_erro.innerHTML = `<span style="color: red;">Email inválido</span>`;
+            return false;
+        }
+        else if (senhaVar.length < 6 || senhaVar.indexOf('@') == -1 && senhaVar.indexOf('#') == -1 && senhaVar.indexOf('!') == -1 && senhaVar.indexOf('$') == -1 && senhaVar.indexOf('%') == -1 && senhaVar.indexOf('&') == -1 && senhaVar.indexOf('*') == -1) {
+       
+            dropdown_erro.style.display = 'block'
+            
+            dropdown_erro.innerHTML = `<span style="color: red;">Senha Fraca</span>`;
+            return false;}
+        else {
+            setInterval(50000)
+        }
+       
+       
+   
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrando", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                nomeServer: nomeVar,
+                cpfServer: cpfVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                dropdown_erro.style.display = 'block'
+                dropdown_erro.innerHTML = `<span style="color: green;">Cadastro realizado com sucesso! Redirecionando para tela de Login...</span>`;
+                // cardErro.style.display = "block";
+                // alert( `Cadastro realizado com sucesso! Redirecionando para tela de Login...`)
+                // mensagem_erro.innerHTML = `<span style="color: green;">Cadastro realizado com sucesso! Redirecionando para tela de Login...</span>`;
+                // login()
+
+                setTimeout(() => {
+                    login()
+                }, "2000")
+            } else {
+                throw ("Houve um erro ao tentar realizar o cadastro!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
     }
+
+
 
 
 </script>
