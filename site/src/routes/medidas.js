@@ -31,4 +31,8 @@ router.get("/tempo-real_RAM/:FKMAQUINA", function (req,res){
     medidaController.tempo_real_RAM(req,res);
 });
 
+router.get("/contar_MF/:IDEmpresaVar", function (req,res){
+    medidaController.contar_MF(req,res);
+});
+
 module.exports = router;

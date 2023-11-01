@@ -212,6 +212,34 @@ function tempo_real_RAM(FKMAQUINA) {
     return database.executar(instrucaoSql);
 }
 
+function contar_MF(IDEmpresa) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT 
+            Count(IDMaquina) as Contagem 
+        FROM Maquinas JOIN Tipo_maquina
+            ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        JOIN Usuario_Dashboard
+            ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+        WHERE Tipo_maquina.Apelido = "FISICA"
+            AND Usuario_Dashboard.FKUnidade = ${IDEmpresa};`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     log_alertas,
@@ -220,5 +248,6 @@ module.exports = {
     ultimas_CPU,
     tempo_real_CPU,
     ultimas_RAM,
-    tempo_real_RAM
+    tempo_real_RAM,
+    contar_MF
 }

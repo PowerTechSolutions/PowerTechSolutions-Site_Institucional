@@ -20,7 +20,7 @@
     <!-- <link rel="stylesheet" type="text/css" href="geralAdm.css"> -->
 </head>
 
-<body onload="init()">
+<body>
     <div class="janela">
         <div class="header-left dash-header">
             <div class="sepration">
@@ -105,7 +105,7 @@
                             </div>
                             <div class="separador">
                                 <div class="conteudoDoQuadradoUm">
-                                    <span class="resultado">23</span>
+                                    <span id="maquina_fisica" class="resultado">23</span>
                                 </div>
                             </div>
                         </div>
@@ -319,5 +319,54 @@
     </div>
     <script src="../Teste_chatbot/chatbot.js"></script>
 </body>
+
+<script>
+
+
+
+    function atualizarFeed_MF() {
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+    
+        fetch(`/medidas/contar_MF/${IDEmpresaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+    
+            console.log("resposta: ", resposta);
+    
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                        var feed = document.getElementById("maquina_fisica");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+    
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+    
+                    var feed = document.getElementById("maquina_fisica");
+                    feed.innerHTML = resposta[0].contagem;
+
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+    
+        return false;
+    }
+
+</script>
+
+
 
 </html>
