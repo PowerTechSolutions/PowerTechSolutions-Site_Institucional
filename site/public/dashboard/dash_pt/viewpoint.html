@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ViewPoint</title>
+    <script src="funcoes.js"></script>
 
     <link rel="stylesheet" href="gestor11 copy.css">
     <link rel="stylesheet" href="stylegestor copy.css">
@@ -27,7 +28,7 @@
         rel="stylesheet">
 </head>
 
-<body onload="updateFeed(), obterDadosGrafico(sessionStorage.ID_USUARIO), updateNivel(), init()">
+<body>
     <!-- onload="validarSessao(), atualizacaoPeriodica()" -->
     <div class="janela">
 
@@ -52,25 +53,16 @@
                 <div class="crd2_sept">
                     <img src="../../assets/imgs_power/do-utilizador.png" alt="">
                     <p id="nome_usuario"></p>
-                    <!-- <div class="dropdown_selection">
-                        <select name="cars" id="log">
-                            <option value="volvo">January</option>
-                            <option value="saab">Febuary</option>
-                            <option value="mercedes">March</option>
-                            <option value="audi">April</option>
-                        </select>
-                    </div> -->
                     <details class="custom-select">
                         <ul class="list">
                             <li>
                                 <label for="item1">
-                                    Sair
+                                    <a href="../../index.html">Sair</a>
                                     <span></span>
                                 </label>
                             </li>
                         </ul>
                         <summary class="radios">
-
                         </summary>
                     </details>
                 </div>
@@ -81,8 +73,8 @@
             <div class="info_acc">
                 <div class="profile">
                     <img src="pngimg.com - businessman_PNG6566.png" alt="">
-                    <span id="nome_usuario"></span>
-                    <span id="email_usuario"></span>
+                    <span id="nome_usuario" class="informacoes"></span>
+                    <span id="email_usuario" class="informacoes"></span>
                 </div>
             </div>
             <div class="cards" id="firstpart">
@@ -122,12 +114,7 @@
                     <div id="calendar">
                         <h3>Uso de Disco</h3>
                         <div class="part_info_bar">
-                            <div class="info_bar">
-                                <span>Disco 1</span>
-                                <span id="porcentage">56%</span>
-                            </div>
-                            <div class="chart_bar">
-                                <div id="pt1"></div>
+                            <div class="info_bar" id="discos">
                             </div>
                             <div id="reminder2">
                                 <p>Lembrete ⚠️</p>
@@ -137,7 +124,7 @@
                             </div>
                             <div class="part_info_alert">
                                 <div class="alert">
-                                    <span>Verifique ID RZ17308!! Funcionário Pranjalpets!!!</span>
+                                    <span>Verifique ID 2!! Funcionário Henryque!!!</span>
                                 </div>
                             </div>
                         </div>
@@ -147,22 +134,18 @@
             <div class="cards">
                 <div class="card2">
                     <div class="crd2_sept" id="crd2_sept">
-                        <details class="custom-select" id="chartuso1">
-                            <summary class="radios" id="chartuso2">
-                                <p>Uso de RAM</p>
-                            </summary>
-                            <ul class="list">
-                                <li>
-                                    <label for="item1">
-                                        Uso de CPU
-                                        <span></span>
-                                    </label>
-                                </li>
-                            </ul>
-                        </details>
+                        
+                        <select class="select_graph" onchange="exibirgraph(this.value)">
+                            <option value=1 aria-checked="true">Uso de RAM</option>
+                            <option value=2>Uso de CPU</option>
+                        </select>
+                        <span id="avisoCaptura"></span>
                     </div>
-                    <canvas id="myChart_RAM" style="display: none;"></canvas>
-                    <canvas id="myChart_CPU" style="display: none;"></canvas>
+                    <div class="grafico">
+                        <canvas id="myChart_CPU" class="graph"></canvas>
+                        <canvas id="myChart_RAM" class="graph"></canvas>
+                    </div>
+                    
                 </div>
             </div>
             <div class="boxes">
@@ -193,241 +176,49 @@
 
 <script>
 
-    nome_usuario.innerHTML = "Nome: " + sessionStorage.Nome_Usuario;
-    email_usuario.innerHTML = "Email: " + sessionStorage.Email_Usuario;
+    //nome_usuario.innerHTML = `Teste`;
+    nome_usuario.innerHTML = "Teste";
+    email_usuario.innerHTML = sessionStorage.Email_Usuario;
     var idUsuario = sessionStorage.ID_USUARIO;
     window.onload = atualizarFeed_usuarios()
+    window.onload = buscarDiscos(1);
+    window.onload = exibirgraph(1);
 
-    function geral() {
-        window.location.href = "cards.html"
-    }
-
-    function fazerbusca(ID_USUARIO){
-        buscarDisco(ID_USUARIO)
-        buscarRede(ID_USUARIO)
-        obterDadosGrafico_CPU(ID_USUARIO)
-        obterDadosGrafico_RAM(ID_USUARIO)
-    }
-
-    function buscarDiscos(ID_USUARIO){
-    }
-
-    function atualizarFeed_usuarios() {
-
-        var IDEmpresaVar = sessionStorage.FKUnidade;
-
-        fetch("/usuarios/listar_usuarios", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                idEmpServer: IDEmpresaVar,
-            })
-        }).then(function (resposta) {
-
-            console.log("resposta: ", resposta);
-
-            if (resposta.ok) {
-
-                if (resposta.status == 204) {
-                        var feed = document.getElementById("arrangement");
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Nenhum resultado encontrado."
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
-
-                    resposta.json().then(function (resposta) {
-                    console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                    var feed = document.getElementById("arrangement");
-                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
-                        var publicacao = resposta[contador_usuario];
-                        // criando e manipulando elementos do HTML via JavaScript
-
-                        var usuario = document.createElement("div");
-                        usuario.onchange = "fazerbusca(publicacao.IDUsuario)";
-                        usuario.className = "infoemp";
-
-                        var id = document.createElement("p");
-                        id.innerHTML = publicacao.IDUsuario;
-                        usuario.appendChild(id);
-
-                        var nome = document.createElement("a");
-                        nome.innerHTML = publicacao.Nome;
-                        usuario.appendChild(nome);
-
-                        var data = new Date();
-                        var dia = String(data.getDate()).padStart(2, '0');
-                        var mes = String(data.getMonth() + 1).padStart(2, '0');
-                        var ano = data.getFullYear();
-                        var dataAtual = dia + '/' + mes + '/' + ano;
-
-                        var data = document.createElement("p");
-                        data.innerHTML = dataAtual;
-                        usuario.appendChild(data);
-
-                        var situacao = document.createElement("p");
-                        situacao.innerHTML = "Normal";
-                        usuario.appendChild(situacao);
-
-                        feed.appendChild(usuario);
-
-                    }
-                });
-            } else {
-                throw ("Houve um erro ao tentar realizar A pesquisa!");
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
-        });
-
-        return false;
-    }
-
-    // O gráfico é construído com três funções:
-    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
-    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
-    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
-
-    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
-    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
-    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico_CPU(idUsuario) {
-
-        // alterarTitulo(idUsuario)
-
-        // if (proximaAtualizacao != undefined) {
-        //     clearTimeout(proximaAtualizacao);
-        // }
-
-        fetch(`/medidas/ultimas_CPU/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
-
-                    plotarGrafico_CPU(resposta, idUsuario);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-    }
-
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico_CPU(resposta, idUsuario) {
-
-        // console.log('iniciando plotagem do gráfico...');
-
-        // Criando estrutura para plotar gráfico - labels
-        let labels = [];
-        for (var counter = 0; counter < resposta.length; counter++) {
-            labels.push("Tentativa  " + (counter + 1))
-        } counter = 0;
-        // Criando estrutura para plotar gráfico - dados
-        let dados = {
-            labels: labels,
-            datasets: [{
-                label: `Acertos`,
-                data: [],
-                fill: false,
-                backgroundColor: 'goldenrod',
-                borderColor: 'rgb(134, 133, 133)',
-                tension: 0.1
-            }]
-        };
-
-        console.log('----------------------------------------------')
-        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-        console.log(resposta)
-        // var respond = 0;
-        // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            // respond++
-            console.log(`DADOS DO REGISTRO ` + registro.idQuiz)
-            // labels.push(registro.idQuiz);
-            dados.datasets[0].data.push(registro.qtdAcertos);
-            // dados.datasets[1].data.push(registro.temperatura);
-        }
-
-        // console.log('----------------------------------------------')
-        // console.log('O gráfico será plotado com os respectivos valores:')
-        // console.log('Labels:')
-        // console.log(labels)
-        // console.log('Dados:')
-        // console.log(dados.datasets)
-        // console.log('----------------------------------------------')
-
-        // Criando estrutura para plotar gráfico - config
-        const config = {
-            type: 'line',
-            data: dados,
-        };
-
-        // Adicionando gráfico criado em div na tela
-        let myChartP = new Chart(
-            document.getElementById(`myChart_CPU`),
-            config
-        );
-
-        setTimeout(() => atualizarGrafico_CPU(idUsuario, dados, myChartP), 2000);
-    }
-
-
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas, 
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico_CPU(idUsuario, dados, myChartP) {
-
-
-
-        fetch(`/medidas/tempo-real_CPU/${idUsuario}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-
-                    // tirando e colocando valores no gráfico
-                    dados.labels.shift(); // apagar o primeiro
-                    dados.labels.push(novoRegistro[0].idQuiz); // incluir um novo momento
-
-                    dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                    dados.datasets[0].data.push(novoRegistro[0].qtdAcertos); // incluir uma nova medida de umidade
-
-                    // dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-                    // dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-
-                    myChartP.update();
-                    // }
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico_CPU(idUsuario, dados, myChartP), 2000);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico_CPU(idUsuario, dados, myChartP), 2000);
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
-
-    }
 </script>
+
+<style>
+
+    .graph{
+        width: 100%;
+        height: auto;
+    }
+    
+    .select_graph{
+        margin-left: 4%;
+        margin-top: 4%;
+        width: 10%;
+        height: 30%;
+        border-radius: 15%;
+    }
+
+    .grafico{
+        width: 97.5%;
+        height: 80%;
+        margin-top: 0;
+        margin-bottom: 5%;
+    }
+
+    .informacoes{
+        width: 20%;
+        height: auto;
+        color: white;
+    }
+
+    .profile{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
 
 </html>

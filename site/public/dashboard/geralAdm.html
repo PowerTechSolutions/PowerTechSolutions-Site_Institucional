@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="../css/dropdown.css">
     <link rel="stylesheet" href="../css/chat.css">
     <script src="../js/chat.js"></script>
+
+    <script src="../js/direcoes.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -18,208 +21,6 @@
 </head>
 
 <body onload="init()">
-    <!-- <div class="geral">
-
-        <div class="barra">
-            <div class="logo">
-                <img src="../assets/imgs_power/logo_power.png" alt="logo powertech">
-            </div>
-            <ul>
-                <li class="marcado"><img src="../assets/imgs_power/bar.png"> Geral </li>
-                <li><img src="../assets/imgs_power/elemento.png"> MFs </li>
-                <li><img src="../assets/imgs_power/wallet.png"> VMs </li>
-                <li><img src="../assets/imgs_power/add_white.png"> Adicionar permissão </li>
-            </ul>
-            <img src="../assets/imgs_power/Line 1.png" alt="linha">
-            <ul>
-                <li><img src="../assets/imgs_power/help.png"> Help Center </li>
-            </ul>
-            <div class="parte2">
-                <div class="perfil_usuario">
-                    <img class="foto" src="../assets/imgs_power/perfil.png">
-                    <span> Allan Hanz </span>
-                    <details class="custom-select">
-                        <ul class="list">
-                            <li>
-                                <label for="item1">
-                                    Log out
-                                    <span></span>
-                                </label>
-                            </li>
-                        </ul>
-                        <summary class="radios">
-                        </summary>
-                    </details>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <div class="flexExterno">
-                <div class="espacoEsquerdo">
-                    <div class="flexInterno">
-                        <div class="quadradoUm">
-                            <div>
-                                <h1>Máquinas Fisicas</h1>
-                            </div>
-                            <div class="separador">
-                                <div class="sepration_prt1">
-                                    <img src="dash_pt/image 6.png" alt="">
-                                    <p>Internet</p>
-                                </div>
-                                <div class="sepration_prt2">
-                                    <p>Status</p>
-                                    <p id="status_wifi">Safe</p>
-                                </div>
-                                ;;;; <div class="conteudoDoQuadradoUm">
-                                <img src="dash_pt/image 6.png" alt="">
-                                <div>Internet</div>
-                            </div>
-                            <div class="conteudoDoQuadradoUm">
-                                <div class="status">Status</div>
-                                <div class="resultado_status">Safe</div>
-                            </div> ;;;
-                            </div>
-                        </div>
-
-                        <div class="quadradoDois">
-                            <div>
-                                <h1 class="titulo">MF's <br> Ativas:</h1>
-                            </div>
-                            <div class="separador">
-                                <div class="conteudoDoQuadradoUm">
-                                    <span class="resultado">23</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="quadradoDois">
-                            <div>
-                                <h1 class="titulo">MF's <br> Inativas:</h1>
-                            </div>
-                            <div class="separador">
-                                <div class="conteudoDoQuadradoUm">
-                                    <span class="resultado">23</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="quadradoTres">
-                        <div id="card_employee">
-                            <h2>Máquina Fisica Status</h2>
-                            <div class="title">
-                                <h3>ID</h3>
-                                <h3>Nome</h3>
-                                <h3>Date</h3>
-                                <h3>Status</h3>
-                            </div>
-                            <div class="arrangement">
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Danger</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="espacoDireito">
-                    <div class="flexInterno">
-                        <div class="quadradoUm">
-                            <div>
-                                <h1>Máquinas Virtuais</h1>
-                            </div>
-                            <div class="separador">
-                                <div class="sepration_prt1">
-                                    <img src="dash_pt/image 6.png" alt="">
-                                    <p>Internet</p>
-                                </div>
-                                <div class="sepration_prt2">
-                                    <p>Status</p>
-                                    <p id="status_wifi">Safe</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="quadradoDois">
-                            <div>
-                                <h1 class="titulo">MV's <br> Ativas:</h1>
-                            </div>
-                            <div class="separador">
-                                <div class="conteudoDoQuadradoUm">
-                                    <span class="resultado">23</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="quadradoDois">
-                            <div>
-                                <h1 class="titulo">MV's <br> Inativas:</h1>
-                            </div>
-                            <div class="separador">
-                                <div class="conteudoDoQuadradoUm">
-                                    <span class="resultado">23</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="quadradoTres">
-                        <h2>Máquina Virtual Status</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="grafico">
-                <h2>Alertas em Máquinas Fisicas</h2>
-            </div>
-            <div class="grafico">
-                <h2>Alertas em Máquinas Virtuais</h2>
-            </div>
-        </div>
-    </div> -->
     <div class="janela">
         <div class="header-left dash-header">
             <div class="sepration">
@@ -229,21 +30,21 @@
                     <p>Geral</p>
                 </button>
 
-                <button onclick="viewpoint()"><img src="dash_pt/element-3.png" id="fst" alt=""> <img id="send"
+                <button onclick="MF()"><img src="dash_pt/element-3.png" id="fst" alt=""> <img id="send"
                         src="dash_pt/element-3 (1).png" alt="">
                     <p>MFs</p>
                 </button>
 
-                <button onclick="viewpoint()"><img src="dash_pt/vms.png.png" id="fst" alt=""> <img id="send"
+                <button onclick="MV()"><img src="dash_pt/vms.png.png" id="fst" alt=""> <img id="send"
                         src="dash_pt/icon13.png" alt="">
                     <p>VMs</p>
                 </button>
 
-                <button onclick="viewpoint()"><img src="dash_pt/perm.png.png" id="fst" alt=""> <img id="send"
+                <button onclick="permi()"><img src="dash_pt/perm.png.png" id="fst" alt=""> <img id="send"
                         src="dash_pt/pessoa.png" alt="">
                     <p>Adicionar permissões</p>
                 </button>
-                <button onclick="viewpoint()" id="frts"><img src="../assets/imgs_power/adicionar-usuario (1).png"
+                <button onclick="user()" id="frts"><img src="../assets/imgs_power/adicionar-usuario (1).png"
                     id="fst" alt=""> <img id="send" src="../assets/imgs_power/adicionar-usuario.png" alt="">
                 <p>Adicionar usuário</p>
             </button>
@@ -521,3 +322,9 @@
 </body>
 
 </html>
+
+<script>
+
+    
+
+</script>

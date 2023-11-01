@@ -67,22 +67,20 @@ CREATE TABLE IF NOT EXISTS Usuario_Dashboard(
 		CONSTRAINT PKUsuario_Nivel_acesso PRIMARY KEY (IDUsuario,FKNivel_acesso)
 );
 
-CREATE TABLE IF NOT EXISTS Feedbacks(
-	IDFeedback INT PRIMARY KEY AUTO_INCREMENT,
-    Feedbacks VARCHAR(250),
-    Estrelas INT,
-		CHECK (Estrelas < 5 AND Estrelas > 0),
-	FKUsuario INT,
-		CONSTRAINT FKUsuario_Feedback FOREIGN KEY (FKUsuario)
-			REFERENCES Usuario_Dashboard(IDUsuario)
+CREATE TABLE IF NOT EXISTS Tipo_maquina(
+	IDTipo INT PRIMARY KEY AUTO_INCREMENT,
+    Apelido VARCHAR(80)
 );
 
 CREATE TABLE IF NOT EXISTS Maquinas(
 	IDMaquina INT PRIMARY KEY AUTO_INCREMENT,
     Apelido VARCHAR(100),
     FKFuncionario INT,
-		CONSTRAINT FKFuncionario_maquina_fisica FOREIGN KEY (FKFuncionario)
-			REFERENCES Usuario_Dashboard(IDUsuario)
+		CONSTRAINT FKFuncionario_maquina FOREIGN KEY (FKFuncionario)
+			REFERENCES Usuario_Dashboard(IDUsuario),
+	FKTipo_maquina INT,
+		CONSTRAINT FKTipo_maquina FOREIGN KEY (FKTipo_maquina)
+			REFERENCES Tipo_maquina(IDTipo)
 );
 
 CREATE TABLE IF NOT EXISTS Redes_conectadas(
@@ -114,7 +112,7 @@ CREATE TABLE IF NOT EXISTS Dispositivos_USB(
 			REFERENCES Maquinas(IDMaquina)
 );
 
-CREATE TABLE IF NOT EXISTS Tipo_maquina(
+CREATE TABLE IF NOT EXISTS Tipo_componente(
 	IDTipo INT PRIMARY KEY AUTO_INCREMENT,
     Apelido VARCHAR(80)
 );
@@ -124,7 +122,10 @@ CREATE TABLE IF NOT EXISTS Componentes_maquina(
     Apelido VARCHAR(100),
     FKMaquina INT,
 		CONSTRAINT FKMaquina_Componente FOREIGN KEY (FKMaquina)
-			REFERENCES Maquinas(IDMaquina)
+			REFERENCES Maquinas(IDMaquina),
+	FKTipo_componente INT,
+		CONSTRAINT FKTipo_Componente FOREIGN KEY (FKTipo_componente)
+			REFERENCES Tipo_componente(IDTipo)
 );
 
 CREATE TABLE IF NOT EXISTS Parametros_componente(
@@ -231,10 +232,17 @@ INSERT INTO Componentes_cadastrados values
 (null,'JANELAS'),
 (null,'USB');
 
+INSERT INTO Tipo_maquina VALUES
+(null,"FISICA"),
+(null,"VIRTUAL");
+
 INSERT INTO Maquinas VALUES
-(null,'teste01',1),
-(null,'teste02',1),
-(null,'teste03',1);
+(null,'teste01',1,2),
+(null,'teste02',1,1),
+(null,'teste03',1,1);
+
+INSERT INTO Componentes_maquina VALUES
+(NULL,"DISCO 1");
 
 INSERT INTO Componentes_monitorados VALUES
 (NULL,1,1),

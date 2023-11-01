@@ -2,7 +2,7 @@
 USE PowerTechSolutions;
 SELECT 
 	Data_Hora_Captura,
-    Dado_Capturado AS "Uso_CPU",
+    Dado_Capturado AS Uso_CPU,
     Componentes_cadastrados.Apelido
     FROM 
 		Monitoramento_RAW JOIN Componentes_monitorados 
@@ -12,8 +12,10 @@ SELECT
 					JOIN Maquinas 
 						ON FKMaquina = IDMaquina
 							WHERE FKMaquina = 1
-								AND Componentes_cadastrados.Apelido = "CPU";
-                                
+								AND Componentes_cadastrados.Apelido = "CPU" 
+									ORDER BY Monitoramento_RAW.IDMonitoramento DESC 
+                                    LIMIT 1;
+
 SELECT 
 	Data_Hora_Captura,
     Dado_Capturado AS "Uso_RAM",
@@ -29,18 +31,21 @@ SELECT
 								AND Componentes_cadastrados.Apelido = "RAM";
                                 
 SELECT 
+	Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
 	Data_Hora_Captura,
     Dado_Capturado AS "Uso_DIsco",
     Componentes_cadastrados.Apelido 
     FROM 
 		Monitoramento_RAW JOIN Componentes_monitorados 
 		ON FKComponente_Monitorado = IDComponente_monitorado 
-			JOIN Componentes_cadastrados 
-				ON FKComponente_cadastrado = IDComponente_cadastrado
-					JOIN Maquinas 
-						ON FKMaquina = IDMaquina
-							WHERE FKMaquina = 1
-								AND Componentes_cadastrados.Apelido = "DISCO";
+		JOIN Componentes_cadastrados 
+		ON FKComponente_cadastrado = IDComponente_cadastrado
+		JOIN Maquinas 
+		ON FKMaquina = IDMaquina
+		WHERE FKMaquina = 1
+		AND Componentes_cadastrados.Apelido = "DISCO"
+		ORDER BY Monitoramento_RAW.IDMonitoramento DESC
+		LIMIT 1;
 
 SELECT 
 	Nome_Dispositivo,
