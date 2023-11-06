@@ -79,3 +79,11 @@ SELECT
 									WHERE FKMaquina = 1
 										AND Componentes_cadastrados.Apelido = "DISCO"
 											LIMIT 1;
+                                            
+SELECT Count(IDMaquina) as Contagem 
+	FROM Maquinas JOIN Tipo_maquina
+		ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+	JOIN Usuario_Dashboard
+		ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+    WHERE Tipo_maquina.Apelido = "FISICA"
+		AND Usuario_Dashboard.FKUnidade = 1;

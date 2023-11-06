@@ -66,7 +66,7 @@ function buscarDiscos(FKMAQUINA) {
 		        WHERE FKMaquina = ${FKMAQUINA}
 		        AND Componentes_cadastrados.Apelido = "DISCO"
 		        ORDER BY Monitoramento_RAW.IDMonitoramento DESC
-                LIMIT 2`;
+                LIMIT 1`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
