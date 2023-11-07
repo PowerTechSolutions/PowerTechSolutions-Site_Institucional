@@ -1,0 +1,158 @@
+body{
+    background-color: black;
+    margin: 0%;
+}
+
+.dash{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.navbar_boot{
+    display: flex;
+    flex-direction: row;
+    width: 99%;
+    height: 58px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar_boot span{
+    color: white;
+    font-family: 'Poppins';
+}
+
+#email{
+    color: rgb(119, 119, 119);
+    font-size: 13px;
+}
+
+.information_user{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.information_user img{
+    width: 80px;
+    height: 50px;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 180px;
+}
+
+.circle_back img{
+    width: 64px;
+    height: 42px;
+}
+
+.circle_back button{
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    display: flex;
+    width: 50px;
+    height: 50px;
+    margin-left: 13px;
+}
+
+.upper_part{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 266px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.info_machine{
+    background-color: #1D1D20;
+    display: flex;
+    flex-direction: row;
+    width: 32%;
+    height: 95%;
+    border-radius: 15px;
+}
+
+.info_machine{
+    background-color: #1D1D20;
+    display: flex;
+    flex-direction: row;
+    width: 32%;
+    height: 95%;
+    border-radius: 15px;
+}
+
+.picture{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.picture img{
+    width: 68%;
+}
+
+.picture p{
+    color: white;
+    font-family: 'Poppins';
+    font-size: 20px;
+    margin-top: 0px;
+}
+
+.boxes_inside{
+    display: flex;
+    flex-direction: column;
+    width: 28%;
+    height: 95%;
+    border-radius: 15px;
+    justify-content: space-between;
+}
+
+.boxes_inside .boxes_time{
+    background-color: #1D1D20;
+    width: 100%;
+    height: 46%;
+    border-radius: 15px;
+}
+
+.down_part{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 374px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.chart{
+    background-color: #1D1D20;
+    width: 66%;
+    height: 98%;
+    border-radius: 15px
+}
+
+.taxes{
+    display: flex;
+    flex-direction: column;
+    width: 28%;
+    height: 95%;
+    border-radius: 15px;
+    justify-content: space-between;
+}
+
+.taxes .boxes_taxes{
+    background-color: #1D1D20;
+    width: 100%;
+    height: 46%;
+    border-radius: 15px;
+}
