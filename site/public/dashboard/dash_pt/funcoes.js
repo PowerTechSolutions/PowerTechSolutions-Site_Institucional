@@ -278,7 +278,7 @@ function atualizarGrafico_CPU(FKMAQUINA, dados, myChart_CPU) {
             if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
                 console.log("---------------------------------------------------------------")
                 console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i>Foi recebido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará."
                 console.log("Horário do novo dado capturado:")
                 console.log(novoRegistro[0].momento_grafico)
                 console.log("Horário do último dado capturado:")
@@ -416,7 +416,7 @@ function atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM) {
             if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
                 console.log("---------------------------------------------------------------")
                 console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi recebido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará."
                 console.log("Horário do novo dado capturado:")
                 console.log(novoRegistro[0].momento_grafico)
                 console.log("Horário do último dado capturado:")

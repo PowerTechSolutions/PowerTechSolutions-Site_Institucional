@@ -241,9 +241,6 @@ INSERT INTO Maquinas VALUES
 (null,'teste02',1,1),
 (null,'teste03',1,1);
 
-INSERT INTO Componentes_maquina VALUES
-(NULL,"DISCO 1");
-
 INSERT INTO Componentes_monitorados VALUES
 (NULL,1,1),
 (NULL,2,1),

@@ -9,6 +9,7 @@
     <!-- <link rel="stylesheet" href="../css/admin.css"> -->
     <link rel="stylesheet" href="../css/admin.css">
     <link rel="stylesheet" href="../css/chat.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/chat.js"></script>
     <script src="../js/direcoes.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -19,7 +20,7 @@
 
 </head>
 
-<body onload="init()">
+<body onload="buscarDiscos(1), exibirgraph(1)">
     <!-- <div class="header-left dash-header">
         <div class="sepration">
             <img class="perfil" src="dash_pt/power_tech_solutions_logo_semfundo.png" alt="">
@@ -211,7 +212,6 @@
                         src="dash_pt/icon13.png" alt="">
                     <p>VMs</p>
                 </button>
-
                 <button onclick="permi()"><img src="dash_pt/perm.png.png" id="fst" alt=""> <img id="send"
                         src="dash_pt/pessoa.png" alt="">
                     <p>Adicionar permissões</p>
@@ -359,7 +359,7 @@
                             <div class="part_info_bar">
                                 <div class="info_bar">
                                     <span>Uso de Disco</span>
-                                    <span id="porcentage">56%</span>
+                                    <span id="porcentage"></span>
                                 </div>
                                 <div class="chart_bar">
                                     <div class="barra">
@@ -384,22 +384,16 @@
                 </div>
             </div>
             <div class="container-kpis2">
-                <div class="about-uso">
+                <div class="about-uso" style="display: flex; flex-direction: column;">
                     <div class="crd2_sept" id="crd2_sept">
-                        <details class="custom-select" id="chartuso1">
-                            <summary class="radios" id="chartuso2">
-                                <p>Uso de RAM</p>
-                            </summary>
-                            <ul class="list">
-                                <li>
-                                    <label for="item1">
-                                        Uso de CPU
-                                        <span></span>
-                                    </label>
-                                </li>
-                            </ul>
-                        </details>
+                        <select class="select_graph" onchange="exibirgraph(this.value)">
+                            <option value=1 aria-checked="true">Uso de RAM</option>
+                            <option value=2>Uso de CPU</option>
+                        </select>
+                        <span id="avisoCaptura"></span>
                     </div>
+                    <canvas id="myChart_CPU" style="width: 100%; height: 80%;" class="graph"></canvas>
+                    <canvas id="myChart_RAM"  style="width: 100%; height: 80%;" class="graph"></canvas>
                 </div>
             </div>
             <div class="boxes">
@@ -426,5 +420,366 @@
         </div>
         <script src="../Teste_chatbot/chatbot.js"></script>
 </body>
+
+<script>
+
+
+
+    function exibirgraph(valor){
+
+        var grafico_RAM = document.getElementById("myChart_RAM")
+        var grafico_CPU = document.getElementById("myChart_CPU")
+        
+        if(valor == 1){
+            
+            obterDadosGrafico_RAM(1)
+            
+            grafico_CPU.style.display = "none";
+            grafico_RAM.style.display = "block";
+        
+        }else if(valor == 2){
+            
+            obterDadosGrafico_CPU(1)
+            
+            grafico_RAM.style.display = "none";
+            grafico_CPU.style.display = "block";
+        
+        }
+        }
+        
+        function buscarDiscos(FKMAQUINA){
+        
+        fetch(`/medidas/buscarDiscos/${FKMAQUINA}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+        
+            console.log("resposta: ", resposta);
+            var feed = document.getElementById("porcentage");
+            feed.innerHTML = "";
+        
+            if (resposta.ok) {
+        
+                if (resposta.status == 204) {
+                        var feed = document.getElementById("porcentage");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+        
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    var feed = document.getElementById("porcentage");
+                    feed.innerHTML = "";
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+                        // criando e manipulando elementos do HTML via JavaScript
+        
+                        var disco = document.createElement("span");
+                        disco.id = `disco${publicacao.IDMonitoramento}`;
+        
+                        var label = document.createElement("span");
+                        label.innerHTML = `Disco ${contador_usuario+1} - `;
+                        disco.appendChild(label);
+        
+                        var porcentagem = document.createElement("span");
+                        porcentagem.id = `porcentage${publicacao.IDMonitoramento}`;
+                        porcentagem.innerHTML = `${publicacao.Uso_DIsco}`;
+                        disco.appendChild(porcentagem)
+        
+                        feed.appendChild(disco)
+        
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            //finalizarAguardar();
+        });
+        
+        return false;
+        }  
+        
+        function obterDadosGrafico_CPU(FKMAQUINA) {
+        
+            // alterarTitulo(idUsuario)
+        
+            // if (proximaAtualizacao != undefined) {
+            //     clearTimeout(proximaAtualizacao);
+            // }
+        
+            fetch(`/medidas/ultimas_CPU/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        resposta.reverse();
+        
+                        plotarGrafico_CPU(resposta, FKMAQUINA);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
+        
+        // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+        // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+        // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+        function plotarGrafico_CPU(resposta, FKMAQUINA) {
+        
+            console.log('iniciando plotagem do gráfico...');
+        
+            // Criando estrutura para plotar gráfico - labels
+            let labels = [];
+        
+            // Criando estrutura para plotar gráfico - dados
+            let dados = {
+                labels: labels,
+                datasets: [{
+                    label: 'Uso de CPU (em porcentagem)',
+                    data: [],
+                    fill: false,
+                    borderColor: '#009EA3',
+                    backgroundColor: '#009EA3'
+                }]
+            };
+        
+            console.log('----------------------------------------------')
+            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+            console.log(resposta)
+        
+            // Inserindo valores recebidos em estrutura para plotar o gráfico
+            for (i = 0; i < resposta.length; i++) {
+                var registro = resposta[i];
+                labels.push(registro.momento_grafico);
+                dados.datasets[0].data.push(registro.Uso_CPU);
+            }
+        
+            console.log('----------------------------------------------')
+            console.log('O gráfico será plotado com os respectivos valores:')
+            console.log('Labels:')
+            console.log(labels)
+            console.log('Dados:')
+            console.log(dados.datasets)
+            console.log('----------------------------------------------')
+        
+            // Criando estrutura para plotar gráfico - config
+            const config = {
+                type: 'line',
+                data: dados,
+            };
+        
+            // Adicionando gráfico criado em div na tela
+            let myChart_CPU = new Chart(
+                document.getElementById(`myChart_CPU`),
+                config
+            );
+        
+            setTimeout(() => atualizarGrafico_CPU(FKMAQUINA, dados, myChart_CPU), 2000);
+        }
+        
+        
+        // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+        // buscando a última medida inserida em tabela contendo as capturas, 
+        
+        //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+        //     Para ajustar o "select", ajuste o comando sql em src/models
+        function atualizarGrafico_CPU(FKMAQUINA, dados, myChart_CPU) {
+        
+            fetch(`/medidas/tempo-real_CPU/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+        
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
+        
+                    let avisoCaptura = document.getElementById(`avisoCaptura`)
+                    avisoCaptura.innerHTML = ""
+        
+                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i>Foi recebido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].momento_grafico)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados.labels[dados.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        // tirando e colocando valores no gráfico
+                        dados.labels.shift(); // apagar o primeiro
+                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+        
+                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                        dados.datasets[0].data.push(novoRegistro[0].Uso_CPU); // incluir uma nova medida de umidade
+        
+                        // dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                        // dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+        
+                        myChart_CPU.update();
+                    }
+        
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao_Umi = setTimeout(() => atualizarGrafico_CPU(FKMAQUINA, dados, myChart_CPU), 3000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao_Umi = setTimeout(() => atualizarGrafico_CPU(FKMAQUINA, dados, myChart_CPU), 3000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+        
+        }
+        
+        function obterDadosGrafico_RAM(FKMAQUINA) {
+        
+            // alterarTitulo(idUsuario)
+        
+            // if (proximaAtualizacao != undefined) {
+            //     clearTimeout(proximaAtualizacao);
+            // }
+        
+            fetch(`/medidas/ultimas_RAM/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        resposta.reverse();
+        
+                        plotarGrafico_RAM(resposta, FKMAQUINA);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
+        
+        // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+        // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+        // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+        function plotarGrafico_RAM(resposta, FKMAQUINA) {
+        
+            console.log('iniciando plotagem do gráfico...');
+        
+            // Criando estrutura para plotar gráfico - labels
+            let labels = [];
+        
+            // Criando estrutura para plotar gráfico - dados
+            let dados = {
+                labels: labels,
+                datasets: [{
+                    label: 'Uso de RAM (em porcentagem)',
+                    data: [],
+                    fill: false,
+                    borderColor: '#009EA3',
+                    backgroundColor: '#009EA3'
+                }]
+            };
+        
+            console.log('----------------------------------------------')
+            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+            console.log(resposta)
+        
+            // Inserindo valores recebidos em estrutura para plotar o gráfico
+            for (i = 0; i < resposta.length; i++) {
+                var registro = resposta[i];
+                labels.push(registro.momento_grafico);
+                dados.datasets[0].data.push(registro.Uso_RAM);
+            }
+        
+            console.log('----------------------------------------------')
+            console.log('O gráfico será plotado com os respectivos valores:')
+            console.log('Labels:')
+            console.log(labels)
+            console.log('Dados:')
+            console.log(dados.datasets)
+            console.log('----------------------------------------------')
+        
+            // Criando estrutura para plotar gráfico - config
+            const config = {
+                type: 'line',
+                data: dados,
+            };
+        
+            // Adicionando gráfico criado em div na tela
+            let myChart_RAM = new Chart(
+                document.getElementById(`myChart_RAM`),
+                config
+            );
+        
+            setTimeout(() => atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM), 2000);
+        }
+        
+        
+        // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+        // buscando a última medida inserida em tabela contendo as capturas, 
+        
+        //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+        //     Para ajustar o "select", ajuste o comando sql em src/models
+        function atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM) {
+        
+            fetch(`/medidas/tempo-real_RAM/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (novoRegistro) {
+        
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
+        
+                    let avisoCaptura = document.getElementById(`avisoCaptura`)
+                    avisoCaptura.innerHTML = ""
+        
+                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi recebido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].momento_grafico)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados.labels[dados.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        // tirando e colocando valores no gráfico
+                        dados.labels.shift(); // apagar o primeiro
+                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+        
+                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                        dados.datasets[0].data.push(novoRegistro[0].Uso_RAM); // incluir uma nova medida de umidade
+        
+                        // dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                        // dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+        
+                        myChart_CPU.update();
+                    }
+        
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao_Umi = setTimeout(() => atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM), 3000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao_Umi = setTimeout(() => atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM), 3000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+        
+        }
+</script>
 
 </html>

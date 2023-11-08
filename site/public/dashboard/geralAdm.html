@@ -21,7 +21,7 @@
     <!-- <link rel="stylesheet" type="text/css" href="geralAdm.css"> -->
 </head>
 
-<body onload="init()">
+<body>
     <div class="janela">
         <div class="header-left dash-header">
             <div class="sepration">
@@ -106,7 +106,7 @@
                             </div>
                             <div class="separador">
                                 <div class="conteudoDoQuadradoUm">
-                                    <span class="resultado">23</span>
+                                    <span id="maquina_fisica" class="resultado">23</span>
                                 </div>
                             </div>
                         </div>
@@ -327,7 +327,49 @@
 </body>
 
 <script>
-    let proximaAtualizacao;
+
+    function atualizarFeed_MF() {
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+    
+        fetch(`/medidas/contar_MF/${IDEmpresaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+    
+            console.log("resposta: ", resposta);
+    
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                        var feed = document.getElementById("maquina_fisica");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+    
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+    
+                    var feed = document.getElementById("maquina_fisica");
+                    feed.innerHTML = resposta[0].contagem;
+
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+    
+        return false;
+    }
+
+let proximaAtualizacao;
 
 window.onload = obterDadosGrafico_mf(1);
 window.onload = obterDadosGrafico_vm(1);
@@ -335,25 +377,25 @@ window.onload = obterDadosGrafico_vm(1);
 function obterDadosGrafico_mf(FKUnidade) {
 
 if (proximaAtualizacao != undefined) {
-    clearTimeout(proximaAtualizacao);
+clearTimeout(proximaAtualizacao);
 }
 
 fetch(`/medidas/ultimas/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (resposta) {
-            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-            resposta.reverse();
+if (response.ok) {
+    response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        resposta.reverse();
 
-            plotarGrafico_mf(resposta,FKUnidade);
+        plotarGrafico_mf(resposta,FKUnidade);
 
-        });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');
-    }
-})
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });
+} else {
+    console.error('Nenhum dado encontrado ou erro na API');
+}
+})
+.catch(function (error) {
+    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+});
 }
 
 // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
@@ -368,15 +410,15 @@ let labels = [];
 
 // Criando estrutura para plotar gráfico - dados
 let dados = {
-    labels: labels,
-    datasets: [{
-        label: 'Alertas',
-        data: [],
-        fill: false,
-        borderColor: '#009EA3',
-        backgroundColor: '#009EA3',
-        tension: 0.1
-    }]
+labels: labels,
+datasets: [{
+    label: 'Alertas',
+    data: [],
+    fill: false,
+    borderColor: '#009EA3',
+    backgroundColor: '#009EA3',
+    tension: 0.1
+}]
 };
 
 console.log('----------------------------------------------')
@@ -385,9 +427,9 @@ console.log(resposta)
 
 // Inserindo valores recebidos em estrutura para plotar o gráfico
 for (i = 0; i < resposta.length; i++) {
-    var registro = resposta[i];
-    labels.push(registro.momento_grafico);
-    dados.datasets[0].data.push(registro.Alertas);
+var registro = resposta[i];
+labels.push(registro.momento_grafico);
+dados.datasets[0].data.push(registro.Alertas);
 }
 
 console.log('----------------------------------------------')
@@ -400,14 +442,14 @@ console.log('----------------------------------------------')
 
 // Criando estrutura para plotar gráfico - config
 const config = {
-    type: 'line',
-    data: dados
+type: 'line',
+data: dados
 };
 
 // Adicionando gráfico criado em div na tela
 let myChart = new Chart(
-    document.getElementById("mf_myChart"),
-    config
+document.getElementById("mf_myChart"),
+config
 );
 
 setTimeout(() => atualizarGrafico_mf(FKUnidade, dados, myChart), 2000);
@@ -422,79 +464,79 @@ setTimeout(() => atualizarGrafico_mf(FKUnidade, dados, myChart), 2000);
 function atualizarGrafico_mf(FKUnidade, dados, myChart) {
 
 fetch(`/medidas/tempo_real/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (novoRegistro) {
+if (response.ok) {
+    response.json().then(function (novoRegistro) {
 
-            //obterDados(FKUnidade);
-            // alertar(novoRegistro, idAquario);
-            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-            console.log(`Dados atuais do gráfico:`);
-            console.log(dados);
+        //obterDados(FKUnidade);
+        // alertar(novoRegistro, idAquario);
+        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+        console.log(`Dados atuais do gráfico:`);
+        console.log(dados);
 
 //                    let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
 //                    avisoCaptura.innerHTML = ""
 
 
-            if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                console.log("---------------------------------------------------------------")
-                console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                //avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                console.log("Horário do novo dado capturado:")
-                console.log(novoRegistro[0].momento_grafico)
-                console.log("Horário do último dado capturado:")
-                console.log(dados.labels[dados.labels.length - 1])
-                console.log("---------------------------------------------------------------")
-            } else {
-                // tirando e colocando valores no gráfico
-                dados.labels.shift(); // apagar o primeiro
-                dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+        if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+            console.log("---------------------------------------------------------------")
+            console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+            //avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+            console.log("Horário do novo dado capturado:")
+            console.log(novoRegistro[0].momento_grafico)
+            console.log("Horário do último dado capturado:")
+            console.log(dados.labels[dados.labels.length - 1])
+            console.log("---------------------------------------------------------------")
+        } else {
+            // tirando e colocando valores no gráfico
+            dados.labels.shift(); // apagar o primeiro
+            dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
 
-                dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                dados.datasets[0].data.push(novoRegistro[0].Alertas); // incluir uma nova medida de umidade
+            dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+            dados.datasets[0].data.push(novoRegistro[0].Alertas); // incluir uma nova medida de umidade
 
-                //dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-                //dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+            //dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+            //dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
 
-                myChart.update();
-            }
+            myChart.update();
+        }
 
-            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            proximaAtualizacao = setTimeout(() => atualizarGrafico_mf(FKUnidade, dados, myChart), 2000);
-        });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico_mf(FKUnidade, dados, myChart), 2000);
-    }
-})
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });
+} else {
+    console.error('Nenhum dado encontrado ou erro na API');
+    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+    proximaAtualizacao = setTimeout(() => atualizarGrafico_mf(FKUnidade, dados, myChart), 2000);
+}
+})
+.catch(function (error) {
+    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+});
 
 }
 
 function obterDadosGrafico_vm(FKUnidade) {
 
 if (proximaAtualizacao != undefined) {
-    clearTimeout(proximaAtualizacao);
+clearTimeout(proximaAtualizacao);
 }
 
 fetch(`/medidas/ultimas/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (resposta) {
-            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-            resposta.reverse();
+if (response.ok) {
+    response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        resposta.reverse();
 
-            plotarGrafico_vm(resposta,FKUnidade);
+        plotarGrafico_vm(resposta,FKUnidade);
 
-        });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');
-    }
-})
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });
+} else {
+    console.error('Nenhum dado encontrado ou erro na API');
+}
+})
+.catch(function (error) {
+    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+});
 }
 
 // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
@@ -509,15 +551,15 @@ let labels = [];
 
 // Criando estrutura para plotar gráfico - dados
 let dados = {
-    labels: labels,
-    datasets: [{
-        label: 'Alertas',
-        data: [],
-        fill: false,
-        borderColor: '#009EA3',
-        backgroundColor: '#009EA3',
-        tension: 0.1
-    }]
+labels: labels,
+datasets: [{
+    label: 'Alertas',
+    data: [],
+    fill: false,
+    borderColor: '#009EA3',
+    backgroundColor: '#009EA3',
+    tension: 0.1
+}]
 };
 
 console.log('----------------------------------------------')
@@ -526,9 +568,9 @@ console.log(resposta)
 
 // Inserindo valores recebidos em estrutura para plotar o gráfico
 for (i = 0; i < resposta.length; i++) {
-    var registro = resposta[i];
-    labels.push(registro.momento_grafico);
-    dados.datasets[0].data.push(registro.Alertas);
+var registro = resposta[i];
+labels.push(registro.momento_grafico);
+dados.datasets[0].data.push(registro.Alertas);
 }
 
 console.log('----------------------------------------------')
@@ -541,14 +583,14 @@ console.log('----------------------------------------------')
 
 // Criando estrutura para plotar gráfico - config
 const config = {
-    type: 'line',
-    data: dados
+type: 'line',
+data: dados
 };
 
 // Adicionando gráfico criado em div na tela
 let myChart = new Chart(
-    document.getElementById("vm_myChart"),
-    config
+document.getElementById("vm_myChart"),
+config
 );
 
 setTimeout(() => atualizarGrafico_vm(FKUnidade, dados, myChart), 2000);
@@ -563,56 +605,56 @@ setTimeout(() => atualizarGrafico_vm(FKUnidade, dados, myChart), 2000);
 function atualizarGrafico_vm(FKUnidade, dados, myChart) {
 
 fetch(`/medidas/tempo_real/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (novoRegistro) {
+if (response.ok) {
+    response.json().then(function (novoRegistro) {
 
-            //obterDados(FKUnidade);
-            // alertar(novoRegistro, idAquario);
-            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-            console.log(`Dados atuais do gráfico:`);
-            console.log(dados);
+        //obterDados(FKUnidade);
+        // alertar(novoRegistro, idAquario);
+        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+        console.log(`Dados atuais do gráfico:`);
+        console.log(dados);
 
 //                    let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
 //                    avisoCaptura.innerHTML = ""
 
 
-            if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                console.log("---------------------------------------------------------------")
-                console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                //avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                console.log("Horário do novo dado capturado:")
-                console.log(novoRegistro[0].momento_grafico)
-                console.log("Horário do último dado capturado:")
-                console.log(dados.labels[dados.labels.length - 1])
-                console.log("---------------------------------------------------------------")
-            } else {
-                // tirando e colocando valores no gráfico
-                dados.labels.shift(); // apagar o primeiro
-                dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+        if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+            console.log("---------------------------------------------------------------")
+            console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+            //avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+            console.log("Horário do novo dado capturado:")
+            console.log(novoRegistro[0].momento_grafico)
+            console.log("Horário do último dado capturado:")
+            console.log(dados.labels[dados.labels.length - 1])
+            console.log("---------------------------------------------------------------")
+        } else {
+            // tirando e colocando valores no gráfico
+            dados.labels.shift(); // apagar o primeiro
+            dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
 
-                dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                dados.datasets[0].data.push(novoRegistro[0].Alertas); // incluir uma nova medida de umidade
+            dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+            dados.datasets[0].data.push(novoRegistro[0].Alertas); // incluir uma nova medida de umidade
 
-                //dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-                //dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+            //dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+            //dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
 
-                myChart.update();
-            }
+            myChart.update();
+        }
 
-            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            proximaAtualizacao = setTimeout(() => atualizarGrafico_vm(FKUnidade, dados, myChart), 2000);
-        });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
         proximaAtualizacao = setTimeout(() => atualizarGrafico_vm(FKUnidade, dados, myChart), 2000);
-    }
-})
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });
+} else {
+    console.error('Nenhum dado encontrado ou erro na API');
+    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+    proximaAtualizacao = setTimeout(() => atualizarGrafico_vm(FKUnidade, dados, myChart), 2000);
+}
+})
+.catch(function (error) {
+    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+});
 
 }
-</script>
 
+</script>
 </html>
