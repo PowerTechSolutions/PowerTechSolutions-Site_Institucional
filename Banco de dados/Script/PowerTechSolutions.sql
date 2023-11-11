@@ -67,35 +67,52 @@ CREATE TABLE IF NOT EXISTS Usuario_Dashboard(
 		CONSTRAINT PKUsuario_Nivel_acesso PRIMARY KEY (IDUsuario,FKNivel_acesso)
 );
 
-CREATE TABLE IF NOT EXISTS Feedbacks(
-	IDFeedback INT PRIMARY KEY AUTO_INCREMENT,
-    Feedbacks VARCHAR(250),
-    Estrelas INT,
-		CHECK (Estrelas < 5 AND Estrelas > 0),
-	FKUsuario INT,
-		CONSTRAINT FKUsuario_Feedback FOREIGN KEY (FKUsuario)
-			REFERENCES Usuario_Dashboard(IDUsuario)
-);
-
-CREATE TABLE IF NOT EXISTS Funcionarios(
-	IDFuncionario INT PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(100),
-    Email VARCHAR(100),
-    Cpf CHAR(11),
-    FKUnidade_negocio INT,
-		CONSTRAINT FKUnidade_Funcionario FOREIGN KEY (FKUnidade_negocio)
-			REFERENCES Unidade_de_negocio(IDUnidade)
+CREATE TABLE IF NOT EXISTS Tipo_maquina(
+	IDTipo INT PRIMARY KEY AUTO_INCREMENT,
+    Apelido VARCHAR(80)
 );
 
 CREATE TABLE IF NOT EXISTS Maquinas(
 	IDMaquina INT PRIMARY KEY AUTO_INCREMENT,
     Apelido VARCHAR(100),
     FKFuncionario INT,
-		CONSTRAINT FKFuncionario_maquina_fisica FOREIGN KEY (FKFuncionario)
-			REFERENCES Funcionarios(IDFuncionario)
+		CONSTRAINT FKFuncionario_maquina FOREIGN KEY (FKFuncionario)
+			REFERENCES Usuario_Dashboard(IDUsuario),
+	FKTipo_maquina INT,
+		CONSTRAINT FKTipo_maquina FOREIGN KEY (FKTipo_maquina)
+			REFERENCES Tipo_maquina(IDTipo)
 );
 
-CREATE TABLE IF NOT EXISTS Tipo_maquina(
+CREATE TABLE IF NOT EXISTS Redes_conectadas(
+	IDConexao INT PRIMARY KEY AUTO_INCREMENT,
+    Data_Hora_Conexao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Servidor_DNS VARCHAR(45),
+    FKMaquina INT,
+		CONSTRAINT FKMaquina_Rede FOREIGN KEY (FKMaquina)
+			REFERENCES Maquinas(IDMaquina)
+);
+
+CREATE TABLE IF NOT EXISTS Janelas_Abertas(
+	IDRegistro INT PRIMARY KEY AUTO_INCREMENT,
+    IDJanela INT,
+    PIDJanelas INT,
+    Nome_Janelas VARCHAR(500),
+	Data_Hora_Conexao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FKMaquina INT,
+		CONSTRAINT FKMaquina_Janelas FOREIGN KEY (FKMaquina)
+			REFERENCES Maquinas(IDMaquina)
+);
+
+CREATE TABLE IF NOT EXISTS Dispositivos_USB(
+	IDRegistro INT PRIMARY KEY AUTO_INCREMENT,
+    Nome_Dispositivo VARCHAR(300),
+    Data_Hora_Conexao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FKMaquina INT,
+		CONSTRAINT FKMaquina_Usb FOREIGN KEY (FKMaquina)
+			REFERENCES Maquinas(IDMaquina)
+);
+
+CREATE TABLE IF NOT EXISTS Tipo_componente(
 	IDTipo INT PRIMARY KEY AUTO_INCREMENT,
     Apelido VARCHAR(80)
 );
@@ -105,7 +122,10 @@ CREATE TABLE IF NOT EXISTS Componentes_maquina(
     Apelido VARCHAR(100),
     FKMaquina INT,
 		CONSTRAINT FKMaquina_Componente FOREIGN KEY (FKMaquina)
-			REFERENCES Maquinas(IDMaquina)
+			REFERENCES Maquinas(IDMaquina),
+	FKTipo_componente INT,
+		CONSTRAINT FKTipo_Componente FOREIGN KEY (FKTipo_componente)
+			REFERENCES Tipo_componente(IDTipo)
 );
 
 CREATE TABLE IF NOT EXISTS Parametros_componente(
@@ -135,7 +155,7 @@ CREATE TABLE IF NOT EXISTS Componentes_monitorados(
 CREATE TABLE IF NOT EXISTS Monitoramento_RAW(
 	IDMonitoramento INT PRIMARY KEY AUTO_INCREMENT,
     Data_Hora_Captura DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Dado_Capturado DOUBLE,
+    Dado_Capturado VARCHAR(30),
     FKComponente_Monitorado INT,
 		CONSTRAINT FKMonitoramento_RAW_Componente_maquina FOREIGN KEY (FKComponente_Monitorado)
 			REFERENCES Componentes_monitorados(IDComponente_monitorado)
@@ -144,7 +164,7 @@ CREATE TABLE IF NOT EXISTS Monitoramento_RAW(
 CREATE TABLE IF NOT EXISTS Monitoramento_Trusted(
 	IDMonitoramento INT PRIMARY KEY,
     Data_Hora_Captura DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Dado_Capturado DOUBLE,
+    Dado_Capturado VARCHAR(30),
     FKComponente_Monitorado INT,
     CONSTRAINT FKMonitoramento_TRUSTED_Componente_maquina FOREIGN KEY (FKComponente_Monitorado)
 			REFERENCES Componentes_monitorados(IDComponente_monitorado)
@@ -157,6 +177,8 @@ CREATE TABLE IF NOT EXISTS Nivel_alerta(
 
 CREATE TABLE IF NOT EXISTS Alertas(
 	IDAlerta INT PRIMARY KEY AUTO_INCREMENT,
+    Alerta VARCHAR(100),
+    Data_Hora DATETIME DEFAULT CURRENT_TIMESTAMP,
     FKMonitoramento INT,
     FKNivel_alerta INT,
     FKUnidade_negocio INT,
@@ -175,8 +197,6 @@ INSERT INTO Grupo_Empresa VALUES
 (null,'Matrix','Matrix Comercio e Servicos LTDA'),
 (null,'AES Tietê','AES TIETE INTEGRA SOLUCOES EM ENERGIA LTDA.');
 
-SELECT * FROM Grupo_Empresa;
-
 INSERT INTO Unidade_de_negocio VALUES
 (null,'28630316000186','EDP Smart Sede','EDP Energias do Brasil',1),
 (null,'28630316000286','EDP Smart Faria Lima','EDP Energias do Brasil',1),
@@ -185,19 +205,52 @@ INSERT INTO Unidade_de_negocio VALUES
 (null,'01564634000230','Matrix Mogi das Cruzes','Matrix',2),
 (null,'26203837000121','AES Tiete Sede','AES TIETE INTEGRA',3);
 
-SELECT * FROM Unidade_de_negocio;
-
 INSERT INTO Permissoes VALUES
 (NULL,1,1,1,1),
 (NULL,1,0,0,0);
-
-SELECT * FROM Permissoes;
 
 INSERT INTO Nivel_acesso VALUES
 (NULL,'Eng NOC',1),
 (NULL,'Gestor',2);
 
-SELECT*FROM Nivel_acesso;
-
 INSERT into Usuario_Dashboard VALUES
-(NULL,'davi','davi@teste.com','98765432101','12345678',3,1);
+(NULL,'davi','davi@teste.com','48372073830','12345678',1,1),
+(NULL,'henry','henry@teste.com','12345678910','87654321',1,2);
+
+INSERT INTO Alertas VALUES
+(1,'Alerta de teste1',default,null,null,1),
+(3,'Alerta de teste2',default,null,null,1),
+(4,'Alerta de teste2',default,null,null,1),
+(5,'Alerta de teste3',default,null,null,1),
+(9,'Alerta de teste4',default,null,null,1);
+
+INSERT INTO Componentes_cadastrados values
+(null,'CPU'),
+(null,'RAM'),
+(null,'DISCO'),
+(null,'REDE'),
+(null,'JANELAS'),
+(null,'USB');
+
+INSERT INTO Tipo_maquina VALUES
+(null,"FISICA"),
+(null,"VIRTUAL");
+
+INSERT INTO Maquinas VALUES
+(null,'teste01',1,2),
+(null,'teste02',1,1),
+(null,'teste03',1,1);
+
+INSERT INTO Componentes_monitorados VALUES
+(NULL,1,1),
+(NULL,2,1),
+(NULL,3,1),
+(NULL,4,1),
+(NULL,5,1),
+(NULL,6,1),
+(NULL,1,2),
+(NULL,2,2),
+(NULL,3,2),
+(NULL,4,3),
+(NULL,5,3),
+(NULL,6,3);

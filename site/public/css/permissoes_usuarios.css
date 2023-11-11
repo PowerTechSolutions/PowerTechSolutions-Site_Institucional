@@ -15,6 +15,13 @@ body {
 
 }
 
+#frts img {
+  width: 27px;
+  height: 23px;
+  margin-left: 14px;
+  margin-right: 18px;
+}
+
 .infoemp button {
   border: none;
   background-color: transparent;

@@ -11,7 +11,12 @@ body {
     display: flex;
     width: 96vw;
 }
-
+#frts img {
+    width: 27px;
+    height: 23px;
+    margin-left: 14px;
+    margin-right: 18px;
+  }
 .dash {
     position: relative;
     top: 0;
@@ -716,7 +721,6 @@ body {
 #chartuso2:after {
     content: '';
     display: inline-block;
-    float: right;
     width: 0.5rem;
     height: 0.5rem;
     border-bottom: 1px solid currentColor;
@@ -886,7 +890,6 @@ details[open] summary:before {
 summary:after {
     content: '';
     display: inline-block;
-    float: right;
     width: 0.5rem;
     height: 0.5rem;
     border-bottom: 1px solid currentColor;

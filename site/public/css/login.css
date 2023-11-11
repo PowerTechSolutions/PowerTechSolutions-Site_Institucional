@@ -2,6 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Lora:wght@500&family=Montserrat&family=Red+Hat+Display&display=swap');
 @media only screen and (max-width: 768px) {
+    body{
+        background: linear-gradient(to top, rgb(253, 213, 12) 0%, rgb(253, 213, 12) 48%, white 24%, white 100%);
+    }
+
+    .your-container{
+        margin-top: 16vh;
+    }
+    .animated-waves {
+        margin-bottom: 20px;
+    }
     #navbar {
         display: flex;
         justify-content: space-between;
@@ -30,7 +40,7 @@
         transform: translateX(-39%);
         width: 71%;
         height: 68vh;
-        margin-top: 66%;
+        margin-top: 5%;
         /* margin-bottom: 23%; */
         background-color: rgb(244, 240, 240);
         margin-left: 2%;
@@ -62,14 +72,67 @@
 
 }
 
-body {
-    margin: 0;
+/* body {
+    /* margin: 0;
     padding: 0;
     font-family: 'Quicksand', sans-serif;
     background: linear-gradient( to top, rgb(253, 213, 12) 0%, rgb(253, 213, 12) 50%, white 50%, white 100% );
     width: 100%;
-    height: 100vh;
+    height: 100vh; */
+/* } */
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: linear-gradient(to top, rgb(253, 213, 12) 0%, rgb(253, 213, 12) 48%, white 24%, white 100%);
+    min-height: 100vh;
 }
+
+.your-container {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    margin-bottom: -7px;
+    min-height: 100px;
+    max-height: 150px;
+}
+
+.animated-waves>use {
+    animation: infinite-waves 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+
+.animated-waves>use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+}
+
+.animated-waves>use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+}
+
+.animated-waves>use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+}
+
+.animated-waves>use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+}
+
+@keyframes infinite-waves {
+    0% {
+        transform: translate3d(-90px, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(85px, 0, 0);
+    }
+}
+
 
 .divPlanoFundo {
     background: rgb(211, 211, 211);
@@ -156,7 +219,7 @@ a:hover {
 }
 
 .content {
-    width: 100%;
+    width: 110%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -190,7 +253,7 @@ a:hover {
 }
 
 .preto img {
-    width: 173px;
+    width: 119px;
 }
 
 .textinho {
@@ -231,8 +294,7 @@ a:hover {
     transform: translateX(-39%);
     width: 44%;
     height: 71vh;
-    margin-top: 37%;
-    /* margin-bottom: 23%; */
+    margin-bottom: -27%;
     background-color: rgb(244, 240, 240);
     margin-left: 2%;
     box-shadow: rgb(0 0 0 / 40%) 0px 10px 20px, rgb(0 0 0 / 40%) 0px 6px 6px;

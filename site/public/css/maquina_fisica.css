@@ -1,5 +1,182 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+.janela {
+    display: flex;
+    width: 96vw;
+  }
+  .crd2_sept img {
+    border-radius: 30px;
+    width: 50px;
+    height: 50px;
+  }
+  .perfil {
+    width: 80%;
+    height: 25vh;
+    margin-top: -20%;
+  }
+  
+  /* .container {
+    width: 80%;
+    margin: auto;
+    display: flex;
+  } */
+  
+  .header-left a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  .header-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    height: 100vh;
+    width: 18%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1D1D20;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  
+  .sepration button {
+    background-color: transparent;
+    height: 50px;
+    width: 253px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+  }
+  
+  #fist_top {
+    margin-top: 20px;
+  }
+  
+  #second {
+    display: none;
+  }
+  
+  #send {
+    display: none;
+  }
+  
+  .sepration {
+    flex-direction: column;
+    width: 85%;
+    height: 60%;
+    border-bottom: 2px solid #F7E11B;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sepration2 {
+    flex-direction: column;
+    width: 85%;
+    height: 37%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .sepration2 button {
+    background-color: transparent;
+    height: 50px;
+    width: 253px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    margin-left: 10px;
+  }
+  
+  .helpbutton button {
+    background-color: transparent;
+    border: none;
+    margin-left: 15px;
+    margin-right: 20px;
+  }
+  
+  .helpbutton p {
+    margin-left: 15px;
+    margin-right: 20px;
+  }
+  
+  .sepration button:hover {
+    background-color: #F7E11B;
+    color: black;
+  }
+  
+  .sepration button:hover #first {
+    display: none;
+  }
+  
+  .sepration button:hover #fst {
+    display: none;
+  }
+  
+  .sepration button:hover #second {
+    display: block;
+  }
+  
+  .sepration button:hover #send {
+    display: block;
+  }
+  
+  .sepration button #first {
+    margin-left: 15px;
+    margin-right: 20px;
+    height: 30px;
+    width: 25px;
+  }
+  
+  .sepration button #second {
+    margin-left: 15px;
+    margin-right: 20px;
+    height: 30px;
+    width: 25px;
+  }
+  
+  .sepration button img {
+    margin-left: 15px;
+    margin-right: 20px;
+    height: 20px;
+    width: 25px;
+  }
+  
+  .dash-right {
+    display: flex;
+    width: 80%;
+    height: fit-content;
+    background-color: #161618;
+    position: relative;
+    justify-content: space-around;
+    top: 0;
+    left: 23%;
+  }
+  
+  .header-left h1 {
+    color: #ffffff;
+  }
+  
+  .dash {
+    position: relative;
+    top: 0;
+    left: 20%;
+    width: 82%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 ::-webkit-scrollbar {
     width: 10px;
     height: 7px;
@@ -14,6 +191,14 @@
     border-radius: 12px;
     border: 1px solid white
 }
+
+
+#frts img {
+    width: 27px;
+    height: 23px;
+    margin-left: 14px;
+    margin-right: 18px;
+  }
 
 
 ::-webkit-scrollbar-thumb {

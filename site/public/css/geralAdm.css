@@ -13,6 +13,13 @@ body {
   width: 96vw;
 }
 
+#frts img {
+  width: 27px;
+  height: 23px;
+  margin-left: 14px;
+  margin-right: 18px;
+}
+
 .perfil {
   width: 80%;
   height: 25vh;

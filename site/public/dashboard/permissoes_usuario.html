@@ -9,10 +9,16 @@
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/dropdown.css">
     <link rel="stylesheet" href="../css/chat.css">
+    <script src="../js/direcoes.js"></script>
     <script src="../js/chat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../Teste_chatbot/chatbot.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </head>
 
-<body>
+<body onload="init()">
     <!-- <div class="geral">
         <div class="barra">
             <div class="logo">
@@ -155,36 +161,39 @@
                     <p>Geral</p>
                 </button>
 
-                <button onclick="viewpoint()"><img src="dash_pt/element-3.png" id="fst" alt=""> <img id="send"
+                <button onclick="MF()"><img src="dash_pt/element-3.png" id="fst" alt=""> <img id="send"
                         src="dash_pt/element-3 (1).png" alt="">
                     <p>MFs</p>
                 </button>
 
-                <button onclick="viewpoint()"><img src="dash_pt/vms.png.png" id="fst" alt=""> <img id="send"
+                <button onclick="MV()"><img src="dash_pt/vms.png.png" id="fst" alt=""> <img id="send"
                         src="dash_pt/icon13.png" alt="">
                     <p>VMs</p>
                 </button>
-
-                <button onclick="viewpoint()"><img src="dash_pt/perm.png.png" id="fst" alt=""> <img id="send"
+                <button onclick="permi()"><img src="dash_pt/perm.png.png" id="fst" alt=""> <img id="send"
                         src="dash_pt/pessoa.png" alt="">
-                    <p>Add Permissões</p>
+                    <p>Adicionar permissões</p>
+                </button>
+                <button onclick="user()" id="frts"><img src="../assets/imgs_power/adicionar-usuario (1).png" id="fst"
+                        alt=""> <img id="send" src="../assets/imgs_power/adicionar-usuario.png" alt="">
+                    <p>Adicionar usuário</p>
                 </button>
             </div>
             <div class="sepration2">
                 <button class="helpbutton"><img src="dash_pt/help-circle.png" alt="">
-                    <p>Help Center</p>
+                    <p>Central de ajuda</p>
                 </button>
                 <div class="crd2_sept">
-                    <img src="dash_pt/pngimg.com - businessman_PNG6566.png" alt="">
+                    <img src="../assets/imgs_power/do-utilizador.png" alt="">
                     <p id="nome_usuario"></p>
                     <!-- <div class="dropdown_selection">
-                        <select name="cars" id="log">
-                            <option value="volvo">January</option>
-                            <option value="saab">Febuary</option>
-                            <option value="mercedes">March</option>
-                            <option value="audi">April</option>
-                        </select>
-                    </div> -->
+                    <select name="cars" id="log">
+                        <option value="volvo">January</option>
+                        <option value="saab">Febuary</option>
+                        <option value="mercedes">March</option>
+                        <option value="audi">April</option>
+                    </select>
+                </div> -->
                     <details class="custom-select">
                         <ul class="list">
                             <li>
@@ -209,64 +218,80 @@
                     <div class="campos_gerais">
                         <h2> Id </h2>
                         <h2 id="name"> Nome </h2>
-                        <h2 id="cp"> CPF </h2>
+                        <h2 id="cp"> Email </h2>
                     </div>
                     <div class="arrangement">
-                        <div class="infoemp" >
+                        <div class="infoemp">
                             <p>001</p>
                             <p>Michelly Kaori</p>
                             <p>000000000000</p>
-                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                            </div></button>
+                            <button>
+                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                                </div>
+                            </button>
                         </div>
                         <div class="infoemp">
                             <p>001</p>
                             <p>Michelly Kaori</p>
                             <p>000000000000</p>
-                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                            </div></button>
+                            <button>
+                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                                </div>
+                            </button>
                         </div>
                         <div class="infoemp">
                             <p>001</p>
                             <p>Michelly Kaori</p>
                             <p>000000000000</p>
-                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                            </div></button>
+                            <button>
+                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                                </div>
+                            </button>
                         </div>
                         <div class="infoemp">
                             <p>001</p>
                             <p>Michelly Kaori</p>
                             <p>000000000000</p>
-                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                            </div></button>
+                            <button>
+                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                                </div>
+                            </button>
                         </div>
                         <div class="infoemp">
                             <p>001</p>
                             <p>Michelly Kaori</p>
                             <p>000000000000</p>
-                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                            </div></button>
+                            <button>
+                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                                </div>
+                            </button>
                         </div>
                         <div class="infoemp">
                             <p>001</p>
                             <p>Michelly Kaori</p>
                             <p>000000000000</p>
-                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                            </div></button>
+                            <button>
+                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                                </div>
+                            </button>
                         </div>
                         <div class="infoemp">
                             <p>001</p>
                             <p>Michelly Kaori</p>
                             <p>000000000000</p>
-                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                            </div></button>
+                            <button>
+                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                                </div>
+                            </button>
                         </div>
                         <div class="infoemp">
                             <p>001</p>
                             <p>Michelly Kaori</p>
                             <p>000000000000</p>
-                            <button><div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                            </div></button>
+                            <button>
+                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -278,7 +303,7 @@
                         <h1> Mudar permissão: </h1>
                         <p>Nome: Pranjalpets Armimda</p>
                         <p>Email: pranjalpets.email.com</p>
-                        <p>CPF: 10939203912</p>
+                        <p>Permissão: FFFFFFFFFFF</p>
 
                     </div>
 
@@ -296,14 +321,29 @@
                 </div>
             </div>
             <div class="boxes">
-                <button onclick="literate()"><img src="../assets/imgs_power/message_icon.ico" alt=""></button>
-                    <div class="dropdown_lit" id="lit_dropdown">
-                        <button id="close3"  onclick="clickclose3()"><b>x</b></button>
-                        <span id="mensagem3"></span>
+                <button id="message" onclick="literate()"><img src="../assets/imgs_power/message_icon.ico"
+                        alt=""></button>
+                <div class="dropdown_lit" id="lit_dropdown">
+                    <div id="main">
+                        <h2>Chat de Ajuda</h2>
+                        <div id="msg">
+                            <div id="robot">
+                                <div class="bot"></div>
+                                <h3>Agente</h3>
+                            </div>
+                        </div>
+                        <div class="input">
+                            <input type="text" id="msg_send" placeholder="Nova mensagem">
+                            <button class="send" id="reply">Mandar <i class="fas fa-paper-plane"></i></button>
+                        </div>
                     </div>
+                    <script src="chatbot.js"></script>
+                    <button id="close3" onclick="clickclose3()"><b>x</b></button>
+                </div>
                 </p>
             </div>
         </div>
+        <script src="../Teste_chatbot/chatbot.js"></script>
 </body>
 
 </html>
