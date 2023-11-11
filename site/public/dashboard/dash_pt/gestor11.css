@@ -160,6 +160,7 @@ body {
 
 .dash {
   position: relative;
+  width: 82%;
   top: 0;
   left: 20%;
   overflow: hidden;

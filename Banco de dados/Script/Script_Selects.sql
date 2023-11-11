@@ -13,8 +13,7 @@ SELECT
 						ON FKMaquina = IDMaquina
 							WHERE FKMaquina = 1
 								AND Componentes_cadastrados.Apelido = "CPU" 
-									ORDER BY Monitoramento_RAW.IDMonitoramento DESC 
-                                    LIMIT 1;
+									ORDER BY Monitoramento_RAW.IDMonitoramento DESC;
 
 SELECT 
 	Data_Hora_Captura,

@@ -119,19 +119,19 @@
                         <p>Alertas</p>
                         <div class="dropdown_selection">
                             <label for="cars">Escolha um mês:</label>
-                            <select name="cars" id="cars">
-                                <option value="January">Janeiro</option>
-                                <option value="Febuary">Fevereiro</option>
-                                <option value="March">Março</option>
-                                <option value="April">Abril</option>
-                                <option value="May">Maio</option>
-                                <option value="June">Junho</option>
-                                <option value="July">Julho</option>
-                                <option value="August">Agosto</option>
-                                <option value="semptember">Setembro</option>
-                                <option value="october">Outubro</option>
-                                <option value="november">Novembro</option>
-                                <option value="december">Dezembro</option>
+                            <select onchange="buscarALertas(this.value)" name="cars" id="cars">
+                                <option value="__/01/%">Janeiro</option>
+                                <option value="__/02/%">Fevereiro</option>
+                                <option value="__/03/%">Março</option>
+                                <option value="__/04/%">Abril</option>
+                                <option value="__/05/%">Maio</option>
+                                <option value="__/06/%">Junho</option>
+                                <option value="__/07/%">Julho</option>
+                                <option value="__/08/%">Agosto</option>
+                                <option value="__/09/%">Setembro</option>
+                                <option value="__/10/%">Outubro</option>
+                                <option value="__/11/%">Novembro</option>
+                                <option value="__/12/%">Dezembro</option>
                             </select>
                         </div>
                     </div>
@@ -194,7 +194,6 @@ window.onload = init();
     nome_usuario.innerHTML = sessionStorage.Nome_Usuario;
     var idUsuario = sessionStorage.ID_USUARIO;
     window.onload = atualizarFeed_usuarios();
-    Window.onload = obterDadosGrafico(FKUnidade);
 
     function atualizarFeed_usuarios() {
 
@@ -271,7 +270,11 @@ window.onload = init();
         return false;
     }
 
-    function obterDadosGrafico(FKUnidade) {
+    function buscarALertas(mes){
+        obterDadosGrafico(FKUnidade,mes)
+    }
+
+    function obterDadosGrafico(FKUnidade,mes) {
 
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
