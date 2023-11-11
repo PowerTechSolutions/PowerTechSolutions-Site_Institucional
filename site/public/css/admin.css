@@ -721,7 +721,6 @@ body {
 #chartuso2:after {
     content: '';
     display: inline-block;
-    float: right;
     width: 0.5rem;
     height: 0.5rem;
     border-bottom: 1px solid currentColor;
@@ -891,7 +890,6 @@ details[open] summary:before {
 summary:after {
     content: '';
     display: inline-block;
-    float: right;
     width: 0.5rem;
     height: 0.5rem;
     border-bottom: 1px solid currentColor;
