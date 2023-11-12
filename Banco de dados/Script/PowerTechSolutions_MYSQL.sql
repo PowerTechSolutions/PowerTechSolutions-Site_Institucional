@@ -217,13 +217,6 @@ INSERT into Usuario_Dashboard VALUES
 (NULL,'davi','davi@teste.com','48372073830','12345678',1,1),
 (NULL,'henry','henry@teste.com','12345678910','87654321',1,2);
 
-INSERT INTO Alertas VALUES
-(1,'Alerta de teste1',default,null,null,1),
-(3,'Alerta de teste2',default,null,null,1),
-(4,'Alerta de teste2',default,null,null,1),
-(5,'Alerta de teste3',default,null,null,1),
-(9,'Alerta de teste4',default,null,null,1);
-
 INSERT INTO Componentes_cadastrados values
 (null,'CPU'),
 (null,'RAM'),

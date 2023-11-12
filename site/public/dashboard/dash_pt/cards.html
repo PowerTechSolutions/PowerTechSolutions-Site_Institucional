@@ -120,18 +120,18 @@
                         <div class="dropdown_selection">
                             <label for="cars">Escolha um mês:</label>
                             <select onchange="buscarALertas(this.value)" name="cars" id="cars">
-                                <option value="__/01/%">Janeiro</option>
-                                <option value="__/02/%">Fevereiro</option>
-                                <option value="__/03/%">Março</option>
-                                <option value="__/04/%">Abril</option>
-                                <option value="__/05/%">Maio</option>
-                                <option value="__/06/%">Junho</option>
-                                <option value="__/07/%">Julho</option>
-                                <option value="__/08/%">Agosto</option>
-                                <option value="__/09/%">Setembro</option>
-                                <option value="__/10/%">Outubro</option>
-                                <option value="__/11/%">Novembro</option>
-                                <option value="__/12/%">Dezembro</option>
+                                <option value="%-01-%">Janeiro</option>
+                                <option value="%-02-%">Fevereiro</option>
+                                <option value="%-03-%">Março</option>
+                                <option value="%-04-%">Abril</option>
+                                <option value="%-05-%">Maio</option>
+                                <option value="%-06-%">Junho</option>
+                                <option value="%-07-%">Julho</option>
+                                <option value="%-08-%">Agosto</option>
+                                <option value="%-09-%">Setembro</option>
+                                <option value="%-10-%">Outubro</option>
+                                <option value="%-11-%">Novembro</option>
+                                <option value="%-12-%">Dezembro</option>
                             </select>
                         </div>
                     </div>
@@ -280,7 +280,18 @@ window.onload = init();
             clearTimeout(proximaAtualizacao);
         }
 
-        fetch(`/medidas/ultimas/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
+        fetch("/medidas/ultimas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                FKUnidadeServer: FKUnidade,
+                mesServer: mes
+            })
+        }).then(function (resposta) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -292,10 +303,27 @@ window.onload = init();
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
             }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        //fetch(`/medidas/ultimas/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
+        //    if (response.ok) {
+        //        response.json().then(function (resposta) {
+        //            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        //            resposta.reverse();
+
+        //            plotarGrafico(resposta,FKUnidade);
+
+        //        });
+        //    } else {
+        //        console.error('Nenhum dado encontrado ou erro na API');
+        //    }
+        //})
+        //    .catch(function (error) {
+        //        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        //    });
     }
 
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
