@@ -58,21 +58,24 @@ function buscarDiscos(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-	        Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
-	        Data_Hora_Captura,
-            Dado_Capturado AS Uso_DIsco,
-            Componentes_cadastrados.Apelido 
-            FROM 
-		        Monitoramento_RAW JOIN Componentes_monitorados 
-		        ON FKComponente_Monitorado = IDComponente_monitorado 
-		        JOIN Componentes_cadastrados 
-		        ON FKComponente_cadastrado = IDComponente_cadastrado
-		        JOIN Maquinas 
-		        ON FKMaquina = IDMaquina
-		        WHERE FKMaquina = ${FKMAQUINA}
-		        AND Componentes_cadastrados.Apelido = "DISCO"
-		        ORDER BY Monitoramento_RAW.IDMonitoramento DESC
-                LIMIT 1`;
+    Componentes_monitorados.IDComponente_monitorado AS IDMonitoramento,
+    Data_Hora_Captura,
+    ROUND((Total / POWER(1024, 3))) AS Total_Uso,
+	ROUND((Free / POWER(1024, 3))) AS Livre_Uso, 
+	ROUND((Uso / POWER(1024, 3))) AS Uso_Disco,
+    Porcentagem AS Porcentagem_Uso,
+    Componentes_cadastrados.Apelido 
+FROM 
+    Monitoramento_RAW 
+JOIN Componentes_monitorados ON FKComponente_Monitorado = IDComponente_monitorado 
+JOIN Componentes_cadastrados ON FKComponente_cadastrado = IDComponente_cadastrado
+JOIN Maquinas ON FKMaquina = ${FKMAQUINA}
+WHERE 
+    FKMaquina = 1
+    AND Componentes_cadastrados.Apelido = 'DISCO'
+ORDER BY 
+    Monitoramento_RAW.IDMonitoramento DESC
+LIMIT 1;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -94,12 +97,13 @@ function buscarTempoExecucao(FKMAQUINA) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-    SELECT
-    DATE(Data_Hora) AS Data,
-    TIME(Data_Hora) AS Hora,
-    TIME(Total_captura) AS total FROM Tempo_de_Execucao
-     JOIN maquinas 
-		        ON FKTempo_maquina = ${FKMAQUINA};`;
+        SELECT
+        DATE_FORMAT(Data_Hora, '%d/%m/%Y') AS Data,
+        TIME(Data_Hora) AS Hora,
+        TIME(Total_captura) AS total
+       FROM Tempo_de_Execucao
+       JOIN maquinas ON FKTempo_maquina = ${FKMAQUINA};
+    `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -123,7 +127,7 @@ function ultimas_CPU(FKMAQUINA) {
         instrucaoSql = `
         SELECT 
             DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
-            Dado_Capturado AS Uso_CPU
+            Uso AS Uso_CPU
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
 		        ON FKComponente_Monitorado = IDComponente_monitorado 
@@ -157,7 +161,7 @@ function tempo_real_CPU(FKMAQUINA) {
         instrucaoSql = `
         SELECT 
         DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
-            Dado_Capturado AS Uso_CPU
+        Uso AS Uso_CPU
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
 		        ON FKComponente_Monitorado = IDComponente_monitorado 
@@ -191,7 +195,7 @@ function ultimas_RAM(FKMAQUINA) {
         instrucaoSql = `
         SELECT 
             DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
-            Dado_Capturado AS Uso_RAM
+            Uso AS Uso_RAM
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
 		        ON FKComponente_Monitorado = IDComponente_monitorado 
@@ -225,7 +229,7 @@ function tempo_real_RAM(FKMAQUINA) {
         instrucaoSql = `
         SELECT 
         DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
-            Dado_Capturado AS Uso_RAM
+        Uso AS Uso_RAM
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
 		        ON FKComponente_Monitorado = IDComponente_monitorado 
@@ -283,5 +287,6 @@ module.exports = {
     tempo_real_CPU,
     ultimas_RAM,
     tempo_real_RAM,
-    contar_MF
+    contar_MF,
+    buscarTempoExecucao
 }

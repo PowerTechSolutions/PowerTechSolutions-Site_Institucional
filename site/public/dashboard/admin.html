@@ -353,7 +353,7 @@
                         <div id="calendar">
                             <div class="site">
                                 <img src="dash_pt/image 11.png" alt="">
-                                <button onclick="boot()" style="cursor: pointer; border: none; background-color: transparent; width: 150px; display:flex; align-items: left; justify-content: center; height:10px;">
+                                <button onclick="boot(1)" style="cursor: pointer; border: none; background-color: transparent; width: 150px; display:flex; align-items: left; justify-content: center; height:10px;">
                                     <h3>Site de GEO <br>MV 23</h3>
                                 </button>
                             </div>
@@ -489,7 +489,7 @@
         
                         var porcentagem = document.createElement("span");
                         porcentagem.id = `porcentage${publicacao.IDMonitoramento}`;
-                        porcentagem.innerHTML = `${publicacao.Uso_DIsco}`;
+                        porcentagem.innerHTML = `${publicacao.Porcentagem_Uso}`;
                         disco.appendChild(porcentagem)
         
                         feed.appendChild(disco)

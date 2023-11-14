@@ -31,7 +31,7 @@ body{
     font-family: 'Poppins';
 }
 
-#email{
+#email_usuario{
     color: rgb(119, 119, 119);
     font-size: 13px;
 }
@@ -51,8 +51,10 @@ body{
 .info{
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 180px;
+    text-align: right;
+    margin-right: 22px;
+    margin-top: 10px;
 }
 
 .circle_back img{
@@ -425,9 +427,10 @@ form .page .btns button.prev {
 }
 
 .barra .amarela {
-    width: 60%;
+    width: 0%;
     background-color: #FFE500;
     position: absolute;
+    z-index: 999;
 }
 
 .chart_bar{

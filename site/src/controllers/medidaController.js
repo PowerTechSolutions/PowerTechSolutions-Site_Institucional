@@ -167,5 +167,6 @@ module.exports = {
     tempo_real_CPU,
     ultimas_RAM,
     tempo_real_RAM,
-    contar_MF
+    contar_MF,
+    buscarTempoExecucao
 }

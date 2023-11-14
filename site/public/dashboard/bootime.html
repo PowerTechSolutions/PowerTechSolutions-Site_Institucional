@@ -24,7 +24,7 @@ scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </head>
 
-<body onload="init(), buscarTempoExecucao() ">
+<body onload="init(), buscarTempoExecucao(1)">
     <div class="dash">
         <div class="navbar_boot">
             <div class="circle_back">
@@ -33,8 +33,8 @@ scale=1.0">
 
             <div class="information_user">
                 <div class="info">
-                    <span id="nome">Nome Usuário</span>
-                    <span id="email">Email@gmail.com</span>
+                    <span id="nome_usuario"></span>
+                    <span id="email_usuario"></span>
                 </div>
                 <img src="../assets/imgs_power/Telecommuting-pana.png" alt="">
             </div>
@@ -97,8 +97,8 @@ scale=1.0">
                     <div class="boxes_taxes2">
                         <div class="part_info_bar">
                             <h3>Tamanho de HD</h3>
-                            <div class="info_bar">
-                                <span>45%</span>
+                            <div class="info_bar" >
+                                <span id="info_bar">0%</span>
                                 <span id="porcentage"></span>
                             </div>
                             <div class="chart_bar">
@@ -109,10 +109,10 @@ scale=1.0">
                             </div>
 
                         </div>
-                        <div class="Info_disc">
-                            <h4 id="h4">Total Disco(GB): <span>9999</span></h4>
-                            <h4>Free Disco(GB): <span>9999</span></h4>
-                            <h4 id="h4btn">Used Disco(GB): <span>9999</span></h4>
+                        <div class="Info_disc" id="Info_disc">
+                            <h4 id="h4">Total Disco(GB): <span id="total_disco"></span></h4>
+                            <h4>Free Disco(GB): <span id="free_disco"></span></h4>
+                            <h4 id="h4btn">Used Disco(GB): <span id="used_disco">9999</span></h4>
                         </div>
                     </div>
                 </div>
@@ -152,6 +152,10 @@ scale=1.0">
 
 <script>
 
+    nome_usuario.innerHTML = sessionStorage.Nome_Usuario;
+    email_usuario.innerHTML = sessionStorage.Email_Usuario;
+    var idUsuario = sessionStorage.ID_USUARIO;
+    window.onload = buscarTempoExecucao(1);
     const ctx = document.getElementById('myChart');
 
     // const labels = Utils.months({count: 7});
@@ -301,27 +305,17 @@ function buscarTempoExecucao(FKMAQUINA){
                 var usuario = document.createElement("div");
                 usuario.className = "infoemp";
 
-                var id = document.createElement("p");
-                id.innerHTML = publicacao.IDUsuario;
-                usuario.appendChild(id);
-
-                var nome = document.createElement("p");
-                nome.innerHTML = publicacao.Nome;
-                usuario.appendChild(nome);
-
-                var data = new Date();
-                var dia = String(data.getDate()).padStart(2, '0');
-                var mes = String(data.getMonth() + 1).padStart(2, '0');
-                var ano = data.getFullYear();
-                var dataAtual = dia + '/' + mes + '/' + ano;
-
                 var data = document.createElement("p");
-                data.innerHTML = dataAtual;
-                usuario.appendChild(data);
+                data.innerHTML = publicacao.Data;
+                usuario.appendChild(data)
 
-                var situacao = document.createElement("p");
-                situacao.innerHTML = "00:00:00";
-                usuario.appendChild(situacao);
+                var hora = document.createElement("p");
+                hora.innerHTML = publicacao.Hora;
+                usuario.appendChild(hora);
+
+                var total = document.createElement("p");
+                total.innerHTML = publicacao.total;
+                usuario.appendChild(total)
 
                 feed.appendChild(usuario)
             }
@@ -350,13 +344,13 @@ function buscarTempoExecucao(FKMAQUINA){
         }).then(function (resposta) {
 
             console.log("resposta: ", resposta);
-            var feed = document.getElementById("discos");
+            var feed = document.getElementById("Info_disc");
             feed.innerHTML = "";
 
             if (resposta.ok) {
 
                 if (resposta.status == 204) {
-                    var feed = document.getElementById("discos");
+                    var feed = document.getElementById("Info_disc");
                     var mensagem = document.createElement("span");
                     mensagem.innerHTML = "Nenhum resultado encontrado."
                     feed.appendChild(mensagem);
@@ -365,23 +359,67 @@ function buscarTempoExecucao(FKMAQUINA){
 
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-                    var feed = document.getElementById("discos");
+                    var feed = document.getElementById("Info_disc");
+                    
                     feed.innerHTML = "";
                     for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
                         var publicacao = resposta[contador_usuario];
                         // criando e manipulando elementos do HTML via JavaScript
 
-                        var disco = document.createElement("span");
-                        disco.id = `disco${publicacao.IDMonitoramento}`;
+                        var porcentage = document.querySelector(".info_bar");
+                        porcentage.innerHTML = `${publicacao.Porcentagem_Uso}%`; // Make sure 'feed' is defined
 
-                        var label = document.createElement("span");
-                        label.innerHTML = `Disco ${contador_usuario + 1} - `;
-                        disco.appendChild(label);
 
-                        var porcentagem = document.createElement("span");
-                        porcentagem.id = `porcentage${publicacao.IDMonitoramento}`;
-                        porcentagem.innerHTML = `${publicacao.Uso_DIsco}`;
-                        disco.appendChild(porcentagem)
+                        var bar = document.querySelector(".amarela");
+var porcentagemUso = parseFloat(publicacao.Porcentagem_Uso);
+
+// Check if the value is more than 60%
+if (porcentagemUso > 60) {
+  bar.style.backgroundColor = "#FFE500";
+}
+
+// Check if the value is more than 80%
+if (porcentagemUso > 80) {
+  bar.style.backgroundColor = "#ff7800";
+}
+
+// Set the width based on the value
+bar.style.width = `${porcentagemUso}%`;
+
+
+                        var total = document.createElement("h4")
+                        total.innerHTML = `Total Disco(GB): <span id="total_disco"> ${publicacao.Total_Uso}</span>`
+                        feed.appendChild(total);
+
+                        var free = document.createElement("h4")
+                        free.innerHTML = `Free Disco(GB): <span id="total_disco"> ${publicacao.Livre_Uso}</span>`
+                        feed.appendChild(free);
+
+                        var uso = document.createElement("h4")
+                        uso.innerHTML = `Used Disco(GB): <span id="total_disco"> ${publicacao.Uso_Disco}</span>`
+                        feed.appendChild(uso);
+
+                        // var total_disco = document.getElementById(total_disco);
+                        // total_disco = `${publicacao.Total_Uso}`;
+
+                        // <h4 id="h4">Total Disco(GB): <span id="total_disco"></span></h4>
+                        //     <h4>Free Disco(GB): <span id="free_disco"></span></h4>
+                        //     <h4 id="h4btn">Used Disco(GB): <span id="used_disco">9999</span></h4>
+
+                        // var disco = document.createElement("span");
+                        // disco.id = `disco${publicacao.IDMonitoramento}`;
+                        // var infoDisc = document.querySelector(".Info_disc");
+                        // var elementsInfoDisc = infoDisc.children
+                        // var divTotal = elementsInfoDisc[0]
+
+                        // var label = document.createElement("span");
+                        // label.innerHTML = `Disco ${contador_usuario + 1} - `;
+                        // disco.appendChild(label);
+
+                        // var porcentagem = document.createElement("span");
+                        // porcentagem.id = `porcentage${publicacao.IDMonitoramento}`;
+                        // porcentagem.innerHTML = `${publicacao.Porcentagem_Uso}`;
+                        // disco.appendChild(porcentagem)
 
                         feed.appendChild(disco)
 
