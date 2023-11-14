@@ -18,3 +18,7 @@ function permi(){
 function user(){
     window.location.href = "cadastro.html";
 }
+
+function boot(){
+    window.location.href = "bootime.html";
+}

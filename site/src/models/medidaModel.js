@@ -82,6 +82,34 @@ function buscarDiscos(FKMAQUINA) {
     return database.executar(instrucaoSql);
 }
 
+
+function buscarTempoExecucao(FKMAQUINA) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+    SELECT
+    DATE(Data_Hora) AS Data,
+    TIME(Data_Hora) AS Hora,
+    TIME(Total_captura) AS total FROM Tempo_de_Execucao
+     JOIN maquinas 
+		        ON FKTempo_maquina = ${FKMAQUINA};`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 function ultimas_CPU(FKMAQUINA) {
 
     instrucaoSql = ''
