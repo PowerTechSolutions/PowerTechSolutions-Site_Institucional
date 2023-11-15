@@ -73,6 +73,22 @@ function buscarTempoExecucao(req, res) {
     });
 }
 
+function atualizarFeedCountTem(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.atualizarFeedCountTem(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
 
 function ultimas_CPU(req, res) {
 
@@ -168,5 +184,6 @@ module.exports = {
     ultimas_RAM,
     tempo_real_RAM,
     contar_MF,
-    buscarTempoExecucao
+    buscarTempoExecucao,
+    atualizarFeedCountTem
 }

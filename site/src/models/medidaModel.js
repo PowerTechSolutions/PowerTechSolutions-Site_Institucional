@@ -46,6 +46,33 @@ function tempo_real_log_alertas(FKUnidade) {
     return database.executar(instrucaoSql);
 }
 
+function atualizarFeedCountTem(FKMAQUINA) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT
+    COUNT(*) AS TotalCount
+FROM Tempo_de_Execucao
+JOIN maquinas ON FKTempo_maquina = IDMaquina
+WHERE maquinas.IDMaquina = ${FKMAQUINA};`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+
 function buscarDiscos(FKMAQUINA) {
 
     instrucaoSql = ''
@@ -288,5 +315,6 @@ module.exports = {
     ultimas_RAM,
     tempo_real_RAM,
     contar_MF,
-    buscarTempoExecucao
+    buscarTempoExecucao,
+    atualizarFeedCountTem
 }

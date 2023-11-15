@@ -24,11 +24,12 @@ scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </head>
 
-<body onload="init(), buscarTempoExecucao(1)">
+<body onload="init(), buscarTempoExecucao(1), atualizarFeedCountTem(1)">
     <div class="dash">
         <div class="navbar_boot">
             <div class="circle_back">
-                <button style="cursor: pointer;" onclick="MV()"><img src="../assets/imgs_power/arrow.png" alt=""></button>
+                <button style="cursor: pointer;" onclick="MV()"><img src="../assets/imgs_power/arrow.png"
+                        alt=""></button>
             </div>
 
             <div class="information_user">
@@ -51,13 +52,13 @@ scale=1.0">
                             <h3>Total horas</h3>
                         </div>
                         <div class="arrangement" id="arrangement">
-                            
+
                         </div>
                     </div>
                 </div>
 
                 <div class="chart">
-                    <div class="chart_bar2"><canvas class="bar" id="myChart"></canvas></div>
+                    <div class="chart_bar2"><canvas class="bar" id="myChart" style="color: white;"></canvas></div>
 
                 </div>
 
@@ -74,9 +75,9 @@ scale=1.0">
                     </div>
                     <div class="informs">
                         <h4 id="h4">Qtd Total de Paralização</h4>
-                        <span>9999</span>
+                        <span id="qtdTotal">9999</span>
                         <h4>Codigo do Disco</h4>
-                        <span>9999</span>
+                        <span id="idDisco">9999</span>
                     </div>
                 </div>
 
@@ -97,7 +98,7 @@ scale=1.0">
                     <div class="boxes_taxes2">
                         <div class="part_info_bar">
                             <h3>Tamanho de HD</h3>
-                            <div class="info_bar" >
+                            <div class="info_bar">
                                 <span id="info_bar">0%</span>
                                 <span id="porcentage"></span>
                             </div>
@@ -156,182 +157,219 @@ scale=1.0">
     email_usuario.innerHTML = sessionStorage.Email_Usuario;
     var idUsuario = sessionStorage.ID_USUARIO;
     window.onload = buscarTempoExecucao(1);
+
     const ctx = document.getElementById('myChart');
 
-    // const labels = Utils.months({count: 7});
-
     new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                axis: 'y',
-                label: 'Top 10 Aplicações que tem maior uso de HD / Tempo de maior paralização',
-                data: [65, 59, 80, 81, 56, 55, 40],
-                fill: false,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 205, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(201, 203, 207, 0.2)'
-                ],
-                borderColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 159, 64)',
-                    'rgb(255, 205, 86)',
-                    'rgb(75, 192, 192)',
-                    'rgb(54, 162, 235)',
-                    'rgb(153, 102, 255)',
-                    'rgb(201, 203, 207)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            indexAxis: 'y',
+  type: 'line',
+  data: {
+    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    datasets: [{
+      label: 'Total de Quantidade de Tempo de Paralização',
+      data: [12, 19, 3, 5, 2, 3],
+      pointBackgroundColor: '#FFE500',
+      borderColor: '#FFE500',
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        ticks: {
+          fontColor: 'white'
         }
-    });
+      },
+      x: {
+        ticks: {
+          fontColor: 'white'
+        }
+      }
+    },
+    legend: {
+      labels: {
+        fontColor: 'white'
+      }
+    }
+  }
+});
+
 
     window.onload = buscarDiscos(1);
+    window.onload = atualizarFeedCountTem(1);
     window.onload = init();
-    
-//     function atualizarFeed() {
 
-//     var IDUsuario = sessionStorage.FKUsuario;
+    function atualizarFeedCountTem(FKMAQUINA) {
+        fetch(`/medidas/atualizarFeedCountTem/${FKMAQUINA}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
 
-// fetch("/usuarios/listar_maquinas", {
-//     method: "POST",
-//     headers: {
-//         "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify({
-//         // crie um atributo que recebe o valor recuperado aqui
-//         // Agora vá para o arquivo routes/usuario.js
-//         idUser: IDUsuario,
-//     })
-// }).then(function (resposta) {
+            console.log("resposta: ", resposta);
 
-//     console.log("resposta: ", resposta);
+            if (resposta.ok) {
 
-//     if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("Info_disc");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
 
-//         if (resposta.status == 204) {
-//                 var feed = document.getElementById("arrangement");
-//                 var mensagem = document.createElement("span");
-//                 mensagem.innerHTML = "Nenhum resultado encontrado."
-//                 feed.appendChild(mensagem);
-//                 throw "Nenhum resultado encontrado!!";
-//             }
+                resposta.json().then(function (resposta) {
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
 
-//             resposta.json().then(function (resposta) {
-//             console.log("Dados recebidos: ", JSON.stringify(resposta));
+                        var porcentage = document.querySelector("#qtdTotal");
+                        porcentage.innerHTML = `${publicacao.TotalCount}`;
 
-//             var feed = document.getElementById("arrangement");
-//             for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
-//                 var publicacao = resposta[contador_usuario];
-//                 // criando e manipulando elementos do HTML via JavaScript
 
-//                 var usuario = document.createElement("div");
-//                 usuario.className = "infoemp";
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
 
-//                 var id = document.createElement("p");
-//                 id.innerHTML = publicacao.IDUsuario;
-//                 usuario.appendChild(id);
+        return false;
+    }
 
-//                 var nome = document.createElement("p");
-//                 nome.innerHTML = publicacao.Nome;
-//                 usuario.appendChild(nome);
+    //     function atualizarFeed() {
 
-//                 var data = new Date();
-//                 var dia = String(data.getDate()).padStart(2, '0');
-//                 var mes = String(data.getMonth() + 1).padStart(2, '0');
-//                 var ano = data.getFullYear();
-//                 var dataAtual = dia + '/' + mes + '/' + ano;
+    //     var IDUsuario = sessionStorage.FKUsuario;
 
-//                 var data = document.createElement("p");
-//                 data.innerHTML = dataAtual;
-//                 usuario.appendChild(data);
+    // fetch("/usuarios/listar_maquinas", {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //         // crie um atributo que recebe o valor recuperado aqui
+    //         // Agora vá para o arquivo routes/usuario.js
+    //         idUser: IDUsuario,
+    //     })
+    // }).then(function (resposta) {
 
-//                 var situacao = document.createElement("p");
-//                 situacao.innerHTML = "Normal";
-//                 usuario.appendChild(situacao);
+    //     console.log("resposta: ", resposta);
 
-//                 feed.appendChild(usuario)
-//             }
-//         });
-//     } else {
-//         throw ("Houve um erro ao tentar realizar A pesquisa!");
-//     }
-// }).catch(function (resposta) {
-//     console.log(`#ERRO: ${resposta}`);
-//     finalizarAguardar();
-// });
+    //     if (resposta.ok) {
 
-// return false;
-// }
+    //         if (resposta.status == 204) {
+    //                 var feed = document.getElementById("arrangement");
+    //                 var mensagem = document.createElement("span");
+    //                 mensagem.innerHTML = "Nenhum resultado encontrado."
+    //                 feed.appendChild(mensagem);
+    //                 throw "Nenhum resultado encontrado!!";
+    //             }
 
-function buscarTempoExecucao(FKMAQUINA){
-        
+    //             resposta.json().then(function (resposta) {
+    //             console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+    //             var feed = document.getElementById("arrangement");
+    //             for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+    //                 var publicacao = resposta[contador_usuario];
+    //                 // criando e manipulando elementos do HTML via JavaScript
+
+    //                 var usuario = document.createElement("div");
+    //                 usuario.className = "infoemp";
+
+    //                 var id = document.createElement("p");
+    //                 id.innerHTML = publicacao.IDUsuario;
+    //                 usuario.appendChild(id);
+
+    //                 var nome = document.createElement("p");
+    //                 nome.innerHTML = publicacao.Nome;
+    //                 usuario.appendChild(nome);
+
+    //                 var data = new Date();
+    //                 var dia = String(data.getDate()).padStart(2, '0');
+    //                 var mes = String(data.getMonth() + 1).padStart(2, '0');
+    //                 var ano = data.getFullYear();
+    //                 var dataAtual = dia + '/' + mes + '/' + ano;
+
+    //                 var data = document.createElement("p");
+    //                 data.innerHTML = dataAtual;
+    //                 usuario.appendChild(data);
+
+    //                 var situacao = document.createElement("p");
+    //                 situacao.innerHTML = "Normal";
+    //                 usuario.appendChild(situacao);
+
+    //                 feed.appendChild(usuario)
+    //             }
+    //         });
+    //     } else {
+    //         throw ("Houve um erro ao tentar realizar A pesquisa!");
+    //     }
+    // }).catch(function (resposta) {
+    //     console.log(`#ERRO: ${resposta}`);
+    //     finalizarAguardar();
+    // });
+
+    // return false;
+    // }
+
+    function buscarTempoExecucao(FKMAQUINA) {
+
         fetch(`/medidas/buscarTempoExecucao/${FKMAQUINA}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         }).then(function (resposta) {
-        
+
             console.log("resposta: ", resposta);
-        
+
             if (resposta.ok) {
 
-        if (resposta.status == 204) {
-                var feed = document.getElementById("arrangement");
-                var mensagem = document.createElement("span");
-                mensagem.innerHTML = "Nenhum resultado encontrado."
-                feed.appendChild(mensagem);
-                throw "Nenhum resultado encontrado!!";
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("arrangement");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("arrangement");
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+                        // criando e manipulando elementos do HTML via JavaScript
+
+                        var usuario = document.createElement("div");
+                        usuario.className = "infoemp";
+
+                        var data = document.createElement("p");
+                        data.innerHTML = publicacao.Data;
+                        usuario.appendChild(data)
+
+                        var hora = document.createElement("p");
+                        hora.innerHTML = publicacao.Hora;
+                        usuario.appendChild(hora);
+
+                        var total = document.createElement("p");
+                        total.innerHTML = publicacao.total;
+                        usuario.appendChild(total)
+
+                        feed.appendChild(usuario)
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
             }
-
-            resposta.json().then(function (resposta) {
-            console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-            var feed = document.getElementById("arrangement");
-            for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
-                var publicacao = resposta[contador_usuario];
-                // criando e manipulando elementos do HTML via JavaScript
-
-                var usuario = document.createElement("div");
-                usuario.className = "infoemp";
-
-                var data = document.createElement("p");
-                data.innerHTML = publicacao.Data;
-                usuario.appendChild(data)
-
-                var hora = document.createElement("p");
-                hora.innerHTML = publicacao.Hora;
-                usuario.appendChild(hora);
-
-                var total = document.createElement("p");
-                total.innerHTML = publicacao.total;
-                usuario.appendChild(total)
-
-                feed.appendChild(usuario)
-            }
-        });
-    } else {
-        throw ("Houve um erro ao tentar realizar A pesquisa!");
-    }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
             //finalizarAguardar();
         });
-        
-        return false;
-        }  
-        
 
+        return false;
+    }
 
 
     function buscarDiscos(FKMAQUINA) {
@@ -360,31 +398,34 @@ function buscarTempoExecucao(FKMAQUINA){
                 resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
                     var feed = document.getElementById("Info_disc");
-                    
+
                     feed.innerHTML = "";
                     for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
                         var publicacao = resposta[contador_usuario];
                         // criando e manipulando elementos do HTML via JavaScript
+
+                        // var codigo = document.querySelector("idDisco");
+                        // porcentage.innerHTML = `${publicacao.Porcentagem_Uso}%`;
 
                         var porcentage = document.querySelector(".info_bar");
                         porcentage.innerHTML = `${publicacao.Porcentagem_Uso}%`; // Make sure 'feed' is defined
 
 
                         var bar = document.querySelector(".amarela");
-var porcentagemUso = parseFloat(publicacao.Porcentagem_Uso);
+                        var porcentagemUso = parseFloat(publicacao.Porcentagem_Uso);
 
-// Check if the value is more than 60%
-if (porcentagemUso > 60) {
-  bar.style.backgroundColor = "#FFE500";
-}
+                        // Check if the value is more than 60%
+                        if (porcentagemUso > 60) {
+                            bar.style.backgroundColor = "#FFE500";
+                        }
 
-// Check if the value is more than 80%
-if (porcentagemUso > 80) {
-  bar.style.backgroundColor = "#ff7800";
-}
+                        // Check if the value is more than 80%
+                        if (porcentagemUso > 80) {
+                            bar.style.backgroundColor = "#ff7800";
+                        }
 
-// Set the width based on the value
-bar.style.width = `${porcentagemUso}%`;
+                        // Set the width based on the value
+                        bar.style.width = `${porcentagemUso}%`;
 
 
                         var total = document.createElement("h4")
