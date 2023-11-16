@@ -3,7 +3,7 @@ var router = express.Router();
 
 var medidaController = require("../controllers/medidaController");
 
-router.get("/ultimas", function (req,res){
+router.post("/ultimas", function (req,res){
     medidaController.log_alertas(req, res);
 });
 
