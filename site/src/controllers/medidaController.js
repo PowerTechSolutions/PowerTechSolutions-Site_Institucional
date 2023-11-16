@@ -2,11 +2,12 @@ var medidaModel = require("../models/medidaModel");
 
 function log_alertas(req, res) {
 
-    var FKUnidade = req.params.FKUnidade;
+    var FKUnidade = req.body.FKUnidadeServer;
+    var mes = req.body.mesServer;
 
     console.log(`Recuperando Quantidade de alertas`);
 
-    medidaModel.log_alertas(FKUnidade).then(function (resultado) {
+    medidaModel.log_alertas(FKUnidade,mes).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -43,6 +44,40 @@ function buscarDiscos(req, res) {
     var FKMAQUINA = req.params.FKMAQUINA;
 
     medidaModel.buscarDiscos(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarTempoExecucao(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.buscarTempoExecucao(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function atualizarFeedCountTem(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.atualizarFeedCountTem(FKMAQUINA).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -148,5 +183,7 @@ module.exports = {
     tempo_real_CPU,
     ultimas_RAM,
     tempo_real_RAM,
-    contar_MF
+    contar_MF,
+    buscarTempoExecucao,
+    atualizarFeedCountTem
 }

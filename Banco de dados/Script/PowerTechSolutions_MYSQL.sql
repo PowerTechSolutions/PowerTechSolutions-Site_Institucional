@@ -83,6 +83,18 @@ CREATE TABLE IF NOT EXISTS Maquinas(
 			REFERENCES Tipo_maquina(IDTipo)
 );
 
+-- novo tabela da Kaori
+
+CREATE TABLE IF NOT EXISTS Tempo_de_Execucao(
+	IDTempo INT PRIMARY KEY AUTO_INCREMENT,
+    Data_Hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Total_captura time, 
+	FKTempo_maquina INT,
+		CONSTRAINT FKTempo_maquina FOREIGN KEY (FKTempo_maquina)
+			REFERENCES Maquinas(IDMaquina)
+);
+-- termina aqui
+
 CREATE TABLE IF NOT EXISTS Redes_conectadas(
 	IDConexao INT PRIMARY KEY AUTO_INCREMENT,
     Data_Hora_Conexao DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -155,7 +167,10 @@ CREATE TABLE IF NOT EXISTS Componentes_monitorados(
 CREATE TABLE IF NOT EXISTS Monitoramento_RAW(
 	IDMonitoramento INT PRIMARY KEY AUTO_INCREMENT,
     Data_Hora_Captura DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Dado_Capturado VARCHAR(30),
+    Total DOUBLE,
+    Free Double, 
+    Uso Double, 
+    Porcentagem Double,
     FKComponente_Monitorado INT,
 		CONSTRAINT FKMonitoramento_RAW_Componente_maquina FOREIGN KEY (FKComponente_Monitorado)
 			REFERENCES Componentes_monitorados(IDComponente_monitorado)
@@ -216,13 +231,6 @@ INSERT INTO Nivel_acesso VALUES
 INSERT into Usuario_Dashboard VALUES
 (NULL,'davi','davi@teste.com','48372073830','12345678',1,1),
 (NULL,'henry','henry@teste.com','12345678910','87654321',1,2);
-
-INSERT INTO Alertas VALUES
-(1,'Alerta de teste1',default,null,null,1),
-(3,'Alerta de teste2',default,null,null,1),
-(4,'Alerta de teste2',default,null,null,1),
-(5,'Alerta de teste3',default,null,null,1),
-(9,'Alerta de teste4',default,null,null,1);
 
 INSERT INTO Componentes_cadastrados values
 (null,'CPU'),

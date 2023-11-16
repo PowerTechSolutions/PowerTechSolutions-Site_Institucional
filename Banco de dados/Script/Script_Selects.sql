@@ -86,3 +86,34 @@ SELECT Count(IDMaquina) as Contagem
 		ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
     WHERE Tipo_maquina.Apelido = "FISICA"
 		AND Usuario_Dashboard.FKUnidade = 1;
+        
+INSERT INTO Alertas VALUES
+(NULL,'Alerta de teste1',"2023-11-01",null,null,1),
+(NULL,'Alerta de teste1',"2023-11-03",null,null,1),
+(NULL,'Alerta de teste1',"2023-11-05",null,null,1),
+(NULL,'Alerta de teste7',"2023-11-07",null,null,1),
+(NULL,'Alerta de teste8',"2023-11-08",null,null,1),
+(NULL,'Alerta de teste13',"2023-11-10",null,null,1),
+(NULL,'Alerta de teste14',"2023-11-12",null,null,1),
+(NULL,'Alerta de teste21',"2023-11-13",null,null,1),
+(NULL,'Alerta de teste28',"2023-11-14",null,null,1);
+
+SELECT * FROM Alertas;
+
+SELECT count(IDAlerta) as Alertas
+    FROM Alertas WHERE datediff(date(now()),Data_Hora) >= 12 AND Data_Hora LIKE "2023-11-%";
+
+SELECT 
+        Alertas.Alerta
+        FROM Alertas 
+        WHERE FKUnidade_negocio = 1
+        AND
+        Data_Hora LIKE "%-02-%"
+        AND 
+        Data_Hora LIKE  "%-02-22 %" 
+        OR Data_Hora LIKE  "%-02-23 %" 
+        OR Data_Hora LIKE  "%-02-24 %" 
+        OR Data_Hora LIKE  "%-02-25 %" 
+        OR Data_Hora LIKE  "%-02-26 %" 
+        OR Data_Hora LIKE  "%-02-27 %"
+        OR Data_Hora LIKE  "%-02-28 %";
