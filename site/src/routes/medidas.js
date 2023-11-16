@@ -15,6 +15,14 @@ router.get("/buscarDiscos/:FKMAQUINA", function (req,res){
     medidaController.buscarDiscos(req,res);
 });
 
+router.get("/buscarTempoExecucao/:FKMAQUINA", function (req,res){
+    medidaController.buscarTempoExecucao(req,res);
+});
+
+router.get("/atualizarFeedCountTem/:FKMAQUINA", function (req,res){
+    medidaController.atualizarFeedCountTem(req,res);
+});
+
 router.get("/ultimas_CPU/:FKMAQUINA", function (req,res){
     medidaController.ultimas_CPU(req,res);
 });
