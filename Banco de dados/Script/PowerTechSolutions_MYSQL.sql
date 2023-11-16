@@ -83,6 +83,18 @@ CREATE TABLE IF NOT EXISTS Maquinas(
 			REFERENCES Tipo_maquina(IDTipo)
 );
 
+-- novo tabela da Kaori
+
+CREATE TABLE IF NOT EXISTS Tempo_de_Execucao(
+	IDTempo INT PRIMARY KEY AUTO_INCREMENT,
+    Data_Hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Total_captura time, 
+	FKTempo_maquina INT,
+		CONSTRAINT FKTempo_maquina FOREIGN KEY (FKTempo_maquina)
+			REFERENCES Maquinas(IDMaquina)
+);
+-- termina aqui
+
 CREATE TABLE IF NOT EXISTS Redes_conectadas(
 	IDConexao INT PRIMARY KEY AUTO_INCREMENT,
     Data_Hora_Conexao DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -155,7 +167,10 @@ CREATE TABLE IF NOT EXISTS Componentes_monitorados(
 CREATE TABLE IF NOT EXISTS Monitoramento_RAW(
 	IDMonitoramento INT PRIMARY KEY AUTO_INCREMENT,
     Data_Hora_Captura DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Dado_Capturado VARCHAR(30),
+    Total DOUBLE,
+    Free Double, 
+    Uso Double, 
+    Porcentagem Double,
     FKComponente_Monitorado INT,
 		CONSTRAINT FKMonitoramento_RAW_Componente_maquina FOREIGN KEY (FKComponente_Monitorado)
 			REFERENCES Componentes_monitorados(IDComponente_monitorado)

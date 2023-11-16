@@ -3,7 +3,7 @@ var router = express.Router();
 
 var medidaController = require("../controllers/medidaController");
 
-router.get("/ultimas", function (req,res){
+router.post("/ultimas", function (req,res){
     medidaController.log_alertas(req, res);
 });
 
@@ -13,6 +13,14 @@ router.get("/tempo_real/:FKUnidade", function (req,res){
 
 router.get("/buscarDiscos/:FKMAQUINA", function (req,res){
     medidaController.buscarDiscos(req,res);
+});
+
+router.get("/buscarTempoExecucao/:FKMAQUINA", function (req,res){
+    medidaController.buscarTempoExecucao(req,res);
+});
+
+router.get("/atualizarFeedCountTem/:FKMAQUINA", function (req,res){
+    medidaController.atualizarFeedCountTem(req,res);
 });
 
 router.get("/ultimas_CPU/:FKMAQUINA", function (req,res){
