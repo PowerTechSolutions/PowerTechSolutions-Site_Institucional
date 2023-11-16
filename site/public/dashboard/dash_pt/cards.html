@@ -118,25 +118,36 @@
                     <div class="crd2_sept">
                         <p>Alertas</p>
                         <div class="dropdown_selection">
-                            <label for="cars">Escolha um mês:</label>
-                            <select onchange="buscarALertas(this.value)" name="cars" id="cars">
-                                <option value="__/01/%">Janeiro</option>
-                                <option value="__/02/%">Fevereiro</option>
-                                <option value="__/03/%">Março</option>
-                                <option value="__/04/%">Abril</option>
-                                <option value="__/05/%">Maio</option>
-                                <option value="__/06/%">Junho</option>
-                                <option value="__/07/%">Julho</option>
-                                <option value="__/08/%">Agosto</option>
-                                <option value="__/09/%">Setembro</option>
-                                <option value="__/10/%">Outubro</option>
-                                <option value="__/11/%">Novembro</option>
-                                <option value="__/12/%">Dezembro</option>
+                            <select onchange="exibirlocal(this.value)">
+                                <option> Escolha o mês para visualizar </option>
+                                <option value="-01-">Janeiro</option>
+                                <option value="-02-">Fevereiro</option>
+                                <option value="-03-">Março</option>
+                                <option value="-04-">Abril</option>
+                                <option value="-05-">Maio</option>
+                                <option value="-06-">Junho</option>
+                                <option value="-07-">Julho</option>
+                                <option value="-08-">Agosto</option>
+                                <option value="-09-">Setembro</option>
+                                <option value="-10-">Outubro</option>
+                                <option value="-11-">Novembro</option>
+                                <option value="-12-">Dezembro</option>
                             </select>
                         </div>
                     </div>
-                    <div class="alertas">
-                        <canvas style="height: 100%; width: 100%;" id="myChart"></canvas>
+                    <div class="alertas" id="alertas">
+                        <canvas id="myChart1"></canvas>
+                        <canvas id="myChart2"></canvas>
+                        <canvas id="myChart3"></canvas>
+                        <canvas id="myChart4"></canvas>
+                        <canvas id="myChart5"></canvas>
+                        <canvas id="myChart6"></canvas>
+                        <canvas id="myChart7"></canvas>
+                        <canvas id="myChart8"></canvas>
+                        <canvas id="myChart9"></canvas>
+                        <canvas id="myChart10"></canvas>
+                        <canvas id="myChart11"></canvas>
+                        <canvas id="myChart12"></canvas>
                     </div>
                 </div>
             </div>
@@ -194,6 +205,41 @@ window.onload = init();
     nome_usuario.innerHTML = sessionStorage.Nome_Usuario;
     var idUsuario = sessionStorage.ID_USUARIO;
     window.onload = atualizarFeed_usuarios();
+
+    function exibirlocal(mes) {
+
+        let todosOsGraficos = document.getElementById("alertas")
+    
+        for (i = 1; i <= todosOsGraficos.childElementCount; i++) {
+            // exibindo - ou não - o gráfico
+            let elementoAtual = document.getElementById(`myChart${i}`)
+            elementoAtual.style.display = "none"
+            
+        }
+
+        var idLocal = 0
+
+        for(j = 1;j<=12;j++){
+
+            if(j >= 10){
+                if(mes == `-${j}-`){
+                    idLocal = j
+                }
+            }else{
+                if(mes == `-0${j}-`){
+                    idLocal = j
+                }
+            }
+
+        }
+        
+        // exibindo - ou não - o gráfico
+        let graficoExibir = document.getElementById(`myChart${idLocal}`)
+        graficoExibir.style.display = "block"
+
+        obterDadosGrafico(FKUnidade,mes,idLocal)
+        
+    }
 
     function atualizarFeed_usuarios() {
 
@@ -270,43 +316,48 @@ window.onload = init();
         return false;
     }
 
-    function buscarALertas(mes){
-        obterDadosGrafico(FKUnidade,mes)
-    }
-
-    function obterDadosGrafico(FKUnidade,mes) {
+    function obterDadosGrafico(FKUnidade,mes,idLocal) {
 
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
         }
 
-        fetch(`/medidas/ultimas/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
+        fetch("/medidas/ultimas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                FKUnidadeServer: FKUnidade,
+                mesServer: mes
+            })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
 
-                    plotarGrafico(resposta,FKUnidade);
+                    plotarGrafico(resposta,FKUnidade,mes,idLocal);
 
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
             }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
     }
 
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta,FKUnidade) {
+    function plotarGrafico(resposta,FKUnidade,mes,idLocal) {
 
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
-        let labels = [];
+        let labels = ["Atenção","Perigo","Critico"];
 
         // Criando estrutura para plotar gráfico - dados
         let dados = {
@@ -328,7 +379,6 @@ window.onload = init();
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            labels.push(registro.momento_grafico);
             dados.datasets[0].data.push(registro.Alertas);
         }
 
@@ -342,78 +392,14 @@ window.onload = init();
 
         // Criando estrutura para plotar gráfico - config
         const config = {
-            type: 'line',
+            type: 'bar',
             data: dados
         };
 
-        // Adicionando gráfico criado em div na tela
         let myChart = new Chart(
-            document.getElementById("myChart"),
+            document.getElementById(`myChart${idLocal}`),
             config
         );
-
-        setTimeout(() => atualizarGrafico(FKUnidade, dados, myChart), 2000);
-    }
-
-
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas, 
-
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(FKUnidade, dados, myChart) {
-
-
-
-        fetch(`/medidas/tempo_real/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-
-                    //obterDados(FKUnidade);
-                    // alertar(novoRegistro, idAquario);
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico:`);
-                    console.log(dados);
-
-//                    let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
-//                    avisoCaptura.innerHTML = ""
-
-
-                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                        console.log("---------------------------------------------------------------")
-                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                        //avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                        console.log("Horário do novo dado capturado:")
-                        console.log(novoRegistro[0].momento_grafico)
-                        console.log("Horário do último dado capturado:")
-                        console.log(dados.labels[dados.labels.length - 1])
-                        console.log("---------------------------------------------------------------")
-                    } else {
-                        // tirando e colocando valores no gráfico
-                        dados.labels.shift(); // apagar o primeiro
-                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-
-                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[0].Alertas); // incluir uma nova medida de umidade
-
-                        //dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-                        //dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-
-                        myChart.update();
-                    }
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(FKUnidade, dados, myChart), 2000);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(FKUnidade, dados, myChart), 2000);
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
 
     }
 

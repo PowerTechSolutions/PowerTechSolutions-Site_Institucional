@@ -18,3 +18,8 @@ function permi(){
 function user(){
     window.location.href = "cadastro.html";
 }
+
+function boot(FKMaquina){
+    sessionStorage.setItem("FKMaquina", FKMaquina);
+    window.location.href = "bootime.html";
+}
