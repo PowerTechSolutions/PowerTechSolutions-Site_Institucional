@@ -153,7 +153,7 @@ function ultimas_CPU(FKMAQUINA) {
         instrucaoSql = `
         SELECT 
             DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
-            Uso AS Uso_CPU
+            Porcentagem AS Uso_CPU
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
 		        ON FKComponente_Monitorado = IDComponente_monitorado 
@@ -187,7 +187,7 @@ function tempo_real_CPU(FKMAQUINA) {
         instrucaoSql = `
         SELECT 
         DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
-        Uso AS Uso_CPU
+        Porcentagem AS Uso_CPU
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
 		        ON FKComponente_Monitorado = IDComponente_monitorado 
@@ -198,7 +198,7 @@ function tempo_real_CPU(FKMAQUINA) {
 		        WHERE FKMaquina = ${FKMAQUINA}
 		        AND Componentes_cadastrados.Apelido = "CPU"
                 ORDER BY Monitoramento_RAW.IDMonitoramento DESC 
-                LIMIT 1;`;
+                LIMIT 10;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
