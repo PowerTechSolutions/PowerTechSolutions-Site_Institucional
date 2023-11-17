@@ -11,12 +11,11 @@ function log_alertas(FKUnidade,mes) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT 
-        count(Alertas.IDAlerta) AS Alertas, 
-        date_format(Data_Hora, "%d/%c") as momento_grafico 
-        FROM Alertas 
-        WHERE FKUnidade_negocio = ${FKUnidade}
-        Data_Hora LIKE "${mes}"`;
+        SELECT count(IDAlerta) as Alertas
+        FROM Alertas JOIN Nivel_alerta
+        ON IDNivel_alerta = FKNivel_alerta
+        WHERE Data_Hora LIKE "%${mes}%" GROUP BY IDNivel_alerta;
+        `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
