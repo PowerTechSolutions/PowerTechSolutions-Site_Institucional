@@ -139,6 +139,28 @@ function buscarTempoExecucao(FKMAQUINA) {
     return database.executar(instrucaoSql);
 }
 
+function buscarJanelas(FKMAQUINA) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT Nome_Janelas as Nome From janelas_abertas join maquinas on FKMaquina = ${FKMAQUINA};
+    `;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 function ultimas_CPU(FKMAQUINA) {
 
@@ -153,7 +175,7 @@ function ultimas_CPU(FKMAQUINA) {
         instrucaoSql = `
         SELECT 
             DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
-            Uso AS Uso_CPU
+            Porcentagem AS Uso_CPU
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
 		        ON FKComponente_Monitorado = IDComponente_monitorado 
@@ -187,7 +209,7 @@ function tempo_real_CPU(FKMAQUINA) {
         instrucaoSql = `
         SELECT 
         DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
-        Uso AS Uso_CPU
+        Porcentagem AS Uso_CPU
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
 		        ON FKComponente_Monitorado = IDComponente_monitorado 
@@ -198,7 +220,7 @@ function tempo_real_CPU(FKMAQUINA) {
 		        WHERE FKMaquina = ${FKMAQUINA}
 		        AND Componentes_cadastrados.Apelido = "CPU"
                 ORDER BY Monitoramento_RAW.IDMonitoramento DESC 
-                LIMIT 1;`;
+                LIMIT 10;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -315,5 +337,6 @@ module.exports = {
     tempo_real_RAM,
     contar_MF,
     buscarTempoExecucao,
-    atualizarFeedCountTem
+    atualizarFeedCountTem, 
+    buscarJanelas
 }

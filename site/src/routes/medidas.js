@@ -19,6 +19,10 @@ router.get("/buscarTempoExecucao/:FKMAQUINA", function (req,res){
     medidaController.buscarTempoExecucao(req,res);
 });
 
+router.get("/buscarJanelas/:FKMAQUINA", function (req, res){
+    medidaController.buscarJanelas(req,res);
+});
+
 router.get("/atualizarFeedCountTem/:FKMAQUINA", function (req,res){
     medidaController.atualizarFeedCountTem(req,res);
 });
