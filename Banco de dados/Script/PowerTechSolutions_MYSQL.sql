@@ -240,6 +240,11 @@ INSERT INTO Componentes_cadastrados values
 (null,'JANELAS'),
 (null,'USB');
 
+INSERT INTO Nivel_alerta (nivel) VALUES 
+("Atenção"),
+("Perigo"),
+("Critico");
+
 INSERT INTO Tipo_maquina VALUES
 (null,"FISICA"),
 (null,"VIRTUAL");

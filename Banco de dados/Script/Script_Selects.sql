@@ -88,15 +88,15 @@ SELECT Count(IDMaquina) as Contagem
 		AND Usuario_Dashboard.FKUnidade = 1;
         
 INSERT INTO Alertas VALUES
-(NULL,'Alerta de teste1',"2023-11-01",null,null,1),
-(NULL,'Alerta de teste1',"2023-11-03",null,null,1),
-(NULL,'Alerta de teste1',"2023-11-05",null,null,1),
-(NULL,'Alerta de teste7',"2023-11-07",null,null,1),
-(NULL,'Alerta de teste8',"2023-11-08",null,null,1),
-(NULL,'Alerta de teste13',"2023-11-10",null,null,1),
-(NULL,'Alerta de teste14',"2023-11-12",null,null,1),
-(NULL,'Alerta de teste21',"2023-11-13",null,null,1),
-(NULL,'Alerta de teste28',"2023-11-14",null,null,1);
+(NULL,'Alerta de teste1',"2023-01-01",null,1,1),
+(NULL,'Alerta de teste1',"2023-01-03",null,1,1),
+(NULL,'Alerta de teste1',"2023-01-05",null,2,1),
+(NULL,'Alerta de teste7',"2023-01-07",null,2,1),
+(NULL,'Alerta de teste8',"2023-01-08",null,3,1),
+(NULL,'Alerta de teste13',"2023-01-10",null,3,1),
+(NULL,'Alerta de teste14',"2023-11-12",null,1,1),
+(NULL,'Alerta de teste21',"2023-11-13",null,1,1),
+(NULL,'Alerta de teste28',"2023-11-14",null,2,1);
 
 SELECT * FROM Alertas;
 

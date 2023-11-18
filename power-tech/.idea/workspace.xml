@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f5a5435b-374a-438f-98a7-323981723ccd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../site/public/dashboard/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/../site/public/dashboard/admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../site/public/dashboard/maquina_fisica.html" beforeDir="false" afterPath="$PROJECT_DIR$/../site/public/dashboard/maquina_fisica.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../site/src/models/medidaModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../site/src/models/medidaModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../site/public/dashboard/dash_pt/cards.html" beforeDir="false" afterPath="$PROJECT_DIR$/../site/public/dashboard/dash_pt/cards.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../site/public/dashboard/dash_pt/viewpoint.html" beforeDir="false" afterPath="$PROJECT_DIR$/../site/public/dashboard/dash_pt/viewpoint.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../site/src/database/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../site/src/database/config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,24 +18,24 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2XaL4pdL7mAHUhGxtrWezkydFdK" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
     <option name="sortKey" value="BY_TIME_DESCENDING" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "dev",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
