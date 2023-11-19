@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desempenho Funcionários</title>
+    <link rel="stylesheet" href="../dashboard/dash_pt/gestor11 copy.css">
+    <link rel="stylesheet" href="../dashboard/dash_pt/stylegestor copy.css">
+    <!-- <link rel="stylesheet" href="../css/chat.css"> -->
+    <link rel="stylesheet" href="../css/desempenhoTrader.css">
+    <!-- biblioteca para gerar pdf -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"
+        integrity="sha512-6HmJ9Y5PZWQVCd4KUwIaSgtDskfsykB+Fvm8Nq98GVCMHstaVoX9jqDdwSyGCbmJy5eLs/DXgDE3SXRS+2B2yA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- biblioteca para gerar print -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="teste.js"></script>
+
+
+</head>
+
+<body>
+    <div id="all">
+        <div class="header-left dash-header">
+            <div class="sepration">
+                <img class="perfil" src="./dash_pt/power_tech_solutions_logo_semfundo.png" alt="">
+                <button onclick="geral()" id="fist_top"><img src="./dash_pt/bar-line-chart.png" alt="" id="first"><img
+                        src="./dash_pt/Group 1171274974.png" alt="" id="second">
+                    <p>Geral</p>
+                </button>
+
+                <button onclick="viewpoint()"><img src="./dash_pt/element-3.png" id="fst" alt=""> <img id="send"
+                        src="./dash_pt/element-3 (1).png" alt="">
+                    <p>View Point</p>
+                </button>
+            </div>
+            <div class="sepration2">
+                <button class="helpbutton"><img src="./dash_pt/help-circle.png" alt="">
+                    <p>Central de ajuda</p>
+                </button>
+                <div class="crd2_sept">
+                    <img src="../assets/imgs_power/do-utilizador.png" alt="">
+                    <p id="nome_usuario"></p>
+                    <details class="custom-select">
+                        <ul class="list">
+                            <li>
+                                <label for="item1">
+                                    <a href="../../index.html">Sair</a>
+                                    <span></span>
+                                </label>
+                            </li>
+                        </ul>
+                        <summary class="radios">
+                        </summary>
+                    </details>
+                </div>
+            </div>
+        </div>
+
+        <div class="conteudo" id="conteudo-ID">
+            <div class="lado-A">
+                <div class="kpis">
+                    <div class="kpi">
+                        <span class="titulo-kpi">Total de alertas de desempenho anormal</span>
+                        <span id="valor">30</span>
+                    </div>
+                    <div class="kpi">
+                        <span class="titulo-kpi">Kpi indefinida que falta escolher</span>
+                        <span id="teste">??</span>
+                    </div>
+                </div>
+
+                <div class="resumo">
+                    <p>Com base nesse gráfico, foi percebido que o seu setor possui <span id="percentual">45%</span> de
+                        funcionários
+                        que estão com desempenho dentro do esperado</p>
+                </div>
+
+                <div class="graph2">
+                    <span class="titulo">Taxa de funcionários que consomem muito da CPU</span>
+                    <div class="tamanho-graph2">
+                        <canvas id="mychart2"></canvas>
+                    </div>
+                </div>
+            </div>
+            <!-- fim do lado A -->
+
+            <div class="lado B">
+                <div class="pdf">
+                    <span>Gostaria de obter um pdf desse relátorio?</span>
+                    <div class="botoes">
+                        <button class="cinza" onclick="fecharMsg()">Não, obrigado</button>
+                        <button class="amarelo" onclick="criarPdf()">Gerar pdf</button>
+                    </div>
+                </div>
+
+                <div class="graph1">
+                    <span class="titulo">Desempenho dos funcionários do Setor </span>
+                    <div class="tamanho-graph1">
+                        <canvas id="mychart1"></canvas>
+                    </div>
+                </div>
+
+                <div class="lista">
+                    <span class="titulo-lista">
+                        Funcionários que tiveram melhor desempenho neste mês
+                    </span>
+                    <div class="colunas">
+                        <span>ID</span>
+                        <span>Nome</span>
+                        <span>Percentual</span>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+</body>
+
+</html>
