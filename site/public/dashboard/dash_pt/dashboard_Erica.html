@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Janelas abertas</title>
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="dash_Erica.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
-<body onload="buscarJanelas(1), exibirgraph(1)">
+<body onload="buscarJanelas(1), exibirgraph(1), buscarTotal_Janelas(1), buscarInfo()">
     <div class="div_geral">
         <div class="infos">
             <div class="box_lista">
@@ -20,17 +20,19 @@
                     </div>
                 </div>
             </div>
-            <div class="box qntd">
-                <span> Total </span>
+            <span> Total </span>
+            <div class="qntd">
+                <div class="total_janelas">
+                </div>
             </div>
             <div class="parte">
-                <div class="box func">
+                <div class="func">
                     <img id="perfil" src="profile 1.png" alt="perfil usuário">
                     <div class="alinhar">
                         <span> Funcionário: </span>
-                        <p> Armin Holland </p>
-                        <p> Setor 2 </p>
-                        <p> Email: armin.holland@gmail.com </p>
+                        <span id="nome"> </span>
+                        <span id="setor"></span>
+                        <span id="email"> </span>
                     </div>
                 </div>
                 <div class="box cpu">
@@ -52,6 +54,7 @@
 
 </html>
 <script>
+
 
 
 
@@ -248,6 +251,123 @@
         return false;
     }
 
+    function buscarTotal_Janelas(FKMAQUINA) {
+
+        fetch(`/medidas/buscarTotal_Janelas/${FKMAQUINA}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("qntd");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("qntd");
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+                        // criando e manipulando elementos do HTML via JavaScript
+
+                        var totalJanelas = document.createElement("div");
+                        totalJanelas.className = "total_janelas";
+
+                        var quantidade = document.createElement("p");
+                        quantidade.innerHTML = publicacao.Total;
+                        totalJanelas.appendChild(quantidade)
+
+                        feed.appendChild(totalJanelas)
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            //finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    function buscarInfo() {
+
+        var email = sessionStorage.Email_Usuario;
+
+        fetch("/usuarios/buscarInfo", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                emailServer: email,
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("func");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("func");
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+                        // criando e manipulando elementos do HTML via JavaScript
+
+                        var infos = document.createElement("div");
+                        infos.className = "alinhar";
+
+                        var setor = document.createElement("p")
+                        setor.innerHTML = publicacao.Setor;
+                        infos.appendChild(setor)
+
+                        var nome = document.createElement("p")
+                        nome.innerHTML = publicacao.Nome;
+                        infos.appendChild(nome)
+
+                        var email = document.createElement("P")
+                        email.innerHTML = publicacao.Email;
+                        infos.appendChild(email)
+
+                        var idUsuario = sessionStorage.ID_USUARIO;
+                        feed.appendChild(infos)
+
+
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar obter as informações do usuário!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            //finalizarAguardar();
+        });
+
+        return false;
+    }
 
     // function buscarJanelas(FKMAQUINA) {
 
