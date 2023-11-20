@@ -174,8 +174,8 @@ function ultimas_CPU(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-            DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
-            Porcentagem AS Uso_CPU
+            DATE_FORMAT(Data_Hora_Captura,'%H:%i') as momento_grafico,
+            Uso AS Uso_CPU
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
 		        ON FKComponente_Monitorado = IDComponente_monitorado 
@@ -208,8 +208,8 @@ function tempo_real_CPU(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-        DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
-        Porcentagem AS Uso_CPU
+        DATE_FORMAT(Data_Hora_Captura,'%H:%i') as momento_grafico,
+        Uso AS Uso_CPU
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
 		        ON FKComponente_Monitorado = IDComponente_monitorado 
@@ -242,7 +242,7 @@ function ultimas_RAM(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-            DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
+            DATE_FORMAT(Data_Hora_Captura,'%H:%i') as momento_grafico,
             Uso AS Uso_RAM
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
@@ -276,7 +276,7 @@ function tempo_real_RAM(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-        DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
+        DATE_FORMAT(Data_Hora_Captura,'%H:%i') as momento_grafico,
         Uso AS Uso_RAM
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
