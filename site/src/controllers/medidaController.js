@@ -7,7 +7,7 @@ function log_alertas(req, res) {
 
     console.log(`Recuperando Quantidade de alertas`);
 
-    medidaModel.log_alertas(FKUnidade,mes).then(function (resultado) {
+    medidaModel.log_alertas(FKUnidade, mes).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -77,7 +77,24 @@ function buscarJanelas(req, res) {
 
     var FKMAQUINA = req.params.FKMAQUINA;
 
-medidaModel.buscarJanelas(FKMAQUINA).then(function (resultado) {
+    medidaModel.buscarJanelas(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarTotal_Janelas(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.buscarTotal_Janelas(FKMAQUINA).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -202,6 +219,7 @@ module.exports = {
     tempo_real_RAM,
     contar_MF,
     buscarTempoExecucao,
-    atualizarFeedCountTem, 
-    buscarJanelas
+    atualizarFeedCountTem,
+    buscarJanelas,
+    buscarTotal_Janelas
 }

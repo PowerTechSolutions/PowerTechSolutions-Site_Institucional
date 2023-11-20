@@ -20,5 +20,10 @@ router.post("/listar_usuarios", function (req, res) {
     usuarioController.listar_usuarios(req, res);
 });
 
+router.post("/buscarInfo", function (req, res) {
+    usuarioController.buscarInfo(req, res);
+});
+
+
 
 module.exports = router;

@@ -161,6 +161,28 @@ function buscarJanelas(FKMAQUINA) {
     return database.executar(instrucaoSql);
 }
 
+function buscarTotal_Janelas(FKMAQUINA) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT count(Nome_Janelas) as Total From janelas_abertas WHERE FKMaquina = ${FKMAQUINA};
+    `;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 function ultimas_CPU(FKMAQUINA) {
 
@@ -338,5 +360,6 @@ module.exports = {
     contar_MF,
     buscarTempoExecucao,
     atualizarFeedCountTem, 
-    buscarJanelas
+    buscarJanelas,
+    buscarTotal_Janelas
 }

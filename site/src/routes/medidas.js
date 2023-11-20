@@ -23,6 +23,10 @@ router.get("/buscarJanelas/:FKMAQUINA", function (req, res){
     medidaController.buscarJanelas(req,res);
 });
 
+router.get("/buscarTotal_Janelas/:FKMAQUINA", function (req,res){
+    medidaController.buscarTotal_Janelas(req,res);
+});
+
 router.get("/atualizarFeedCountTem/:FKMAQUINA", function (req,res){
     medidaController.atualizarFeedCountTem(req,res);
 });
