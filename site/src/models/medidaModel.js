@@ -150,7 +150,7 @@ function buscarJanelas(FKMAQUINA) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT Nome_Janelas as Nome From janelas_abertas join maquinas on FKMaquina = ${FKMAQUINA};
+        SELECT Nome_Janelas as Nome FROM Janelas_Abertas JOIN maquinas on FKMaquina = IDMaquina WHERE IDMaquina = ${FKMAQUINA} AND Janelas_Abertas.Nome_Janelas IS NOT NULL;
     `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
