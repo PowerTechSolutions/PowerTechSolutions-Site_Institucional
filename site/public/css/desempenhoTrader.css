@@ -1,5 +1,10 @@
 .body{
     color: white;
+    font-family: 'Barlow', "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+*{
+  font-family: 'Barlow', "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; 
 }
 
 .header-left a {
@@ -193,7 +198,7 @@
 
 .resumo {
     margin-top: 3%;
-    width: 35vw;
+    width: 34vw;
     background-color: #212124;
     height: 25vh;
     font-size: 20px;
@@ -273,34 +278,35 @@
 }
 
 .titulo{
-  margin-top: 3%;
+  margin-top: 2%;
   width: 70%;
   font-size: 20px;
 }
 
 .tamanho-graph1{
+  margin-top: 2%;
   background-color: palegreen;
   height: 70%;
   width: 80%;
 }
 
 .lista{
-    /* margin-left: 52%; */
     height: 30vh;
     background-color: #1D1D20;
-    margin-top: 3%;
+    margin-top: 4%;
     width: 30vw;
     color: white;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* flex-wrap: wrap; */
 }
 
-.titulo-lista{
+.titulo-lista {
   margin-top: 3%;
-  font-size: 17px;
-  width: 64%;
+  font-size: 19px;
+  width: 68%;
 }
 
 .colunas{
@@ -311,13 +317,45 @@
   flex-direction: row;
   width: 90%;
   justify-content: space-around;
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.registros{
+  width: 90%;
+  height: 50%;
+  overflow-y: scroll;
 }
 
 #tuplas {
   margin-top: 0.8%;
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   border-bottom: white 0.8px solid;
+}
+
+.graph2{
+  background-color: #1D1D20;
+  width: 34vw;
+  margin-top: 4%;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  height: 30vh;
+  flex-direction: column;
+}
+
+.titulo2{
+  color: white;
+  margin-top: 2%;
+  width: 50%;
+  font-size: 20px;
+}
+
+.tamanho-graph2{
+  margin-top: 2%;
+  background-color: palevioletred;
+  height: 60%;
+  width: 80%;
 }
