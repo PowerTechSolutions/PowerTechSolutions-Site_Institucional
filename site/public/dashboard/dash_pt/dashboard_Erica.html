@@ -20,19 +20,24 @@
                     </div>
                 </div>
             </div>
-            <span> Total </span>
+            <div class="total">
+            <div>
+                <span> Total </span>
+            </div>
             <div class="qntd">
                 <div class="total_janelas">
                 </div>
             </div>
+        </div>
+        </div>
             <div class="parte">
                 <div class="func">
                     <img id="perfil" src="profile func.png" alt="perfil usuário">
                     <div class="alinhar">
                         <span> Funcionário: </span>
-                        <span id="nome"> </span>
+                        <span id="nome"></span>
                         <span id="setor"></span>
-                        <span id="email"> </span>
+                        <span id="email"></span>
                     </div>
                 </div>
                 <div class="box cpu">
@@ -337,20 +342,20 @@
                         var publicacao = resposta[contador_usuario];
                         // criando e manipulando elementos do HTML via JavaScript
 
-                        var infos = document.createElement("div");
-                        infos.className = "alinhar";
+                        var info = document.createElement("div");
+                        info.className = "alinhar";
 
                         var setor = document.createElement("p")
                         setor.innerHTML = publicacao.Setor;
-                        infos.appendChild(setor)
+                        info.appendChild(setor)
 
                         var nome = document.createElement("p")
                         nome.innerHTML = publicacao.Nome;
-                        infos.appendChild(nome)
+                        info.appendChild(nome)
 
                         var email = document.createElement("P")
                         email.innerHTML = publicacao.Email;
-                        infos.appendChild(email)
+                        info.appendChild(email)
 
                         var idUsuario = sessionStorage.ID_USUARIO;
                         feed.appendChild(infos)

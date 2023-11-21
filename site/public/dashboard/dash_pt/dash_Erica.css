@@ -6,13 +6,18 @@ body{
     margin:0;
     color:white;
 }
-
+.div_geral{
+    display:flex;
+    justify-content: space-evenly;
+    width:100%;
+}
 .infos{
     display:flex;
     justify-content: space-evenly;
     margin-top:25px;
     flex-direction: column;
-    width: 100%;
+    width: 50%;
+    align-items: center;
 }
 .box{
     background-color:#1A1C22;
@@ -25,51 +30,71 @@ body{
 }
 
 .box_lista{
-    width:50%;
+    width:80%;
+    margin-left: 20px;
     height:170px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: blue;
 }
-
+.box_lista span{
+    font-size: 20px;
+}
 #arrangement{
     width:100%;
     height:170px;
     overflow-y: scroll;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.parte{
-    display:flex;
+    text-align: center;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
 }
+
 .janelas{
-    width:80%;
+    width:70%;
     padding:4px;
 }
 .func{
-    width:100%;
-    height:170px;
+    width:70%;
+    height:130px;
     display:flex;
+    background-color:#1A1C22;
+    border-radius:13px;
+    text-align: center;
     justify-content: center;
-    align-items: center;
+    align-items: start;
 }
 .alinhar{
-    text-align: left;
-    margin:10px;
+    display:flex;
+    align-items: start;
 }
 
 #perfil{
     width:80px;
     height:80px;
 }
+.total{
+    background-color:pink;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width:20%;
+    height:50px;
+}
+.parte{
+    width:50%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .qntd{
     width:100%;
     height:50px;
+    background-color: purple;
 }
 .cpu{
     width:100%;

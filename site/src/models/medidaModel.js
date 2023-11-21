@@ -172,7 +172,7 @@ function buscarTotal_Janelas(FKMAQUINA) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT count(Nome_Janelas) as Total From janelas_abertas WHERE FKMaquina = ${FKMAQUINA};
+        SELECT count(Nome_Janelas) as Total From Janelas_Abertas WHERE FKMaquina = ${FKMAQUINA};
     `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
