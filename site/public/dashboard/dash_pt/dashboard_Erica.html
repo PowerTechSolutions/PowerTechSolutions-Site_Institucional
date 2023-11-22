@@ -11,6 +11,16 @@
 </head>
 
 <body onload="buscarJanelas(1), exibirgraph(1), buscarTotal_Janelas(1), buscarInfo()">
+
+    <div class="dropdown">
+        <img id="voltar" src="./seta-para-a-esquerda.png"alt="menu">
+        <div class="dropdown-content">
+            <div onclick="geral()" class="option">Geral</div>
+            <div onclick="viewpoint()" class="option"> View Point </div>
+            <div onclick="central()" class="option"> Central de ajuda</div>
+            <div onclick="sair()" class="option"> Sair </div>
+        </div>
+    </div>
     <div class="div_geral">
         <div class="infos">
             <div class="box_lista">
@@ -21,39 +31,39 @@
                 </div>
             </div>
             <div class="total">
-            <div>
-                <span> Total </span>
-            </div>
-            <div id="qntd">
-                <div class="total_janelas">
+                <div>
+                    <span> Total </span>
                 </div>
-            </div>
-        </div>
-        </div>
-            <div class="parte">
-                <div id="func">
-                    <img id="perfil" src="profile func.png" alt="perfil usuário">
-                    <div class="alinhar">
-                        <span> Funcionário </span>
-                        <span id="nome"></span>
-                        <span id="setor"></span>
-                        <span id="email"></span>
+                <div id="qntd">
+                    <div class="total_janelas">
                     </div>
                 </div>
-                <div class="cpu">
-                    <span> Uso de CPU </span>
-                    <span id="estado_cpu"> Estável </span>
+            </div>
+        </div>
+        <div class="parte">
+            <div class="info_user"> Funcionário </div>
+            <div id="func">
+                <img id="perfil" src="profile func.png" alt="perfil usuário">
+                <div class="alinhar">
+                    <span> Setor: </span>
+                    <span> Nome: </span>
+                    <span> Email: </span>
                 </div>
             </div>
-        </div>
-        <div class="graficos">
-            <div><span> Gráfico de uso de CPU </span></div>
-            <!-- <span id="avisoCaptura"></span> -->
-            <div class="grafico_cpu" onload="exibirgraph()">
-                <canvas id="myChart_CPU"></canvas>
-
+            <div class="cpu">
+                <span> Uso de CPU </span>
+                <span id="estado_cpu"> Estável </span>
             </div>
         </div>
+    </div>
+    <div class="graficos">
+        <div><span> Gráfico de uso de CPU </span></div>
+        <!-- <span id="avisoCaptura"></span> -->
+        <div class="grafico_cpu" onload="exibirgraph()">
+            <canvas id="myChart_CPU"></canvas>
+
+        </div>
+    </div>
     </div>
 
 </body>
@@ -346,15 +356,15 @@
                         var info = document.createElement("div");
                         info.className = "alinhar";
 
-                        var setor = document.createElement("p")
+                        var setor = document.createElement("span")
                         setor.innerHTML = publicacao.Setor;
                         info.appendChild(setor)
 
-                        var nome = document.createElement("p")
+                        var nome = document.createElement("span")
                         nome.innerHTML = publicacao.Nome;
                         info.appendChild(nome)
 
-                        var email = document.createElement("P")
+                        var email = document.createElement("span")
                         email.innerHTML = publicacao.Email;
                         info.appendChild(email)
 
@@ -376,6 +386,23 @@
 
         return false;
     }
+
+    function geral(){
+        window.href = "cards.html"
+    }
+
+    function viewpoint(){
+        location.href = "viewpoint.html"
+    }
+
+    function central(){
+       location.href = ""
+    }
+
+    function sair(){
+        location.href = "../../index.html"
+    }
+
 
     // function buscarJanelas(FKMAQUINA) {
 
