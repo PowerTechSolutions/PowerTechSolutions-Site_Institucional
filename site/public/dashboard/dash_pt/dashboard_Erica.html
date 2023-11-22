@@ -15,7 +15,7 @@
         <div class="infos">
             <div class="box_lista">
                 <span> Janelas abertas </span>
-                <div class="parte" id="arrangement">
+                <div id="arrangement">
                     <div class="janelas">
                     </div>
                 </div>
@@ -24,29 +24,30 @@
             <div>
                 <span> Total </span>
             </div>
-            <div class="qntd">
+            <div id="qntd">
                 <div class="total_janelas">
                 </div>
             </div>
         </div>
         </div>
             <div class="parte">
-                <div class="func">
+                <div id="func">
                     <img id="perfil" src="profile func.png" alt="perfil usuário">
                     <div class="alinhar">
-                        <span> Funcionário: </span>
+                        <span> Funcionário </span>
                         <span id="nome"></span>
                         <span id="setor"></span>
                         <span id="email"></span>
                     </div>
                 </div>
-                <div class="box cpu">
+                <div class="cpu">
                     <span> Uso de CPU </span>
                     <span id="estado_cpu"> Estável </span>
                 </div>
             </div>
         </div>
         <div class="graficos">
+            <div><span> Gráfico de uso de CPU </span></div>
             <!-- <span id="avisoCaptura"></span> -->
             <div class="grafico_cpu" onload="exibirgraph()">
                 <canvas id="myChart_CPU"></canvas>
@@ -357,8 +358,8 @@
                         email.innerHTML = publicacao.Email;
                         info.appendChild(email)
 
-                        var idUsuario = sessionStorage.ID_USUARIO;
-                        feed.appendChild(infos)
+                        // var idUsuario = sessionStorage.ID_USUARIO;
+                        // feed.appendChild(infos)
 
 
                     }
