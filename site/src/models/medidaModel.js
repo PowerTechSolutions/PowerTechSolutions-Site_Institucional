@@ -14,7 +14,7 @@ function log_alertas(FKUnidade,mes) {
         SELECT count(IDAlerta) as Alertas
         FROM Alertas JOIN Nivel_alerta
         ON IDNivel_alerta = FKNivel_alerta
-        WHERE Data_Hora LIKE "%${mes}%" GROUP BY IDNivel_alerta;
+        WHERE Data_Hora LIKE "%-${mes}-%" GROUP BY IDNivel_alerta;
         `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -84,24 +84,21 @@ function buscarDiscos(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-    Componentes_monitorados.IDComponente_monitorado AS IDMonitoramento,
-    Data_Hora_Captura,
-    ROUND((Total / POWER(1024, 3))) AS Total_Uso,
-	ROUND((Free / POWER(1024, 3))) AS Livre_Uso, 
-	ROUND((Uso / POWER(1024, 3))) AS Uso_Disco,
-    Porcentagem AS Porcentagem_Uso,
-    Componentes_cadastrados.Apelido 
-FROM 
-    Monitoramento_RAW 
-JOIN Componentes_monitorados ON FKComponente_Monitorado = IDComponente_monitorado 
-JOIN Componentes_cadastrados ON FKComponente_cadastrado = IDComponente_cadastrado
-JOIN Maquinas ON FKMaquina = ${FKMAQUINA}
-WHERE 
-    FKMaquina = 1
-    AND Componentes_cadastrados.Apelido = 'DISCO'
-ORDER BY 
-    Monitoramento_RAW.IDMonitoramento DESC
-LIMIT 1;`;
+	    Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
+	    Data_Hora_Captura,
+        Uso AS "Uso_DIsco",
+        Componentes_cadastrados.Apelido 
+        FROM 
+		    Monitoramento_RAW JOIN Componentes_monitorados 
+		    ON FKComponente_Monitorado = IDComponente_monitorado 
+		    JOIN Componentes_cadastrados 
+		    ON FKComponente_cadastrado = IDComponente_cadastrado
+		    JOIN Maquinas 
+		    ON FKMaquina = IDMaquina
+		    WHERE FKMaquina = ${FKMAQUINA}
+		    AND Componentes_cadastrados.Apelido = "DISCO"
+		    ORDER BY Monitoramento_RAW.IDMonitoramento DESC;
+        `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return

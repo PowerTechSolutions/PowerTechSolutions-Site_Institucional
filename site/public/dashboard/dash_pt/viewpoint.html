@@ -28,7 +28,7 @@
         rel="stylesheet">
 </head>
 
-<body onload="buscarDiscos(1),exibirgraph(1)">
+<body>
     <!-- onload="validarSessao(), atualizacaoPeriodica()" -->
     <div class="janela">
 
@@ -103,11 +103,16 @@
                                     <p id="status_wifi">Seguro</p>
                                 </div>
                             </div>
-                            <div id="reminder">
-                                <p>Lembrete ⚠️</p>
+                            <div id="reminder" style="display: flex;align-items: center;">
+                                <!-- <p>Lembrete ⚠️</p>
                                 <p>23/08/1203</p>
                                 <p>Não deixe sua CPU atingir 66% e seu disco 80%
-                                </p>
+                                </p> -->
+
+                                <select class="select_maquinas" name="maquinas" id="maquinas" onchange="fazerbusca(this.value)">
+                                    
+                                </select>
+
                             </div>
                         </div>
                     </div>
@@ -136,7 +141,8 @@
                     <div class="crd2_sept" id="crd2_sept">
                         
                         <select class="select_graph" onchange="exibirgraph(this.value)">
-                            <option value=1 aria-checked="true">Uso de RAM</option>
+                            <option>Selecione o Dado para visualizar</option>
+                            <option value=1>Uso de RAM</option>
                             <option value=2>Uso de CPU</option>
                         </select>
                         <span id="avisoCaptura"></span>
@@ -181,8 +187,7 @@
     email_usuario.innerHTML = sessionStorage.Email_Usuario;
     var idUsuario = sessionStorage.ID_USUARIO;
     window.onload = atualizarFeed_usuarios()
-    window.onload = buscarDiscos(1);
-    window.onload = exibirgraph(1);
+    window.onload = atualizarFeed_maquina();
 
 </script>
 

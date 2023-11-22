@@ -21,6 +21,26 @@ function listar_usuarios(req, res) {
         );
 }
 
+function listar_maquinas(req, res){
+
+    var IDFUncionario = req.params.IDFuncionario
+
+    usuarioModel.listar_maquinas(IDFUncionario)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 function autenticar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
@@ -159,5 +179,6 @@ module.exports = {
     cadastrar,
     listar_usuarios,
     cadastrando,
-    buscarInfo
+    buscarInfo,
+    listar_maquinas
 }

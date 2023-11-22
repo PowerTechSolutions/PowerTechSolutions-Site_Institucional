@@ -24,6 +24,8 @@ router.post("/buscarInfo", function (req, res) {
     usuarioController.buscarInfo(req, res);
 });
 
-
+router.get("/listar_maquinas/:IDFuncionario", function (req, res){
+    usuarioController.listar_maquinas(req,res);
+});
 
 module.exports = router;

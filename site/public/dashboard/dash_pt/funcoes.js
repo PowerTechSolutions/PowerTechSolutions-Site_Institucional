@@ -1,6 +1,6 @@
-function fazerbusca(){
-    buscarDisco(1)
-    obterDadosGrafico_CPU(1)
+function fazerbusca(IDMaquina){
+    sessionStorage.IDMaquina = IDMaquina;
+    buscarDiscos(IDMaquina)
 }
 
 function geral() {
@@ -9,19 +9,21 @@ function geral() {
 
 function exibirgraph(valor){
 
-    var grafico_RAM = document.getElementById("myChart_RAM")
-    var grafico_CPU = document.getElementById("myChart_CPU")
+    var grafico_RAM = document.getElementById("myChart_RAM");
+    var grafico_CPU = document.getElementById("myChart_CPU");
+
+    var idMaquina = sessionStorage.IDMaquina;
 
     if(valor == 1){
         
-        obterDadosGrafico_RAM(1)
+        obterDadosGrafico_RAM(idMaquina)
         
         grafico_CPU.style.display = "none";
         grafico_RAM.style.display = "block";
     
     }else if(valor == 2){
         
-        obterDadosGrafico_CPU(1)
+        obterDadosGrafico_CPU(idMaquina)
         
         grafico_RAM.style.display = "none";
         grafico_CPU.style.display = "block";
@@ -92,6 +94,61 @@ function atualizarFeed_usuarios() {
                     usuario.appendChild(situacao);
 
                     feed.appendChild(usuario);
+
+                }
+            });
+        } else {
+            throw ("Houve um erro ao tentar realizar A pesquisa!");
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+    });
+
+    return false;
+}
+
+function atualizarFeed_maquina() {
+
+    var IDFuncionario = sessionStorage.IDFuncionario;
+
+    fetch(`/usuarios/listar_maquinas/${IDFuncionario}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+            if (resposta.status == 204) {
+                    var feed = document.getElementById("maquinas");
+                    var mensagem = document.createElement("option");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                var feed = document.getElementById("maquinas");
+                feed.innerHTML = "";
+
+                var escolha = document.createElement("option");
+                escolha.innerHTML = "Selecione a maquina para visualizar os dados";
+                feed.appendChild(escolha)
+
+                for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                    var publicacao = resposta[contador_usuario];
+                    // criando e manipulando elementos do HTML via JavaScript
+
+                    var maquina = document.createElement("option");
+                    maquina.innerHTML = publicacao.Apelido
+                    maquina.value = publicacao.IDMaquina
+                    feed.appendChild(maquina)
 
                 }
             });
@@ -189,7 +246,8 @@ function obterDadosGrafico_CPU(FKMAQUINA) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                 resposta.reverse();
 
-                plotarGrafico_CPU(resposta, FKMAQUINA);
+                plotarGrafico_CPU(resposta,FKMAQUINA)
+                
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
