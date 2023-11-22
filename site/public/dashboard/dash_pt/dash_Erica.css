@@ -6,73 +6,100 @@ body{
     margin:0;
     color:white;
 }
-
-.infos{
+.div_geral{
     display:flex;
     justify-content: space-evenly;
-    margin-top:25px;
+    width:100%;
+}
+.infos{
+    display:flex;
     flex-direction: column;
-    width: 100%;
-}
-.box{
-    background-color:#1A1C22;
-    border-radius:13px;
-    text-align: center;
-}
-.box span{
-    font-weight: 800;
-    font-size:17px;
+    width: 50%;
+    align-items: center;
+    margin-top:25px;
 }
 
+
 .box_lista{
-    width:50%;
+    width:80%;
+    margin-left: 20px;
     height:170px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color:#1A1C22;
+    border-radius:13px;
 }
-
+.box_lista span{
+    font-size: 20px;
+}
 #arrangement{
     width:100%;
     height:170px;
     overflow-y: scroll;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.parte{
-    display:flex;
+    text-align: center;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    border-top:1px solid white;
 }
+
 .janelas{
-    width:80%;
+    width:70%;
     padding:4px;
 }
-.func{
-    width:100%;
-    height:170px;
+#func{
+    width:70%;
+    height:130px;
     display:flex;
-    justify-content: center;
-    align-items: center;
+    padding:10px;
+    background-color:#1A1C22;
+    border-radius:13px;
+}
+
+#func img{
+    align-self:center;
 }
 .alinhar{
-    text-align: left;
-    margin:10px;
+    display:flex;
+    flex-direction: column;
+    margin-left:20px;
+    /* align-items: center; */
 }
 
 #perfil{
     width:80px;
     height:80px;
 }
-.qntd{
+.total{
+    background-color:#1A1C22;
+    border-radius:13px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width:20%;
+    height:70px;
+    margin-top:10px;
+}
+.parte{
+    width:50%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#qntd{
     width:100%;
     height:50px;
+    text-align: center;
+    border-top:1px solid white;
 }
 .cpu{
-    width:100%;
+    background-color:#1A1C22;
+    border-radius:13px;
+    width:35%;
     height:70px;
     margin-top:10px;
     display:flex;
@@ -85,9 +112,13 @@ body{
 }
 .graficos{
     display:flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top:35px;
+}
+.graficos span{
+    font-size: 20px;
 }
 .grafico_cpu{
     background-color: #1A1C22;
