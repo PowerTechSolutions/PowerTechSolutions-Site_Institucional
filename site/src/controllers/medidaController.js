@@ -107,6 +107,24 @@ function atualizarFeedCountTem(req, res) {
     });
 }
 
+
+function atualizarNomeMaquina(req, res) {
+    var ID_USUARIO = req.params.idUsuario;
+    var FKMAQUINA = req.params.FKMAQUINA;
+    console.log("debug", ID_USUARIO)
+
+    medidaModel.atualizarNomeMaquina(FKMAQUINA, ID_USUARIO).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!");
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
 function ultimas_CPU(req, res) {
 
     var FKMAQUINA = req.params.FKMAQUINA;
@@ -203,5 +221,6 @@ module.exports = {
     contar_MF,
     buscarTempoExecucao,
     atualizarFeedCountTem, 
-    buscarJanelas
+    buscarJanelas,
+    atualizarNomeMaquina
 }

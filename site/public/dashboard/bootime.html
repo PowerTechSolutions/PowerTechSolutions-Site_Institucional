@@ -24,7 +24,7 @@ scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </head>
 
-<body onload="init(), buscarTempoExecucao(1), atualizarFeedCountTem(1)">
+<body onload="init(), buscarTempoExecucao(1), atualizarFeedCountTem(1), atualizarNomeMaquina(1)">
     <div class="dash">
         <div class="navbar_boot">
             <div class="circle_back">
@@ -69,9 +69,9 @@ scale=1.0">
 
 
                 <div class="info_machine2">
-                    <div class="picture">
+                    <div class="picture" id="info_maquina">
                         <img src="../assets/imgs_power/laptop-screen.png" alt="">
-                        <h4>Nome da Maquina</h4>
+                        <h4 id="nome_maquina">Nome da Maquina</h4>
                     </div>
                     <div class="informs">
                         <h4 id="h4">Qtd Total de Paralização</h4>
@@ -157,6 +157,7 @@ scale=1.0">
     email_usuario.innerHTML = sessionStorage.Email_Usuario;
     var idUsuario = sessionStorage.ID_USUARIO;
     window.onload = buscarTempoExecucao(1);
+    
 
     const ctx = document.getElementById('myChart');
 
@@ -193,10 +194,11 @@ scale=1.0">
   }
 });
 
-
+var idUsuario = sessionStorage.getItem('ID_Usuario');
     window.onload = buscarDiscos(1);
     window.onload = atualizarFeedCountTem(1);
     window.onload = init();
+    window.onload = atualizarNomeMaquina(1, idUsuario);
 
     function atualizarFeedCountTem(FKMAQUINA) {
         fetch(`/medidas/atualizarFeedCountTem/${FKMAQUINA}`, {
@@ -238,6 +240,46 @@ scale=1.0">
         return false;
     }
 
+
+    function atualizarNomeMaquina(FKMAQUINA, idUsuario) {
+    fetch(`/medidas/atualizarNomeMaquina/${FKMAQUINA}/${idUsuario}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+            if (resposta.status == 204) {
+                var feed = document.getElementById("info_maquina");
+                var mensagem = document.createElement("span");
+                mensagem.innerHTML = "Nenhum resultado encontrado.";
+                feed.appendChild(mensagem);
+                throw "Nenhum resultado encontrado!!";
+            }
+
+            resposta.json().then(function (resposta) {
+                for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                    var publicacao = resposta[contador_usuario];
+
+                    var nome = document.querySelector("#nome_maquina");
+                    if (nome) {
+                        nome.innerHTML = `${publicacao.Nome}`;
+                    } else {
+                        console.error("Element with ID 'nome_maquina' not found.");
+                    }
+                }
+            });
+        } else {
+            throw "Houve um erro ao tentar realizar a pesquisa!";
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+    });
+
+    return false;
+}
     //     function atualizarFeed() {
 
     //     var IDUsuario = sessionStorage.FKUsuario;
@@ -462,7 +504,7 @@ scale=1.0">
                         // porcentagem.innerHTML = `${publicacao.Porcentagem_Uso}`;
                         // disco.appendChild(porcentagem)
 
-                        feed.appendChild(disco)
+                        // feed.appendChild(disco)
 
                     }
                 });

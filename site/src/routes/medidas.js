@@ -27,6 +27,10 @@ router.get("/atualizarFeedCountTem/:FKMAQUINA", function (req,res){
     medidaController.atualizarFeedCountTem(req,res);
 });
 
+router.get("/atualizarNomeMaquina/:FKMAQUINA/:idUsuario", function (req,res){
+    medidaController.atualizarNomeMaquina(req,res);
+});
+
 router.get("/ultimas_CPU/:FKMAQUINA", function (req,res){
     medidaController.ultimas_CPU(req,res);
 });

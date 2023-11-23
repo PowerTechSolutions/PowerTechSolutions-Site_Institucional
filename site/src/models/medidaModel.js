@@ -71,6 +71,29 @@ WHERE maquinas.IDMaquina = ${FKMAQUINA};`;
 }
 
 
+function atualizarNomeMaquina(FKMAQUINA, ID_USUARIO) {
+    var instrucaoSql = '';
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta FROM Alertas WHERE FKUnidade_negocio = ${FKMAQUINA}
+        `;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+            SELECT Maquinas.Apelido AS Nome
+            FROM Maquinas
+            JOIN Usuario_Dashboard ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario
+            WHERE Usuario_Dashboard.IDUsuario = ${ID_USUARIO}
+              AND Maquinas.IDMaquina = ${FKMAQUINA};
+        `;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return;
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 function buscarDiscos(FKMAQUINA) {
 
@@ -338,5 +361,6 @@ module.exports = {
     contar_MF,
     buscarTempoExecucao,
     atualizarFeedCountTem, 
-    buscarJanelas
+    buscarJanelas,
+    atualizarNomeMaquina
 }
