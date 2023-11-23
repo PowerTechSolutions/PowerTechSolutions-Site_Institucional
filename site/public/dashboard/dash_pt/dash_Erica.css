@@ -228,6 +228,12 @@ body {
     
 }
 
+.listagem{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 /* width: 80%;
 margin-left: 20px;
 height: 200px;

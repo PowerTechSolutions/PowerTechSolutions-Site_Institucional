@@ -10,10 +10,10 @@
 
 </head>
 
-<body onload="buscarJanelas(1), exibirgraph(1), buscarTotal_Janelas(1), buscarInfo(), atualizarFeed_usuarios()">
+<body onload="atualizarFeed_usuarios()">
 
     <div class="dropdown">
-        <img id="voltar" src="./seta-para-a-esquerda.png"alt="menu">
+        <img id="voltar" src="./seta-para-a-esquerda.png" alt="menu">
         <div class="dropdown-content">
             <div onclick="geral()" class="option">Geral</div>
             <div onclick="viewpoint()" class="option"> View Point </div>
@@ -26,12 +26,12 @@
             <div class="box_lista">
                 <h3> Janelas abertas </h3>
                 <div id="arrangement">
-                    <div class="janelas">
+                    <di class="janelas">
                     </div>
                 </div>
             </div>
             <div class="total">
-                    <h4> Total </h4>
+                <h4> Total </h4>
                 <div id="qntd">
                     <div class="total_janelas">
                     </div>
@@ -39,7 +39,9 @@
             </div>
         </div>
         <div class="parte">
-            <div class="info_user"> <h3> Funcionário </h3> </div>
+            <div class="info_user">
+                <h3> Funcionário </h3>
+            </div>
             <div id="func">
                 <img id="perfil" src="profile func.png" alt="perfil usuário">
                 <div class="alinhar">
@@ -56,24 +58,22 @@
     </div>
     <div class="graficos">
         <div>
-        <span> Gráfico de uso de CPU </span>
-        <div class="grafico_cpu" onload="exibirgraph()">
-            <canvas id="myChart_CPU"></canvas>
-        </div>
-        </div>
-            <div id="card_func">
-                <h2>Status dos funcionários</h2>
-                <div class="title">
-                    <h3>ID</h3>
-                    <h3>Nome</h3>
-                    <h3>Data</h3>
-                    <h3>Status</h3>
-                </div>
-                <div class="geral_lista">
-                <div class="listagem"> 
-                </div>
+            <span> Gráfico de uso de CPU </span>
+            <div class="grafico_cpu" onload="exibirgraph()">
+                <canvas id="myChart_CPU"></canvas>
             </div>
+        </div>
+        <select id="selecionar_maquina" onchange="buscarJanelas(this.value),buscarTotal_Janelas(this.value)">
+        </select>
+        <div id="card_func">
+            <h2>Status dos funcionários</h2>
+            <div class="title">
+                <h3>ID</h3>
+                <h3>Nome</h3>
+                <h3>Data</h3>
+                <h3>Status</h3>
             </div>
+        </div>
     </div>
     </div>
 
@@ -83,19 +83,13 @@
 <script>
 
 
-
+    var IDMaquina = sessionStorage.getItem(IDMaquina)
 
     function exibirgraph() {
         obterDadosGrafico_CPU(1)
     }
 
     function obterDadosGrafico_CPU(FKMAQUINA) {
-
-        // alterarTitulo(idUsuario)
-
-        // if (proximaAtualizacao != undefined) {
-        //     clearTimeout(proximaAtualizacao);
-        // }
 
         fetch(`/medidas/ultimas_CPU/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
@@ -230,6 +224,8 @@
 
     function buscarJanelas(FKMAQUINA) {
 
+        var feed = document.getElementById("arrangement");
+        feed.innerHTML = "";
         fetch(`/medidas/buscarJanelas/${FKMAQUINA}`, {
             method: "GET",
             headers: {
@@ -265,7 +261,9 @@
                         usuario.appendChild(data)
 
                         feed.appendChild(usuario)
+
                     }
+                    atualizarJanelas(FKMAQUINA,resposta[0])
                 });
             } else {
                 throw ("Houve um erro ao tentar realizar A pesquisa!");
@@ -280,6 +278,8 @@
 
     function buscarTotal_Janelas(FKMAQUINA) {
 
+        var feed = document.getElementById("qntd");
+        feed.innerHTML = "";
         fetch(`/medidas/buscarTotal_Janelas/${FKMAQUINA}`, {
             method: "GET",
             headers: {
@@ -315,6 +315,7 @@
                         totalJanelas.appendChild(quantidade)
 
                         feed.appendChild(totalJanelas)
+                    
                     }
                 });
             } else {
@@ -328,7 +329,30 @@
         return false;
     }
 
+function atualizarJanelas(FKMAQUINA,janela) {
+
+    var contador = new Date();
+    var hora = contador.getHours();
+
+    var horaUltimaJanela = janela.data;
+
+    console.log(`${hora} - ${horaUltimaJanela}`);
+
+    // if ((hora - horaUltimaJanela) ) {
+    //     var feed = document.getElementById("arrangement")
+    //     feed.innerHTML = "";
+
+    //     buscarJanelas(FKMAQUINA)
+    //     buscarTotal_Janelas(FKMAQUINA)
+
+    // } else {
+    //     atualizarJanelas(FKMAQUINA,janela)
+    // }
+
+}
+
     function buscarInfo() {
+
         var idUsuario = sessionStorage.ID_USUARIO;
 
         fetch("/usuarios/buscarInfo", {
@@ -359,12 +383,13 @@
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
 
                     var feed = document.getElementById("func");
+                    feed.innerHTML = "";
                     for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
                         var publicacao = resposta[contador_usuario];
                         // criando e manipulando elementos do HTML via JavaScript
 
                         var info = document.createElement("div");
-                        info.className = "alinhar";
+                        info.classList = "alinhar";
 
                         var setor = document.createElement("span")
                         setor.innerHTML = publicacao.Setor;
@@ -376,14 +401,9 @@
 
                         var email = document.createElement("span")
                         email.innerHTML = publicacao.Email;
-                        info.appendChild(email)
-
-                        
-                        // feed.appendChild(infos)
+                        info.appendChild(email);
 
                         feed.appendChild(info)
-
-
                     }
                 });
             } else {
@@ -397,97 +417,157 @@
         return false;
     }
 
-    function geral(){
+    function geral() {
         window.href = "cards.html"
     }
 
-    function viewpoint(){
+    function viewpoint() {
         location.href = "viewpoint.html"
     }
 
-    function central(){
-       location.href = ""
+    function central() {
+        location.href = ""
     }
 
-    function sair(){
+    function sair() {
         location.href = "../../index.html"
     }
 
     function atualizarFeed_usuarios() {
 
-var IDEmpresaVar = sessionStorage.FKUnidade;
+        var IDEmpresaVar = sessionStorage.FKUnidade;
 
-fetch("/usuarios/listar_usuarios", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        idEmpServer: IDEmpresaVar,
-    })
-}).then(function (resposta) {
+        fetch("/usuarios/listar_usuarios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                idEmpServer: IDEmpresaVar,
+            })
+        }).then(function (resposta) {
 
-    console.log("resposta: ", resposta);
+            console.log("resposta: ", resposta);
 
-    if (resposta.ok) {
+            if (resposta.ok) {
 
-        if (resposta.status == 204) {
-                var feed = document.getElementById("card_func");
-                var mensagem = document.createElement("span");
-                mensagem.innerHTML = "Nenhum resultado encontrado."
-                feed.appendChild(mensagem);
-                throw "Nenhum resultado encontrado!!";
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("card_func");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("card_func");
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+                        // criando e manipulando elementos do HTML via JavaScript
+
+                        var usuario = document.createElement("div");
+                        usuario.className = "listagem";
+                        usuario.setAttribute("onclick", `visualizar(${publicacao.IDUsuario}),buscarInfo()`)
+
+                        var id = document.createElement("p");
+                        id.innerHTML = publicacao.IDUsuario;
+                        usuario.appendChild(id);
+
+                        var nome = document.createElement("p");
+                        nome.innerHTML = publicacao.Nome;
+                        usuario.appendChild(nome);
+
+                        var data = new Date();
+                        var dia = String(data.getDate()).padStart(2, '0');
+                        var mes = String(data.getMonth() + 1).padStart(2, '0');
+                        var ano = data.getFullYear();
+                        var dataAtual = dia + '/' + mes + '/' + ano;
+
+                        var data = document.createElement("p");
+                        data.innerHTML = dataAtual;
+                        usuario.appendChild(data);
+
+                        var situacao = document.createElement("p");
+                        situacao.innerHTML = "Normal";
+                        usuario.appendChild(situacao);
+
+                        feed.appendChild(usuario)
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
             }
-
-            resposta.json().then(function (resposta) {
-            console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-            var feed = document.getElementById("card_func");
-            for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
-                var publicacao = resposta[contador_usuario];
-                // criando e manipulando elementos do HTML via JavaScript
-
-                var usuario = document.createElement("div");
-                usuario.className = "listagem";
-                usuario.setAttribute("onclick", `visualizar(${publicacao.IDUsuario})`)
-
-                var id = document.createElement("p");
-                id.innerHTML = publicacao.IDUsuario;
-                usuario.appendChild(id);
-
-                var nome = document.createElement("p");
-                nome.innerHTML = publicacao.Nome;
-                usuario.appendChild(nome);
-
-                var data = new Date();
-                var dia = String(data.getDate()).padStart(2, '0');
-                var mes = String(data.getMonth() + 1).padStart(2, '0');
-                var ano = data.getFullYear();
-                var dataAtual = dia + '/' + mes + '/' + ano;
-
-                var data = document.createElement("p");
-                data.innerHTML = dataAtual;
-                usuario.appendChild(data);
-
-                var situacao = document.createElement("p");
-                situacao.innerHTML = "Normal";
-                usuario.appendChild(situacao);
-
-                feed.appendChild(usuario)
-            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
         });
-    } else {
-        throw ("Houve um erro ao tentar realizar A pesquisa!");
-    }
-}).catch(function (resposta) {
-    console.log(`#ERRO: ${resposta}`);
-    finalizarAguardar();
-});
 
-return false;
-}
+        return false;
+    }
+
+    function visualizar(idusuario) {
+
+       var IDUsuario = idusuario;
+       var IDMaquina = sessionStorage.IDMaquina;
+
+       var feed = document.getElementById("selecionar_maquina");
+        feed.innerHTML = "";
+
+        fetch("/usuarios/visualizar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                idUsuarioServer: IDUsuario,
+                idMaquinaServer: IDMaquina,
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("selecionar_maquina");
+                    var mensagem = document.createElement("option");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("selecionar_maquina");
+
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+                        // criando e manipulando elementos do HTML via JavaScript
+
+                        var usuario = document.createElement("option");
+                        usuario.innerHTML = `${publicacao.Maquina}`;
+                        usuario.value = publicacao.Maquina;
+
+                        feed.appendChild(usuario)
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            // finalizarAguardar();
+        });
+
+        return false;
+    }
 
     // function buscarJanelas(FKMAQUINA) {
 
