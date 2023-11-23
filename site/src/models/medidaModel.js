@@ -480,9 +480,6 @@ module.exports = {
     buscarTempoExecucao,
     atualizarFeedCountTem, 
     buscarJanelas,
-<<<<<<< HEAD
-    atualizarNomeMaquina
-=======
+    atualizarNomeMaquina,
     buscarTotal_Janelas
->>>>>>> 27f0327ddd887e408f8a8710a3ba4aafb63b7544
 }
