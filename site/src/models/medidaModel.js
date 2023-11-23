@@ -317,7 +317,7 @@ function tempo_real_RAM(FKMAQUINA) {
     return database.executar(instrucaoSql);
 }
 
-function contar_MF(IDEmpresa) {
+function contar_MF_ativas(IDEmpresa) {
 
     instrucaoSql = ''
 
@@ -348,6 +348,99 @@ function contar_MF(IDEmpresa) {
     return database.executar(instrucaoSql);
 }
 
+function contar_MF_inativas(IDEmpresa) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT 
+            Count(IDMaquina) as Contagem 
+        FROM Maquinas JOIN Tipo_maquina
+            ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        JOIN Estado_maquina
+            ON IDEstado = FKEstado
+        JOIN Usuario_Dashboard
+            ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+        WHERE Tipo_maquina.Apelido = "FISICA"
+            AND Usuario_Dashboard.FKUnidade = ${IDEmpresa}
+            AND Estado_maquina.Estado = "Inativa";`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function contar_MV_ativas(IDEmpresa) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT 
+            Count(IDMaquina) as Contagem 
+        FROM Maquinas JOIN Tipo_maquina
+            ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        JOIN Estado_maquina
+            ON IDEstado = FKEstado
+        JOIN Usuario_Dashboard
+            ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+        WHERE Tipo_maquina.Apelido = "VIRTUAL"
+            AND Usuario_Dashboard.FKUnidade = ${IDEmpresa}
+            AND Estado_maquina.Estado = "Ativa";`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function contar_MV_inativas(IDEmpresa) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT 
+            Count(IDMaquina) as Contagem 
+        FROM Maquinas JOIN Tipo_maquina
+            ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        JOIN Estado_maquina
+            ON IDEstado = FKEstado
+        JOIN Usuario_Dashboard
+            ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+        WHERE Tipo_maquina.Apelido = "VIRTUAL"
+            AND Usuario_Dashboard.FKUnidade = ${IDEmpresa}
+            AND Estado_maquina.Estado = "Inativa";`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     log_alertas,
@@ -357,7 +450,10 @@ module.exports = {
     tempo_real_CPU,
     ultimas_RAM,
     tempo_real_RAM,
-    contar_MF,
+    contar_MF_ativas,
+    contar_MF_inativas,
+    contar_MV_ativas,
+    contar_MV_inativas,
     buscarTempoExecucao,
     atualizarFeedCountTem, 
     buscarJanelas,
