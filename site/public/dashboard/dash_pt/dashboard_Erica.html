@@ -10,7 +10,7 @@
 
 </head>
 
-<body onload="buscarJanelas(1), exibirgraph(1), buscarTotal_Janelas(1), buscarInfo()">
+<body onload="buscarJanelas(1), exibirgraph(1), buscarTotal_Janelas(1), buscarInfo(), atualizarFeed_usuarios()">
 
     <div class="dropdown">
         <img id="voltar" src="./seta-para-a-esquerda.png"alt="menu">
@@ -24,16 +24,14 @@
     <div class="div_geral">
         <div class="infos">
             <div class="box_lista">
-                <span> Janelas abertas </span>
+                <h3> Janelas abertas </h3>
                 <div id="arrangement">
                     <div class="janelas">
                     </div>
                 </div>
             </div>
             <div class="total">
-                <div>
-                    <span> Total </span>
-                </div>
+                    <h4> Total </h4>
                 <div id="qntd">
                     <div class="total_janelas">
                     </div>
@@ -41,7 +39,7 @@
             </div>
         </div>
         <div class="parte">
-            <div class="info_user"> Funcionário </div>
+            <div class="info_user"> <h3> Funcionário </h3> </div>
             <div id="func">
                 <img id="perfil" src="profile func.png" alt="perfil usuário">
                 <div class="alinhar">
@@ -57,12 +55,25 @@
         </div>
     </div>
     <div class="graficos">
-        <div><span> Gráfico de uso de CPU </span></div>
-        <!-- <span id="avisoCaptura"></span> -->
+        <div>
+        <span> Gráfico de uso de CPU </span>
         <div class="grafico_cpu" onload="exibirgraph()">
             <canvas id="myChart_CPU"></canvas>
-
         </div>
+        </div>
+            <div id="card_func">
+                <h2>Status dos funcionários</h2>
+                <div class="title">
+                    <h3>ID</h3>
+                    <h3>Nome</h3>
+                    <h3>Data</h3>
+                    <h3>Status</h3>
+                </div>
+                <div class="geral_lista">
+                <div class="listagem"> 
+                </div>
+            </div>
+            </div>
     </div>
     </div>
 
@@ -318,8 +329,7 @@
     }
 
     function buscarInfo() {
-
-        var email = sessionStorage.Email_Usuario;
+        var idUsuario = sessionStorage.ID_USUARIO;
 
         fetch("/usuarios/buscarInfo", {
             method: "POST",
@@ -329,7 +339,7 @@
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
-                emailServer: email,
+                idUsuarioServer: idUsuario,
             })
         }).then(function (resposta) {
 
@@ -368,7 +378,7 @@
                         email.innerHTML = publicacao.Email;
                         info.appendChild(email)
 
-                        // var idUsuario = sessionStorage.ID_USUARIO;
+                        
                         // feed.appendChild(infos)
 
                         feed.appendChild(info)
@@ -403,6 +413,81 @@
         location.href = "../../index.html"
     }
 
+    function atualizarFeed_usuarios() {
+
+var IDEmpresaVar = sessionStorage.FKUnidade;
+
+fetch("/usuarios/listar_usuarios", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        idEmpServer: IDEmpresaVar,
+    })
+}).then(function (resposta) {
+
+    console.log("resposta: ", resposta);
+
+    if (resposta.ok) {
+
+        if (resposta.status == 204) {
+                var feed = document.getElementById("card_func");
+                var mensagem = document.createElement("span");
+                mensagem.innerHTML = "Nenhum resultado encontrado."
+                feed.appendChild(mensagem);
+                throw "Nenhum resultado encontrado!!";
+            }
+
+            resposta.json().then(function (resposta) {
+            console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+            var feed = document.getElementById("card_func");
+            for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                var publicacao = resposta[contador_usuario];
+                // criando e manipulando elementos do HTML via JavaScript
+
+                var usuario = document.createElement("div");
+                usuario.className = "listagem";
+                usuario.setAttribute("onclick", `visualizar(${publicacao.IDUsuario})`)
+
+                var id = document.createElement("p");
+                id.innerHTML = publicacao.IDUsuario;
+                usuario.appendChild(id);
+
+                var nome = document.createElement("p");
+                nome.innerHTML = publicacao.Nome;
+                usuario.appendChild(nome);
+
+                var data = new Date();
+                var dia = String(data.getDate()).padStart(2, '0');
+                var mes = String(data.getMonth() + 1).padStart(2, '0');
+                var ano = data.getFullYear();
+                var dataAtual = dia + '/' + mes + '/' + ano;
+
+                var data = document.createElement("p");
+                data.innerHTML = dataAtual;
+                usuario.appendChild(data);
+
+                var situacao = document.createElement("p");
+                situacao.innerHTML = "Normal";
+                usuario.appendChild(situacao);
+
+                feed.appendChild(usuario)
+            }
+        });
+    } else {
+        throw ("Houve um erro ao tentar realizar A pesquisa!");
+    }
+}).catch(function (resposta) {
+    console.log(`#ERRO: ${resposta}`);
+    finalizarAguardar();
+});
+
+return false;
+}
 
     // function buscarJanelas(FKMAQUINA) {
 
