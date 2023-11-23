@@ -30,16 +30,6 @@
                         src="dash_pt/Group 1171274974.png" alt="" id="second">
                     <p>Geral</p>
                 </button>
-
-                <button onclick="MF()"><img src="dash_pt/element-3.png" id="fst" alt=""> <img id="send"
-                        src="dash_pt/element-3 (1).png" alt="">
-                    <p>MFs</p>
-                </button>
-
-                <button onclick="MV()"><img src="dash_pt/vms.png.png" id="fst" alt=""> <img id="send"
-                        src="dash_pt/icon13.png" alt="">
-                    <p>VMs</p>
-                </button>
                 <button onclick="permi()"><img src="dash_pt/perm.png.png" id="fst" alt=""> <img id="send"
                         src="dash_pt/pessoa.png" alt="">
                     <p>Adicionar permissões</p>
@@ -84,7 +74,8 @@
             <div class="espacoEsquerdo">
                 <div class="flexExterno">
                     <div class="flexInterno">
-                        <div class="quadradoUm">
+                        
+                        <!-- <div class="quadradoUm">
                             <div>
                                 <h1>Máquinas Físicas</h1>
                             </div>
@@ -98,7 +89,7 @@
                                     <p id="status_wifi">Seguro</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="quadradoDois">
                             <div>
@@ -106,7 +97,7 @@
                             </div>
                             <div class="separador">
                                 <div class="conteudoDoQuadradoUm">
-                                    <span id="maquina_fisica" class="resultado">23</span>
+                                    <span id="maquina_fisica_ativa" class="resultado"></span>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +107,7 @@
                             </div>
                             <div class="separador">
                                 <div class="conteudoDoQuadradoUm">
-                                    <span class="resultado">23</span>
+                                    <span id="maquina_fisica_inativa" class="resultado"></span>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +177,7 @@
                 </div>
                 <div class="flexExterno">
                     <div class="flexInterno">
-                        <div class="quadradoUm">
+                        <!-- <div class="quadradoUm">
                             <div>
                                 <h1>Máquinas Virtuais</h1>
                             </div>
@@ -200,7 +191,7 @@
                                     <p id="status_wifi">Seguro</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="quadradoDois">
                             <div>
@@ -208,7 +199,7 @@
                             </div>
                             <div class="separador">
                                 <div class="conteudoDoQuadradoUm">
-                                    <span class="resultado">23</span>
+                                    <span id="maquina_virtual_ativa" class="resultado"></span>
                                 </div>
                             </div>
                         </div>
@@ -218,7 +209,7 @@
                             </div>
                             <div class="separador">
                                 <div class="conteudoDoQuadradoUm">
-                                    <span class="resultado">23</span>
+                                    <span id="maquina_virtual_inativa" class="resultado"></span>
                                 </div>
                             </div>
                         </div>
@@ -328,11 +319,22 @@
 
 <script>
 
-    function atualizarFeed_MF() {
+    nome_usuario.innerHTML = sessionStorage.Nome_Usuario
+
+    window.onload = atualizarMaquinas()
+
+    function atualizarMaquinas(){
+        atualizarFeed_MF_ativas()
+        atualizarFeed_MF_inativas()
+        atualizarFeed_MV_ativas()
+        atualizarFeed_MV_inativas()
+    }
+
+    function atualizarFeed_MF_ativas() {
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
     
-        fetch(`/medidas/contar_MF/${IDEmpresaVar}`, {
+        fetch(`/medidas/contar_MF_ativas/${IDEmpresaVar}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -344,7 +346,7 @@
             if (resposta.ok) {
 
                 if (resposta.status == 204) {
-                        var feed = document.getElementById("maquina_fisica");
+                        var feed = document.getElementById("maquina_fisica_ativa");
                         var mensagem = document.createElement("span");
                         mensagem.innerHTML = "Nenhum resultado encontrado."
                         feed.appendChild(mensagem);
@@ -354,8 +356,8 @@
                     resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
     
-                    var feed = document.getElementById("maquina_fisica");
-                    feed.innerHTML = resposta[0].contagem;
+                    var feed = document.getElementById("maquina_fisica_ativa");
+                    feed.innerHTML = resposta[0].Contagem;
 
                 });
             } else {
@@ -363,7 +365,164 @@
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
+        });
+    
+        return false;
+    }
+
+    function atualizarFeed_MF_inativas() {
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+    
+        fetch(`/medidas/contar_MF_inativas/${IDEmpresaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+    
+            console.log("resposta: ", resposta);
+    
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                        var feed = document.getElementById("maquina_fisica_inativa");
+                        feed.innerHTML = "Nenhum resultado encontrado!!"
+                        throw "Nenhum resultado encontrado!!";
+                    }
+    
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+    
+                    var feed = document.getElementById("maquina_fisica_inativa");
+                    feed.innerHTML = resposta[0].Contagem;
+
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    
+        return false;
+    }
+
+    function atualizarFeed_MV_ativas() {
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+    
+        fetch(`/medidas/contar_MV_ativas/${IDEmpresaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+    
+            console.log("resposta: ", resposta);
+    
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                        var feed = document.getElementById("maquina_virtual_ativa");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+    
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+    
+                    var feed = document.getElementById("maquina_virtual_ativa");
+                    feed.innerHTML = resposta[0].Contagem;
+
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    
+        return false;
+    }
+
+    function atualizarFeed_MV_inativas() {
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+    
+        fetch(`/medidas/contar_MV_inativas/${IDEmpresaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+    
+            console.log("resposta: ", resposta);
+    
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                        var feed = document.getElementById("maquina_virtual_inativa");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+    
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+    
+                    var feed = document.getElementById("maquina_virtual_inativa");
+                    feed.innerHTML = resposta[0].Contagem;
+
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    
+        return false;
+    }
+
+    function atualizarFeed_MF(){
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+    
+        fetch(`/maquinas/pegar_MF/${IDEmpresaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+    
+            console.log("resposta: ", resposta);
+    
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                        var feed = document.getElementById("maquina_fisica_ativa");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+    
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+    
+                    var feed = document.getElementById("maquina_fisica_ativa");
+                    feed.innerHTML = resposta[0].Contagem;
+
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
         });
     
         return false;
@@ -380,7 +539,7 @@ if (proximaAtualizacao != undefined) {
 clearTimeout(proximaAtualizacao);
 }
 
-fetch(`/medidas/ultimas/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
+fetch(`/alertas/geral_mf/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
 if (response.ok) {
     response.json().then(function (resposta) {
         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);

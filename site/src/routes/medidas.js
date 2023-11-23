@@ -23,6 +23,10 @@ router.get("/buscarJanelas/:FKMAQUINA", function (req, res){
     medidaController.buscarJanelas(req,res);
 });
 
+router.get("/buscarTotal_Janelas/:FKMAQUINA", function (req,res){
+    medidaController.buscarTotal_Janelas(req,res);
+});
+
 router.get("/atualizarFeedCountTem/:FKMAQUINA", function (req,res){
     medidaController.atualizarFeedCountTem(req,res);
 });
@@ -47,8 +51,20 @@ router.get("/tempo-real_RAM/:FKMAQUINA", function (req,res){
     medidaController.tempo_real_RAM(req,res);
 });
 
-router.get("/contar_MF/:IDEmpresaVar", function (req,res){
-    medidaController.contar_MF(req,res);
+router.get("/contar_MF_ativas/:IDEmpresaVar", function (req,res){
+    medidaController.contar_MF_ativas(req,res);
+});
+
+router.get("/contar_MF_inativas/:IDEmpresaVar", function (req,res){
+    medidaController.contar_MF_inativas(req,res);
+});
+
+router.get("/contar_MV_ativas/:IDEmpresaVar", function (req,res){
+    medidaController.contar_MV_ativas(req,res);
+});
+
+router.get("/contar_MV_inativas/:IDEmpresaVar", function (req,res){
+    medidaController.contar_MV_inativas(req,res);
 });
 
 module.exports = router;

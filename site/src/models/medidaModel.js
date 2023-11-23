@@ -14,7 +14,7 @@ function log_alertas(FKUnidade,mes) {
         SELECT count(IDAlerta) as Alertas
         FROM Alertas JOIN Nivel_alerta
         ON IDNivel_alerta = FKNivel_alerta
-        WHERE Data_Hora LIKE "%${mes}%" GROUP BY IDNivel_alerta;
+        WHERE Data_Hora LIKE "%-${mes}-%" GROUP BY IDNivel_alerta;
         `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -107,24 +107,21 @@ function buscarDiscos(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-    Componentes_monitorados.IDComponente_monitorado AS IDMonitoramento,
-    Data_Hora_Captura,
-    ROUND((Total / POWER(1024, 3))) AS Total_Uso,
-	ROUND((Free / POWER(1024, 3))) AS Livre_Uso, 
-	ROUND((Uso / POWER(1024, 3))) AS Uso_Disco,
-    Porcentagem AS Porcentagem_Uso,
-    Componentes_cadastrados.Apelido 
-FROM 
-    Monitoramento_RAW 
-JOIN Componentes_monitorados ON FKComponente_Monitorado = IDComponente_monitorado 
-JOIN Componentes_cadastrados ON FKComponente_cadastrado = IDComponente_cadastrado
-JOIN Maquinas ON FKMaquina = ${FKMAQUINA}
-WHERE 
-    FKMaquina = 1
-    AND Componentes_cadastrados.Apelido = 'DISCO'
-ORDER BY 
-    Monitoramento_RAW.IDMonitoramento DESC
-LIMIT 1;`;
+	    Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
+	    Data_Hora_Captura,
+        Uso AS "Uso_DIsco",
+        Componentes_cadastrados.Apelido 
+        FROM 
+		    Monitoramento_RAW JOIN Componentes_monitorados 
+		    ON FKComponente_Monitorado = IDComponente_monitorado 
+		    JOIN Componentes_cadastrados 
+		    ON FKComponente_cadastrado = IDComponente_cadastrado
+		    JOIN Maquinas 
+		    ON FKMaquina = IDMaquina
+		    WHERE FKMaquina = ${FKMAQUINA}
+		    AND Componentes_cadastrados.Apelido = "DISCO"
+		    ORDER BY Monitoramento_RAW.IDMonitoramento DESC;
+        `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -173,7 +170,29 @@ function buscarJanelas(FKMAQUINA) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT Nome_Janelas as Nome From janelas_abertas join maquinas on FKMaquina = ${FKMAQUINA};
+        SELECT Nome_Janelas as Nome FROM Janelas_Abertas JOIN maquinas on FKMaquina = IDMaquina WHERE IDMaquina = ${FKMAQUINA} AND Janelas_Abertas.Nome_Janelas IS NOT NULL;
+    `;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarTotal_Janelas(FKMAQUINA) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT count(Nome_Janelas) as Total From Janelas_Abertas WHERE FKMaquina = ${FKMAQUINA};
     `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -197,8 +216,8 @@ function ultimas_CPU(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-            DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
-            Porcentagem AS Uso_CPU
+            DATE_FORMAT(Data_Hora_Captura,'%H:%i') as momento_grafico,
+            Uso AS Uso_CPU
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
 		        ON FKComponente_Monitorado = IDComponente_monitorado 
@@ -231,8 +250,8 @@ function tempo_real_CPU(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-        DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
-        Porcentagem AS Uso_CPU
+        DATE_FORMAT(Data_Hora_Captura,'%H:%i') as momento_grafico,
+        Uso AS Uso_CPU
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
 		        ON FKComponente_Monitorado = IDComponente_monitorado 
@@ -265,7 +284,7 @@ function ultimas_RAM(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-            DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
+            DATE_FORMAT(Data_Hora_Captura,'%H:%i') as momento_grafico,
             Uso AS Uso_RAM
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
@@ -299,7 +318,7 @@ function tempo_real_RAM(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-        DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
+        DATE_FORMAT(Data_Hora_Captura,'%H:%i') as momento_grafico,
         Uso AS Uso_RAM
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
@@ -321,7 +340,7 @@ function tempo_real_RAM(FKMAQUINA) {
     return database.executar(instrucaoSql);
 }
 
-function contar_MF(IDEmpresa) {
+function contar_MF_ativas(IDEmpresa) {
 
     instrucaoSql = ''
 
@@ -336,10 +355,106 @@ function contar_MF(IDEmpresa) {
             Count(IDMaquina) as Contagem 
         FROM Maquinas JOIN Tipo_maquina
             ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        JOIN Estado_maquina
+            ON IDEstado = FKEstado
         JOIN Usuario_Dashboard
             ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
         WHERE Tipo_maquina.Apelido = "FISICA"
-            AND Usuario_Dashboard.FKUnidade = ${IDEmpresa};`;
+            AND Usuario_Dashboard.FKUnidade = ${IDEmpresa}
+            AND Estado_maquina.Estado = "Ativa";`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function contar_MF_inativas(IDEmpresa) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT 
+            Count(IDMaquina) as Contagem 
+        FROM Maquinas JOIN Tipo_maquina
+            ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        JOIN Estado_maquina
+            ON IDEstado = FKEstado
+        JOIN Usuario_Dashboard
+            ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+        WHERE Tipo_maquina.Apelido = "FISICA"
+            AND Usuario_Dashboard.FKUnidade = ${IDEmpresa}
+            AND Estado_maquina.Estado = "Inativa";`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function contar_MV_ativas(IDEmpresa) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT 
+            Count(IDMaquina) as Contagem 
+        FROM Maquinas JOIN Tipo_maquina
+            ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        JOIN Estado_maquina
+            ON IDEstado = FKEstado
+        JOIN Usuario_Dashboard
+            ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+        WHERE Tipo_maquina.Apelido = "VIRTUAL"
+            AND Usuario_Dashboard.FKUnidade = ${IDEmpresa}
+            AND Estado_maquina.Estado = "Ativa";`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function contar_MV_inativas(IDEmpresa) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT 
+            Count(IDMaquina) as Contagem 
+        FROM Maquinas JOIN Tipo_maquina
+            ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        JOIN Estado_maquina
+            ON IDEstado = FKEstado
+        JOIN Usuario_Dashboard
+            ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+        WHERE Tipo_maquina.Apelido = "VIRTUAL"
+            AND Usuario_Dashboard.FKUnidade = ${IDEmpresa}
+            AND Estado_maquina.Estado = "Inativa";`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -358,9 +473,16 @@ module.exports = {
     tempo_real_CPU,
     ultimas_RAM,
     tempo_real_RAM,
-    contar_MF,
+    contar_MF_ativas,
+    contar_MF_inativas,
+    contar_MV_ativas,
+    contar_MV_inativas,
     buscarTempoExecucao,
     atualizarFeedCountTem, 
     buscarJanelas,
+<<<<<<< HEAD
     atualizarNomeMaquina
+=======
+    buscarTotal_Janelas
+>>>>>>> 27f0327ddd887e408f8a8710a3ba4aafb63b7544
 }

@@ -30,7 +30,7 @@
 
 </head>
 
-<body onload="init()">
+<body>
     <div class="janela">
 
         <div class="header-left dash-header">
@@ -40,10 +40,9 @@
                         alt="" id="second">
                     <p>Geral</p>
                 </button>
-
-                <button onclick="viewpoint()"><img src="element-3.png" id="fst" alt=""> <img id="send" src="element-3 (1).png" alt="">
+                <!-- <button onclick="viewpoint()"><img src="element-3.png" id="fst" alt=""> <img id="send" src="element-3 (1).png" alt="">
                     <p>View Point</p>
-                </button>
+                </button> -->
             </div>
             <div class="sepration2">
                 <button class="helpbutton"><img src="help-circle.png" alt="">
@@ -52,14 +51,6 @@
                 <div class="crd2_sept">
                     <img src="../../assets/imgs_power/do-utilizador.png" alt="">
                     <p id="nome_usuario"></p>
-                    <!-- <div class="dropdown_selection">
-                        <select name="cars" id="log">
-                            <option value="volvo">January</option>
-                            <option value="saab">Febuary</option>
-                            <option value="mercedes">March</option>
-                            <option value="audi">April</option>
-                        </select>
-                    </div> -->
                     <details class="custom-select">
                         <ul class="list">
                             <li>
@@ -120,18 +111,18 @@
                         <div class="dropdown_selection">
                             <select onchange="exibirlocal(this.value)">
                                 <option> Escolha o mês para visualizar </option>
-                                <option value="-01-">Janeiro</option>
-                                <option value="-02-">Fevereiro</option>
-                                <option value="-03-">Março</option>
-                                <option value="-04-">Abril</option>
-                                <option value="-05-">Maio</option>
-                                <option value="-06-">Junho</option>
-                                <option value="-07-">Julho</option>
-                                <option value="-08-">Agosto</option>
-                                <option value="-09-">Setembro</option>
-                                <option value="-10-">Outubro</option>
-                                <option value="-11-">Novembro</option>
-                                <option value="-12-">Dezembro</option>
+                                <option value="01">Janeiro</option>
+                                <option value="02">Fevereiro</option>
+                                <option value="03">Março</option>
+                                <option value="04">Abril</option>
+                                <option value="05">Maio</option>
+                                <option value="06">Junho</option>
+                                <option value="07">Julho</option>
+                                <option value="08">Agosto</option>
+                                <option value="09">Setembro</option>
+                                <option value="10">Outubro</option>
+                                <option value="11">Novembro</option>
+                                <option value="12">Dezembro</option>
                             </select>
                         </div>
                     </div>
@@ -188,6 +179,7 @@ window.onload = init();
     var ano = data.getFullYear();
     var dataAtual = dia + '/' + mes + '/' + ano;
     
+    window.onload = exibirlocal(mes)
 
     data_atual.innerHTML = dataAtual;
 
@@ -196,12 +188,7 @@ window.onload = init();
     }
 
     function erica(){
-        window.location.href = "dashboard.html";
-    }
-    window.onload = erica()
-
-    function viewpoint(){
-        window.location.href = "viewpoint.html";
+        window.location.href = "dashboard_Erica.html";
     }
 
     let proximaAtualizacao;
@@ -227,11 +214,11 @@ window.onload = init();
         for(j = 1;j<=12;j++){
 
             if(j >= 10){
-                if(mes == `-${j}-`){
+                if(mes == `${j}`){
                     idLocal = j
                 }
             }else{
-                if(mes == `-0${j}-`){
+                if(mes == `0${j}`){
                     idLocal = j
                 }
             }
@@ -284,6 +271,7 @@ window.onload = init();
 
                         var usuario = document.createElement("div");
                         usuario.className = "infoemp";
+                        usuario.setAttribute("onclick", `visualizar(${publicacao.IDUsuario})`)
 
                         var id = document.createElement("p");
                         id.innerHTML = publicacao.IDUsuario;
@@ -322,10 +310,6 @@ window.onload = init();
     }
 
     function obterDadosGrafico(FKUnidade,mes,idLocal) {
-
-        if (proximaAtualizacao != undefined) {
-            clearTimeout(proximaAtualizacao);
-        }
 
         fetch("/medidas/ultimas", {
             method: "POST",
@@ -372,8 +356,7 @@ window.onload = init();
                 data: [],
                 fill: false,
                 borderColor: '#009EA3',
-                backgroundColor: '#009EA3',
-                tension: 0.1
+                backgroundColor: '#009EA3'
             }]
         };
 
@@ -406,6 +389,12 @@ window.onload = init();
             config
         );
 
+    }
+
+
+    function visualizar(IDUsuario){
+        sessionStorage.IDFuncionario = IDUsuario;
+        window.location.href = "viewpoint.html"
     }
 
 </script>

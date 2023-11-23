@@ -1,0 +1,361 @@
+.body{
+    color: white;
+    font-family: 'Barlow', "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+*{
+  font-family: 'Barlow', "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+.header-left a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  .header-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    height: 100vh;
+    width: 18%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1D1D20;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  
+  .sepration button {
+    background-color: transparent;
+    height: 50px;
+    width: 253px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+  }
+  
+  #fist_top {
+    margin-top: 20px;
+  }
+  
+  #second {
+    display: none;
+  }
+  
+  #send {
+    display: none;
+  }
+  
+  .sepration {
+    flex-direction: column;
+    width: 85%;
+    height: 60%;
+    border-bottom: 2px solid #F7E11B;
+    display: flex;
+    align-items: center;
+  }
+  
+  .sepration2 {
+    flex-direction: column;
+    width: 85%;
+    height: 37%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .sepration2 button {
+    background-color: transparent;
+    height: 50px;
+    width: 253px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    margin-left: 10px;
+  }
+  
+  .helpbutton button {
+    background-color: transparent;
+    border: none;
+    margin-left: 15px;
+    margin-right: 20px;
+  }
+  
+  .helpbutton p {
+    margin-left: 15px;
+    margin-right: 20px;
+  }
+  
+  .sepration button:hover {
+    background-color: #F7E11B;
+    color: black;
+  }
+  
+  .sepration button:hover #first {
+    display: none;
+  }
+  
+  .sepration button:hover #fst {
+    display: none;
+  }
+  
+  .sepration button:hover #second {
+    display: block;
+  }
+  
+  .sepration button:hover #send {
+    display: block;
+  }
+  
+  .sepration button #first {
+    margin-left: 15px;
+    margin-right: 20px;
+    height: 30px;
+    width: 25px;
+  }
+  
+  .sepration button #second {
+    margin-left: 15px;
+    margin-right: 20px;
+    height: 30px;
+    width: 25px;
+  }
+  
+  .sepration button img {
+    margin-left: 15px;
+    margin-right: 20px;
+    height: 25px;
+    width: 25px;
+  }  
+
+.conteudo {
+    padding: 2%;
+    position: relative;
+    left: 18%;
+    width: 78%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.lado{
+  width: 47%;
+}
+
+
+
+.kpis {
+    width: 34vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 33vh;
+    /* background-color: cadetblue; */
+}
+
+.kpi {
+    background-color: #212124;
+    height: 100%;
+    width: 45%;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.titulo-kpi {
+    width: 80%;
+    font-size: 20px
+}
+
+#valor {
+    margin-top: 4%;
+    color: #FD3838;
+    font-size: 50px;
+    font-weight: 600;
+}
+
+#teste {
+    margin-top: 4%;
+    /* color: #d638fd; */
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.resumo {
+    margin-top: 3%;
+    width: 34vw;
+    background-color: #212124;
+    height: 25vh;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    color: white;
+}
+
+#percentual {
+    color: #38fd59
+}
+
+.resumo p {
+    width: 90%;
+}
+
+.pdf {
+    width: 29vw;
+    height: 20vh;
+    display: flex;
+    background-color: #C8C5C5;
+    color: black;
+    flex-direction: column;
+    align-items: center;
+    /* margin-top: -415px;
+    margin-left: 53%; */
+    border-radius: 20px;
+    font-size: 19px;
+    justify-content: center;
+}
+
+.pdf span{
+    font-weight: 500;
+    width: 70%;
+    margin-right: 12%;
+}
+
+.botoes{
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 3%;
+}
+
+.botoes button{
+    border-radius: 10px;
+    height: 6vh;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Barlow', "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 17px;
+    width: 12vw;
+}
+
+.amarelo {
+    background-color: #f5e552;
+    border: none;
+}
+
+.cinza {
+    background-color: #888888;
+    border: none;
+}
+
+.graph1 {
+    background-color: #1D1D20;
+    width: 30vw;
+    margin-top: 3%;
+    /* margin-left: 52%; */
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    height: 38vh;
+    flex-direction: column;
+}
+
+.titulo{
+  margin-top: 2%;
+  width: 70%;
+  font-size: 20px;
+}
+
+.tamanho-graph1{
+  margin-top: 2%;
+  background-color: palegreen;
+  height: 70%;
+  width: 80%;
+}
+
+.lista{
+    height: 30vh;
+    background-color: #1D1D20;
+    margin-top: 4%;
+    width: 30vw;
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* flex-wrap: wrap; */
+}
+
+.titulo-lista {
+  margin-top: 3%;
+  font-size: 19px;
+  width: 68%;
+}
+
+.colunas{
+  border-top: white 2px solid;
+  border-bottom: white 2px solid;
+  margin-top: 3%;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  justify-content: space-around;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.registros{
+  width: 90%;
+  height: 50%;
+  overflow-y: scroll;
+}
+
+#tuplas {
+  margin-top: 0.8%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: white 0.8px solid;
+}
+
+.graph2{
+  background-color: #1D1D20;
+  width: 34vw;
+  margin-top: 4%;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  height: 30vh;
+  flex-direction: column;
+}
+
+.titulo2{
+  color: white;
+  margin-top: 2%;
+  width: 50%;
+  font-size: 20px;
+}
+
+.tamanho-graph2{
+  margin-top: 2%;
+  background-color: palevioletred;
+  height: 60%;
+  width: 80%;
+}
