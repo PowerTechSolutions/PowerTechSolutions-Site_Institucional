@@ -155,9 +155,9 @@ function cadastrando(req, res) {
 
 function buscarInfo(req, res) {
 
-    var emailUser = req.body.emailServer;
+    var idUser = req.body.idUsuarioServer;
 
-    usuarioModel.buscarInfo(emailUser)
+    usuarioModel.buscarInfo(idUser)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);

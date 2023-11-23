@@ -61,7 +61,7 @@ function cadastrando(nome, cpf, email, senha, FKUnidade, FKNivel_acesso){
     return database.executar(instrucao);
 }
 
-function buscarInfo(emailUser) {
+function buscarInfo(idUser) {
 
     instrucaoSql = ''
 
@@ -73,7 +73,7 @@ function buscarInfo(emailUser) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT Nome as Nome, Email as Email, FKUnidade as Setor From Usuario_Dashboard join Unidade_de_negocio on FKUnidade = IDUnidade WHERE 
-        Email = '${emailUser}';
+        IDUsuario = '${idUser}';
     `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
