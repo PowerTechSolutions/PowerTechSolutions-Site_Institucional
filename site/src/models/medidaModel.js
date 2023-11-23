@@ -332,10 +332,13 @@ function contar_MF(IDEmpresa) {
             Count(IDMaquina) as Contagem 
         FROM Maquinas JOIN Tipo_maquina
             ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        JOIN Estado_maquina
+            ON IDEstado = FKEstado
         JOIN Usuario_Dashboard
             ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
         WHERE Tipo_maquina.Apelido = "FISICA"
-            AND Usuario_Dashboard.FKUnidade = ${IDEmpresa};`;
+            AND Usuario_Dashboard.FKUnidade = ${IDEmpresa}
+            AND Estado_maquina.Estado = "Ativa";`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return

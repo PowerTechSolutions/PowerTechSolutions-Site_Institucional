@@ -2,7 +2,7 @@
 USE PowerTechSolutions;
 SELECT 
 	Data_Hora_Captura,
-    Dado_Capturado AS Uso_CPU,
+    Uso AS Uso_CPU,
     Componentes_cadastrados.Apelido
     FROM 
 		Monitoramento_RAW JOIN Componentes_monitorados 
@@ -17,7 +17,7 @@ SELECT
 
 SELECT 
 	Data_Hora_Captura,
-    Dado_Capturado AS "Uso_RAM",
+    Uso AS "Uso_RAM",
     Componentes_cadastrados.Apelido 
     FROM 
 		Monitoramento_RAW JOIN Componentes_monitorados 
@@ -32,7 +32,7 @@ SELECT
 SELECT 
 	Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
 	Data_Hora_Captura,
-    Dado_Capturado AS "Uso_DIsco",
+    Uso AS "Uso_DIsco",
     Componentes_cadastrados.Apelido 
     FROM 
 		Monitoramento_RAW JOIN Componentes_monitorados 
@@ -41,7 +41,7 @@ SELECT
 		ON FKComponente_cadastrado = IDComponente_cadastrado
 		JOIN Maquinas 
 		ON FKMaquina = IDMaquina
-		WHERE FKMaquina = 1
+		WHERE FKMaquina = 2
 		AND Componentes_cadastrados.Apelido = "DISCO"
 		ORDER BY Monitoramento_RAW.IDMonitoramento DESC
 		LIMIT 1;
@@ -117,3 +117,5 @@ SELECT
         OR Data_Hora LIKE  "%-02-26 %" 
         OR Data_Hora LIKE  "%-02-27 %"
         OR Data_Hora LIKE  "%-02-28 %";
+        
+SELECT * FROM Maquinas WHERE FKFuncionario = 1;

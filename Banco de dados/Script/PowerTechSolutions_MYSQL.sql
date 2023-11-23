@@ -72,6 +72,12 @@ CREATE TABLE IF NOT EXISTS Tipo_maquina(
     Apelido VARCHAR(80)
 );
 
+CREATE TABLE IF NOT EXISTS Estado_maquina(
+	IDEstado INT PRIMARY KEY AUTO_INCREMENT,
+    Estado VARCHAR(50),
+    CONSTRAINT Estado CHECK (Estado in ("Ativa","Inativa","Desativada"))
+);
+
 CREATE TABLE IF NOT EXISTS Maquinas(
 	IDMaquina INT PRIMARY KEY AUTO_INCREMENT,
     Apelido VARCHAR(100),
@@ -80,7 +86,10 @@ CREATE TABLE IF NOT EXISTS Maquinas(
 			REFERENCES Usuario_Dashboard(IDUsuario),
 	FKTipo_maquina INT,
 		CONSTRAINT FKTipo_maquina FOREIGN KEY (FKTipo_maquina)
-			REFERENCES Tipo_maquina(IDTipo)
+			REFERENCES Tipo_maquina(IDTipo),
+	FKEstado INT,
+		CONSTRAINT FKEstado FOREIGN KEY (FKEstado)
+			REFERENCES Estado_maquina(IDEstado)
 );
 
 -- novo tabela da Kaori
@@ -249,10 +258,15 @@ INSERT INTO Tipo_maquina VALUES
 (null,"FISICA"),
 (null,"VIRTUAL");
 
+INSERT INTO Estado_maquina VALUES
+(NULL,"Ativa"),
+(NULL,"Inativa"),
+(NULL,"Desativada");
+
 INSERT INTO Maquinas VALUES
-(null,'teste01',1,2),
-(null,'teste02',1,1),
-(null,'teste03',1,1);
+(null,'teste01',1,2,1),
+(null,'teste02',1,1,1),
+(null,'teste03',1,1,2);
 
 INSERT INTO Componentes_monitorados VALUES
 (NULL,1,1),

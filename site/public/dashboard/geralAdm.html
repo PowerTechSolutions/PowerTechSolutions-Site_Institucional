@@ -30,16 +30,6 @@
                         src="dash_pt/Group 1171274974.png" alt="" id="second">
                     <p>Geral</p>
                 </button>
-
-                <button onclick="MF()"><img src="dash_pt/element-3.png" id="fst" alt=""> <img id="send"
-                        src="dash_pt/element-3 (1).png" alt="">
-                    <p>MFs</p>
-                </button>
-
-                <button onclick="MV()"><img src="dash_pt/vms.png.png" id="fst" alt=""> <img id="send"
-                        src="dash_pt/icon13.png" alt="">
-                    <p>VMs</p>
-                </button>
                 <button onclick="permi()"><img src="dash_pt/perm.png.png" id="fst" alt=""> <img id="send"
                         src="dash_pt/pessoa.png" alt="">
                     <p>Adicionar permissões</p>
@@ -84,7 +74,8 @@
             <div class="espacoEsquerdo">
                 <div class="flexExterno">
                     <div class="flexInterno">
-                        <div class="quadradoUm">
+                        
+                        <!-- <div class="quadradoUm">
                             <div>
                                 <h1>Máquinas Físicas</h1>
                             </div>
@@ -98,7 +89,7 @@
                                     <p id="status_wifi">Seguro</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="quadradoDois">
                             <div>
@@ -106,7 +97,7 @@
                             </div>
                             <div class="separador">
                                 <div class="conteudoDoQuadradoUm">
-                                    <span id="maquina_fisica" class="resultado">23</span>
+                                    <span id="maquina_fisica" class="resultado"></span>
                                 </div>
                             </div>
                         </div>
@@ -186,7 +177,7 @@
                 </div>
                 <div class="flexExterno">
                     <div class="flexInterno">
-                        <div class="quadradoUm">
+                        <!-- <div class="quadradoUm">
                             <div>
                                 <h1>Máquinas Virtuais</h1>
                             </div>
@@ -200,7 +191,7 @@
                                     <p id="status_wifi">Seguro</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="quadradoDois">
                             <div>
@@ -328,6 +319,10 @@
 
 <script>
 
+    nome_usuario.innerHTML = sessionStorage.Nome_Usuario
+
+    window.onload = atualizarFeed_MF()
+
     function atualizarFeed_MF() {
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
@@ -355,7 +350,7 @@
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
     
                     var feed = document.getElementById("maquina_fisica");
-                    feed.innerHTML = resposta[0].contagem;
+                    feed.innerHTML = resposta[0].Contagem;
 
                 });
             } else {
@@ -363,7 +358,6 @@
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
         });
     
         return false;
