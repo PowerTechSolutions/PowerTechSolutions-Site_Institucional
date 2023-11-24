@@ -225,23 +225,14 @@ body {
     border-radius: 13px;
     padding:10px;
     text-align: center;
-    
 }
 
 .listagem{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    cursor:pointer;
 }
-
-/* width: 80%;
-margin-left: 20px;
-height: 200px;
-display: flex;
-flex-direction: column;
-align-items: center;
-background-color: #1A1C22;
-border-radius: 13px; */
 .title{
     display: flex;
     flex-direction: row;
@@ -265,4 +256,10 @@ border-radius: 13px; */
     display:flex;
     justify-content: space-between;
     border-top: 1px solid white;
+}
+#selecionar_maquina{
+    background-color: #1A1C22;
+    border-radius:10px;
+    border:2px solid yellow;
+    padding:10px;
 }

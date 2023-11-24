@@ -64,9 +64,10 @@
             </div>
         </div>
         <select id="selecionar_maquina" onchange="buscarJanelas(this.value),buscarTotal_Janelas(this.value)">
+            <option value=""> Nenhuma máquina selecionada </option>
         </select>
         <div id="card_func">
-            <h2>Status dos funcionários</h2>
+            <h2>Status das máquinas</h2>
             <div class="title">
                 <h3>ID</h3>
                 <h3>Nome</h3>
@@ -351,9 +352,10 @@ function atualizarJanelas(FKMAQUINA,janela) {
 
 }
 
-    function buscarInfo() {
 
-        var idUsuario = sessionStorage.ID_USUARIO;
+    function buscarInfo(idusuario) {
+
+        var IDUsuario = idusuario;
 
         fetch("/usuarios/buscarInfo", {
             method: "POST",
@@ -363,7 +365,7 @@ function atualizarJanelas(FKMAQUINA,janela) {
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
-                idUsuarioServer: idUsuario,
+                idUsuarioServer: IDUsuario,
             })
         }).then(function (resposta) {
 
@@ -389,7 +391,7 @@ function atualizarJanelas(FKMAQUINA,janela) {
                         // criando e manipulando elementos do HTML via JavaScript
 
                         var info = document.createElement("div");
-                        info.classList = "alinhar";
+                        info.className = "alinhar";
 
                         var setor = document.createElement("span")
                         setor.innerHTML = publicacao.Setor;
@@ -469,9 +471,9 @@ function atualizarJanelas(FKMAQUINA,janela) {
                         var publicacao = resposta[contador_usuario];
                         // criando e manipulando elementos do HTML via JavaScript
 
-                        var usuario = document.createElement("div");
+                        var usuario = document.createElement(`div`);
                         usuario.className = "listagem";
-                        usuario.setAttribute("onclick", `visualizar(${publicacao.IDUsuario}),buscarInfo()`)
+                        usuario.setAttribute("onclick", `visualizar(${publicacao.IDUsuario})`)
 
                         var id = document.createElement("p");
                         id.innerHTML = publicacao.IDUsuario;
@@ -565,6 +567,8 @@ function atualizarJanelas(FKMAQUINA,janela) {
             console.log(`#ERRO: ${resposta}`);
             // finalizarAguardar();
         });
+
+        buscarInfo(idusuario)
 
         return false;
     }
