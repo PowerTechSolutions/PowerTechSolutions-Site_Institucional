@@ -10,6 +10,15 @@ function listar_usuarios(IDEmpresa) {
     return database.executar(instrucao);
 }
 
+function visualizar(IDUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar_usuario()", IDUsuario);
+    var instrucao = `
+         SELECT IDMaquina as Maquina from Maquinas JOIN Usuario_Dashboard ON FKFuncionario = IDUsuario WHERE FKFuncionario = ${IDUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function listar_maquinas(IDFUncionario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar_usuario()", IDFUncionario);
     var instrucao = `
@@ -61,27 +70,16 @@ function cadastrando(nome, cpf, email, senha, FKUnidade, FKNivel_acesso){
     return database.executar(instrucao);
 }
 
-function buscarInfo(idUser) {
+function buscarInfo(IDUsuario) {
 
-    instrucaoSql = ''
-
-    if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `
-            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
-        `;
-
-    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `
-        SELECT Nome as Nome, Email as Email, FKUnidade as Setor From Usuario_Dashboard join Unidade_de_negocio on FKUnidade = IDUnidade WHERE 
-        IDUsuario = '${idUser}';
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarInfo()", IDUsuario);
+    var instrucao = `
+        SELECT Nome as Nome, Email as Email, FKUnidade as Setor From Usuario_Dashboard join Unidade_de_negocio on FKUnidade = IDUnidade WHERE IDUsuario = ${IDUsuario};
     `;
-    } else {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-        return
-    }
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+    
 }
 
 module.exports = {
@@ -90,5 +88,6 @@ module.exports = {
     listar_usuarios,
     cadastrando,
     buscarInfo,
-    listar_maquinas
+    listar_maquinas, 
+    visualizar
 };

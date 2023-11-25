@@ -246,7 +246,7 @@ function obterDadosGrafico_CPU(FKMAQUINA) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                 resposta.reverse();
 
-                plotarGrafico_CPU(resposta,FKMAQUINA)
+                plotarGrafico_CPU(resposta,FKMAQUINA);
                 
             });
         } else {
