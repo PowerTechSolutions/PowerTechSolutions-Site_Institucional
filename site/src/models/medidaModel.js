@@ -237,7 +237,10 @@ function buscarJanelas(IDMaquina) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT Nome_Janelas as Nome,Data_Hora_Conexao as data FROM Janelas_Abertas JOIN maquinas on FKMaquina = IDMaquina WHERE FKMaquina = ${IDMaquina} AND Janelas_Abertas.Nome_Janelas != "";
+        SELECT Nome_Janelas as Nome,Data_Hora_Conexao as data 
+        FROM Janelas_Abertas JOIN maquinas on FKMaquina = IDMaquina 
+        WHERE FKMaquina = ${IDMaquina} AND Janelas_Abertas.Nome_Janelas != ""
+        AND Data_Hora_Conexao >= DATE_SUB(NOW(), INTERVAL 5 MINUTE);
     `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -259,7 +262,8 @@ function buscarTotal_Janelas(IDMaquina) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT count(Nome_Janelas) as Total From Janelas_Abertas WHERE FKMaquina = ${IDMaquina};
+        SELECT count(Nome_Janelas) as Total From Janelas_Abertas WHERE FKMaquina = ${IDMaquina} AND Janelas_Abertas.Nome_Janelas != ""
+AND Data_Hora_Conexao >= DATE_SUB(NOW(), INTERVAL 5 MINUTE);
     `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+
+<body>
+    <input type="text" id="msg">
+    <button onclick="teste()">teste</button>
+</body>
+
+</html>
+
+<script>
+
+    function teste() {
+
+        var msgVar = document.getElementById("msg").value;
+
+        console.log("Mensagem: ", msgVar);
+
+        fetch("/slackbot/enviarMensagem", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                msgServer: msgVar,
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            console.log(resposta);
+
+          if (resposta) {
+            console.log(resposta);
+
+            resposta.json().then(json => {
+              console.log(json);
+              console.log(JSON.stringify(json));
+
+            });
+
+          } else {
+
+            console.log("Houve um erro ao tentar enviar sua mensagem ");
+
+            resposta.text().then(texto => {
+              console.error(texto);
+              finalizarAguardar(texto);
+            });
+          }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+</script>

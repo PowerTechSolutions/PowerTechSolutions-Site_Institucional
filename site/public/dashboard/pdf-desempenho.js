@@ -1,18 +1,53 @@
 function criarPdf() {
+    //tira a div de escolha
+    fecharMsg();
 
-    new jsPDF();
+    //define o que sera utilizado para converter como img
+    const printscreen = document.getElementById('conteudo-ID');
 
-    var doc = new jsPDF();
+    //seta o scroll do printscreen
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
 
-    var conteudoHTML = document.getElementById('all').innerHTML;
+    //chama a biblioteca jsPDF e cria um pdf vazio
+    const pdf = new jsPDF();
 
-    doc.fromHTML(conteudoHTML);
+    //adiciona uma fonte ao pdf
+    pdf.addFont('Barlow', 'Barlow', 'normal');
 
-    doc.save("Relatorio-de-desempenho.pdf");
+    //usa o html2canvas para transformar o printscreen em img
+    html2canvas(printscreen, {
+        allowTaint: true,
+        taintTest: false,
+        type: "view",
+    }).then(function (canvas) {
+        //cria uma url para a img ser utilizada depois 
+        const imgData = canvas.toDataURL('image/png');
+        
+        // define largura e a altura
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
-    // doc.output('dataurlnewwindow');
+        // adiciona a img ao pdf, passando a extensão da foto, margens e a altura e largura
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
 
+        //cria uma data atual e formata ela 
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`;
+    
+        //coloca o tamanho da fonte
+        pdf.setFontSize(22);
+    
+        //adiciona a data como texto se baseando na largura do pdf, e define margens e alinhamentos
+        pdf.text(pdfWidth / 2, 130, formattedDate, { align: 'center', marginBottom: '50%'});
+
+        //cria o pdf dando um nome e extensao e possibilita o download
+        pdf.save("Relatorio-de-desempenho.pdf");
+    });
 }
+
+  
+  
 
 function fecharMsg() {
     // Transforma as classes em variáveis

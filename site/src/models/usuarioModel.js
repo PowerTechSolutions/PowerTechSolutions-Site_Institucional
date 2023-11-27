@@ -70,11 +70,11 @@ function cadastrando(nome, cpf, email, senha, FKUnidade, FKNivel_acesso){
     return database.executar(instrucao);
 }
 
-function buscarInfo(idUser) {
+function buscarInfo(IDUsuario) {
 
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarInfo()", idUser);
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarInfo()", IDUsuario);
     var instrucao = `
-        SELECT Nome as Nome, Email as Email, FKUnidade as Setor From Usuario_Dashboard join Unidade_de_negocio on FKUnidade = IDUnidade WHERE IDUsuario = ${idUser};
+        SELECT Nome as Nome, Email as Email, FKUnidade as Setor From Usuario_Dashboard join Unidade_de_negocio on FKUnidade = IDUnidade WHERE IDUsuario = ${IDUsuario};
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);
