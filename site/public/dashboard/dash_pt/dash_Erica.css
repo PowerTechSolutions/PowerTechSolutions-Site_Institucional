@@ -45,21 +45,24 @@ body {
     padding: 4px;
 }
 
-#func {
+
+#funcionario_infos{
     width: 70%;
     height: 130px;
     display: flex;
     padding: 10px;
     background-color: #1A1C22;
     border-radius: 13px;
-    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
 }
-
-
-#func img {
+#funcionario_infos img {
     align-self: center;
 }
-
+.label{
+    display:flex;
+    flex-direction: column;
+}
 .alinhar {
     display: flex;
     flex-direction: column;
@@ -77,8 +80,9 @@ body {
 .total {
     background-color: #1A1C22;
     border-radius: 13px;
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
+    text-align: center;
     align-items: center;
     width: 30%;
     height: 100px;
@@ -92,13 +96,6 @@ body {
     justify-content: center;
     align-items: center;
 }
-
-/* #qntd {
-    width: 100%;
-    height: 50px;
-    text-align: center;
-    border-top: 1px solid white;
-} */
 
 .cpu {
     background-color: #1A1C22;
@@ -116,7 +113,7 @@ body {
     color: #05FF00;
 }
 
-.graficos {
+.parte_inferior {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -124,7 +121,7 @@ body {
     width:100%;
 }
 
-.graficos span {
+.parte_inferior span {
     font-size: 20px;
 }
 
@@ -159,12 +156,15 @@ body {
 .dropdown {
     position: relative;
     display: inline-block;
-    width:30px;
-    height:30px;
+    width:100%;
+    background-color:#1A1C22;
+    height:40px;
     cursor:pointer;
     padding:15px;
 }
-
+#voltar:hover{
+    box-shadow:5px 5px 5px gold;
+}
 .dropdown-content {
     display: none;
     position: absolute;
@@ -219,7 +219,7 @@ body {
     margin-bottom:10px;
 }
 #card_func{
-    width:38%;
+    width:100%;
     height: 300px;
     background-color: #1A1C22;
     border-radius: 13px;
@@ -257,9 +257,21 @@ body {
     justify-content: space-between;
     border-top: 1px solid white;
 }
+.maquinas{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width:40%;
+    height: 300px;
+
+}
 #selecionar_maquina{
     background-color: #1A1C22;
     border-radius:10px;
     border:2px solid yellow;
     padding:10px;
+    color:white;
+    font-size:15px;
+    margin-bottom:15px;
+    cursor:pointer;
 }

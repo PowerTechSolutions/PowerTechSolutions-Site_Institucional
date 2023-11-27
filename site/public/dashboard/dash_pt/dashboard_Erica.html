@@ -26,7 +26,7 @@
             <div class="box_lista">
                 <h3> Janelas abertas </h3>
                 <div id="arrangement">
-                    <di class="janelas">
+                    <div class="janelas">
                     </div>
                 </div>
             </div>
@@ -42,12 +42,16 @@
             <div class="info_user">
                 <h3> Funcionário </h3>
             </div>
-            <div id="func">
+            <div id="funcionario_infos">
                 <img id="perfil" src="profile func.png" alt="perfil usuário">
-                <div class="alinhar">
+                <div class="label">
                     <span> Setor: </span>
                     <span> Nome: </span>
                     <span> Email: </span>
+                </div>
+                <div id="func">
+                    <div class="alinhar">
+                    </div>
                 </div>
             </div>
             <div class="cpu">
@@ -56,23 +60,27 @@
             </div>
         </div>
     </div>
-    <div class="graficos">
-        <div>
-            <span> Gráfico de uso de CPU </span>
+    <div class="parte_inferior">
+            <div class="grafico_area">
+            <div>
+                <span> Gráfico de uso de CPU </span>
+            </div>
             <div class="grafico_cpu" onload="exibirgraph()">
                 <canvas id="myChart_CPU"></canvas>
             </div>
         </div>
-        <select id="selecionar_maquina" onchange="buscarJanelas(this.value),buscarTotal_Janelas(this.value)">
-            <option value=""> Nenhuma máquina selecionada </option>
-        </select>
-        <div id="card_func">
-            <h2>Status das máquinas</h2>
-            <div class="title">
-                <h3>ID</h3>
-                <h3>Nome</h3>
-                <h3>Data</h3>
-                <h3>Status</h3>
+        <div class="maquinas">
+            <select id="selecionar_maquina" onchange="buscarJanelas(this.value),buscarTotal_Janelas(this.value)">
+                <option value=""> Nenhuma máquina selecionada </option>
+            </select>
+            <div id="card_func">
+                <h2>Status das máquinas</h2>
+                <div class="title">
+                    <h3>ID</h3>
+                    <h3>Nome</h3>
+                    <h3>Data</h3>
+                    <h3>Status</h3>
+                </div>
             </div>
         </div>
     </div>
@@ -264,7 +272,7 @@
                         feed.appendChild(usuario)
 
                     }
-                    atualizarJanelas(FKMAQUINA,resposta[0])
+                    atualizarJanelas(FKMAQUINA, resposta[0])
                 });
             } else {
                 throw ("Houve um erro ao tentar realizar A pesquisa!");
@@ -316,7 +324,7 @@
                         totalJanelas.appendChild(quantidade)
 
                         feed.appendChild(totalJanelas)
-                    
+
                     }
                 });
             } else {
@@ -330,27 +338,27 @@
         return false;
     }
 
-function atualizarJanelas(FKMAQUINA,janela) {
+    function atualizarJanelas(FKMAQUINA, janela) {
 
-    var contador = new Date();
-    var hora = contador.getHours();
+        var contador = new Date();
+        var hora = contador.getHours();
 
-    var horaUltimaJanela = janela.data;
+        var horaUltimaJanela = janela.data;
 
-    console.log(`${hora} - ${horaUltimaJanela}`);
+        console.log(`${hora} - ${horaUltimaJanela}`);
 
-    // if ((hora - horaUltimaJanela) ) {
-    //     var feed = document.getElementById("arrangement")
-    //     feed.innerHTML = "";
+        // if ((hora - horaUltimaJanela) ) {
+        //     var feed = document.getElementById("arrangement")
+        //     feed.innerHTML = "";
 
-    //     buscarJanelas(FKMAQUINA)
-    //     buscarTotal_Janelas(FKMAQUINA)
+        //     buscarJanelas(FKMAQUINA)
+        //     buscarTotal_Janelas(FKMAQUINA)
 
-    // } else {
-    //     atualizarJanelas(FKMAQUINA,janela)
-    // }
+        // } else {
+        //     atualizarJanelas(FKMAQUINA,janela)
+        // }
 
-}
+    }
 
 
     function buscarInfo(idusuario) {
@@ -513,10 +521,10 @@ function atualizarJanelas(FKMAQUINA,janela) {
 
     function visualizar(idusuario) {
 
-       var IDUsuario = idusuario;
-       var IDMaquina = sessionStorage.IDMaquina;
+        var IDUsuario = idusuario;
+        var IDMaquina = sessionStorage.IDMaquina;
 
-       var feed = document.getElementById("selecionar_maquina");
+        var feed = document.getElementById("selecionar_maquina");
         feed.innerHTML = "";
 
         fetch("/usuarios/visualizar", {
