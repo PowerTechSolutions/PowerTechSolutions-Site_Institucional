@@ -56,6 +56,23 @@ function buscarDiscos(req, res) {
     });
 }
 
+function buscarDiscosKaori(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.buscarDiscosKaori(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function buscarTempoExecucao(req, res) {
 
     var FKMAQUINA = req.params.FKMAQUINA;
@@ -112,6 +129,23 @@ function atualizarFeedCountTem(req, res) {
     var FKMAQUINA = req.params.FKMAQUINA;
 
     medidaModel.atualizarFeedCountTem(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function atualizarTotalTempo(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.atualizarTotalTempo(FKMAQUINA).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -278,6 +312,42 @@ function contar_MV_inativas(req, res) {
     });
 }
 
+
+
+function ultimas_TempoExec(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.ultimas_TempoExec(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function tempo_real_vmKaori(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.tempo_real_vmKaori(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
     log_alertas,
     tempo_real_log_alertas,
@@ -294,5 +364,9 @@ module.exports = {
     atualizarFeedCountTem, 
     buscarJanelas,
     atualizarNomeMaquina,
-    buscarTotal_Janelas
+    buscarTotal_Janelas,
+    buscarDiscosKaori,
+    atualizarTotalTempo, 
+    ultimas_TempoExec,
+    tempo_real_vmKaori
 }
