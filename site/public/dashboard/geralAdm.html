@@ -118,59 +118,11 @@
                             <h2>Máquina Física Status</h2>
                             <div class="title">
                                 <h3>ID</h3>
-                                <h3>Nome</h3>
-                                <h3>Data</h3>
+                                <h3>Responsavel</h3>
+                                <h3>Maquina</h3>
                                 <h3>Status</h3>
                             </div>
-                            <div class="arrangement">
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
+                            <div class="arrangement" id="maquinas_FISICAS">
                             </div>
                         </div>
                     </div>
@@ -220,59 +172,12 @@
                             <h2>Máquinas Virtuais Status</h2>
                             <div class="title">
                                 <h3>ID</h3>
-                                <h3>Nome</h3>
-                                <h3>Data</h3>
+                                <h3>Responsavel</h3>
+                                <h3>Maquina</h3>
                                 <h3>Status</h3>
                             </div>
-                            <div class="arrangement">
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
-                                <div class="infoemp">
-                                    <p>001</p>
-                                    <p>Michelly Kaori</p>
-                                    <p>25/09/2004</p>
-                                    <p>Perigo</p>
-                                </div>
+                            <div class="arrangement" id="maquinas_VIRTUAIS">
+                                
                             </div>
                         </div>
                     </div>
@@ -324,17 +229,23 @@
     window.onload = atualizarMaquinas()
 
     function atualizarMaquinas(){
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+
         atualizarFeed_MF_ativas()
         atualizarFeed_MF_inativas()
         atualizarFeed_MV_ativas()
         atualizarFeed_MV_inativas()
+        atualizarFeed_MF()
+        atualizarFeed_MV()
+        obterDadosGrafico_mf(IDEmpresaVar)
     }
 
     function atualizarFeed_MF_ativas() {
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
     
-        fetch(`/medidas/contar_MF_ativas/${IDEmpresaVar}`, {
+        fetch(`/maquinas/contar_MF_ativas/${IDEmpresaVar}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -374,7 +285,7 @@
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
     
-        fetch(`/medidas/contar_MF_inativas/${IDEmpresaVar}`, {
+        fetch(`/maquinas/contar_MF_inativas/${IDEmpresaVar}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -412,7 +323,7 @@
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
     
-        fetch(`/medidas/contar_MV_ativas/${IDEmpresaVar}`, {
+        fetch(`/maquinas/contar_MV_ativas/${IDEmpresaVar}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -452,7 +363,7 @@
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
     
-        fetch(`/medidas/contar_MV_inativas/${IDEmpresaVar}`, {
+        fetch(`/maquinas/contar_MV_inativas/${IDEmpresaVar}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -504,7 +415,7 @@
             if (resposta.ok) {
 
                 if (resposta.status == 204) {
-                        var feed = document.getElementById("maquina_fisica_ativa");
+                        var feed = document.getElementById("maquinas_FISICAS");
                         var mensagem = document.createElement("span");
                         mensagem.innerHTML = "Nenhum resultado encontrado."
                         feed.appendChild(mensagem);
@@ -514,10 +425,96 @@
                     resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
     
-                    var feed = document.getElementById("maquina_fisica_ativa");
-                    feed.innerHTML = resposta[0].Contagem;
+                    var feed = document.getElementById("maquinas_FISICAS");
+                    feed.innerHTML = "";
+                    for(var i = 0; i<resposta.length;i++){
+                        var maquina = resposta[i];
 
-                });
+                        var card = document.createElement("div");
+                        card.className = "infoemp";
+                        
+                        var id = document.createElement("p");
+                        id.innerHTML = maquina.IDMaquina;
+                        card.appendChild(id);
+
+                        var respon = document.createElement("p");
+                        respon.innerHTML = maquina.Nome;
+                        card.appendChild(respon);
+
+                        var apelido = document.createElement("p");
+                        apelido.innerHTML = maquina.apelido;
+                        card.appendChild(apelido);
+
+                        var estado = document.createElement("p");
+                        estado.innerHTML = maquina.Estado;
+                        card.appendChild(estado);
+
+                        feed.appendChild(card);
+
+                    }});
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    
+        return false;
+    }
+
+    function atualizarFeed_MV(){
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+    
+        fetch(`/maquinas/pegar_MV/${IDEmpresaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+    
+            console.log("resposta: ", resposta);
+    
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                        var feed = document.getElementById("maquinas_VIRTUAIS");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+    
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+    
+                    var feed = document.getElementById("maquinas_VIRTUAIS");
+                    feed.innerHTML = "";
+                    for(var i = 0; i<resposta.length;i++){
+                        var maquina = resposta[i];
+
+                        var card = document.createElement("div");
+                        card.className = "infoemp";
+                        
+                        var id = document.createElement("p");
+                        id.innerHTML = maquina.IDMaquina;
+                        card.appendChild(id);
+
+                        var respon = document.createElement("p");
+                        respon.innerHTML = maquina.Nome;
+                        card.appendChild(respon);
+
+                        var apelido = document.createElement("p");
+                        apelido.innerHTML = maquina.apelido;
+                        card.appendChild(apelido);
+
+                        var estado = document.createElement("p");
+                        estado.innerHTML = maquina.Estado;
+                        card.appendChild(estado);
+
+                        feed.appendChild(card);
+
+                    }});
             } else {
                 throw ("Houve um erro ao tentar realizar A pesquisa!");
             }
@@ -530,14 +527,10 @@
 
 let proximaAtualizacao;
 
-window.onload = obterDadosGrafico_mf(1);
-window.onload = obterDadosGrafico_vm(1);
+//window.onload = obterDadosGrafico_mf(1);
+//window.onload = obterDadosGrafico_vm(1);
 
 function obterDadosGrafico_mf(FKUnidade) {
-
-if (proximaAtualizacao != undefined) {
-clearTimeout(proximaAtualizacao);
-}
 
 fetch(`/alertas/geral_mf/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
 if (response.ok) {
