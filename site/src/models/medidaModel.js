@@ -228,7 +228,30 @@ AND Data_Hora_Conexao >= DATE_SUB(NOW(), INTERVAL 5 MINUTE);
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+function estabilidadeCPU(IDMaquina) {
 
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT Porcentagem as Porcentagem_USO FROM monitoramento_raw JOIN componentes_monitorados 
+        ON FKComponente_Monitorado = IDComponente_monitorado JOIN Componentes_cadastrados 
+        ON FKComponente_cadastrado = IDComponente_cadastrado JOIN maquinas ON FKMaquina = IDMaquina 
+        WHERE IDComponente_cadastrado = 1 AND FKMaquina = ${IDMaquina} ORDER BY Monitoramento_RAW.IDMonitoramento DESC
+LIMIT 1;`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 function ultimas_CPU(FKMAQUINA) {
 
@@ -452,5 +475,6 @@ module.exports = {
     buscarDiscosKaori, 
     atualizarTotalTempo, 
     ultimas_TempoExec, 
-    tempo_real_vmKaori
+    tempo_real_vmKaori,
+    estabilidadeCPU
 }

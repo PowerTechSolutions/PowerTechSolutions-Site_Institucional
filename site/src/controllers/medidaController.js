@@ -102,6 +102,23 @@ function atualizarFeedCountTem(req, res) {
     });
 }
 
+function estabilidadeCPU(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.estabilidadeCPU(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function atualizarTotalTempo(req, res) {
 
     var FKMAQUINA = req.params.FKMAQUINA;
@@ -323,5 +340,6 @@ module.exports = {
     buscarDiscosKaori,
     atualizarTotalTempo, 
     ultimas_TempoExec,
-    tempo_real_vmKaori
+    tempo_real_vmKaori,
+    estabilidadeCPU
 }

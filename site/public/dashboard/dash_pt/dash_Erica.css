@@ -99,7 +99,7 @@ body {
     align-items: center;
 }
 
-.cpu {
+#cpu {
     background-color: #1A1C22;
     border-radius: 13px;
     width: 35%;
