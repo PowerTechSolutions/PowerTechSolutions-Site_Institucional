@@ -18,6 +18,7 @@ var empresasRouter = require("./src/routes/empresas");
 var feedbacksRouter = require("./src/routes/feedbacks");
 var processoRouter = require("./src/routes/processo");
 var maquinaRouter = require("./src/routes/maquinas");
+var slackRouter = require("./src/routes/slackbot");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -35,6 +36,7 @@ app.use("/empresas", empresasRouter);
 app.use("/feedbacks", feedbacksRouter);
 app.use("/processo", processoRouter);
 app.use("/maquinas", maquinaRouter);
+app.use("/slackbot", slackRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n
