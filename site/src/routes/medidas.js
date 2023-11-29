@@ -60,6 +60,14 @@ router.get("/tempo_real_vmKaori/:FKMAQUINA", function (req,res){
 });
 
 
+router.get("/ultimas_TempoExecMonth/:FKMAQUINA", function (req,res){
+    medidaController.ultimas_TempoExecMonth(req,res);
+});
+
+router.get("/tempo_real_vmKaori2/:FKMAQUINA", function (req,res){
+    medidaController.tempo_real_vmKaori2(req,res);
+});
+
 router.get("/ultimas_RAM/:FKMAQUINA", function (req,res){
     medidaController.ultimas_RAM(req,res);
 });

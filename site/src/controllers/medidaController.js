@@ -348,6 +348,41 @@ function tempo_real_vmKaori(req, res) {
     });
 }
 
+
+function ultimas_TempoExecMonth(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.ultimas_TempoExecMonth(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function tempo_real_vmKaori2(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.tempo_real_vmKaori2(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
     log_alertas,
     tempo_real_log_alertas,
@@ -368,5 +403,7 @@ module.exports = {
     buscarDiscosKaori,
     atualizarTotalTempo, 
     ultimas_TempoExec,
-    tempo_real_vmKaori
+    tempo_real_vmKaori, 
+    ultimas_TempoExecMonth,
+    tempo_real_vmKaori2
 }

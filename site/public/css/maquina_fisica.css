@@ -730,27 +730,25 @@ p {
 }
 
 .barra {
-    width: 80%;
-    height: 14px;
+    width: 85%;
+    height: 26px;
     flex-shrink: 0;
     position: sticky;
-    margin-left: 4%;
     margin-top: 1%;
 }
 
-.barra .amarela{
-    width: 50%;
+.barra .amarela {
+    width: 0%;
     background-color: #FFE500;
     position: absolute;
+    z-index: 999;
 }
 
-.barra .cinza{
-    width: 60%;
+.barra .cinza {
+    width: 100%;
     background-color: #282C35;
     position: absolute;
-    margin-left: 50%;
 }
-
 .chart{
     height: 96%;
     justify-content: center;

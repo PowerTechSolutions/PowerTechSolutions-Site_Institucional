@@ -310,19 +310,61 @@ body{
     height: 62%;
     border-radius: 15px;
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.select_graph{
+    width: 132px;
+    height: 31px;
+    background: transparent;
+    color: white;
+    border: 2px solid #FFE500;
+}
+
+/* .select_graph {
+    appearance: none; /* Remove default appearance (e.g., arrow) */
+    /* padding: 5px;
+    background-color: transparent;
+    border: 1px solid yellow;
+    color: white;
+} */ 
+option{
+    color: #1D1D20;
+}
+
+.avisos{
+    display: flex;
     flex-direction: column;
+    width: 17%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.avisos_info{
+    width: 173px;
+    height: 201px;
+    border: 2px solid #FFE500;
+    display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.avisos_info span{
+    padding: 8px;
+}
+
+#myChartWeek{
+    display: block;
+}
+#myChartMonth{
+    display: none;
 }
 
 .chart h3{
     margin-bottom: 0px;
     margin-top: 0px;
-}
-
-.chart_bar2{
-    height: 95%;
-    width: 77%;
 }
 
 .bar{

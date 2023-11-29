@@ -133,6 +133,7 @@ function buscarDiscos(FKMAQUINA) {
 	    Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
 	    Data_Hora_Captura,
         Uso AS "Uso_DIsco",
+        Porcentagem AS Porcentagem_Uso,
         Componentes_cadastrados.Apelido 
         FROM 
 		    Monitoramento_RAW JOIN Componentes_monitorados 
@@ -549,7 +550,15 @@ function ultimas_TempoExec(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-    DAYNAME(Data_Hora) AS DiaDaSemana,
+    CASE 
+        WHEN DAYNAME(Data_Hora) = 'Monday' THEN 'Segunda-feira'
+        WHEN DAYNAME(Data_Hora) = 'Tuesday' THEN 'Terça-feira'
+        WHEN DAYNAME(Data_Hora) = 'Wednesday' THEN 'Quarta-feira'
+        WHEN DAYNAME(Data_Hora) = 'Thursday' THEN 'Quinta-feira'
+        WHEN DAYNAME(Data_Hora) = 'Friday' THEN 'Sexta-feira'
+        WHEN DAYNAME(Data_Hora) = 'Saturday' THEN 'Sábado'
+        WHEN DAYNAME(Data_Hora) = 'Sunday' THEN 'Domingo'
+    END AS DiaDaSemana,
     COUNT(*) AS QuantidadeDesligamentos
 FROM 
     Tempo_de_Execucao
@@ -560,7 +569,7 @@ WHERE
 GROUP BY 
     DiaDaSemana
 ORDER BY 
-    DiaDaSemana ASC
+    DiaDaSemana DESC
 LIMIT 7;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -583,7 +592,15 @@ function tempo_real_vmKaori(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-    DAYNAME(Data_Hora) AS DiaDaSemana,
+    CASE 
+        WHEN DAYNAME(Data_Hora) = 'Monday' THEN 'Segunda-feira'
+        WHEN DAYNAME(Data_Hora) = 'Tuesday' THEN 'Terça-feira'
+        WHEN DAYNAME(Data_Hora) = 'Wednesday' THEN 'Quarta-feira'
+        WHEN DAYNAME(Data_Hora) = 'Thursday' THEN 'Quinta-feira'
+        WHEN DAYNAME(Data_Hora) = 'Friday' THEN 'Sexta-feira'
+        WHEN DAYNAME(Data_Hora) = 'Saturday' THEN 'Sábado'
+        WHEN DAYNAME(Data_Hora) = 'Sunday' THEN 'Domingo'
+    END AS DiaDaSemana,
     COUNT(*) AS QuantidadeDesligamentos
 FROM 
     Tempo_de_Execucao
@@ -594,8 +611,9 @@ WHERE
 GROUP BY 
     DiaDaSemana
 ORDER BY 
-    DiaDaSemana ASC
-LIMIT 7;`;
+    DiaDaSemana DESC
+LIMIT 7;
+`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -605,7 +623,101 @@ LIMIT 7;`;
     return database.executar(instrucaoSql);
 }
 
+function ultimas_TempoExecMonth(FKMAQUINA) {
 
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT 
+        CASE 
+            WHEN MONTH(Data_Hora) = 1 THEN 'Janeiro'
+            WHEN MONTH(Data_Hora) = 2 THEN 'Fevereiro'
+            WHEN MONTH(Data_Hora) = 3 THEN 'Março'
+            WHEN MONTH(Data_Hora) = 4 THEN 'Abril'
+            WHEN MONTH(Data_Hora) = 5 THEN 'Maio'
+            WHEN MONTH(Data_Hora) = 6 THEN 'Junho'
+            WHEN MONTH(Data_Hora) = 7 THEN 'Julho'
+            WHEN MONTH(Data_Hora) = 8 THEN 'Agosto'
+            WHEN MONTH(Data_Hora) = 9 THEN 'Setembro'
+            WHEN MONTH(Data_Hora) = 10 THEN 'Outubro'
+            WHEN MONTH(Data_Hora) = 11 THEN 'Novembro'
+            WHEN MONTH(Data_Hora) = 12 THEN 'Dezembro'
+        END AS Mes,
+        COUNT(*) AS QuantidadeDesligamentos
+    FROM 
+        Tempo_de_Execucao
+    JOIN 
+        Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
+    WHERE 
+        FKTempo_maquina = ${FKMAQUINA}
+    GROUP BY 
+        Mes
+    ORDER BY 
+        Mes DESC
+    LIMIT 12; -- Limite de 12 meses`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function tempo_real_vmKaori2(FKMAQUINA) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT 
+        CASE 
+            WHEN MONTH(Data_Hora) = 1 THEN 'Janeiro'
+            WHEN MONTH(Data_Hora) = 2 THEN 'Fevereiro'
+            WHEN MONTH(Data_Hora) = 3 THEN 'Março'
+            WHEN MONTH(Data_Hora) = 4 THEN 'Abril'
+            WHEN MONTH(Data_Hora) = 5 THEN 'Maio'
+            WHEN MONTH(Data_Hora) = 6 THEN 'Junho'
+            WHEN MONTH(Data_Hora) = 7 THEN 'Julho'
+            WHEN MONTH(Data_Hora) = 8 THEN 'Agosto'
+            WHEN MONTH(Data_Hora) = 9 THEN 'Setembro'
+            WHEN MONTH(Data_Hora) = 10 THEN 'Outubro'
+            WHEN MONTH(Data_Hora) = 11 THEN 'Novembro'
+            WHEN MONTH(Data_Hora) = 12 THEN 'Dezembro'
+        END AS Mes,
+        COUNT(*) AS QuantidadeDesligamentos
+    FROM 
+        Tempo_de_Execucao
+    JOIN 
+        Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
+    WHERE 
+        FKTempo_maquina = ${FKMAQUINA}
+    GROUP BY 
+        Mes
+    ORDER BY 
+        Mes DESC
+    LIMIT 12; -- Limite de 12 meses
+    
+`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     log_alertas,
@@ -627,5 +739,7 @@ module.exports = {
     buscarDiscosKaori, 
     atualizarTotalTempo, 
     ultimas_TempoExec, 
-    tempo_real_vmKaori
+    tempo_real_vmKaori, 
+    ultimas_TempoExecMonth, 
+    tempo_real_vmKaori2
 }
