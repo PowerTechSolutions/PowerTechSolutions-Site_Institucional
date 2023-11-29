@@ -54,7 +54,7 @@ const mySqlConfig = mysql.createConnection({
 mySqlConfig.connect();
 
 const sqlInit = 'USE PowerTechSolutions';
-const sqlQuery = 'SELECT pergunta FROM Pergunta';
+const sqlQuery = 'SELECT pergunta FROM Pergunta ORDER BY dtHora DESC;';
 
 // Function to query MySQL
 const queryMySQL = (query) => {
@@ -76,13 +76,13 @@ queryMySQL(sqlInit)
         const pgt_user = results[0].pergunta;
 
         // Slack API configuration
-        const token = 'xoxb-6242930515444-6239031019781-fTXwHjxVqaLe9c168ZZ3z6Uj';
+        const token = ' ';
         const web = new WebClient(token);
 
         // Send message to Slack
         return web.chat.postMessage({
             channel: 'central_ajuda',
-            text: `Solicitação de ${NomeUsuario}: ${pgt_user}`,
+            text: `Solicitação de NomeUsuario: ${pgt_user}`,
         });
     })
     .then((res) => {

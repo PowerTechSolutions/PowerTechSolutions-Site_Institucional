@@ -6,7 +6,7 @@ function enviarMensagem(pergunta) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO Pergunta (pergunta) VALUES ('${pergunta}');
+        INSERT INTO Pergunta (pergunta,dtHora) VALUES ('${pergunta}',  NOW());
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
