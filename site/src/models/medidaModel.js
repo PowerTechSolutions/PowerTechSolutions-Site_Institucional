@@ -589,5 +589,6 @@ module.exports = {
     ultimas_TempoExec,
     tempo_real_vmKaori, 
     ultimas_TempoExecMonth, 
-    tempo_real_vmKaori2
+    tempo_real_vmKaori2,
+    estabilidadeCPU
 }
