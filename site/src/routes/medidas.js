@@ -3,14 +3,6 @@ var router = express.Router();
 
 var medidaController = require("../controllers/medidaController");
 
-router.post("/ultimas", function (req,res){
-    medidaController.log_alertas(req, res);
-});
-
-router.get("/tempo_real/:FKUnidade", function (req,res){
-    medidaController.tempo_real_log_alertas(req, res);
-});
-
 router.get("/buscarDiscos/:FKMAQUINA", function (req,res){
     medidaController.buscarDiscos(req,res);
 });
@@ -30,6 +22,10 @@ router.get("/buscarJanelas/:FKMAQUINA", function (req, res){
 router.get("/buscarTotal_Janelas/:FKMAQUINA", function (req,res){
     medidaController.buscarTotal_Janelas(req,res);
 });
+
+router.get("/estabilidadeCPU/:FKMAQUINA", function (req, res){
+    medidaController.estabilidadeCPU(req,res);
+})
 
 router.get("/atualizarFeedCountTem/:FKMAQUINA", function (req,res){
     medidaController.atualizarFeedCountTem(req,res);
@@ -74,22 +70,6 @@ router.get("/ultimas_RAM/:FKMAQUINA", function (req,res){
 
 router.get("/tempo-real_RAM/:FKMAQUINA", function (req,res){
     medidaController.tempo_real_RAM(req,res);
-});
-
-router.get("/contar_MF_ativas/:IDEmpresaVar", function (req,res){
-    medidaController.contar_MF_ativas(req,res);
-});
-
-router.get("/contar_MF_inativas/:IDEmpresaVar", function (req,res){
-    medidaController.contar_MF_inativas(req,res);
-});
-
-router.get("/contar_MV_ativas/:IDEmpresaVar", function (req,res){
-    medidaController.contar_MV_ativas(req,res);
-});
-
-router.get("/contar_MV_inativas/:IDEmpresaVar", function (req,res){
-    medidaController.contar_MV_inativas(req,res);
 });
 
 module.exports = router;

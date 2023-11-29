@@ -40,6 +40,10 @@
                         alt="" id="second">
                     <p>Geral</p>
                 </button>
+                <button onclick="viewpoint()"><img src="element-3.png" id="fst" alt=""> <img id="send"
+                    src="element-3 (1).png" alt="">
+                <p>View Point</p>
+            </button>
                 <!-- <button onclick="viewpoint()"><img src="element-3.png" id="fst" alt=""> <img id="send" src="element-3 (1).png" alt="">
                     <p>View Point</p>
                 </button> -->
@@ -169,8 +173,9 @@
 
 <script>
 
-    
-window.onload = init();
+function viewpoint(){
+    window.location.href = "viewpoint.html"
+}
 
 
     var data = new Date();
@@ -311,7 +316,7 @@ window.onload = init();
 
     function obterDadosGrafico(FKUnidade,mes,idLocal) {
 
-        fetch("/medidas/ultimas", {
+        fetch("/alertas/ultimas", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

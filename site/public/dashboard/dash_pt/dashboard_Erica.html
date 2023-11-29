@@ -10,7 +10,7 @@
 
 </head>
 
-<body onload="atualizarFeed_usuarios()">
+<body onload="atualizarFeed_usuarios(), buscarJanelas(1), buscarTotal_Janelas(1), estabilidadeCPU(1), visualizar(1), exibirgraph(1)">
 
     <div class="dropdown">
         <img id="voltar" src="./seta-para-a-esquerda.png" alt="menu">
@@ -37,11 +37,12 @@
                     </div>
                 </div>
             </div>
+            <span class="span_font"> Gráfico de uso de CPU </span>
+            <div class="grafico_cpu" onload="exibirgraph()">
+                <canvas id="myChart_CPU"></canvas>
+            </div>
         </div>
         <div class="parte">
-            <div class="info_user">
-                <h3> Funcionário </h3>
-            </div>
             <div id="funcionario_infos">
                 <img id="perfil" src="profile func.png" alt="perfil usuário">
                 <div class="label">
@@ -54,36 +55,29 @@
                     </div>
                 </div>
             </div>
-            <div class="cpu">
-                <span> Uso de CPU </span>
-                <span id="estado_cpu"> Estável </span>
+            <div id="cpu">
+                <div class="estabilidade">
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="parte_inferior">
-            <div class="grafico_area">
-            <div>
-                <span> Gráfico de uso de CPU </span>
-            </div>
-            <div class="grafico_cpu" onload="exibirgraph()">
-                <canvas id="myChart_CPU"></canvas>
-            </div>
-        </div>
-        <div class="maquinas">
-            <select id="selecionar_maquina" onchange="buscarJanelas(this.value),buscarTotal_Janelas(this.value)">
-                <option value=""> Nenhuma máquina selecionada </option>
-            </select>
-            <div id="card_func">
-                <h2>Status das máquinas</h2>
-                <div class="title">
-                    <h3>ID</h3>
-                    <h3>Nome</h3>
-                    <h3>Data</h3>
-                    <h3>Status</h3>
+            <div class="maquinas">
+                <span class="span_font"> Escolha a máquina que deseja visualizar: </span>
+                <div>
+                    <select id="selecionar_maquina"
+                        onchange="buscarJanelas(this.value),buscarTotal_Janelas(this.value),estabilidadeCPU(this.value),exibirgraph(this.value)">
+                        <option value=""> Nenhuma máquina selecionada </option>
+                    </select>
+                </div>
+                <div id="card_func">
+                    <h2>Status dos funcionários</h2>
+                    <div class="title">
+                        <h3>ID</h3>
+                        <h3>Nome</h3>
+                        <h3>Data</h3>
+                        <h3>Status</h3>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
 </body>
@@ -134,8 +128,8 @@
                 label: 'Uso de CPU (em porcentagem)',
                 data: [],
                 fill: false,
-                borderColor: '#009EA3',
-                backgroundColor: '#009EA3'
+                borderColor: 'white',
+                backgroundColor: 'gold'
             }]
         };
 
@@ -577,6 +571,66 @@
         });
 
         buscarInfo(idusuario)
+
+        return false;
+    }
+
+    function estabilidadeCPU(FKMAQUINA) {
+
+        var feed = document.getElementById("cpu");
+        feed.innerHTML = "";
+        fetch(`/medidas/estabilidadeCPU/${FKMAQUINA}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("cpu");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    var feed = document.getElementById("cpu");
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+                        // criando e manipulando elementos do HTML via JavaScript
+
+                        var porcentagemUso = parseFloat(publicacao.Porcentagem_USO);
+                        var verificacao = document.createElement("div");
+                        verificacao.className = "estabilidade";
+
+                        var estado_atual = document.createElement("span");
+                        verificacao.appendChild(estado_atual)
+
+                        feed.appendChild(verificacao)
+
+                        if(porcentagemUso >= 80){
+                            estado_atual.innerHTML = "<span style='color: red; font-size: 20px;'> Urgente </span>"
+                        } else if (porcentagemUso >= 60 && porcentagemUso <= 80){
+                            estado_atual.innerHTML = "<span style='color: yellow; font-size: 20px;'> Crítico </span>"
+                        } else {
+                            estado_atual.innerHTML = "<span style='color: green; font-size: 20px;'> Estável </span>"
+                        }
+
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            //finalizarAguardar();
+        });
 
         return false;
     }

@@ -7,6 +7,10 @@ function geral() {
     window.location.href = "cards.html"
 }
 
+function viewpoint(){
+    window.location.href = "viewpoint.html"
+}
+
 function exibirgraph(valor){
 
     var grafico_RAM = document.getElementById("myChart_RAM");
@@ -68,7 +72,7 @@ function atualizarFeed_usuarios() {
                     // criando e manipulando elementos do HTML via JavaScript
 
                     var usuario = document.createElement("div");
-                    usuario.onchange = "fazerbusca(publicacao.IDUsuario)";
+                    usuario.setAttribute("onclick", `visualizar(${publicacao.IDUsuario})`)
                     usuario.className = "infoemp";
 
                     var id = document.createElement("p");
@@ -507,4 +511,9 @@ function atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM) {
         console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
     });
 
+}
+
+function visualizar(IDUsuario){
+    sessionStorage.IDFuncionario = IDUsuario;
+    window.location.href = "viewpoint.html"
 }

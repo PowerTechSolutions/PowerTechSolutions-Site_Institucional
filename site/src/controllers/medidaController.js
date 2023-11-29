@@ -1,44 +1,5 @@
 var medidaModel = require("../models/medidaModel");
 
-function log_alertas(req, res) {
-
-    var FKUnidade = req.body.FKUnidadeServer;
-    var mes = req.body.mesServer;
-
-    console.log(`Recuperando Quantidade de alertas`);
-
-    medidaModel.log_alertas(FKUnidade, mes).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
-function tempo_real_log_alertas(req, res) {
-
-    var FKUnidade = req.params.FKUnidade;
-
-    console.log(`Recuperando Quantidade de alertas`);
-
-    medidaModel.tempo_real_log_alertas(FKUnidade).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
 function buscarDiscos(req, res) {
 
     var FKMAQUINA = req.params.FKMAQUINA;
@@ -129,6 +90,23 @@ function atualizarFeedCountTem(req, res) {
     var FKMAQUINA = req.params.FKMAQUINA;
 
     medidaModel.atualizarFeedCountTem(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function estabilidadeCPU(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.estabilidadeCPU(FKMAQUINA).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -384,17 +362,11 @@ function tempo_real_vmKaori2(req, res) {
 }
 
 module.exports = {
-    log_alertas,
-    tempo_real_log_alertas,
     buscarDiscos,
     ultimas_CPU,
     tempo_real_CPU,
     ultimas_RAM,
     tempo_real_RAM,
-    contar_MF_ativas,
-    contar_MF_inativas,
-    contar_MV_ativas,
-    contar_MV_inativas,
     buscarTempoExecucao,
     atualizarFeedCountTem, 
     buscarJanelas,
