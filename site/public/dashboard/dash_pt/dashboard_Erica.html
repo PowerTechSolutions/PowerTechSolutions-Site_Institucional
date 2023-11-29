@@ -10,7 +10,7 @@
 
 </head>
 
-<body onload="atualizarFeed_usuarios(), estabilidadeCPU(1)">
+<body onload="atualizarFeed_usuarios(), buscarJanelas(1), buscarTotal_Janelas(1), estabilidadeCPU(1), visualizar(1), exibirgraph(1)">
 
     <div class="dropdown">
         <img id="voltar" src="./seta-para-a-esquerda.png" alt="menu">
@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </div>
-            <span id="grafico_font"> Gráfico de uso de CPU </span>
+            <span class="span_font"> Gráfico de uso de CPU </span>
             <div class="grafico_cpu" onload="exibirgraph()">
                 <canvas id="myChart_CPU"></canvas>
             </div>
@@ -60,15 +60,15 @@
                 </div>
             </div>
             <div class="maquinas">
-                <span> Escolha a máquina que deseja visualizar: </span>
+                <span class="span_font"> Escolha a máquina que deseja visualizar: </span>
                 <div>
                     <select id="selecionar_maquina"
-                        onchange="buscarJanelas(this.value),buscarTotal_Janelas(this.value)">
+                        onchange="buscarJanelas(this.value),buscarTotal_Janelas(this.value),estabilidadeCPU(this.value),exibirgraph(this.value)">
                         <option value=""> Nenhuma máquina selecionada </option>
                     </select>
                 </div>
                 <div id="card_func">
-                    <h2>Status das máquinas</h2>
+                    <h2>Status dos funcionários</h2>
                     <div class="title">
                         <h3>ID</h3>
                         <h3>Nome</h3>
@@ -128,8 +128,8 @@
                 label: 'Uso de CPU (em porcentagem)',
                 data: [],
                 fill: false,
-                borderColor: '#009EA3',
-                backgroundColor: '#009EA3'
+                borderColor: 'white',
+                backgroundColor: 'gold'
             }]
         };
 
