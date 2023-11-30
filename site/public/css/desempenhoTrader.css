@@ -139,14 +139,14 @@
   }  
 
 .conteudo {
-    padding: 2%;
-    position: relative;
-    left: 18%;
-    width: 78%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+  padding: 2%;
+  position: relative;
+  left: 12%;
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .lado{
