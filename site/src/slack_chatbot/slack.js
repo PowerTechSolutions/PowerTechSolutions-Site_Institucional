@@ -44,7 +44,7 @@ const { WebClient } = require('@slack/web-api');
 
 function enviarMensagem(mensagem) {
     // Slack API configuration
-    const token = 'xoxp-6242930515444-6263466081808-6280302578113-aad505b42dc16ec3ddce6f8af534129b';
+    const token = ' ';
     // REMOVER TOKEN ANTES DE SUBIR NO GITHUB
     const web = new WebClient(token);
 
