@@ -318,6 +318,23 @@
                         porcentagem.id = `porcentage${publicacao.IDMonitoramento}`;
                         porcentagem.innerHTML = `${publicacao.Porcentagem_Uso}`;
                         disco.appendChild(porcentagem)
+
+                        var bar = document.querySelector(".amarela");
+                        var porcentagemUso = parseFloat(publicacao.Porcentagem_Uso);
+
+                        // Check if the value is more than 60%
+                        if (porcentagemUso > 60) {
+                            bar.style.backgroundColor = "#FFE500";
+                        }
+
+                        // Check if the value is more than 80%
+                        if (porcentagemUso > 80) {
+                            bar.style.backgroundColor = "#ff7800";
+                        }
+
+                        // Set the width based on the value
+                        bar.style.width = `${porcentagemUso}%`;
+
         
                         feed.appendChild(disco)
         

@@ -23,6 +23,10 @@ router.get("/buscarTotal_Janelas/:FKMAQUINA", function (req,res){
     medidaController.buscarTotal_Janelas(req,res);
 });
 
+router.get("/estabilidadeCPU/:FKMAQUINA", function (req, res){
+    medidaController.estabilidadeCPU(req,res);
+})
+
 router.get("/atualizarFeedCountTem/:FKMAQUINA", function (req,res){
     medidaController.atualizarFeedCountTem(req,res);
 });
@@ -51,6 +55,14 @@ router.get("/tempo_real_vmKaori/:FKMAQUINA", function (req,res){
     medidaController.tempo_real_vmKaori(req,res);
 });
 
+
+router.get("/ultimas_TempoExecMonth/:FKMAQUINA", function (req,res){
+    medidaController.ultimas_TempoExecMonth(req,res);
+});
+
+router.get("/tempo_real_vmKaori2/:FKMAQUINA", function (req,res){
+    medidaController.tempo_real_vmKaori2(req,res);
+});
 
 router.get("/ultimas_RAM/:FKMAQUINA", function (req,res){
     medidaController.ultimas_RAM(req,res);

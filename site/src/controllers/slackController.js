@@ -1,18 +1,33 @@
-function enviarMensagem(req) {
-    var msg = req.body.msgVar;
+var chatModel = require("../models/chatModel")
 
-    fetch("http://hooks.slack.com/services/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", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: msg
-       
+function enviarMensagem(req,res) {
+        // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+        var pergunta = req.body.msgServer;
+    
+        // Faça as validações dos valores
+        if (pergunta == undefined) {
+            res.status(400).send("Sua pergunta está undefined!");
+        } else {
+    
+            // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+            chatModel.enviarMensagem(pergunta)
+                .then(
+                    function (resultado) {
+                        res.json(resultado);
+                    }
+                ).catch(
+                    function (erro) {
+                        console.log(erro);
+                        console.log(
+                            "\nHouve um erro ao realizar o cadastro! Erro: ",
+                            erro.sqlMessage
+                        );
+                        res.status(500).json(erro.sqlMessage);
+                    }
+                );
+        }
+    }
 
-    }).then((res) => {
-        console.log(res);
-    })
-}
 
 module.exports = {
     enviarMensagem,
