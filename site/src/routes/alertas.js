@@ -7,6 +7,10 @@ router.get("/geral_mf/:FKUnidade", function (req,res){
     alertaControler.geral_mf(req, res);
 });
 
+router.get("/geral_vm/:FKUnidade", function (req,res){
+    alertaControler.geral_vm(req, res);
+});
+
 router.post("/ultimas", function (req,res){
     alertaControler.log_alertas(req, res);
 });

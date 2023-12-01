@@ -2,13 +2,44 @@ var database = require("../database/config");
 
 function geral_mf(FKUnidade){
     var instrucao = `
-    
-
-    
+        SELECT 
+	        COUNT(Alerta) as Alertas
+                FROM Alertas JOIN Monitoramento_RAW 
+                ON Alertas.FKMonitoramento = Monitoramento_RAW.IDMonitoramento
+                JOIN Componentes_monitorados 
+	    	        ON FKComponente_Monitorado = IDComponente_monitorado 
+	    		    JOIN Componentes_cadastrados 
+	    			    ON FKComponente_cadastrado = IDComponente_cadastrado
+	    				    JOIN Maquinas 
+	    					    ON FKMaquina = IDMaquina
+                                JOIN Tipo_maquina 
+                                    ON IDTipo = FKTipo_maquina
+                                    JOIN Nivel_alerta
+                                        ON IDNivel_alerta = FKNivel_alerta
+	    		WHERE Tipo_maquina.Apelido = "FISICA" AND Alertas.FKUnidade_negocio = ${FKUnidade} GROUP BY IDNivel_alerta;
     `;
-
     return database.executar(instrucao)
+}
 
+function geral_vm(FKUnidade){
+    var instrucao = `
+        SELECT 
+	        COUNT(Alerta) as Alertas
+                FROM Alertas JOIN Monitoramento_RAW 
+                ON Alertas.FKMonitoramento = Monitoramento_RAW.IDMonitoramento
+                JOIN Componentes_monitorados 
+	    	        ON FKComponente_Monitorado = IDComponente_monitorado 
+	    		    JOIN Componentes_cadastrados 
+	    			    ON FKComponente_cadastrado = IDComponente_cadastrado
+	    				    JOIN Maquinas 
+	    					    ON FKMaquina = IDMaquina
+                                JOIN Tipo_maquina 
+                                    ON IDTipo = FKTipo_maquina
+                                    JOIN Nivel_alerta
+                                        ON IDNivel_alerta = FKNivel_alerta
+	    		WHERE Tipo_maquina.Apelido = "VIRTUAL" AND Alertas.FKUnidade_negocio = ${FKUnidade} GROUP BY IDNivel_alerta;
+    `;
+    return database.executar(instrucao)
 }
 
 function log_alertas(FKUnidade,mes) {
@@ -58,6 +89,7 @@ function tempo_real_log_alertas(FKUnidade) {
 
 module.exports = {
     geral_mf,
+    geral_vm,
     log_alertas,
     tempo_real_log_alertas
 }

@@ -19,6 +19,25 @@ function geral_mf(req, res) {
     });
 }
 
+function geral_vm(req, res) {
+
+    var FKUnidade = req.params.FKUnidade;
+
+    console.log(`Recuperando Quantidade de alertas`);
+
+    alertaModel.geral_vm(FKUnidade).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function log_alertas(req, res) {
 
     var FKUnidade = req.body.FKUnidadeServer;
@@ -60,6 +79,7 @@ function tempo_real_log_alertas(req, res) {
 
 module.exports = {
     geral_mf,
+    geral_vm,
     log_alertas,
     tempo_real_log_alertas
 }
