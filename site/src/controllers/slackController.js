@@ -14,7 +14,7 @@ function enviarMensagem(req, res) {
         console.log("pergunta do usuario", pergunta);
 
         // chamar o slack
-        slacksend.mandarSlack("usuario temporário", pergunta)
+        slacksend.enviarMensagem("usuario temporário", pergunta)
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         chatModel.enviarMensagem(pergunta)
