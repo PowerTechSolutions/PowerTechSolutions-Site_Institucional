@@ -278,6 +278,14 @@ INSERT INTO Componentes_monitorados VALUES
 (NULL,1,2),
 (NULL,2,2),
 (NULL,3,2),
+(NULL,4,2),
+(NULL,5,2),
+(NULL,6,2),
+(NULL,1,3),
+(NULL,2,3),
+(NULL,3,3),
 (NULL,4,3),
 (NULL,5,3),
 (NULL,6,3);
+
+SELECT * FROM Monitoramento_RAW;
