@@ -18,163 +18,216 @@
         integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="pdf-desempenho.js"></script>
+    <script src="../js/direcoes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 </head>
 
-<body>
-        <!-- <div class="header-left dash-header">
-            <div class="sepration">
-                <img class="perfil" src="./dash_pt/power_tech_solutions_logo_semfundo.png" alt="">
-                <button onclick="geral()" id="fist_top"><img src="./dash_pt/bar-line-chart.png" alt="" id="first"><img
-                        src="./dash_pt/Group 1171274974.png" alt="" id="second">
-                    <p>Geral</p>
-                </button>
-
-                <button onclick="viewpoint()"><img src="./dash_pt/element-3.png" id="fst" alt=""> <img id="send"
-                        src="./dash_pt/element-3 (1).png" alt="">
-                    <p>View Point</p>
-                </button>
-            </div>
-            <div class="sepration2">
-                <button class="helpbutton"><img src="./dash_pt/help-circle.png" alt="">
-                    <p>Central de ajuda</p>
-                </button>
-                <div class="crd2_sept">
-                    <img src="../assets/imgs_power/do-utilizador.png" alt="">
-                    <p id="nome_usuario"></p>
-                    <details class="custom-select">
-                        <ul class="list">
-                            <li>
-                                <label for="item1">
-                                    <a href="../../index.html">Sair</a>
-                                    <span></span>
-                                </label>
-                            </li>
-                        </ul>
-                        <summary class="radios">
-                        </summary>
-                    </details>
+<body onload="exibirgraph()">
+    <div class="seta">
+        <img src="../assets/imgs_power/setas-voltar.png">
+        <a href="./dash_pt/cards.html">Voltar</a>
+    </div>
+    <select class="select" id="escolha_usuario">ESCOLHA UMA MAQUINA
+        <option value="teste">TESTE</option>
+    </select>
+    <div class="conteudo" id="conteudo-ID">
+        <div class="lado-A" id="LA">
+            <div class="kpis">
+                <div class="kpi">
+                    <span class="titulo-kpi">Total de alertas de desempenho anormal</span>
+                    <span id="valor">30</span>
+                </div>
+                <div class="kpi">
+                    <span class="titulo-kpi">Kpi indefinida que falta escolher</span>
+                    <span id="teste">??</span>
                 </div>
             </div>
-        </div> -->
 
-        <div class="conteudo" id="conteudo-ID">
-            <div class="lado-A" id="LA">
-                <div class="kpis">
-                    <div class="kpi">
-                        <span class="titulo-kpi">Total de alertas de desempenho anormal</span>
-                        <span id="valor">30</span>
-                    </div>
-                    <div class="kpi">
-                        <span class="titulo-kpi">Kpi indefinida que falta escolher</span>
-                        <span id="teste">??</span>
-                    </div>
+            <div class="graph1">
+                <span class="titulo" id="title">Desempenho dos funcionários do Setor </span>
+                <div class="tamanho-graph1">
+                    <canvas id="mychart1"></canvas>
                 </div>
+            </div>
 
-                <div class="resumo">
-                    <p>Com base nesse gráfico, foi percebido que dos
-                        funcionários do seu setor <span id="percentual">45%</span>
-                        estão com desempenho dentro do esperado.</p>
-                </div>
-
-                <div class="graph2">
+            <!-- <div class="graph2">
                     <span class="titulo2">Taxa de funcionários que consomem muito da CPU</span>
                     <div class="tamanho-graph2">
                         <canvas id="mychart2"></canvas>
                     </div>
-                </div>
-            </div>
-            <!-- fim do lado A -->
-
-            <div class="lado B" id="LB">
-                <div class="pdf" id="baixarpdf">
-                    <span>Gostaria de obter um pdf desse relátorio?</span>
-                    <div class="botoes">
-                        <button class="cinza" onclick="fecharMsg()">Não, obrigado</button>
-                        <button class="amarelo" onclick="criarPdf()">Gerar pdf</button>
-                    </div>
-                </div>
-
-                <div class="graph1">
-                    <span class="titulo" id="title">Desempenho dos funcionários do Setor </span>
-                    <div class="tamanho-graph1">
-                        <canvas id="mychart1"></canvas>
-                    </div>
-                </div>
-
-                <div class="lista">
-                    <span class="titulo-lista">
-                        Funcionários que tiveram melhor desempenho neste mês
-                    </span>
-                    <div class="colunas">
-                        <span>Colocação</span>
-                        <span>Nome</span>
-                        <span>Percentual</span>
-                    </div>
-                    <div class="registros">
-                        <div id="tuplas">
-                            <div>teste</div>
-                            <div>teste</div>
-                            <div>teste</div>
-                        </div>
-                        <div id="tuplas">
-                            <div>teste</div>
-                            <div>teste</div>
-                            <div>teste</div>
-                        </div>
-                        <div id="tuplas">
-                            <div>teste</div>
-                            <div>teste</div>
-                            <div>teste</div>
-                        </div>
-                        <div id="tuplas">
-                            <div>teste</div>
-                            <div>teste</div>
-                            <div>teste</div>
-                        </div>
-                        <div id="tuplas">
-                            <div>teste</div>
-                            <div>teste</div>
-                            <div>teste</div>
-                        </div>
-                        <div id="tuplas">
-                            <div>teste</div>
-                            <div>teste</div>
-                            <div>teste</div>
-                        </div>
-                        <div id="tuplas">
-                            <div>teste</div>
-                            <div>teste</div>
-                            <div>teste</div>
-                        </div>
-                        <div id="tuplas">
-                            <div>teste</div>
-                            <div>teste</div>
-                            <div>teste</div>
-                        </div>
-                        <div id="tuplas">
-                            <div>teste</div>
-                            <div>teste</div>
-                            <div>teste</div>
-                        </div>
-                        <div id="tuplas">
-                            <div>teste</div>
-                            <div>teste</div>
-                            <div>teste</div>
-                        </div>
-                        <div id="tuplas">
-                            <div>teste</div>
-                            <div>teste</div>
-                            <div>teste</div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-            <div id="TESTE"></div>
+                </div> -->
         </div>
+        <!-- fim do lado A -->
+
+        <div class="lado B" id="LB">
+            <div class="pdf" id="baixarpdf">
+                <span>Gostaria de obter um pdf desse relátorio?</span>
+                <div class="botoes">
+                    <button class="cinza" onclick="fecharMsg()">Não, obrigado</button>
+                    <button class="amarelo" onclick="criarPdf()">Gerar pdf</button>
+                </div>
+            </div>
+            <div class="resumo">
+                <p>Com base nesse gráfico, foi percebido que dos
+                    funcionários do seu setor <span id="percentual">45%</span>
+                    estão com desempenho dentro do esperado.</p>
+            </div>
+
+            <div class="lista">
+                <span class="titulo-lista">
+                    Funcionários que tiveram melhor desempenho neste mês
+                </span>
+                <div class="colunas">
+                    <span>Colocação</span>
+                    <span>Nome</span>
+                    <span>Percentual</span>
+                </div>
+                <div class="registros">
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                    <div id="tuplas">
+                        <div>teste</div>
+                        <div>teste</div>
+                        <div>teste</div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div id="TESTE"></div>
+    </div>
 </body>
 
 </html>
+
+<script>
+
+    sessionStorage.setItem("FKMaquina", FKMaquina);
+
+    function exibirgraph() {
+        fetch(`/desempenho/acessarDesempenho/${FKMaquina}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta, FKMaquina);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico(resposta, FKMaquina) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Alguma coisa(em porcentagem)',
+                data: [],
+                fill: false,
+                borderColor: '#009EA3',
+                backgroundColor: '#009EA3'
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.tempo_user);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'line',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart_CPU = new Chart(
+            document.getElementById(`mychart1`),
+            config
+        );
+
+    }
+
+
+
+</script>

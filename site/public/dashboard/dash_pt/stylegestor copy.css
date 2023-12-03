@@ -21,6 +21,12 @@ body {
   align-items: center;
 }
 
+#trader {
+  margin-right: 28%;
+  margin-top: -5vh;
+  position: absolute;
+}
+
 .container {
   width: 80%;
   margin: auto;
