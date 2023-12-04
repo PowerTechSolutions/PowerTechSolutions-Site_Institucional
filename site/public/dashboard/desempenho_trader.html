@@ -24,24 +24,21 @@
 
 </head>
 
-<body onload="exibirgraph()">
+<body onload="exibirgraph(id_user)">
     <div class="seta">
-        <img src="../assets/imgs_power/setas-voltar.png">
+        <img onclick="voltar()" src="../assets/imgs_power/setas-voltar.png">
         <a href="./dash_pt/cards.html">Voltar</a>
     </div>
-    <select class="select" id="escolha_usuario">ESCOLHA UMA MAQUINA
-        <option value="teste">TESTE</option>
-    </select>
     <div class="conteudo" id="conteudo-ID">
         <div class="lado-A" id="LA">
             <div class="kpis">
                 <div class="kpi">
-                    <span class="titulo-kpi">Total de alertas de desempenho anormal</span>
-                    <span id="valor">30</span>
+                    <span class="titulo-kpi">Funcionários com produtividade crítica</span>
+                    <span id="valor">5%</span>
                 </div>
                 <div class="kpi">
-                    <span class="titulo-kpi">Kpi indefinida que falta escolher</span>
-                    <span id="teste">??</span>
+                    <span class="titulo-kpi">Funcionários em estado de atenção</span>
+                    <span id="valor2">20%</span>
                 </div>
             </div>
 
@@ -62,26 +59,27 @@
         <!-- fim do lado A -->
 
         <div class="lado B" id="LB">
-            <div class="pdf" id="baixarpdf">
+            <!-- <div class="pdf" id="baixarpdf">
                 <span>Gostaria de obter um pdf desse relátorio?</span>
                 <div class="botoes">
                     <button class="cinza" onclick="fecharMsg()">Não, obrigado</button>
                     <button class="amarelo" onclick="criarPdf()">Gerar pdf</button>
                 </div>
-            </div>
+            </div> -->
             <div class="resumo">
                 <p>Com base nesse gráfico, foi percebido que dos
                     funcionários do seu setor <span id="percentual">45%</span>
-                    estão com desempenho dentro do esperado.</p>
+                    estão com a produtividade dentro do esperado.</p>
             </div>
 
             <div class="lista">
                 <span class="titulo-lista">
-                    Funcionários que tiveram melhor desempenho neste mês
+                    Funcionários que tiveram melhor desempenho neste mês <span
+                        style="font-size: 18px;margin-left: 1%;">(de acordo com uso máquina)</span>
                 </span>
                 <div class="colunas">
                     <span>Colocação</span>
-                    <span>Nome</span>
+                    <span>IDMaquina</span>
                     <span>Percentual</span>
                 </div>
                 <div class="registros">
@@ -153,16 +151,50 @@
 
 <script>
 
-    sessionStorage.setItem("FKMaquina", FKMaquina);
+    var id_user = sessionStorage.getItem('ID_Usuario');
 
-    function exibirgraph() {
-        fetch(`/desempenho/acessarDesempenho/${FKMaquina}`, { cache: 'no-store' }).then(function (response) {
+
+    // fetch("/desempenho/getFKMAQUINA", {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //         idUserServer: id_user
+    //     })
+
+    // }).then(function (resposta) {
+    //     console.log("resposta: ", resposta);
+    //     if (resposta.ok) {
+    //         resposta.json().then(function (json) {
+    //             console.log(json)
+    //         });
+    //     } else {
+    //         throw ("Houve um erro ao procurar credenciais");
+    //     }
+    // }).catch(function (resposta) {
+    //     console.log(`#ERRO: ${resposta}`);
+    // });
+
+    // return false;
+    //}
+
+
+    function voltar() {
+        window.location = "./dash_pt/cards.html"
+    }
+
+    function exibirgraph(id_user) {
+
+        console.log(id_user);
+
+        fetch(`/desempenho/acessarDesempenho/${id_user}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    plotarGrafico(resposta, FKMaquina);
+                    plotarGrafico(resposta, id_user);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -173,10 +205,9 @@
             });
     }
 
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, FKMaquina) {
+    function plotarGrafico(resposta, id_user) {
+
+        // var id_user = sessionStorage.getItem('ID_Usuario');
 
         console.log('iniciando plotagem do gráfico...');
 
@@ -184,16 +215,19 @@
         let labels = [];
 
         // Criando estrutura para plotar gráfico - dados
+
         let dados = {
-            labels: labels,
+            labels: [],
             datasets: [{
-                label: 'Alguma coisa(em porcentagem)',
+                label: 'Produtividade do setor inteiro',
                 data: [],
                 fill: false,
-                borderColor: '#009EA3',
-                backgroundColor: '#009EA3'
-            }]
+                borderColor: 'blue',
+                backgroundColor: 'blue'
+            }
+            ]
         };
+
 
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
@@ -202,9 +236,12 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.tempo_user);
+            labels.push(registro.ultima_data_captura);
+            dados.datasets[0].data.push(registro.tempo_em_minutos);
+            console.log(registro.tempo_em_minutos)
+            // dados.datasets[1].data.push(registro.temperatura);
         }
+
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
@@ -218,7 +255,14 @@
         const config = {
             type: 'line',
             data: dados,
+            options: {
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            }
         };
+
 
         // Adicionando gráfico criado em div na tela
         let myChart_CPU = new Chart(

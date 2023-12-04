@@ -2,9 +2,9 @@ var desempenhoModel = require("../models/desempenhoModel");
 
 function acessarDesempenho(req, res) {
 
-    var FKMAQUINA = req.params.FKMAQUINA;
+    var id_user = req.params.id_user;
 
-    desempenhoModel.acessarDesempenho(FKMaquina)
+    desempenhoModel.acessarDesempenho(id_user)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -20,11 +20,32 @@ function acessarDesempenho(req, res) {
         );
 }
 
+// function getFKMAQUINA(req,res){
+
+//     var FKUSER= req.body.idUserServer;
+
+//     desempenhoModel.getFKMAQUINA(FKUSER)
+//         .then(function (resultado) {
+//             if (resultado.length > 0) {
+//                 res.status(200).json(resultado)
+//             } else {
+//                 res.status(204).send("Nenhum resultado encontrado!")
+//             }
+//         }).catch(
+//             function (erro) {
+//                 console.log(erro);
+//                 console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+//                 res.status(500).json(erro.sqlMessage);
+//             }
+//         );
+
+// }
+
 function kpiAlerta(req, res) {
 
-    var FKMAQUINA = req.params.FKMAQUINA;
+    // var idMaquinas = req.body.idMaquinas;
 
-    desempenhoModel.kpiAlerta(FKMaquina)
+    desempenhoModel.kpiAlerta()
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -43,5 +64,6 @@ function kpiAlerta(req, res) {
 
 module.exports = {
     acessarDesempenho,
+    // getFKMAQUINA,
     kpiAlerta
 }

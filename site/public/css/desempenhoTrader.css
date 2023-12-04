@@ -18,14 +18,19 @@ a {
   display: flex;
   flex-direction: row;
   margin-left: 1%;
-  width: 10%;
+  width: 12%;
   height: 5%;
   align-items: center;
   justify-content: space-evenly;
 }
 
+option{
+  background-color: black;
+}
+
 .seta img {
   height: 8vh;
+  cursor: pointer;
 }
 
 .conteudo {
@@ -53,7 +58,7 @@ a {
 .kpi {
   background-color: #212124;
   height: 100%;
-  width: 45%;
+  width: 47%;
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -75,7 +80,8 @@ a {
   font-weight: 600;
 }
 
-#teste {
+#valor2 {
+  color: #f5e552;
   margin-top: 4%;
   /* color: #d638fd; */
   font-size: 50px;
@@ -172,6 +178,7 @@ a {
   margin-top: 2%;
   height: 70%;
   width: 80%;
+  background-color: white;
 }
 
 .lista {
