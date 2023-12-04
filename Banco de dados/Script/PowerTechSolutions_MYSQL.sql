@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS Alertas(
     FKNivel_alerta INT,
     FKUnidade_negocio INT,
 		CONSTRAINT FKMonitoramento_alerta FOREIGN KEY (FKMonitoramento)
-			REFERENCES Monitoramento_Trusted(IDMonitoramento),
+			REFERENCES Monitoramento_RAW(IDMonitoramento),
 		CONSTRAINT FKNivel_alerta FOREIGN KEY (FKNivel_alerta)
 			REFERENCES Nivel_alerta(IDNivel_alerta),
 		CONSTRAINT FKUnidade_negocio_alerta FOREIGN KEY (FKUnidade_negocio)
@@ -278,6 +278,30 @@ INSERT INTO Componentes_monitorados VALUES
 (NULL,1,2),
 (NULL,2,2),
 (NULL,3,2),
+(NULL,4,2),
+(NULL,5,2),
+(NULL,6,2),
+(NULL,1,3),
+(NULL,2,3),
+(NULL,3,3),
 (NULL,4,3),
 (NULL,5,3),
 (NULL,6,3);
+
+SELECT * FROM Componentes_monitorados;
+
+select * from Monitoramento_RAW;
+SELECT * FROM Redes_conectadas;
+SELECT * FROM Janelas_Abertas;
+SELECT * FROM Dispositivos_USB;
+
+SELECT * FROM Alertas;
+
+/*
+
+INSERT INTO Alertas (Alerta,FKMonitoramento,FKNivel_alerta,FKUnidade_negocio) VALUES
+('Teste01',17,1,1),
+('Teste02',18,1,1),
+('Teste03',19,1,1);
+
+*/

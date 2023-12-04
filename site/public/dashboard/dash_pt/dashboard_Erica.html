@@ -614,10 +614,10 @@
 
                         feed.appendChild(verificacao)
 
-                        if(porcentagemUso >= 80){
-                            estado_atual.innerHTML = "<span style='color: red; font-size: 20px;'> Urgente </span>"
-                        } else if (porcentagemUso >= 60 && porcentagemUso <= 80){
-                            estado_atual.innerHTML = "<span style='color: yellow; font-size: 20px;'> Crítico </span>"
+                        if(porcentagemUso >= 11.2){
+                            estado_atual.innerHTML = "<span style='color: red; font-size: 20px;'> Crítico </span>"
+                        } else if (porcentagemUso >= 6.2 && porcentagemUso < 11.2){
+                            estado_atual.innerHTML = "<span style='color: yellow; font-size: 20px;'> Risco </span>"
                         } else {
                             estado_atual.innerHTML = "<span style='color: green; font-size: 20px;'> Estável </span>"
                         }

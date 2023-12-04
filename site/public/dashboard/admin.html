@@ -20,7 +20,11 @@
 
 </head>
 
+<<<<<<< HEAD
 <body onload="buscarDiscos(FKMAQUINA), exibirgraph(1)">
+=======
+<body onload="buscarDiscos(1), exibirgraph(1), init()">
+>>>>>>> 2f0d44d0f5fd57a884f4ad11db7f573088f97ecd
     <div class="janela">
         <div class="header-left dash-header">
             <div class="sepration">
@@ -240,7 +244,12 @@
                         </div>
                         <div class="input">
                             <input type="text" id="msg_send" placeholder="New Message">
+<<<<<<< HEAD
                             <button class="send" id="reply">Mandar <i class="fas fa-paper-plane"></i></button>
+=======
+                            <button class="send" id="reply" onclick="mandarSlack()">Mandar <i
+                                    class="fas fa-paper-plane"></i></button>
+>>>>>>> 2f0d44d0f5fd57a884f4ad11db7f573088f97ecd
                         </div>
                     </div>
                     <script src="chatbot.js"></script>
@@ -257,6 +266,7 @@
     window.onload = buscarDiscos(FKMAQUINA)
 
     window.onload = init()
+
     function exibirgraph(valor) {
 
         var grafico_RAM = document.getElementById("myChart_RAM")
@@ -334,6 +344,7 @@
                         bar.style.width = `${porcentagemUso}%`;
 
                         disco.appendChild(porcentagem)
+
 
                         feed.appendChild(disco)
 
@@ -624,6 +635,44 @@
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
 
+    }
+
+
+    function mandarSlack() {
+
+        var msg = document.getElementById("msg_send")
+
+        fetch("/slackbot/enviarMensagem", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                msgServer: msg
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                // cardErro.style.display = "block";
+                // alert( `Cadastro realizado com sucesso! Redirecionando para tela de Login...`)
+                // mensagem_erro.innerHTML = `<span style="color: green;">Cadastro realizado com sucesso! Redirecionando para tela de Login...</span>`;
+                // login()
+
+                setTimeout(() => {
+                    // login()
+                }, "2000")
+            } else {
+                throw ("Houve um erro ao tentar enviar sua mensagemn!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
     }
 </script>
 
