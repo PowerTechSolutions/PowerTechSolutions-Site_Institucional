@@ -20,26 +20,9 @@ function acessarDesempenho(req, res) {
         );
 }
 
-// function getFKMAQUINA(req,res){
+function totalDesempenhoSetor(req,res){
 
-//     var FKUSER= req.body.idUserServer;
-
-//     desempenhoModel.getFKMAQUINA(FKUSER)
-//         .then(function (resultado) {
-//             if (resultado.length > 0) {
-//                 res.status(200).json(resultado)
-//             } else {
-//                 res.status(204).send("Nenhum resultado encontrado!")
-//             }
-//         }).catch(
-//             function (erro) {
-//                 console.log(erro);
-//                 console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
-//                 res.status(500).json(erro.sqlMessage);
-//             }
-//         );
-
-// }
+}
 
 function kpiAlerta(req, res) {
 

@@ -207,27 +207,22 @@
 
     function plotarGrafico(resposta, id_user) {
 
-        // var id_user = sessionStorage.getItem('ID_Usuario');
-
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
         let labels = [];
 
         // Criando estrutura para plotar gráfico - dados
-
         let dados = {
-            labels: [],
+            labels: labels,
             datasets: [{
                 label: 'Produtividade do setor inteiro',
                 data: [],
                 fill: false,
                 borderColor: 'blue',
                 backgroundColor: 'blue'
-            }
-            ]
+            }]
         };
-
 
         console.log('----------------------------------------------')
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
@@ -236,12 +231,9 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            labels.push(registro.ultima_data_captura);
+            labels.push(registro.Nome_Processo);
             dados.datasets[0].data.push(registro.tempo_em_minutos);
-            console.log(registro.tempo_em_minutos)
-            // dados.datasets[1].data.push(registro.temperatura);
         }
-
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
@@ -255,23 +247,116 @@
         const config = {
             type: 'line',
             data: dados,
-            options: {
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
-                }
-            }
         };
 
-
         // Adicionando gráfico criado em div na tela
-        let myChart_CPU = new Chart(
+        let myChartWeek = new Chart(
             document.getElementById(`mychart1`),
             config
         );
 
+
+        // // var id_user = sessionStorage.getItem('ID_Usuario');
+
+        // console.log('iniciando plotagem do gráfico...');
+
+        // // Criando estrutura para plotar gráfico - labels
+        // let labels = [];
+
+        // // Criando estrutura para plotar gráfico - dados
+
+        // let dados = {
+        //     labels: [],
+        //     datasets: [{
+        //         label: 'Produtividade do setor inteiro',
+        //         data: [],
+        //         fill: false,
+        //         borderColor: 'blue',
+        //         backgroundColor: 'blue'
+        //     }
+        //     ]
+        // };
+
+
+        // console.log('----------------------------------------------')
+        // console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        // console.log(resposta)
+
+        // // Inserindo valores recebidos em estrutura para plotar o gráfico
+        // for (i = 0; i < resposta.length; i++) {
+        //     var registro = resposta[i];
+        //     labels.push(registro.Nome_Processo);
+        //     dados.datasets[0].data.push(registro.tempo_em_minutos);
+
+
+        //     console.log(registro.tempo_em_minutos)
+        //     console.log(registro.Nome_Processo)
+        // }
+
+
+        // console.log('----------------------------------------------')
+        // console.log('O gráfico será plotado com os respectivos valores:')
+        // console.log('Labels:')
+        // console.log(labels)
+        // console.log('Dados:')
+        // console.log(dados.datasets)
+        // console.log('----------------------------------------------')
+
+        // // Criando estrutura para plotar gráfico - config
+        // const config = {
+        //     type: 'line',
+        //     data: dados,
+        //     options: {
+        //         animation: {
+        //             animateScale: true,
+        //             animateRotate: true
+        //         }
+        //     }
+        // };
+
+
+        // // Adicionando gráfico criado em div na tela
+        // let myChart_CPU = new Chart(
+        //     document.getElementById(`mychart1`),
+        //     config
+        // );
+
     }
 
+    function getTotal(){
+        
+        fetch(`/desempenho/totalDesempenhoSetor`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
 
+                    getPercentualProdutividade();
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function getPercentualProdutividade(){
+        fetch(`/desempenho/totalDesempenhoSetor`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 
 </script>
