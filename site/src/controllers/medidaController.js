@@ -1,49 +1,27 @@
 var medidaModel = require("../models/medidaModel");
 
-function log_alertas(req, res) {
-
-    var FKUnidade = req.body.FKUnidadeServer;
-    var mes = req.body.mesServer;
-
-    console.log(`Recuperando Quantidade de alertas`);
-
-    medidaModel.log_alertas(FKUnidade, mes).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
-function tempo_real_log_alertas(req, res) {
-
-    var FKUnidade = req.params.FKUnidade;
-
-    console.log(`Recuperando Quantidade de alertas`);
-
-    medidaModel.tempo_real_log_alertas(FKUnidade).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
-
 function buscarDiscos(req, res) {
 
     var FKMAQUINA = req.params.FKMAQUINA;
 
     medidaModel.buscarDiscos(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarDiscosKaori(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.buscarDiscosKaori(FKMAQUINA).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -124,6 +102,58 @@ function atualizarFeedCountTem(req, res) {
     });
 }
 
+function estabilidadeCPU(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.estabilidadeCPU(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function atualizarTotalTempo(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.atualizarTotalTempo(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
+function atualizarNomeMaquina(req, res) {
+    var ID_USUARIO = req.params.idUsuario;
+    var FKMAQUINA = req.params.FKMAQUINA;
+    console.log("debug", ID_USUARIO)
+
+    medidaModel.atualizarNomeMaquina(FKMAQUINA, ID_USUARIO).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!");
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
 function ultimas_CPU(req, res) {
 
     var FKMAQUINA = req.params.FKMAQUINA;
@@ -260,20 +290,93 @@ function contar_MV_inativas(req, res) {
     });
 }
 
+
+
+function ultimas_TempoExec(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.ultimas_TempoExec(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function tempo_real_vmKaori(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.tempo_real_vmKaori(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
+function ultimas_TempoExecMonth(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.ultimas_TempoExecMonth(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function tempo_real_vmKaori2(req, res) {
+
+    var FKMAQUINA = req.params.FKMAQUINA;
+
+    medidaModel.tempo_real_vmKaori2(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
-    log_alertas,
-    tempo_real_log_alertas,
     buscarDiscos,
     ultimas_CPU,
     tempo_real_CPU,
     ultimas_RAM,
     tempo_real_RAM,
-    contar_MF_ativas,
-    contar_MF_inativas,
-    contar_MV_ativas,
-    contar_MV_inativas,
     buscarTempoExecucao,
-    atualizarFeedCountTem,
+    atualizarFeedCountTem, 
     buscarJanelas,
-    buscarTotal_Janelas
+    atualizarNomeMaquina,
+    buscarTotal_Janelas,
+    buscarDiscosKaori,
+    atualizarTotalTempo, 
+    ultimas_TempoExec,
+    tempo_real_vmKaori, 
+    ultimas_TempoExecMonth,
+    tempo_real_vmKaori2, 
+    estabilidadeCPU
 }

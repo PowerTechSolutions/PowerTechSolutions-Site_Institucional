@@ -24,7 +24,8 @@ scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </head>
 
-<body onload="init(), buscarTempoExecucao(1), atualizarFeedCountTem(1)">
+<body
+    onload="init(), atualizarTotalTempo(FKMAQUINA), buscarDiscosKaori(FKMAQUINA), buscarTempoExecucao(FKMAQUINA), atualizarFeedCountTem(FKMAQUINA), atualizarNomeMaquina(FKMAQUINA), obterDadosGrafico_vmKaori(FKMAQUINA)">
     <div class="dash">
         <div class="navbar_boot">
             <div class="circle_back">
@@ -58,7 +59,19 @@ scale=1.0">
                 </div>
 
                 <div class="chart">
-                    <div class="chart_bar2"><canvas class="bar" id="myChart" style="color: white;"></canvas></div>
+
+                    <canvas id="myChartWeek" style="display: block;"></canvas>
+                    <canvas id="myChartMonth" style="display: none;"></canvas>
+
+                    <div class="avisos">
+                        <select class="select_graph" onchange="exibirgraph(this.value)">
+                            <option value=1 aria-checked="true">Week Info</option>
+                            <option value=2>Monthly Info</option>
+                        </select>
+                        <div class="avisos_info" id="avisos_info">
+
+                        </div>
+                    </div>
 
                 </div>
 
@@ -69,15 +82,15 @@ scale=1.0">
 
 
                 <div class="info_machine2">
-                    <div class="picture">
+                    <div class="picture" id="info_maquina">
                         <img src="../assets/imgs_power/laptop-screen.png" alt="">
-                        <h4>Nome da Maquina</h4>
+                        <h4 id="nome_maquina">Nome da Maquina</h4>
                     </div>
                     <div class="informs">
                         <h4 id="h4">Qtd Total de Paralização</h4>
                         <span id="qtdTotal">9999</span>
                         <h4>Total do Tempo que ficou paralizado</h4>
-                        <span id="idDisco">9999</span>
+                        <span id="idTempoTotal">9999</span>
                     </div>
                 </div>
 
@@ -95,7 +108,7 @@ scale=1.0">
                     </div>
                 </div> -->
 
-                    <div class="boxes_taxes2">
+                    <div class="boxes_taxes2" id="boxes_taxes2">
                         <div class="part_info_bar">
                             <h3>Tamanho de HD</h3>
                             <div class="info_bar">
@@ -153,51 +166,351 @@ scale=1.0">
 
 <script>
 
+    var FKMAQUINA = sessionStorage.FKMaquina;
+
     nome_usuario.innerHTML = sessionStorage.Nome_Usuario;
     email_usuario.innerHTML = sessionStorage.Email_Usuario;
     var idUsuario = sessionStorage.ID_USUARIO;
-    window.onload = buscarTempoExecucao(1);
 
-    const ctx = document.getElementById('myChart');
+    window.onload = buscarTempoExecucao(FKMAQUINA);
+    window.onload = obterDadosGrafico_vmKaori(FKMAQUINA);
+    window.onload = atualizarGrafico_vmKaori(FKMAQUINA);
 
-    new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    datasets: [{
-      label: 'Total de Quantidade de Tempo de Paralização',
-      data: [12, 19, 3, 5, 2, 3],
-      pointBackgroundColor: '#FFE500',
-      borderColor: '#FFE500',
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        ticks: {
-          fontColor: 'white'
-        }
-      },
-      x: {
-        ticks: {
-          fontColor: 'white'
-        }
-      }
-    },
-    legend: {
-      labels: {
-        fontColor: 'white'
-      }
+    window.onload = obterDadosGrafico_vmKaori2(FKMAQUINA);
+    window.onload = atualizarGrafico_vmKaori2(FKMAQUINA);
+
+    function exibirgraph(valor) {
+    var grafico_week = document.getElementById("myChartWeek");
+    var grafico_month = document.getElementById("myChartMonth");
+
+    if (valor == 1) {
+        obterDadosGrafico_vmKaori(FKMAQUINA);
+        grafico_week.style.display = "block";
+        grafico_month.style.display = "none";
+    } else if (valor == 2) {
+        obterDadosGrafico_vmKaori2(FKMAQUINA);
+        grafico_week.style.display = "none";
+        grafico_month.style.display = "block";
     }
-  }
-});
+}
 
 
-    window.onload = buscarDiscos(1);
-    window.onload = atualizarFeedCountTem(1);
+
+
+function obterDadosGrafico_vmKaori2(FKMAQUINA) {
+
+// alterarTitulo(idUsuario)
+
+// if (proximaAtualizacao != undefined) {
+//     clearTimeout(proximaAtualizacao);
+// }
+
+fetch(`/medidas/ultimas_TempoExecMonth/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+        response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse();
+
+            plotarGrafico_vmKaori2(resposta, FKMAQUINA);
+            var avisoCaptura = document.getElementById(`avisos_info`)
+            avisoCaptura.innerHTML = "<span>Foi recebido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará.</span>"
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+    }
+})
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+}
+
+function plotarGrafico_vmKaori2(resposta, FKMAQUINA) {
+
+console.log('iniciando plotagem do gráfico...');
+
+// Criando estrutura para plotar gráfico - labels
+let labels = [];
+
+// Criando estrutura para plotar gráfico - dados
+let dados = {
+    labels: labels,
+    datasets: [{
+        label: 'Tempo Total',
+        data: [],
+        fill: false,
+        borderColor: '#FFE500',
+        backgroundColor: '#FFE500'
+    }]
+};
+
+console.log('----------------------------------------------')
+console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+console.log(resposta)
+
+// Inserindo valores recebidos em estrutura para plotar o gráfico
+for (i = 0; i < resposta.length; i++) {
+    var registro = resposta[i];
+    labels.push(registro.Mes);
+    dados.datasets[0].data.push(registro.QuantidadeDesligamentos);
+}
+
+console.log('----------------------------------------------')
+console.log('O gráfico será plotado com os respectivos valores:')
+console.log('Labels:')
+console.log(labels)
+console.log('Dados:')
+console.log(dados.datasets)
+console.log('----------------------------------------------')
+
+// Criando estrutura para plotar gráfico - config
+const config = {
+    type: 'line',
+    data: dados,
+};
+
+// Adicionando gráfico criado em div na tela
+let myChartMonth = new Chart(
+    document.getElementById(`myChartMonth`),
+    config
+);
+
+setTimeout(() => atualizarGrafico_vmKaori2(FKMAQUINA, dados, myChartMonth), 2000);
+}
+
+
+
+
+function atualizarGrafico_vmKaori2(FKMAQUINA, dados, myChartMonth) {
+
+fetch(`/medidas/tempo_real_vmKaori2/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+        response.json().then(function (novoRegistro) {
+
+            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+            console.log(`Dados atuais do gráfico:`);
+            console.log(dados);
+
+            let avisoCaptura = document.getElementById(`avisoCaptura`)
+            avisoCaptura.innerHTML = ""
+
+            if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                console.log("---------------------------------------------------------------")
+                console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i>Foi recebido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                console.log("Horário do novo dado capturado:")
+                console.log(novoRegistro[0].momento_grafico)
+                console.log("Horário do último dado capturado:")
+                console.log(dados.labels[dados.labels.length - 1])
+                console.log("---------------------------------------------------------------")
+            } else {
+                // tirando e colocando valores no gráfico
+                dados.labels.shift(); // apagar o primeiro
+                dados.labels.push(novoRegistro[0].Mes); // incluir um novo momento
+
+                dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                dados.datasets[0].data.push(novoRegistro[0].QuantidadeDesligamentos); // incluir uma nova medida de umidade
+
+                // dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                // dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+
+                myChartMonth.update();
+            }
+
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            setTimeout(() => atualizarGrafico_vmKaori2(FKMAQUINA, dados, myChartMonth), 3000);
+        });
+    } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        setTimeout(() => atualizarGrafico_vmKaori2(FKMAQUINA, dados, myChartMonth), 3000);
+    }
+})
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+
+}
+
+
+    function obterDadosGrafico_vmKaori(FKMAQUINA) {
+
+        // alterarTitulo(idUsuario)
+
+        // if (proximaAtualizacao != undefined) {
+        //     clearTimeout(proximaAtualizacao);
+        // }
+
+        fetch(`/medidas/ultimas_TempoExec/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico_vmKaori(resposta, FKMAQUINA);
+                    var avisoCaptura = document.getElementById(`avisos_info`)
+            avisoCaptura.innerHTML = "<span>Foi recebido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará.</span>"
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function plotarGrafico_vmKaori(resposta, FKMAQUINA) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Tempo Total',
+                data: [],
+                fill: false,
+                borderColor: '#FFE500',
+                backgroundColor: '#FFE500'
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.DiaDaSemana);
+            dados.datasets[0].data.push(registro.QuantidadeDesligamentos);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'line',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChartWeek = new Chart(
+            document.getElementById(`myChartWeek`),
+            config
+        );
+
+        setTimeout(() => atualizarGrafico_vmKaori(FKMAQUINA, dados, myChartWeek), 2000);
+    }
+
+
+
+
+    function atualizarGrafico_vmKaori(FKMAQUINA, dados, myChartWeek) {
+
+        fetch(`/medidas/tempo_real_vmKaori/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
+
+                    let avisoCaptura = document.getElementById(`avisoCaptura`)
+                    avisoCaptura.innerHTML = ""
+
+                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i>Foi recebido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].momento_grafico)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados.labels[dados.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        // tirando e colocando valores no gráfico
+                        dados.labels.shift(); // apagar o primeiro
+                        dados.labels.push(novoRegistro[0].DiaDaSemana); // incluir um novo momento
+
+                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                        dados.datasets[0].data.push(novoRegistro[0].QuantidadeDesligamentos); // incluir uma nova medida de umidade
+
+                        // dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                        // dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+
+                        myChartWeek.update();
+                    }
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    setTimeout(() => atualizarGrafico_vmKaori(FKMAQUINA, dados, myChartWeek), 3000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                setTimeout(() => atualizarGrafico_vmKaori(FKMAQUINA, dados, myChartWeek), 3000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+
+
+
+    // const ctx = document.getElementById('myChart');
+
+    // new Chart(ctx, {
+    //     type: 'line',
+    //     data: {
+    //         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    //         datasets: [{
+    //             label: 'Total de Quantidade de Tempo de Paralização',
+    //             data: [12, 19, 3, 5, 2, 3],
+    //             pointBackgroundColor: '#FFE500',
+    //             borderColor: '#FFE500',
+    //             borderWidth: 1
+    //         }]
+    //     },
+    //     options: {
+    //         scales: {
+    //             y: {
+    //                 ticks: {
+    //                     fontColor: 'white'
+    //                 }
+    //             },
+    //             x: {
+    //                 ticks: {
+    //                     fontColor: 'white'
+    //                 }
+    //             }
+    //         },
+    //         legend: {
+    //             labels: {
+    //                 fontColor: 'white'
+    //             }
+    //         }
+    //     }
+    // });
+
+    var idUsuario = sessionStorage.getItem('ID_Usuario');
+    window.onload = buscarDiscosKaori(FKMAQUINA);
+    window.onload = atualizarTotalTempo(FKMAQUINA);
+    window.onload = atualizarFeedCountTem(FKMAQUINA);
     window.onload = init();
-
+    window.onload = atualizarNomeMaquina(FKMAQUINA, idUsuario);
+    //dTempoTotal
     function atualizarFeedCountTem(FKMAQUINA) {
         fetch(`/medidas/atualizarFeedCountTem/${FKMAQUINA}`, {
             method: "GET",
@@ -238,6 +551,86 @@ scale=1.0">
         return false;
     }
 
+
+    function atualizarTotalTempo(FKMAQUINA) {
+        fetch(`/medidas/atualizarTotalTempo/${FKMAQUINA}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("idTempoTotal");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+
+                        var tempoTotal = document.querySelector("#idTempoTotal");
+                        tempoTotal.innerHTML = `${publicacao.Total_Tempo ?? 0}`;
+
+
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+
+    function atualizarNomeMaquina(FKMAQUINA, idUsuario) {
+        fetch(`/medidas/atualizarNomeMaquina/${FKMAQUINA}/${idUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("info_maquina");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado.";
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+
+                        var nome = document.querySelector("#nome_maquina");
+                        if (nome) {
+                            nome.innerHTML = `${publicacao.Nome}`;
+                        } else {
+                            console.error("Element with ID 'nome_maquina' not found.");
+                        }
+                    }
+                });
+            } else {
+                throw "Houve um erro ao tentar realizar a pesquisa!";
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
     //     function atualizarFeed() {
 
     //     var IDUsuario = sessionStorage.FKUsuario;
@@ -330,6 +723,7 @@ scale=1.0">
                     var feed = document.getElementById("arrangement");
                     var mensagem = document.createElement("span");
                     mensagem.innerHTML = "Nenhum resultado encontrado."
+                    mensagem.className = "mensagem"
                     feed.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";
                 }
@@ -372,9 +766,9 @@ scale=1.0">
     }
 
 
-    function buscarDiscos(FKMAQUINA) {
+    function buscarDiscosKaori(FKMAQUINA) {
 
-        fetch(`/medidas/buscarDiscos/${FKMAQUINA}`, {
+        fetch(`/medidas/buscarDiscosKaori/${FKMAQUINA}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -388,9 +782,10 @@ scale=1.0">
             if (resposta.ok) {
 
                 if (resposta.status == 204) {
-                    var feed = document.getElementById("Info_disc");
+                    var feed = document.getElementById("boxes_taxes2");
                     var mensagem = document.createElement("span");
                     mensagem.innerHTML = "Nenhum resultado encontrado."
+                    mensagem.className = "mensagem2"
                     feed.appendChild(mensagem);
                     throw "Nenhum resultado encontrado!!";
                 }
@@ -462,7 +857,7 @@ scale=1.0">
                         // porcentagem.innerHTML = `${publicacao.Porcentagem_Uso}`;
                         // disco.appendChild(porcentagem)
 
-                        feed.appendChild(disco)
+                        // feed.appendChild(disco)
 
                     }
                 });
@@ -475,5 +870,6 @@ scale=1.0">
         });
 
         return false;
-    }  
+    }
+
 </script>

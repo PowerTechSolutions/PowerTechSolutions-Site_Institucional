@@ -483,10 +483,12 @@ option {
   display: flex;
   flex-direction: column;
 }
-.separar2 h2{
+
+.separar2 h2 {
   margin-left: 20px;
   margin-top: 15px;
 }
+
 .grafico {
   background: #1D1D20;
   border-radius: 20px;

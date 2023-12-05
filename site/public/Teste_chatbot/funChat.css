@@ -1,0 +1,93 @@
+body {
+    margin: 0%;
+}
+
+.pai {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+     /* Add overflow property to hide overflow outside the .pai container */
+}
+
+.filho1 {
+    width: 25%;
+    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search_button {
+    background-color: white;
+    width: 90%;
+    height: 50px;
+    border: none;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 20px;
+}
+
+.search {
+    width: 249px;
+    height: 42px;
+    border: none;
+}
+
+.search_button img {
+    width: 30px;
+    height: 30px;
+}
+
+.chat_list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 90%;
+    overflow-y: scroll;
+}
+
+/* .chat_list::-webkit-scrollbar {
+    display: none;
+  } */
+  
+   /* Hide scrollbar for IE, Edge, and Firefox */
+  /* .chat_list {
+    -ms-overflow-style: none;  /* IE and Edge */
+   /* scrollbar-width: none;  
+  }   */
+
+.chat_person {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: cornsilk;
+    justify-content: space-evenly;
+}
+
+.chat_person img {
+    width: 50px;
+    height: 50px;
+}
+
+.chat_person h4 {
+    margin: 0%;
+}
+
+.chat_info {
+    width: 76%;
+    display: flex;
+    flex-direction: column;
+}
+
+.filho2 {
+    width: 75%;
+    height: 100vh;
+    background-color: red;
+}
