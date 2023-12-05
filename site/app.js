@@ -1,5 +1,5 @@
-process.env.AMBIENTE_PROCESSO = "desenvolvimento";
-//process.env.AMBIENTE_PROCESSO = "producao";
+//process.env.AMBIENTE_PROCESSO = "desenvolvimento";
+process.env.AMBIENTE_PROCESSO = "producao";
 
 var express = require("express");
 var cors = require("cors");
@@ -19,6 +19,7 @@ var feedbacksRouter = require("./src/routes/feedbacks");
 var processoRouter = require("./src/routes/processo");
 var maquinaRouter = require("./src/routes/maquinas");
 var slackRouter = require("./src/routes/slackbot");
+var desempenhoRouter = require("./src/routes/desempenho");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -37,6 +38,7 @@ app.use("/feedbacks", feedbacksRouter);
 app.use("/processo", processoRouter);
 app.use("/maquinas", maquinaRouter);
 app.use("/slackbot", slackRouter);
+app.use("/desempenho", desempenhoRouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

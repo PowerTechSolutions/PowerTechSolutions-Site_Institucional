@@ -29,9 +29,7 @@
 </head>
 
 <body>
-    <!-- onload="validarSessao(), atualizacaoPeriodica()" -->
     <div class="janela">
-
 
         <div class="header-left dash-header">
             <div class="sepration">
@@ -57,8 +55,9 @@
                         <ul class="list">
                             <li>
                                 <label for="item1">
-                                    <a href="../../index.html">Sair</a>
+                                    <a href="../desempenho_trader.html" id="trader">Ver setor</a>
                                     <span></span>
+                                    <a href="../../index.html">Sair</a>
                                 </label>
                             </li>
                         </ul>
@@ -182,7 +181,6 @@
 
 <script>
 
-    //nome_usuario.innerHTML = `Teste`;
     nome_usuario.innerHTML = sessionStorage.Nome_Usuario;   
     email_usuario.innerHTML = sessionStorage.Email_Usuario;
     var idUsuario = sessionStorage.ID_USUARIO;

@@ -855,6 +855,7 @@
     flex-direction: row;
   }
 
+
   .inputs_login_esquerda {
     display: flex;
     flex-direction: column;

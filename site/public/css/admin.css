@@ -496,6 +496,12 @@ body {
     margin-top: 18%;
 }
 
+.chart_bar{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .barra {
     width: 85%;
     height: 26px;
@@ -530,7 +536,9 @@ body {
     align-items: center;
     justify-content: center;
 }
-
+#reminder2{
+    font-size: 23px;
+}
 .alert {
     width: 320px;
     height: 100px;
