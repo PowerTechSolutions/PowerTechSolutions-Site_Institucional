@@ -233,10 +233,19 @@
 </body>
 
 <script>
-window.onload = init()   
-    nome_usuario.innerHTML = sessionStorage.Nome_Usuario
+    nome_usuario.innerHTML = sessionStorage.Nome_Usuario;
 
-    window.onload = atualizarMaquinas()
+    window.onload = atualizarMaquinas();
+
+    function maquinaFisicaDetalhe(idmaquina){
+        sessionStorage.ID_MAQUINA = idmaquina
+        window.location.href = "maquina_fisica.html"
+    }
+
+    function maquinavirtualDetalhe(idmaquina){
+        sessionStorage.ID_MAQUINA = idmaquina
+        window.location.href = "admin.html"
+    }
 
     function atualizarMaquinas(){
 
@@ -425,7 +434,6 @@ window.onload = init()
             console.log("resposta: ", resposta);
     
             if (resposta.ok) {
-
                 if (resposta.status == 204) {
                         var feed = document.getElementById("maquinas_FISICAS");
                         var mensagem = document.createElement("span");
@@ -444,6 +452,7 @@ window.onload = init()
 
                         var card = document.createElement("div");
                         card.className = "infoemp";
+                        card.setAttribute("onclick",`maquinaFisicaDetalhe(${maquina.IDMaquina})`);
                         
                         var id = document.createElement("p");
                         id.innerHTML = maquina.IDMaquina;
@@ -507,6 +516,7 @@ window.onload = init()
 
                         var card = document.createElement("div");
                         card.className = "infoemp";
+                        card.setAttribute("onclick",`maquinavirtualDetalhe(${maquina.IDMaquina})`)
                         
                         var id = document.createElement("p");
                         id.innerHTML = maquina.IDMaquina;

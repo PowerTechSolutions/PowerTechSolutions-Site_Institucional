@@ -154,3 +154,8 @@ SELECT
         WHERE Tipo_maquina.Apelido = 'FISICA'
             AND Usuario_Dashboard.FKUnidade = 1;
             
+SELECT count(IDAlerta) as Alertas
+        FROM Alertas JOIN Nivel_alerta
+        ON IDNivel_alerta = FKNivel_alerta
+        WHERE Data_Hora LIKE "%-12-%" GROUP BY IDNivel_alerta;
+        
