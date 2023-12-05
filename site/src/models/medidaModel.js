@@ -6,7 +6,10 @@ function log_alertas(FKUnidade,mes) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-        SELECT COUNT(Alertas.IDAlerta) AS Alertas , date_format(Data_Hora, "%d/%c") as momento_grafico FROM Alertas WHERE FKUnidade_negocio = 1 GROUP BY Data_Hora;
+        SELECT COUNT(Alerta) as Alertas
+        FROM Alertas JOIN Nivel_alerta
+        ON IDNivel_alerta = FKNivel_alerta
+        WHERE CONVERT(varchar,Data_Hora,120) LIKE '%-${mes}-%';
         `;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -70,15 +73,27 @@ WHERE maquinas.IDMaquina = ${FKMAQUINA};`;
     return database.executar(instrucaoSql);
 }
 
-
-
 function buscarDiscos(FKMAQUINA) {
 
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        SELECT 
+	    Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
+	    Data_Hora_Captura,
+        Uso AS "Uso_DIsco",
+        Componentes_cadastrados.Apelido 
+        FROM 
+		    Monitoramento_RAW JOIN Componentes_monitorados 
+		    ON FKComponente_Monitorado = IDComponente_monitorado 
+		    JOIN Componentes_cadastrados 
+		    ON Componentes_monitorados.FKComponente_cadastrado = IDComponente_cadastrado
+		    JOIN Maquinas 
+		    ON FKMaquina = IDMaquina
+		    WHERE FKMaquina = ${FKMAQUINA}
+		    AND Componentes_cadastrados.Apelido = 'DISCO'
+		    ORDER BY Monitoramento_RAW.IDMonitoramento DESC;
         `;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -90,9 +105,9 @@ function buscarDiscos(FKMAQUINA) {
         Componentes_cadastrados.Apelido 
         FROM 
 		    Monitoramento_RAW JOIN Componentes_monitorados 
-		    ON FKComponente_Monitorado = IDComponente_monitorado 
+		    ON FKComponente_Monitorado = IDComponente_monitorado            
 		    JOIN Componentes_cadastrados 
-		    ON FKComponente_cadastrado = IDComponente_cadastrado
+		    ON Componentes_monitorados.FKComponente_cadastrado = IDComponente_cadastrado
 		    JOIN Maquinas 
 		    ON FKMaquina = IDMaquina
 		    WHERE FKMaquina = ${FKMAQUINA}
@@ -187,7 +202,19 @@ function ultimas_CPU(FKMAQUINA) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        SELECT TOP 10
+        FORMAT(Data_Hora_Captura,'%H:%m:%s') as 'momento_grafico',
+        Uso AS 'Uso_CPU'
+        FROM 
+            Monitoramento_RAW JOIN Componentes_monitorados 
+            ON FKComponente_Monitorado = IDComponente_monitorado 
+            JOIN Componentes_cadastrados 
+            ON Componentes_monitorados.FKComponente_cadastrado = IDComponente_cadastrado
+            JOIN Maquinas 
+            ON FKMaquina = IDMaquina
+            WHERE FKMaquina = ${FKMAQUINA}
+            AND Componentes_cadastrados.Apelido = 'CPU'
+            ORDER BY Monitoramento_RAW.IDMonitoramento DESC; 
         `;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -221,7 +248,19 @@ function tempo_real_CPU(FKMAQUINA) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        SELECT TOP 1
+        FORMAT(Data_Hora_Captura,'%H:%m:%s') as 'momento_grafico',
+        Uso AS 'Uso_CPU'
+        FROM 
+            Monitoramento_RAW JOIN Componentes_monitorados 
+            ON FKComponente_Monitorado = IDComponente_monitorado 
+            JOIN Componentes_cadastrados 
+            ON Componentes_monitorados.FKComponente_cadastrado = IDComponente_cadastrado
+            JOIN Maquinas 
+            ON FKMaquina = IDMaquina
+            WHERE FKMaquina = ${FKMAQUINA}
+            AND Componentes_cadastrados.Apelido = 'CPU'
+            ORDER BY Monitoramento_RAW.IDMonitoramento DESC; 
         `;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -239,7 +278,7 @@ function tempo_real_CPU(FKMAQUINA) {
 		        WHERE FKMaquina = ${FKMAQUINA}
 		        AND Componentes_cadastrados.Apelido = "CPU"
                 ORDER BY Monitoramento_RAW.IDMonitoramento DESC 
-                LIMIT 10;`;
+                LIMIT 1;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -255,7 +294,19 @@ function ultimas_RAM(FKMAQUINA) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        SELECT TOP 10
+        FORMAT(Data_Hora_Captura,'%H:%m:%s') as 'momento_grafico',
+        Uso AS 'Uso_RAM'
+        FROM 
+            Monitoramento_RAW JOIN Componentes_monitorados 
+            ON FKComponente_Monitorado = IDComponente_monitorado 
+            JOIN Componentes_cadastrados 
+            ON Componentes_monitorados.FKComponente_cadastrado = IDComponente_cadastrado
+            JOIN Maquinas 
+            ON FKMaquina = IDMaquina
+            WHERE FKMaquina = ${FKMAQUINA}
+            AND Componentes_cadastrados.Apelido = 'RAM'
+            ORDER BY Monitoramento_RAW.IDMonitoramento DESC;
         `;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -289,8 +340,19 @@ function tempo_real_RAM(FKMAQUINA) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
-        `;
+        SELECT TOP 1
+        FORMAT(Data_Hora_Captura,'%H:%m:%s') as 'momento_grafico',
+        Uso AS 'Uso_RAM'
+        FROM 
+            Monitoramento_RAW JOIN Componentes_monitorados 
+            ON FKComponente_Monitorado = IDComponente_monitorado 
+            JOIN Componentes_cadastrados 
+            ON Componentes_monitorados.FKComponente_cadastrado = IDComponente_cadastrado
+            JOIN Maquinas 
+            ON FKMaquina = IDMaquina
+            WHERE FKMaquina = ${FKMAQUINA}
+            AND Componentes_cadastrados.Apelido = 'CPU'
+            ORDER BY Monitoramento_RAW.IDMonitoramento DESC;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
