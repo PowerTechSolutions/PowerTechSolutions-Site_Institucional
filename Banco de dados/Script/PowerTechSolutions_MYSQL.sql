@@ -238,8 +238,12 @@ INSERT INTO Nivel_acesso VALUES
 (NULL,'Gestor',2);
 
 INSERT into Usuario_Dashboard VALUES
-(NULL,'davi','davi@teste.com','48372073830','12345678',1,1),
-(NULL,'henry','henry@teste.com','12345678910','87654321',1,2);
+(NULL,'Davi Rodrigues','davi@teste.com','24325638830','12345678',1,1),
+(NULL,'Henrique Lipert','henri@teste.com','53169365827','12345678',1,2),
+(NULL,'Erica Cunha','erica@teste.com','44815022666','12345678',1,2),
+(NULL,'Sarah Oliveira','sarah@teste.com','15067515554','12345678',1,2),
+(NULL,'Gabriella Inácio','gabi@teste.com','87343841629','12345678',1,1),
+(NULL,'Michele Kaori','kaori@teste.com','38679683736','12345678',1,1);
 
 INSERT INTO Componentes_cadastrados values
 (null,'CPU'),
@@ -268,6 +272,34 @@ INSERT INTO Maquinas VALUES
 (null,'teste02',1,1,1),
 (null,'teste03',1,1,2);
 
+INSERT INTO Maquinas VALUES
+(null,'teste01',2,2,1),
+(null,'teste02',2,1,1),
+(null,'teste03',2,1,2);
+
+INSERT INTO Maquinas VALUES
+(null,'teste01',3,2,1),
+(null,'teste02',3,1,1),
+(null,'teste03',3,1,2);
+
+INSERT INTO Maquinas VALUES
+(null,'teste01',4,2,1),
+(null,'teste02',4,1,1),
+(null,'teste03',4,1,2);
+
+INSERT INTO Maquinas VALUES
+(null,'teste01',5,2,1),
+(null,'teste02',5,1,1),
+(null,'teste03',5,1,2);
+
+INSERT INTO Maquinas VALUES
+(null,'teste01',6,2,1),
+(null,'teste02',6,1,1),
+(null,'teste03',6,1,2);
+
+SELECT * FROM Maquinas;
+
+-- Funcionario 1 
 INSERT INTO Componentes_monitorados VALUES
 (NULL,1,1),
 (NULL,2,1),
@@ -288,6 +320,113 @@ INSERT INTO Componentes_monitorados VALUES
 (NULL,5,3),
 (NULL,6,3);
 
+-- Funcionario 2 
+INSERT INTO Componentes_monitorados VALUES
+(NULL,1,4),
+(NULL,2,4),
+(NULL,3,4),
+(NULL,4,4),
+(NULL,5,4),
+(NULL,6,4),
+(NULL,1,5),
+(NULL,2,5),
+(NULL,3,5),
+(NULL,4,5),
+(NULL,5,5),
+(NULL,6,5),
+(NULL,1,6),
+(NULL,2,6),
+(NULL,3,6),
+(NULL,4,6),
+(NULL,5,6),
+(NULL,6,6);
+
+-- Funcionario 3
+INSERT INTO Componentes_monitorados VALUES
+(NULL,1,7),
+(NULL,2,7),
+(NULL,3,7),
+(NULL,4,7),
+(NULL,5,7),
+(NULL,6,7),
+(NULL,1,8),
+(NULL,2,8),
+(NULL,3,8),
+(NULL,4,8),
+(NULL,5,8),
+(NULL,6,8),
+(NULL,1,9),
+(NULL,2,9),
+(NULL,3,9),
+(NULL,4,9),
+(NULL,5,9),
+(NULL,6,9);
+
+-- Funcionario 4 
+INSERT INTO Componentes_monitorados VALUES
+(NULL,1,10),
+(NULL,2,10),
+(NULL,3,10),
+(NULL,4,10),
+(NULL,5,10),
+(NULL,6,10),
+(NULL,1,11),
+(NULL,2,11),
+(NULL,3,11),
+(NULL,4,11),
+(NULL,5,11),
+(NULL,6,11),
+(NULL,1,12),
+(NULL,2,12),
+(NULL,3,12),
+(NULL,4,12),
+(NULL,5,12),
+(NULL,6,12);
+
+-- Funcionario 5 
+INSERT INTO Componentes_monitorados VALUES
+(NULL,1,13),
+(NULL,2,13),
+(NULL,3,13),
+(NULL,4,13),
+(NULL,5,13),
+(NULL,6,13),
+(NULL,1,14),
+(NULL,2,14),
+(NULL,3,14),
+(NULL,4,14),
+(NULL,5,14),
+(NULL,6,14),
+(NULL,1,15),
+(NULL,2,15),
+(NULL,3,15),
+(NULL,4,15),
+(NULL,5,15),
+(NULL,6,15);
+
+-- Funcionario 6 
+INSERT INTO Componentes_monitorados VALUES
+(NULL,1,16),
+(NULL,2,16),
+(NULL,3,16),
+(NULL,4,16),
+(NULL,5,16),
+(NULL,6,16),
+(NULL,1,17),
+(NULL,2,17),
+(NULL,3,17),
+(NULL,4,17),
+(NULL,5,17),
+(NULL,6,17),
+(NULL,1,18),
+(NULL,2,18),
+(NULL,3,18),
+(NULL,4,18),
+(NULL,5,18),
+(NULL,6,18);
+
+/*
+
 SELECT * FROM Componentes_monitorados;
 
 select * from Monitoramento_RAW;
@@ -295,13 +434,24 @@ SELECT * FROM Redes_conectadas;
 SELECT * FROM Janelas_Abertas;
 SELECT * FROM Dispositivos_USB;
 
-SELECT * FROM Alertas;
+SELECT 
+	COUNT(Alerta) as Alertas
+    FROM Alertas JOIN Monitoramento_RAW 
+    ON Alertas.FKMonitoramento = Monitoramento_RAW.IDMonitoramento
+    JOIN Componentes_monitorados 
+		ON FKComponente_Monitorado = IDComponente_monitorado 
+			JOIN Componentes_cadastrados 
+				ON FKComponente_cadastrado = IDComponente_cadastrado
+					JOIN Maquinas 
+						ON FKMaquina = IDMaquina
+                        JOIN Tipo_maquina
+                        ON IDTipo = FKTipo_maquina
+						WHERE Tipo_maquina.Apelido = "FISICA" AND Alertas.FKUnidade_negocio = 1;
 
-/*
 
 INSERT INTO Alertas (Alerta,FKMonitoramento,FKNivel_alerta,FKUnidade_negocio) VALUES
-('Teste01',17,1,1),
-('Teste02',18,1,1),
-('Teste03',19,1,1);
+('Teste01',1,1,1),
+('Teste02',3,2,1),
+('Teste03',7,1,1);
 
 */
