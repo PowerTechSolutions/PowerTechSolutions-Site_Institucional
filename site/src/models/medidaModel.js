@@ -470,28 +470,28 @@ function ultimas_TempoExec(FKMAQUINA) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT 
-    CASE 
-        WHEN DAYNAME(Data_Hora) = 'Monday' THEN 'Segunda-feira'
-        WHEN DAYNAME(Data_Hora) = 'Tuesday' THEN 'Terça-feira'
-        WHEN DAYNAME(Data_Hora) = 'Wednesday' THEN 'Quarta-feira'
-        WHEN DAYNAME(Data_Hora) = 'Thursday' THEN 'Quinta-feira'
-        WHEN DAYNAME(Data_Hora) = 'Friday' THEN 'Sexta-feira'
-        WHEN DAYNAME(Data_Hora) = 'Saturday' THEN 'Sábado'
-        WHEN DAYNAME(Data_Hora) = 'Sunday' THEN 'Domingo'
+        SELECT
+    CASE
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Monday' THEN 'Segunda-feira'
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Tuesday' THEN 'Terça-feira'
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Wednesday' THEN 'Quarta-feira'
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Thursday' THEN 'Quinta-feira'
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Friday' THEN 'Sexta-feira'
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Saturday' THEN 'Sábado'
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Sunday' THEN 'Domingo'
     END AS DiaDaSemana,
     COUNT(*) AS QuantidadeDesligamentos
-FROM 
+FROM
     Tempo_de_Execucao
-JOIN 
+JOIN
     Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
-WHERE 
+WHERE
     FKTempo_maquina = ${FKMAQUINA}
-GROUP BY 
-    DiaDaSemana, DATE(Data_Hora)
-ORDER BY 
-    DATE(Data_Hora) ASC, DiaDaSemana DESC
-LIMIT 7;`;
+GROUP BY
+    DATENAME(WEEKDAY, Data_Hora), CONVERT(DATE, Data_Hora)
+ORDER BY
+    CONVERT(DATE, Data_Hora) ASC, DATENAME(WEEKDAY, Data_Hora) DESC
+LIMIT 7; `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -512,28 +512,28 @@ function tempo_real_vmKaori(FKMAQUINA) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT 
-    CASE 
-        WHEN DAYNAME(Data_Hora) = 'Monday' THEN 'Segunda-feira'
-        WHEN DAYNAME(Data_Hora) = 'Tuesday' THEN 'Terça-feira'
-        WHEN DAYNAME(Data_Hora) = 'Wednesday' THEN 'Quarta-feira'
-        WHEN DAYNAME(Data_Hora) = 'Thursday' THEN 'Quinta-feira'
-        WHEN DAYNAME(Data_Hora) = 'Friday' THEN 'Sexta-feira'
-        WHEN DAYNAME(Data_Hora) = 'Saturday' THEN 'Sábado'
-        WHEN DAYNAME(Data_Hora) = 'Sunday' THEN 'Domingo'
+        SELECT
+    CASE
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Monday' THEN 'Segunda-feira'
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Tuesday' THEN 'Terça-feira'
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Wednesday' THEN 'Quarta-feira'
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Thursday' THEN 'Quinta-feira'
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Friday' THEN 'Sexta-feira'
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Saturday' THEN 'Sábado'
+        WHEN DATENAME(WEEKDAY, Data_Hora) = 'Sunday' THEN 'Domingo'
     END AS DiaDaSemana,
     COUNT(*) AS QuantidadeDesligamentos
-FROM 
+FROM
     Tempo_de_Execucao
-JOIN 
+JOIN
     Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
-WHERE 
+WHERE
     FKTempo_maquina = ${FKMAQUINA}
-GROUP BY 
-    DiaDaSemana, DATE(Data_Hora)
-ORDER BY 
-    DATE(Data_Hora) ASC, DiaDaSemana DESC
-LIMIT 7;
+GROUP BY
+    DATENAME(WEEKDAY, Data_Hora), CONVERT(DATE, Data_Hora)
+ORDER BY
+    CONVERT(DATE, Data_Hora) ASC, DATENAME(WEEKDAY, Data_Hora) DESC
+LIMIT 7; 
 `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -555,33 +555,33 @@ function ultimas_TempoExecMonth(FKMAQUINA) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT 
-        CASE 
-            WHEN MONTH(Data_Hora) = 1 THEN 'Janeiro'
-            WHEN MONTH(Data_Hora) = 2 THEN 'Fevereiro'
-            WHEN MONTH(Data_Hora) = 3 THEN 'Março'
-            WHEN MONTH(Data_Hora) = 4 THEN 'Abril'
-            WHEN MONTH(Data_Hora) = 5 THEN 'Maio'
-            WHEN MONTH(Data_Hora) = 6 THEN 'Junho'
-            WHEN MONTH(Data_Hora) = 7 THEN 'Julho'
-            WHEN MONTH(Data_Hora) = 8 THEN 'Agosto'
-            WHEN MONTH(Data_Hora) = 9 THEN 'Setembro'
-            WHEN MONTH(Data_Hora) = 10 THEN 'Outubro'
-            WHEN MONTH(Data_Hora) = 11 THEN 'Novembro'
-            WHEN MONTH(Data_Hora) = 12 THEN 'Dezembro'
-        END AS Mes,
-        COUNT(*) AS QuantidadeDesligamentos
-    FROM 
-        Tempo_de_Execucao
-    JOIN 
-        Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
-    WHERE 
-        FKTempo_maquina = ${FKMAQUINA}
-    GROUP BY 
-        Mes
-    ORDER BY 
-        Mes DESC
-    LIMIT 12; -- Limite de 12 meses`;
+        SELECT TOP 12
+    CASE 
+        WHEN MONTH(Data_Hora) = 1 THEN 'Janeiro'
+        WHEN MONTH(Data_Hora) = 2 THEN 'Fevereiro'
+        WHEN MONTH(Data_Hora) = 3 THEN 'Março'
+        WHEN MONTH(Data_Hora) = 4 THEN 'Abril'
+        WHEN MONTH(Data_Hora) = 5 THEN 'Maio'
+        WHEN MONTH(Data_Hora) = 6 THEN 'Junho'
+        WHEN MONTH(Data_Hora) = 7 THEN 'Julho'
+        WHEN MONTH(Data_Hora) = 8 THEN 'Agosto'
+        WHEN MONTH(Data_Hora) = 9 THEN 'Setembro'
+        WHEN MONTH(Data_Hora) = 10 THEN 'Outubro'
+        WHEN MONTH(Data_Hora) = 11 THEN 'Novembro'
+        WHEN MONTH(Data_Hora) = 12 THEN 'Dezembro'
+    END AS Mes,
+    COUNT(*) AS QuantidadeDesligamentos
+FROM 
+    Tempo_de_Execucao
+JOIN 
+    Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
+WHERE 
+    FKTempo_maquina = ${FKMAQUINA}
+GROUP BY 
+    Mes
+ORDER BY 
+    Mes DESC;
+ -- Limite de 12 meses`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -602,33 +602,32 @@ function tempo_real_vmKaori2(FKMAQUINA) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT 
-        CASE 
-            WHEN MONTH(Data_Hora) = 1 THEN 'Janeiro'
-            WHEN MONTH(Data_Hora) = 2 THEN 'Fevereiro'
-            WHEN MONTH(Data_Hora) = 3 THEN 'Março'
-            WHEN MONTH(Data_Hora) = 4 THEN 'Abril'
-            WHEN MONTH(Data_Hora) = 5 THEN 'Maio'
-            WHEN MONTH(Data_Hora) = 6 THEN 'Junho'
-            WHEN MONTH(Data_Hora) = 7 THEN 'Julho'
-            WHEN MONTH(Data_Hora) = 8 THEN 'Agosto'
-            WHEN MONTH(Data_Hora) = 9 THEN 'Setembro'
-            WHEN MONTH(Data_Hora) = 10 THEN 'Outubro'
-            WHEN MONTH(Data_Hora) = 11 THEN 'Novembro'
-            WHEN MONTH(Data_Hora) = 12 THEN 'Dezembro'
-        END AS Mes,
-        COUNT(*) AS QuantidadeDesligamentos
-    FROM 
-        Tempo_de_Execucao
-    JOIN 
-        Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
-    WHERE 
-        FKTempo_maquina = ${FKMAQUINA}
-    GROUP BY 
-        Mes
-    ORDER BY 
-        Mes DESC
-    LIMIT 12; -- Limite de 12 meses
+        SELECT TOP 12
+    CASE 
+        WHEN MONTH(Data_Hora) = 1 THEN 'Janeiro'
+        WHEN MONTH(Data_Hora) = 2 THEN 'Fevereiro'
+        WHEN MONTH(Data_Hora) = 3 THEN 'Março'
+        WHEN MONTH(Data_Hora) = 4 THEN 'Abril'
+        WHEN MONTH(Data_Hora) = 5 THEN 'Maio'
+        WHEN MONTH(Data_Hora) = 6 THEN 'Junho'
+        WHEN MONTH(Data_Hora) = 7 THEN 'Julho'
+        WHEN MONTH(Data_Hora) = 8 THEN 'Agosto'
+        WHEN MONTH(Data_Hora) = 9 THEN 'Setembro'
+        WHEN MONTH(Data_Hora) = 10 THEN 'Outubro'
+        WHEN MONTH(Data_Hora) = 11 THEN 'Novembro'
+        WHEN MONTH(Data_Hora) = 12 THEN 'Dezembro'
+    END AS Mes,
+    COUNT(*) AS QuantidadeDesligamentos
+FROM 
+    Tempo_de_Execucao
+JOIN 
+    Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
+WHERE 
+    FKTempo_maquina = ${FKMAQUINA}
+GROUP BY 
+    Mes
+ORDER BY 
+    Mes DESC; -- Limite de 12 meses
     
 `;
     } else {
