@@ -70,8 +70,7 @@
                         <ul class="list">
                             <li>
                                 <label for="item1">
-                                    <a href="../../index.html">Sair</a>
-                                    <span></span>
+                                    <a href="../../index.html" id="sair_home">Sair</a>
                                 </label>
                             </li>
                         </ul>
@@ -117,7 +116,8 @@
                                         <div class="field">
                                             <div class="input">
                                                 <input class="input__field" id="input_email_rep" type="text" required />
-                                                <label for="input_email" class="input__label" autocomplete="off">Email </label>
+                                                <label for="input_email" class="input__label" autocomplete="off">Email
+                                                </label>
                                                 <img src="../assets/imgs_power/marketing-de-email.png" alt=""
                                                     class="material-symbols-outlined">
                                             </div>
@@ -141,7 +141,8 @@
                                             <div class="input">
                                                 <input class="input__field" id="input_senha_rep" type="password"
                                                     required />
-                                                <label for="input_senha" class="input__label" autocomplete="off">Senha</label>
+                                                <label for="input_senha" class="input__label"
+                                                    autocomplete="off">Senha</label>
                                                 <img src="../assets/imgs_power/senha.png" alt=""
                                                     class="material-symbols-outlined">
                                             </div>
@@ -213,7 +214,8 @@
                                             <div class="input">
                                                 <input class="input__field" id="input_nome_maquina" type="number"
                                                     required />
-                                                <label for="input_nome_maquina" class="input__label">Total de Cpu</label>
+                                                <label for="input_nome_maquina" class="input__label">Total de
+                                                    Cpu</label>
                                                 <img src="../assets/imgs_power/cpu.png" alt=""
                                                     class="material-symbols-outlined">
                                             </div>
@@ -244,8 +246,7 @@
                                                     required />
                                                 <label for="password" class="input__label">Quantidade de
                                                     RAM</label>
-                                                <img src="../assets/ram.png" alt=""
-                                                    class="material-symbols-outlined">
+                                                <img src="../assets/ram.png" alt="" class="material-symbols-outlined">
                                             </div>
                                             <button class="btnsinfo" onclick="ram()"><img
                                                     src="../assets/imgs_power/checkbox.png" alt=""></button>
@@ -305,7 +306,8 @@
                                             <div class="input">
                                                 <input class="input__field" id="input_nome_maquina" type="text"
                                                     required />
-                                                <label for="input_nome_maquina" class="input__label" autocomplete="off">Email do
+                                                <label for="input_nome_maquina" class="input__label"
+                                                    autocomplete="off">Email do
                                                     responsável</label>
                                                 <img src="../assets/imgs_power/marketing-de-email.png" alt=""
                                                     class="material-symbols-outlined">
@@ -377,8 +379,7 @@
                                                     required />
                                                 <label for="password" class="input__label">Quantidade de
                                                     RAM</label>
-                                                <img src="../assets/ram.png" alt=""
-                                                    class="material-symbols-outlined">
+                                                <img src="../assets/ram.png" alt="" class="material-symbols-outlined">
                                             </div>
                                             <button class="btnsinfo" onclick="ram2()"><img
                                                     src="../assets/imgs_power/checkbox.png" alt=""></button>
@@ -405,13 +406,15 @@
                     <div class="cadastrar_novo">
                         <img src="../assets/imgs_power/nova-conta.png" alt="">
                         <h1>Cadastrar novo usuario:</h1>
-                        <span>Por favor, preencha os formulários corretamente: Isso é uma forma de adicionar um novo usuário e sua máquina!</span>
+                        <span>Por favor, preencha os formulários corretamente: Isso é uma forma de adicionar um novo
+                            usuário e sua máquina!</span>
                         <button onclick="cadastrar()">Cadastrar</button>
                     </div>
                     <div class="cadastrar_exixtente">
                         <img src="../assets/imgs_power/novo-cartao.png" alt="">
                         <h1>Adicionar nova Maquina:</h1>
-                        <span>Por favor, preencha os formulários corretamente: Isso é uma forma de adicionar um novo usuário e sua máquina!</span>
+                        <span>Por favor, preencha os formulários corretamente: Isso é uma forma de adicionar um novo
+                            usuário e sua máquina!</span>
                         <button onclick="adicionar()">Adicionar</button>
                     </div>
                 </div>
@@ -460,13 +463,13 @@
         var cpfVar = input_cpf.value
         var senhaVar = input_senha_rep.value;
         var senhaConfirmaVar = input_confirma_senha.value
-        if (nomeVar == "" || emailVar == "" || cpfVar == "" || senhaVar == "" || senhaConfirmaVar == "" ) {
+        if (nomeVar == "" || emailVar == "" || cpfVar == "" || senhaVar == "" || senhaConfirmaVar == "") {
             dropdown_erro.style.display = 'block'
             // alert(`Mensagem de erro para todos os campos em branco`)
             dropdown_erro.innerHTML = `<span style="color: red;">Têm campos está em branco</span>`;
             return false;
         }
-        else if (cpfVar < 11 || cpfVar > 11){
+        else if (cpfVar < 11 || cpfVar > 11) {
             dropdown_erro.style.display = 'block'
             // alert(`Senha Incorreta`)
             dropdown_erro.innerHTML = `<span style="color: red;">Verifique seu cpf</span>`;
@@ -489,17 +492,18 @@
             return false;
         }
         else if (senhaVar.length < 6 || senhaVar.indexOf('@') == -1 && senhaVar.indexOf('#') == -1 && senhaVar.indexOf('!') == -1 && senhaVar.indexOf('$') == -1 && senhaVar.indexOf('%') == -1 && senhaVar.indexOf('&') == -1 && senhaVar.indexOf('*') == -1) {
-       
+
             dropdown_erro.style.display = 'block'
-            
+
             dropdown_erro.innerHTML = `<span style="color: red;">Senha Fraca</span>`;
-            return false;}
+            return false;
+        }
         else {
             setInterval(50000)
         }
-       
-       
-   
+
+
+
 
         // Enviando o valor da nova input
         fetch("/usuarios/cadastrando", {

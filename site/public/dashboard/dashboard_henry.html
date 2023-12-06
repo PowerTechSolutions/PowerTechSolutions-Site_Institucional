@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/dropdown.css">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="../js/direcoes.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
@@ -31,8 +32,8 @@
         <div class="header-left dash-header">
             <div class="sepration">
                 <img class="perfil" src="dash_pt/power_tech_solutions_logo_semfundo.png" alt="">
-                <button class="geral" onclick="geral()" id="fist_top"><img src="dash_pt/bar-line-chart.png" alt="" id="first"><img
-                        src="dash_pt/Group 1171274974.png" alt="" id="second">
+                <button class="geral" onclick="geral()" id="fist_top"><img src="dash_pt/bar-line-chart.png" alt=""
+                        id="first"><img src="dash_pt/Group 1171274974.png" alt="" id="second">
                     <p>Geral</p>
                 </button>
 
@@ -49,8 +50,9 @@
                         src="dash_pt/pessoa.png" alt="">
                     <p>Adicionar permissões</p>
                 </button>
-                <button class="user" onclick="user()" id="frts"><img src="../assets/imgs_power/adicionar-usuario (1).png" id="fst"
-                        alt=""> <img id="send" src="../assets/imgs_power/adicionar-usuario.png" alt="">
+                <button class="user" onclick="user()" id="frts"><img
+                        src="../assets/imgs_power/adicionar-usuario (1).png" id="fst" alt=""> <img id="send"
+                        src="../assets/imgs_power/adicionar-usuario.png" alt="">
                     <p>Adicionar usuário</p>
                 </button>
             </div>
@@ -91,7 +93,7 @@
                 <div class="flexExterno">
                     <div class="flexInterno">
 
-                        
+
 
                         <div class="quadradoTres">
                             <h1 class="titulo">MF's <br> Ativas:</h1>
@@ -171,29 +173,29 @@
     function atualizarFeed_MF_ativas() {
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
-    
+
         fetch(`/maquinas/contar_MF_ativas/${IDEmpresaVar}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         }).then(function (resposta) {
-    
+
             console.log("resposta: ", resposta);
-    
+
             if (resposta.ok) {
 
                 if (resposta.status == 204) {
-                        var feed = document.getElementById("contagem");
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Nenhum resultado encontrado."
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
-    
-                    resposta.json().then(function (resposta) {
+                    var feed = document.getElementById("contagem");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-    
+
                     var feed = document.getElementById("contagem");
                     feed.innerHTML = resposta[0].Contagem;
 
@@ -204,7 +206,7 @@
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
-    
+
         return false;
     }
 
