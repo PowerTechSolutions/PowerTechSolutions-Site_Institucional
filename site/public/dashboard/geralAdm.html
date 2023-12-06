@@ -49,9 +49,9 @@
                     <p>Adicionar usuário</p>
                 </button>
                 <button onclick="sarah()" id="frts"><img src="../dashboard/dash_pt/fluxo-de-trabalho (1).png" id="fst"
-                    alt=""> <img id="send" src="../dashboard/dash_pt/fluxo-de-trabalho.png" alt="">
-                <p>Painel Processos</p>
-            </button>
+                        alt=""> <img id="send" src="../dashboard/dash_pt/fluxo-de-trabalho.png" alt="">
+                    <p>Painel Processos</p>
+                </button>
             </div>
             <div class="sepration2">
                 <button class="helpbutton"><img src="dash_pt/help-circle.png" alt="">
@@ -72,10 +72,10 @@
                         <ul class="list">
                             <li>
                                 <label for="item1">
-                                    <a href="desempenho_proc.html" id="trader">Processos</a>
-                                    <span></span>
-                                    <a href="../../index.html">Sair</a>
                                     <a href="dashboard_henry.html">Monitoramento Janelas</a>
+                                    <a href="desempenho_proc.html" id="trader">Processos</a>
+                                    <a href="../../index.html">Sair</a>
+                                    
                                 </label>
                             </li>
                         </ul>
@@ -90,7 +90,7 @@
             <div class="espacoEsquerdo">
                 <div class="flexExterno">
                     <div class="flexInterno">
-                        
+
                         <!-- <div class="quadradoUm">
                             <div>
                                 <h1>Máquinas Físicas</h1>
@@ -193,7 +193,7 @@
                                 <h3>Status</h3>
                             </div>
                             <div class="arrangement" id="maquinas_VIRTUAIS">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -210,27 +210,28 @@
                     <h2>Alertas em máquinas virtuais</h2>
                     <canvas id="vm_myChart" style="height: 80%; width: 100%;"></canvas>
                 </div>
-                
+
             </div>
             <div class="boxes">
-                <button id="message" onclick="literate()"><img src="../assets/imgs_power/message_icon.ico" alt=""></button>
-                    <div class="dropdown_lit" id="lit_dropdown">
-                        <div id="main">
-                            <h2>Chat de Ajuda</h2>
-                            <div id="msg">
-                                <div id="robot">
-                                    <div class="bot"></div>
-                                    <h3>Agente</h3>
-                                </div>
-                            </div>
-                            <div class="input">
-                                <input type="text" id="msg_send" placeholder="Nova mensagem">
-                                <button class="send" id="reply">Mandar <i class="fas fa-paper-plane"></i></button>
+                <button id="message" onclick="literate()"><img src="../assets/imgs_power/message_icon.ico"
+                        alt=""></button>
+                <div class="dropdown_lit" id="lit_dropdown">
+                    <div id="main">
+                        <h2>Chat de Ajuda</h2>
+                        <div id="msg">
+                            <div id="robot">
+                                <div class="bot"></div>
+                                <h3>Agente</h3>
                             </div>
                         </div>
-                        <script src="chatbot.js"></script>
-                        <button id="close3"  onclick="clickclose3()"><b>x</b></button>
+                        <div class="input">
+                            <input type="text" id="msg_send" placeholder="Nova mensagem">
+                            <button class="send" id="reply">Mandar <i class="fas fa-paper-plane"></i></button>
+                        </div>
                     </div>
+                    <script src="chatbot.js"></script>
+                    <button id="close3" onclick="clickclose3()"><b>x</b></button>
+                </div>
                 </p>
             </div>
         </div>
@@ -243,17 +244,17 @@
 
     window.onload = atualizarMaquinas();
 
-    function maquinaFisicaDetalhe(idmaquina){
+    function maquinaFisicaDetalhe(idmaquina) {
         sessionStorage.ID_MAQUINA = idmaquina
         window.location.href = "maquina_fisica.html"
     }
 
-    function maquinavirtualDetalhe(idmaquina){
+    function maquinavirtualDetalhe(idmaquina) {
         sessionStorage.ID_MAQUINA = idmaquina
         window.location.href = "admin.html"
     }
 
-    function atualizarMaquinas(){
+    function atualizarMaquinas() {
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
 
@@ -271,29 +272,29 @@
     function atualizarFeed_MF_ativas() {
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
-    
+
         fetch(`/maquinas/contar_MF_ativas/${IDEmpresaVar}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         }).then(function (resposta) {
-    
+
             console.log("resposta: ", resposta);
-    
+
             if (resposta.ok) {
 
                 if (resposta.status == 204) {
-                        var feed = document.getElementById("maquina_fisica_ativa");
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Nenhum resultado encontrado."
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
-    
-                    resposta.json().then(function (resposta) {
+                    var feed = document.getElementById("maquina_fisica_ativa");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-    
+
                     var feed = document.getElementById("maquina_fisica_ativa");
                     feed.innerHTML = resposta[0].Contagem;
 
@@ -304,34 +305,34 @@
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
-    
+
         return false;
     }
 
     function atualizarFeed_MF_inativas() {
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
-    
+
         fetch(`/maquinas/contar_MF_inativas/${IDEmpresaVar}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         }).then(function (resposta) {
-    
+
             console.log("resposta: ", resposta);
-    
+
             if (resposta.ok) {
 
                 if (resposta.status == 204) {
-                        var feed = document.getElementById("maquina_fisica_inativa");
-                        feed.innerHTML = "Nenhum resultado encontrado!!"
-                        throw "Nenhum resultado encontrado!!";
-                    }
-    
-                    resposta.json().then(function (resposta) {
+                    var feed = document.getElementById("maquina_fisica_inativa");
+                    feed.innerHTML = "Nenhum resultado encontrado!!"
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-    
+
                     var feed = document.getElementById("maquina_fisica_inativa");
                     feed.innerHTML = resposta[0].Contagem;
 
@@ -342,36 +343,36 @@
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
-    
+
         return false;
     }
 
     function atualizarFeed_MV_ativas() {
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
-    
+
         fetch(`/maquinas/contar_MV_ativas/${IDEmpresaVar}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         }).then(function (resposta) {
-    
+
             console.log("resposta: ", resposta);
-    
+
             if (resposta.ok) {
 
                 if (resposta.status == 204) {
-                        var feed = document.getElementById("maquina_virtual_ativa");
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Nenhum resultado encontrado."
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
-    
-                    resposta.json().then(function (resposta) {
+                    var feed = document.getElementById("maquina_virtual_ativa");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-    
+
                     var feed = document.getElementById("maquina_virtual_ativa");
                     feed.innerHTML = resposta[0].Contagem;
 
@@ -382,36 +383,36 @@
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
-    
+
         return false;
     }
 
     function atualizarFeed_MV_inativas() {
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
-    
+
         fetch(`/maquinas/contar_MV_inativas/${IDEmpresaVar}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         }).then(function (resposta) {
-    
+
             console.log("resposta: ", resposta);
-    
+
             if (resposta.ok) {
 
                 if (resposta.status == 204) {
-                        var feed = document.getElementById("maquina_virtual_inativa");
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Nenhum resultado encontrado."
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
-    
-                    resposta.json().then(function (resposta) {
+                    var feed = document.getElementById("maquina_virtual_inativa");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-    
+
                     var feed = document.getElementById("maquina_virtual_inativa");
                     feed.innerHTML = resposta[0].Contagem;
 
@@ -422,44 +423,44 @@
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
-    
+
         return false;
     }
 
-    function atualizarFeed_MF(){
+    function atualizarFeed_MF() {
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
-    
+
         fetch(`/maquinas/pegar_MF/${IDEmpresaVar}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         }).then(function (resposta) {
-    
+
             console.log("resposta: ", resposta);
-    
+
             if (resposta.ok) {
                 if (resposta.status == 204) {
-                        var feed = document.getElementById("maquinas_FISICAS");
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Nenhum resultado encontrado."
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
-    
-                    resposta.json().then(function (resposta) {
+                    var feed = document.getElementById("maquinas_FISICAS");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-    
+
                     var feed = document.getElementById("maquinas_FISICAS");
                     feed.innerHTML = "";
-                    for(var i = 0; i<resposta.length;i++){
+                    for (var i = 0; i < resposta.length; i++) {
                         var maquina = resposta[i];
 
                         var card = document.createElement("div");
                         card.className = "infoemp";
-                        card.setAttribute("onclick",`maquinaFisicaDetalhe(${maquina.IDMaquina})`);
-                        
+                        card.setAttribute("onclick", `maquinaFisicaDetalhe(${maquina.IDMaquina})`);
+
                         var id = document.createElement("p");
                         id.innerHTML = maquina.IDMaquina;
                         card.appendChild(id);
@@ -478,52 +479,53 @@
 
                         feed.appendChild(card);
 
-                    }});
+                    }
+                });
             } else {
                 throw ("Houve um erro ao tentar realizar A pesquisa!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
-    
+
         return false;
     }
 
-    function atualizarFeed_MV(){
+    function atualizarFeed_MV() {
 
         var IDEmpresaVar = sessionStorage.FKUnidade;
-    
+
         fetch(`/maquinas/pegar_MV/${IDEmpresaVar}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         }).then(function (resposta) {
-    
+
             console.log("resposta: ", resposta);
-    
+
             if (resposta.ok) {
 
                 if (resposta.status == 204) {
-                        var feed = document.getElementById("maquinas_VIRTUAIS");
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Nenhum resultado encontrado."
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
-    
-                    resposta.json().then(function (resposta) {
+                    var feed = document.getElementById("maquinas_VIRTUAIS");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
-    
+
                     var feed = document.getElementById("maquinas_VIRTUAIS");
                     feed.innerHTML = "";
-                    for(var i = 0; i<resposta.length;i++){
+                    for (var i = 0; i < resposta.length; i++) {
                         var maquina = resposta[i];
 
                         var card = document.createElement("div");
                         card.className = "infoemp";
-                        card.setAttribute("onclick",`maquinavirtualDetalhe(${maquina.IDMaquina})`)
-                        
+                        card.setAttribute("onclick", `maquinavirtualDetalhe(${maquina.IDMaquina})`)
+
                         var id = document.createElement("p");
                         id.innerHTML = maquina.IDMaquina;
                         card.appendChild(id);
@@ -542,157 +544,159 @@
 
                         feed.appendChild(card);
 
-                    }});
+                    }
+                });
             } else {
                 throw ("Houve um erro ao tentar realizar A pesquisa!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
-    
+
         return false;
     }
 
-function obterDadosGrafico_mf(FKUnidade) {
+    function obterDadosGrafico_mf(FKUnidade) {
 
-fetch(`/alertas/geral_mf/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
-if (response.ok) {
-    response.json().then(function (resposta) {
-        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        fetch(`/alertas/geral_mf/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-        plotarGrafico_mf(resposta,FKUnidade);
+                    plotarGrafico_mf(resposta, FKUnidade);
 
-    });
-} else {
-    console.error('Nenhum dado encontrado ou erro na API');
-}
-})
-.catch(function (error) {
-    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-});
-}
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 
-function plotarGrafico_mf(resposta,FKUnidade) {
+    function plotarGrafico_mf(resposta, FKUnidade) {
 
-console.log('iniciando plotagem do gráfico...');
+        console.log('iniciando plotagem do gráfico...');
 
-// Criando estrutura para plotar gráfico - labels
-let labels = ["Atenção","Perigo","Critico"];
+        // Criando estrutura para plotar gráfico - labels
+        let labels = ["Atenção", "Perigo", "Critico"];
 
-// Criando estrutura para plotar gráfico - dados
-let dados = {
-labels: labels,
-datasets: [{
-    label: 'Alertas',
-    data: [],
-    fill: false,
-    borderColor: '#009EA3',
-    backgroundColor: '#009EA3',
-    tension: 0.1
-}]
-};
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Alertas',
+                data: [],
+                fill: false,
+                borderColor: '#009EA3',
+                backgroundColor: '#009EA3',
+                tension: 0.1
+            }]
+        };
 
-console.log('----------------------------------------------')
-console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-console.log(resposta)
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
 
-// Inserindo valores recebidos em estrutura para plotar o gráfico
-for (i = 0; i < resposta.length; i++) {
-var registro = resposta[i];
-dados.datasets[0].data.push(registro.Alertas);
-}
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            dados.datasets[0].data.push(registro.Alertas);
+        }
 
-console.log('----------------------------------------------')
-console.log('O gráfico será plotado com os respectivos valores:')
-console.log('Labels:')
-console.log(labels)
-console.log('Dados:')
-console.log(dados.datasets)
-console.log('----------------------------------------------')
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
 
-// Criando estrutura para plotar gráfico - config
-const config = {
-type: 'bar',
-data: dados
-};
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados
+        };
 
-// Adicionando gráfico criado em div na tela
-let myChart = new Chart(
-document.getElementById("mf_myChart"),
-config
-);
-}
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById("mf_myChart"),
+            config
+        );
+    }
 
-function obterDadosGrafico_vm(FKUnidade) {
+    function obterDadosGrafico_vm(FKUnidade) {
 
-fetch(`/alertas/geral_vm/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
-if (response.ok) {
-    response.json().then(function (resposta) {
-        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        fetch(`/alertas/geral_vm/${FKUnidade}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-        plotarGrafico_vm(resposta,FKUnidade);
+                    plotarGrafico_vm(resposta, FKUnidade);
 
-    });
-} else {
-    console.error('Nenhum dado encontrado ou erro na API');
-}
-})
-.catch(function (error) {
-    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-});
-}
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
 
-function plotarGrafico_vm(resposta,FKUnidade) {
+    function plotarGrafico_vm(resposta, FKUnidade) {
 
-console.log('iniciando plotagem do gráfico...');
+        console.log('iniciando plotagem do gráfico...');
 
-// Criando estrutura para plotar gráfico - labels
-let labels = ["Atenção","Perigo","Critico"];
+        // Criando estrutura para plotar gráfico - labels
+        let labels = ["Atenção", "Perigo", "Critico"];
 
-// Criando estrutura para plotar gráfico - dados
-let dados = {
-labels: labels,
-datasets: [{
-    label: 'Alertas',
-    data: [],
-    fill: false,
-    borderColor: '#009EA3',
-    backgroundColor: '#009EA3',
-    tension: 0.1
-}]
-};
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Alertas',
+                data: [],
+                fill: false,
+                borderColor: '#009EA3',
+                backgroundColor: '#009EA3',
+                tension: 0.1
+            }]
+        };
 
-console.log('----------------------------------------------')
-console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-console.log(resposta)
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
 
-// Inserindo valores recebidos em estrutura para plotar o gráfico
-for (i = 0; i < resposta.length; i++) {
-var registro = resposta[i];
-dados.datasets[0].data.push(registro.Alertas);
-}
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            dados.datasets[0].data.push(registro.Alertas);
+        }
 
-console.log('----------------------------------------------')
-console.log('O gráfico será plotado com os respectivos valores:')
-console.log('Labels:')
-console.log(labels)
-console.log('Dados:')
-console.log(dados.datasets)
-console.log('----------------------------------------------')
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
 
-// Criando estrutura para plotar gráfico - config
-const config = {
-type: 'bar',
-data: dados
-};
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados
+        };
 
-// Adicionando gráfico criado em div na tela
-let myChart = new Chart(
-document.getElementById("vm_myChart"),
-config
-);
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById("vm_myChart"),
+            config
+        );
 
-}
+    }
 
 </script>
+
 </html>
