@@ -12,4 +12,8 @@ router.get("/kpiAlerta", function (req, res) {
     desempenhoController.kpiAlerta(req, res);
 })
 
+router.get("/listagem", function (req, res) {
+    desempenhoController.listagem(req, res);
+})
+
 module.exports = router;
