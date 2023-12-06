@@ -33,17 +33,17 @@
         <div class="lado-A" id="LA">
             <div class="kpis">
                 <div class="kpi">
-                    <span class="titulo-kpi">Funcionários com produtividade crítica</span>
-                    <span id="valor">5%</span>
+                    <span class="titulo-kpi">Máquinas em estado crítico</span>
+                    <span id="valor">5</span>
                 </div>
                 <div class="kpi">
-                    <span class="titulo-kpi">Funcionários em estado de atenção</span>
-                    <span id="valor2">20%</span>
+                    <span class="titulo-kpi">Máquinas em atenção</span>
+                    <span id="valor2">20</span>
                 </div>
             </div>
 
             <div class="graph1">
-                <span class="titulo" id="title">Desempenho dos funcionários do Setor </span>
+                <span class="titulo" id="title">Influência de processos no uso de RAM</span>
                 <div class="tamanho-graph1">
                     <canvas id="mychart1"></canvas>
                 </div>
@@ -66,73 +66,23 @@
                     <button class="amarelo" onclick="criarPdf()">Gerar pdf</button>
                 </div>
             </div> -->
-            <div class="resumo">
+            <!-- <div class="resumo">
                 <p>Com base nesse gráfico, foi percebido que dos
                     funcionários do seu setor <span id="percentual">45%</span>
                     estão com a produtividade dentro do esperado.</p>
-            </div>
+            </div> -->
 
             <div class="lista">
                 <span class="titulo-lista">
-                    Funcionários que tiveram melhor desempenho neste mês <span
+                    Funcionários com maior tempo de produtividade<span
                         style="font-size: 18px;margin-left: 1%;">(de acordo com uso máquina)</span>
                 </span>
                 <div class="colunas">
-                    <span>Colocação</span>
                     <span>IDMaquina</span>
-                    <span>Percentual</span>
+                    <span>Apelido</span>
+                    <span>Uso Ram</span>
                 </div>
                 <div class="registros">
-                    <div id="tuplas">
-                        <div>teste</div>
-                        <div>teste</div>
-                        <div>teste</div>
-                    </div>
-                    <div id="tuplas">
-                        <div>teste</div>
-                        <div>teste</div>
-                        <div>teste</div>
-                    </div>
-                    <div id="tuplas">
-                        <div>teste</div>
-                        <div>teste</div>
-                        <div>teste</div>
-                    </div>
-                    <div id="tuplas">
-                        <div>teste</div>
-                        <div>teste</div>
-                        <div>teste</div>
-                    </div>
-                    <div id="tuplas">
-                        <div>teste</div>
-                        <div>teste</div>
-                        <div>teste</div>
-                    </div>
-                    <div id="tuplas">
-                        <div>teste</div>
-                        <div>teste</div>
-                        <div>teste</div>
-                    </div>
-                    <div id="tuplas">
-                        <div>teste</div>
-                        <div>teste</div>
-                        <div>teste</div>
-                    </div>
-                    <div id="tuplas">
-                        <div>teste</div>
-                        <div>teste</div>
-                        <div>teste</div>
-                    </div>
-                    <div id="tuplas">
-                        <div>teste</div>
-                        <div>teste</div>
-                        <div>teste</div>
-                    </div>
-                    <div id="tuplas">
-                        <div>teste</div>
-                        <div>teste</div>
-                        <div>teste</div>
-                    </div>
                     <div id="tuplas">
                         <div>teste</div>
                         <div>teste</div>
@@ -152,33 +102,6 @@
 <script>
 
     var id_user = sessionStorage.getItem('ID_Usuario');
-
-
-    // fetch("/desempenho/getFKMAQUINA", {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //         idUserServer: id_user
-    //     })
-
-    // }).then(function (resposta) {
-    //     console.log("resposta: ", resposta);
-    //     if (resposta.ok) {
-    //         resposta.json().then(function (json) {
-    //             console.log(json)
-    //         });
-    //     } else {
-    //         throw ("Houve um erro ao procurar credenciais");
-    //     }
-    // }).catch(function (resposta) {
-    //     console.log(`#ERRO: ${resposta}`);
-    // });
-
-    // return false;
-    //}
-
 
     function voltar() {
         window.location = "./dash_pt/cards.html"
@@ -216,7 +139,7 @@
         let dados = {
             labels: labels,
             datasets: [{
-                label: 'Produtividade do setor inteiro',
+                label: 'Processos capturados',
                 data: [],
                 fill: false,
                 borderColor: 'blue',
@@ -232,7 +155,7 @@
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             labels.push(registro.Nome_Processo);
-            dados.datasets[0].data.push(registro.tempo_em_minutos);
+            dados.datasets[0].data.push(registro.uso_ram);
         }
 
         console.log('----------------------------------------------')
@@ -324,7 +247,7 @@
     }
 
     function getTotal(){
-        
+       
         fetch(`/desempenho/totalDesempenhoSetor`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerTech - Solutions | Dashboards</title>
+
+    <link rel="stylesheet" href="../css/dashboard_henry.css">
+    <script src="../js/sessao.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- scripts do Chart.js - 2022-1 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!--FONT AWESOME-->
+    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+</head>
+
+<!-- <body onload=" atualizarFeed()"> -->
+
+<body>
+    <div class="janela">
+        <div class="header-left dash-header">
+            <div class="sepration">
+                <img class="perfil" src="dash_pt/power_tech_solutions_logo_semfundo.png" alt="">
+                <button onclick="geral()" id="fist_top"><img src="dash_pt/bar-line-chart.png" alt="" id="first"><img
+                        src="dash_pt/Group 1171274974.png" alt="" id="second">
+                    <p>Geral</p>
+                </button>
+                <button onclick="permi()"><img src="dash_pt/perm.png.png" id="fst" alt=""> <img id="send"
+                        src="dash_pt/pessoa.png" alt="">
+                    <p>Adicionar permissões</p>
+                </button>
+                <button onclick="user()" id="frts"><a href="cadastro (5).html"><img
+                            src="../assets/imgs_power/adicionar-usuario (1).png" id="fst" alt=""> <img id="send"
+                            src="../assets/imgs_power/adicionar-usuario.png" alt=""></a>
+                    <p>Adicionar usuário</p>
+                </button>
+            </div>
+            <div class="sepration2">
+                <button class="helpbutton"><img src="dash_pt/help-circle.png" alt="">
+                    <p>Central de ajuda</p>
+                </button>
+                <div class="crd2_sept">
+                    <img src="../assets/imgs_power/do-utilizador.png" alt="">
+                    <p id="nome_usuario"></p>
+                    <details class="custom-select">
+                        <ul class="list">
+                            <li>
+                                <label for="item1">
+                                    <a href="../../index.html">Sair</a>
+                                    <span></span>
+                                </label>
+                            </li>
+                        </ul>
+                        <summary class="radios">
+                        </summary>
+                    </details>
+                </div>
+            </div>
+        </div>
+
+        <div class="dash">
+            <div class="espacoEsquerdo">
+                <div class="flexExterno">
+                    <div class="flexInterno">
+
+                        
+
+                        <div class="quadradoTres">
+                            <h1 class="titulo">MF's <br> Ativas:</h1>
+                            <span id="contagem"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="quadradoTres">
+                    <div id="card_employee">
+                        <h2>Máquina Física Status</h2>
+                        <div class="title">
+                            <h3>ID</h3>
+                            <h3>Quantida de janelas</h3>
+                            <h3>Última captura</h3>
+                        </div>
+                        <div class="arrangement">
+                            <div class="infoemp">
+                                <p>001</p>
+                                <p>9</p>
+                                <p>20/11/2023</p>
+                            </div>
+                            <div class="infoemp">
+                                <p>001</p>
+                                <p>9</p>
+                                <p>20/11/2023</p>
+                            </div>
+                            <div class="infoemp">
+                                <p>001</p>
+                                <p>9</p>
+                                <p>20/11/2023</p>
+                            </div>
+                            <div class="infoemp">
+                                <p>001</p>
+                                <p>9</p>
+                                <p>20/11/2023</p>
+                            </div>
+                            <div class="infoemp">
+                                <p>001</p>
+                                <p>9</p>
+                                <p>20/11/2023</p>
+                            </div>
+                            <div class="infoemp">
+                                <p>001</p>
+                                <p>9</p>
+                                <p>20/11/2023</p>
+                            </div>
+                            <div class="infoemp">
+                                <p>001</p>
+                                <p>9</p>
+                                <p>20/11/2023</p>
+                            </div>
+                            <div class="infoemp">
+                                <p>001</p>
+                                <p>9</p>
+                                <p>20/11/2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="separar2">
+                <div class="grafico">
+                    <h2>Ram por janela</h2>
+                    <canvas style="height: 80%; width: 100%;" id="mf_myChart"></canvas>
+                </div>
+            </div>
+</body>
+
+</html>
+
+<script>
+
+    window.onload = atualizarFeed_MF_ativas()
+
+
+    function atualizarFeed_MF_ativas() {
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+    
+        fetch(`/maquinas/contar_MF_ativas/${IDEmpresaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+    
+            console.log("resposta: ", resposta);
+    
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                        var feed = document.getElementById("contagem");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+    
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+    
+                    var feed = document.getElementById("contagem");
+                    feed.innerHTML = resposta[0].Contagem;
+
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+    
+        return false;
+    }
+
+</script>
