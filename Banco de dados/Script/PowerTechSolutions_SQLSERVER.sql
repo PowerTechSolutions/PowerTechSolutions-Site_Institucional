@@ -1,5 +1,4 @@
 
-
 USE master;
 
 DROP DATABASE PowerTechSolutions;
@@ -224,6 +223,7 @@ CREATE TABLE Alertas(
 CREATE TABLE Henry(
 	idRegistro INT PRIMARY KEY IDENTITY(1,1),
 	Janela VARCHAR(255),
+	Data_Hora DATETIME DEFAULT CURRENT_TIMESTAMP,
 	Uso_Ram FLOAT,
 	FKMaquina INT,
 	CONSTRAINT FKHenry_Maquina FOREIGN KEY (FKMaquina) REFERENCES Maquinas(IDMaquina)
@@ -436,7 +436,98 @@ SELECT * FROM Monitoramento_RAW;
 
 SELECT * FROM Henry;
 
+SELECT * FROM Janelas_Abertas;
+
+TRUNCATE TABLE Henry;
+
 SELECT * FROM Usuario_Dashboard;
+
+SELECT * FROM Alertas;
+
+SELECT * FROM Nivel_alerta;
+
+INSERT INTO Nivel_alerta (Nivel) VALUES
+('Atenção'),
+('Perigo'),
+('Critico');
+
+SELECT
+            COUNT(IDAlerta) as Alertas
+            FROM Alertas
+            JOIN Nivel_alerta 
+                ON IDNivel_alerta = FKNivel_alerta
+            WHERE FORMAT(Data_Hora, '%M') = '12' 
+            GROUP BY IDNivel_alerta;
+
+SELECT * FROM Alertas;
+
+SELECT 
+    IDMaquina,
+    Usuario_Dashboard.Nome as 'Nome',
+    Maquinas.Apelido as 'apelido',
+    Estado
+    FROM Maquinas JOIN Tipo_maquina
+        ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+    JOIN Estado_maquina
+        ON IDEstado = FKEstado
+    JOIN Usuario_Dashboard
+        ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+    WHERE Tipo_maquina.Apelido = 'FISICA'
+        AND Usuario_Dashboard.FKUnidade = 1;
+
+
+		SELECT 
+    IDMaquina,
+    Usuario_Dashboard.Nome as 'Nome',
+    Maquinas.Apelido as 'apelido',
+    Estado
+    FROM Maquinas JOIN Tipo_maquina
+        ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+    JOIN Estado_maquina
+        ON IDEstado = FKEstado
+    JOIN Usuario_Dashboard
+        ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+    WHERE Tipo_maquina.Apelido = 'VIRTUAL'
+        AND Usuario_Dashboard.FKUnidade = 1;
+
+
+	SELECT 
+            Count(IDMaquina) as Contagem 
+        FROM Maquinas JOIN Tipo_maquina
+            ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        JOIN Estado_maquina
+            ON IDEstado = FKEstado
+        JOIN Usuario_Dashboard
+            ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+        WHERE Tipo_maquina.Apelido = 'FISICA'
+            AND Usuario_Dashboard.FKUnidade = 1
+            AND Estado_maquina.Estado = 'Ativa';
+
+	SELECT 
+	        COUNT(IDAlerta) as Alertas
+                FROM Alertas JOIN Monitoramento_RAW 
+                ON Alertas.FKMonitoramento = Monitoramento_RAW.IDMonitoramento
+                JOIN Componentes_monitorados 
+	    	        ON FKComponente_Monitorado = IDComponente_monitorado 
+	    		    JOIN Componentes_cadastrados 
+	    			    ON Componentes_monitorados.FKComponente_cadastrado = IDComponente_cadastrado
+	    				    JOIN Maquinas 
+	    					    ON FKMaquina = IDMaquina
+                                JOIN Tipo_maquina 
+                                    ON IDTipo = FKTipo_maquina
+                                    JOIN Nivel_alerta
+                                        ON IDNivel_alerta = FKNivel_alerta
+	    		WHERE Tipo_maquina.Apelido = 'VIRTUAL' AND Alertas.FKUnidade_negocio = 1 GROUP BY IDNivel_alerta;
+    
+    
+	SELECT TOP 3 Nome_Dispositivo as DP,FORMAT(Data_Hora_Conexao,'%H:%m') as hora FROM Dispositivos_USB WHERE FKMaquina = 1 order by IDRegistro DESC;
+
+INSERT INTO Alertas (FKMonitoramento,FKNivel_alerta,FKUnidade_negocio) VALUES
+(1,1,1),
+(1,1,1),
+(1,1,1),
+(1,2,1),
+(1,3,1);
 
 UPDATE Usuario_Dashboard SET FKPermissoes = 2 WHERE IDUsuario = 2;
 

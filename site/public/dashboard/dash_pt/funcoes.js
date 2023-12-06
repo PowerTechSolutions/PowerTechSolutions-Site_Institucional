@@ -13,8 +13,6 @@ function viewpoint(){
 
 function exibirgraph(valor){
 
-
-
     var graficos = document.getElementById("graficos");
     graficos.innerHTML = "";  
     

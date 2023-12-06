@@ -275,7 +275,7 @@ function ultimas_CPU(FKMAQUINA) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
         SELECT TOP 10
-        FORMAT(Data_Hora_Captura,'%H:%m:%s') as 'momento_grafico',
+        FORMAT(Data_Hora_Captura,'%H:%m') as 'momento_grafico',
         Uso AS 'Uso_CPU'
         FROM 
             Monitoramento_RAW JOIN Componentes_monitorados 
@@ -321,7 +321,7 @@ function tempo_real_CPU(FKMAQUINA) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
         SELECT TOP 1
-        FORMAT(Data_Hora_Captura,'%H:%m:%s') as 'momento_grafico',
+        FORMAT(Data_Hora_Captura,'%H:%m') as 'momento_grafico',
         Uso AS 'Uso_CPU'
         FROM 
             Monitoramento_RAW JOIN Componentes_monitorados 

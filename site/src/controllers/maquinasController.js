@@ -18,6 +18,24 @@ function pegar_MF(req,res){
 
 }
 
+function pegar_USB(req,res){
+
+    var IDMaquina = req.params.IDMaquina;
+
+    maquinaModel.pegar_USB(IDMaquina).then(function (resultado){
+        if(resultado.length>0){
+            res.status(200).json(resultado);
+        }else{
+            res.status(204).send("Nenhum resultado encontrado!!");
+        }
+    }).catch(function (erro){
+        console.log(erro);
+        console.log("Houve um erro ao buscar maquinas fisicas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+
+}
+
 function pegar_MV(req,res){
 
     var FKUnidade = req.params.FKUnidade;
@@ -110,5 +128,6 @@ module.exports = {
     contar_MF_ativas,
     contar_MF_inativas,
     contar_MV_ativas,
-    contar_MV_inativas
+    contar_MV_inativas,
+    pegar_USB
 }

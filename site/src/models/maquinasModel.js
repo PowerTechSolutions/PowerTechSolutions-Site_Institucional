@@ -20,6 +20,13 @@ function pegar_MF(FKUnidade){
     return database.executar(instrucao);
 }
 
+function pegar_USB(IDMaquina){
+    var instrucao = `
+	SELECT TOP 1 Nome_Dispositivo as DP,FORMAT(Data_Hora_Conexao,'%H:%m') as hora FROM Dispositivos_USB WHERE FKMaquina = 1 order by IDRegistro DESC;`
+
+    return database.executar(instrucao);
+}
+
 function pegar_MV(FKUnidade){
     var instrucao = `
     SELECT 
@@ -122,5 +129,6 @@ module.exports = {
     contar_MF_ativas,
     contar_MF_inativas,
     contar_MV_ativas,
-    contar_MV_inativas
+    contar_MV_inativas,
+    pegar_USB
 }

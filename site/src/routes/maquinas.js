@@ -7,6 +7,10 @@ router.get("/pegar_MF/:FKUnidade", function (req,res){
     maquinasController.pegar_MF(req,res)
 });
 
+router.get("/pegar_USB/:IDMaquina", function (req,res){
+    maquinasController.pegar_USB(req,res)
+});
+
 router.get("/pegar_MV/:FKUnidade", function (req,res){
     maquinasController.pegar_MV(req,res)
 });
