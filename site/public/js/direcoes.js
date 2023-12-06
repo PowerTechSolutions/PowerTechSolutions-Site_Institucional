@@ -23,3 +23,7 @@ function boot(FKMaquina){
     sessionStorage.setItem("FKMaquina", FKMaquina);
     window.location.href = "bootime.html";
 }
+
+function sarah(){
+    window.location.href = "dashboard_sarah.html";
+}
