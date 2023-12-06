@@ -164,6 +164,46 @@ LIMIT 1;
     return database.executar(instrucaoSql);
 }
 
+function pegar_janelas(FKUnidade) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+        SELECT top 1 Maquinas.IDMaquina as id,(SELECT COUNT(idRegistro) FROM Henry WHERE FKMaquina = 4) AS QTD, FORMAT(Data_Hora,'%d/%M/%y') as DataHora FROM Henry JOIN Maquinas ON Henry.FKMaquina = Maquinas.IDMaquina JOIN Usuario_Dashboard ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario where FKMaquina = 4 AND FKUnidade = ${FKUnidade};
+    `;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT 
+    Componentes_monitorados.IDComponente_monitorado AS IDMonitoramento,
+    Data_Hora_Captura,
+    ROUND((Total / POWER(1024, 3)), 2) AS Total_Uso,
+	ROUND((Free / POWER(1024, 3)), 2) AS Livre_Uso, 
+	ROUND((Uso / POWER(1024, 3)), 2) AS Uso_Disco,
+    Porcentagem AS Porcentagem_Uso,
+    Componentes_cadastrados.Apelido 
+FROM 
+    Monitoramento_RAW 
+JOIN Componentes_monitorados ON FKComponente_Monitorado = IDComponente_monitorado 
+JOIN Componentes_cadastrados ON FKComponente_cadastrado = IDComponente_cadastrado
+JOIN Maquinas ON FKMaquina = IDMaquina
+WHERE 
+    FKMaquina = ${FKMAQUINA}
+    AND Componentes_cadastrados.Apelido = 'DISCO'
+ORDER BY 
+    Monitoramento_RAW.IDMonitoramento DESC
+LIMIT 1;
+        `;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 function buscarTempoExecucao(FKMAQUINA) {
 
@@ -412,6 +452,39 @@ function ultimas_RAM(FKMAQUINA) {
     return database.executar(instrucaoSql);
 }
 
+function henry_RAM() {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `
+        SELECT TOP 10 Uso_Ram,Data_Hora FROM Henry ORDER BY Uso_Ram DESC;`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `
+        SELECT 
+            DATE_FORMAT(Data_Hora_Captura,'%H:%i') as momento_grafico,
+            Uso AS Uso_RAM
+            FROM 
+		        Monitoramento_RAW JOIN Componentes_monitorados 
+		        ON FKComponente_Monitorado = IDComponente_monitorado 
+		        JOIN Componentes_cadastrados 
+		        ON FKComponente_cadastrado = IDComponente_cadastrado
+		        JOIN Maquinas 
+		        ON FKMaquina = IDMaquina
+		        WHERE FKMaquina = ${FKMAQUINA}
+		        AND Componentes_cadastrados.Apelido = "RAM"
+                ORDER BY Monitoramento_RAW.IDMonitoramento DESC 
+                LIMIT 10;`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function tempo_real_RAM(FKMAQUINA) {
 
     instrucaoSql = ''
@@ -623,5 +696,7 @@ module.exports = {
     tempo_real_vmKaori,
     ultimas_TempoExecMonth,
     tempo_real_vmKaori2,
-    estabilidadeCPU
+    estabilidadeCPU,
+    pegar_janelas,
+    henry_RAM
 }
