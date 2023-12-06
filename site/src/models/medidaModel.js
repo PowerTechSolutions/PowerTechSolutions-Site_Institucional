@@ -82,7 +82,7 @@ function buscarDiscos(FKMAQUINA) {
         SELECT 
 	    Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
 	    Data_Hora_Captura,
-        porcentagem AS "Uso_DIsco",
+        Uso AS "Uso_DIsco",
         Componentes_cadastrados.Apelido 
         FROM 
 		    Monitoramento_RAW JOIN Componentes_monitorados 

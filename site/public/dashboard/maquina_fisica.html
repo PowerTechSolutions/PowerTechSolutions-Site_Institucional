@@ -235,8 +235,9 @@ details label {
 
     id_maq.innerHTML = FKMAQUINA;
 
-    window.onload = atualizarFeed_MF()
-    window.onload = buscarUSB(FKMAQUINA)
+    window.onload = atualizarFeed_MF();
+    window.onload = buscarUSB(FKMAQUINA);
+    window.onload = buscarDiscos(FKMAQUINA);
 
     function maquinaFisicaDetalhe(idmaquina){
         sessionStorage.ID_MAQUINA = idmaquina
@@ -260,11 +261,10 @@ details label {
                 if (resposta.status == 204) {
                         var feed = document.getElementById("maquinas_FISICAS");
                         var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        mensagem.innerHTML = "Nenhum resultado encontrado"
                         feed.appendChild(mensagem);
                         throw "Nenhum resultado encontrado!!";
                     }
-    
                     resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
     
@@ -365,7 +365,7 @@ details label {
         if(valor == 1){
             
             obterDadosGrafico_RAM(idMaquina)
-     
+            buscarDiscos(idMaquina)
             var graficoRam = document.createElement("canvas");
             graficoRam.setAttribute("id", "myChart_RAM");
             graficoRam.setAttribute("class", "graph")
@@ -374,7 +374,7 @@ details label {
         }else if(valor == 2){
             
             obterDadosGrafico_CPU(idMaquina)
-            
+            buscarDiscos(idMaquina)
             var graficoCPU = document.createElement("canvas");
             graficoCPU.setAttribute("id", "myChart_CPU");
             graficoCPU.setAttribute("class", "graph");
@@ -660,6 +660,44 @@ details label {
     
     }
 
+    function buscarDiscos(FKMAQUINA){
 
+        fetch(`/medidas/buscarDiscos/${FKMAQUINA}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+    
+            console.log("resposta: ", resposta);
+            var feed = document.getElementById("porcentage");
+            feed.innerHTML = "";
+    
+            if (resposta.ok) {
+    
+                if (resposta.status == 204) {
+                        var feed = document.getElementById("porcentage");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+    
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    var porcentagem = document.getElementById("porcentage");
+                    porcentagem.innerHTML = `${resposta[0].Uso_DIsco}`;
+    
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            //finalizarAguardar();
+        });
+    
+        return false;
+    }
 
 </script>
