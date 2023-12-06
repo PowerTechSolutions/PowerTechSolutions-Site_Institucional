@@ -1,4 +1,29 @@
+
+
+
 var database = require("../database/config");
+
+function quantidadeEstavel() {
+
+  instrucaoSql = `
+  SELECT COUNT(*) as alertaVerde FROM Alerta_Processo WHERE tipo_alerta = 1;
+`
+
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function maquinaNumber() {
+
+  instrucaoSql = `
+  SELECT FKMaquina as qtdMaquina FROM Processos;
+` 
+
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
 
 function Exibir_Processos() {
 
@@ -18,7 +43,7 @@ function Exibir_Processos() {
 function ListarCriticos() {
 
   instrucaoSql = `
-  SELECT nomeProcesso, cpu_processo, uso_ram, tipo_alerta
+  SELECT PID, nomeProcesso, cpu_processo, uso_ram, tipo_alerta
   FROM 
   Alerta_Processo 
   WHERE data_hora >= DATE_SUB(NOW(), INTERVAL 1 MINUTE);
@@ -27,6 +52,7 @@ function ListarCriticos() {
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
+
 
 function plotarGrafico_picos(PID, fkMaquina) {
 
@@ -45,8 +71,8 @@ function plotarGrafico_picos(PID, fkMaquina) {
         WHEN DAYNAME(data_hora) = 'Saturday' THEN 'Sábado'
     END as dia_semana, fkMaquina, PID
 FROM Processos 
-GROUP BY DATE(data_hora), dia_semana, fkMaquina, PID WHERE 108 AND fkMaquina = 1
-LIMIT 0, 10000;	
+WHERE fkMaquina = 1
+GROUP BY DATE(data_hora), dia_semana, fkMaquina, PID;	
   `
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -70,17 +96,35 @@ function obterDadosGrafico_picos(PID, fkMaquina) {
         WHEN DAYNAME(data_hora) = 'Saturday' THEN 'Sábado'
     END as dia_semana, fkMaquina, PID
 FROM Processos 
-GROUP BY DATE(data_hora), dia_semana, fkMaquina, PID WHERE 108 AND fkMaquina = 1
-LIMIT 3, 10000;	
+WHERE fkMaquina = 1
+GROUP BY DATE(data_hora), dia_semana, fkMaquina, PID;;	
   `
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
+function matarProcesso(pid) {
+
+  instrucaoSql = `
+  UPDATE Alerta_Processo
+  SET encerrado = 1
+  WHERE IDAlertaProcessos IN (
+  SELECT IDAlertaProcessos FROM 
+  (SELECT IDAlertaProcessos FROM Alerta_Processo WHERE PID = ${pid}) 
+  AS subquery);
+  
+`
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
+  quantidadeEstavel,
+  maquinaNumber,
   Exibir_Processos,
   ListarCriticos,
   plotarGrafico_picos,
-  obterDadosGrafico_picos
+  obterDadosGrafico_picos,
+  matarProcesso
 }

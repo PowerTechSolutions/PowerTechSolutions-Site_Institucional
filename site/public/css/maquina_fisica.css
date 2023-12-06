@@ -529,6 +529,7 @@ p {
     display: flex;
     justify-content: center;
     height: 40vh;
+    width: 92%;
 }
 
 #card_employee {

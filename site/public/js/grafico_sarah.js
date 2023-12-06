@@ -1,12 +1,22 @@
-function obterDadosGrafico_picos(FKMAQUINA) {
+
+
+window.onload = obterDadosGrafico_picos()
+
+function obterDadosGrafico_picos() {
 
     fetch(`/processo/obterdadospico`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                resposta.reverse();
-
-                plotarGrafico_picos(resposta, FKMAQUINA);
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+                const dadosAgrupadosPorDia = resposta.reduce((acc, obj) => {
+                    const dia_semana = obj.dia_semana;
+                    if (!acc[dia_semana]) {
+                        acc[dia_semana] = [];
+                    }
+                    acc[dia_semana].push(obj);
+                    return acc;
+                }, {});
+                plotarGrafico_picos(dadosAgrupadosPorDia);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -21,47 +31,48 @@ function obterDadosGrafico_picos(FKMAQUINA) {
 // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
 // A função *plotarGrafico* também invoca a função *atualizarGrafico*
 
-function plotarGrafico_picos(resposta, FKMAQUINA) {
+function plotarGrafico_picos(dadosAgrupadosPorDia) {
+    console.log(dadosAgrupadosPorDia)
+    // Criando estrutura para plotar gráfico - labels e dados
+    let labels = Object.keys(dadosAgrupadosPorDia);
+    let dadosCPU = [];
+    let dadosRAM = [];
 
-    console.log('iniciando plotagem do gráfico...');
-
-    // Criando estrutura para plotar gráfico - labels
-    let labels = [];
+    // Preenchendo arrays com os dados
+    labels.forEach(dia => {
+        const registros = dadosAgrupadosPorDia[dia];
+        if (registros && registros.length > 0) {
+            // Assumindo que cada dia tem apenas um registro (pico_RAM e pico_CPU)
+            const registro = registros[0];
+            dadosCPU.push(registro.pico_CPU);
+            dadosRAM.push(registro.pico_RAM);
+        } else {
+            // Se não houver dados para o dia, preencher com valores vazios
+            dadosCPU.push(null);
+            dadosRAM.push(null);
+        }
+    });
 
     // Criando estrutura para plotar gráfico - dados
-    let dados = {
+    const dados = {
         labels: labels,
         datasets: [{
-            label: 'Uso de CPU (em porcentagem)',
-            data: [],
+            label: 'Uso CPU',
+            data: dadosCPU,
             fill: false,
-            borderColor: '#009EA3',
-            backgroundColor: '#009EA3'
+            borderColor: '#FFD700',
+            backgroundColor: '#FFD700'
+        }, {
+            label: 'Uso RAM',
+            data: dadosRAM,
+            fill: false,
+            borderColor: '#FF4500',
+            backgroundColor: '#FF4500'
         }]
     };
-
-    console.log('----------------------------------------------')
-    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-    console.log(resposta)
-
-    // Inserindo valores recebidos em estrutura para plotar o gráfico
-    for (i = 0; i < resposta.length; i++) {
-        var registro = resposta[i];
-        labels.push(registro.dia_semana);
-        dados.datasets[0].data.push(registro.pico_RAM, registro.pico_CPU);
-    }
-
-    console.log('----------------------------------------------')
-    console.log('O gráfico será plotado com os respectivos valores:')
-    console.log('Labels:')
-    console.log(labels)
-    console.log('Dados:')
-    console.log(dados.datasets)
-    console.log('----------------------------------------------')
-
     // Criando estrutura para plotar gráfico - config
     const config = {
-        type: 'line',
+        type: 'bar',
         data: dados,
     };
 
@@ -71,7 +82,7 @@ function plotarGrafico_picos(resposta, FKMAQUINA) {
         config
     );
 
-    setTimeout(() => atualizarGrafico_picos(FKMAQUINA, dados, myChart_CPU), 2000);
+   // setTimeout(() => atualizarGrafico_picos(dados, myChart_CPU), 2000);
 }
 
 
@@ -81,7 +92,7 @@ function plotarGrafico_picos(resposta, FKMAQUINA) {
 //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
 //     Para ajustar o "select", ajuste o comando sql em src/models
 
-function atualizarGrafico_picos(FKMAQUINA, dados) {
+function atualizarGrafico_picos(dados) {
 
     fetch(`/processo/tempo-real_pico`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
@@ -118,12 +129,12 @@ function atualizarGrafico_picos(FKMAQUINA, dados) {
                 }
 
                 // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao_Umi = setTimeout(() => atualizarGrafico_picos(FKMAQUINA, dados, myChart1), 3000);
+                proximaAtualizacao_Umi = setTimeout(() => atualizarGrafico_picos(dados, myChart1), 3000);
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
             // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            proximaAtualizacao_Umi = setTimeout(() => atualizarGrafico_picos(FKMAQUINA, dados, myChart1), 3000);
+            proximaAtualizacao_Umi = setTimeout(() => atualizarGrafico_picos(dados, myChart1), 3000);
         }
     })
         .catch(function (error) {

@@ -1,13 +1,9 @@
 var database = require("../database/config");
 
-function acessarDesempenho(id_user) {
- 
-  instrucaoSql = `SELECT ROUND(SUM(uso_ram), 2) AS Ram_Utilizada, nomeProcesso AS Nome_Processo
+function acessarDesempenho() {
+
+  instrucaoSql = `SELECT uso_ram AS ram, DATE_FORMAT(data_hora, '%d-%m-%Y') AS dataHora
   FROM Processos
-  JOIN Maquinas ON fkMaquina = IDMaquina
-  JOIN Usuario_Dashboard ON IDUsuario = FKFuncionario
-  WHERE IDUsuario = ${id_user} AND nomeProcesso NOT IN ('tradingscreen.exe', 'energyquant.exe', 'bloombergbash.exe', 'eikon.exe', 'powermarket.exe', 'calypso.exe')
-  GROUP BY Nome_Processo
   ORDER BY data_hora DESC
   LIMIT 30;
   `
@@ -17,15 +13,26 @@ function acessarDesempenho(id_user) {
 }
 
 function kpiAlerta() {
-    instrucaoSql = ``;
- 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
-  }
+  instrucaoSql = ``;
 
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+
+function listagem() {
+  instrucaoSql = `SELECT IDMaquina, Apelido, nomeProcesso ,ROUND(uso_ram, 2) AS Uso_ram
+  FROM processos 
+  JOIN maquinas ON fkMaquina = IDMaquina 
+  GROUP BY IDMaquina, Apelido, nomeProcesso, ROUND(uso_ram, 2);`
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
 
 module.exports = {
   acessarDesempenho,
-  kpiAlerta
+  kpiAlerta,
+  listagem
 }
 

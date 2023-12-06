@@ -46,11 +46,11 @@ scale=1.0">
 
                 <div class="boxes_inside">
                     <div id="card_employee">
-                        <h2>Tempo de Paralização:</h2>
+                        <h2>Histórico de Desligamentos:</h2>
                         <div class="title">
                             <h3>DATA</h3>
-                            <h3>Inicio: Hora</h3>
-                            <h3>Total horas</h3>
+                            <h3>Tempo Início</h3>
+                            <h3>Total de Tempo</h3>
                         </div>
                         <div class="arrangement" id="arrangement">
 
@@ -65,8 +65,8 @@ scale=1.0">
 
                     <div class="avisos">
                         <select class="select_graph" onchange="exibirgraph(this.value)">
-                            <option value=1 aria-checked="true">Week Info</option>
-                            <option value=2>Monthly Info</option>
+                            <option value=1 aria-checked="true">Semanal</option>
+                            <option value=2>Mensal</option>
                         </select>
                         <div class="avisos_info" id="avisos_info">
 
@@ -87,9 +87,9 @@ scale=1.0">
                         <h4 id="nome_maquina">Nome da Maquina</h4>
                     </div>
                     <div class="informs">
-                        <h4 id="h4">Qtd Total de Paralização</h4>
+                        <h4 id="h4">Quantidade total de desligamentos</h4>
                         <span id="qtdTotal">9999</span>
-                        <h4>Total do Tempo que ficou paralizado</h4>
+                        <h4>Tempo Total de desligamentos</h4>
                         <span id="idTempoTotal">9999</span>
                     </div>
                 </div>
@@ -110,7 +110,7 @@ scale=1.0">
 
                     <div class="boxes_taxes2" id="boxes_taxes2">
                         <div class="part_info_bar">
-                            <h3>Tamanho de HD</h3>
+                            <h3>Tamanho do Disco</h3>
                             <div class="info_bar">
                                 <span id="info_bar">0%</span>
                                 <span id="porcentage"></span>
@@ -124,9 +124,9 @@ scale=1.0">
 
                         </div>
                         <div class="Info_disc" id="Info_disc">
-                            <h4 id="h4">Total Disco(GB): <span id="total_disco"></span></h4>
-                            <h4>Free Disco(GB): <span id="free_disco"></span></h4>
-                            <h4 id="h4btn">Used Disco(GB): <span id="used_disco">9999</span></h4>
+                            <h4 id="h4">Total do Disco(GB): <span id="total_disco"></span></h4>
+                            <h4>Espaço restante do Disco(GB): <span id="free_disco"></span></h4>
+                            <h4 id="h4btn">Uso do Disco(GB): <span id="used_disco"></span></h4>
                         </div>
                     </div>
                 </div>
