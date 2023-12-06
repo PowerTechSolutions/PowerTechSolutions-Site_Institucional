@@ -82,7 +82,7 @@ function buscarDiscos(FKMAQUINA) {
         SELECT 
 	    Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
 	    Data_Hora_Captura,
-        Uso AS "Uso_DIsco",
+        porcentagem AS "Uso_DIsco",
         Componentes_cadastrados.Apelido 
         FROM 
 		    Monitoramento_RAW JOIN Componentes_monitorados 
@@ -202,8 +202,10 @@ function buscarJanelas(IDMaquina) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
-        `;
+        SELECT Nome_Janelas as Nome,Data_Hora_Conexao as data 
+        FROM Janelas_Abertas JOIN maquinas on FKMaquina = IDMaquina 
+        WHERE FKMaquina = ${IDMaquina} AND Janelas_Abertas.Nome_Janelas != ''
+        AND Data_Hora_Conexao >= DATEADD(MINUTE,-5,GETDATE());`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
@@ -227,7 +229,8 @@ function buscarTotal_Janelas(IDMaquina) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
+        SELECT count(Nome_Janelas) as Total From Janelas_Abertas WHERE FKMaquina = 1 AND Janelas_Abertas.Nome_Janelas != ''
+        AND Data_Hora_Conexao >= DATEADD(MINUTE,-5,GETDATE());
         `;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
@@ -249,8 +252,11 @@ function estabilidadeCPU(IDMaquina) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-            SELECT Alertas.IDAlerta AS Alertas FROM Alertas WHERE FKUnidade_negocio = ${FKUnidade} 
-        `;
+        SELECT TOP 1 Porcentagem as Porcentagem_USO FROM monitoramento_raw JOIN componentes_monitorados 
+        ON FKComponente_Monitorado = IDComponente_monitorado JOIN Componentes_cadastrados 
+        ON componentes_monitorados.FKComponente_cadastrado = IDComponente_cadastrado JOIN maquinas ON FKMaquina = IDMaquina 
+        WHERE IDComponente_cadastrado = 1 AND FKMaquina = ${IDMaquina} ORDER BY Monitoramento_RAW.IDMonitoramento DESC;        
+    `;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `

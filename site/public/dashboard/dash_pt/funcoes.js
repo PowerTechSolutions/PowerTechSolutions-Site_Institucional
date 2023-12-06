@@ -196,15 +196,15 @@ function buscarDiscos(FKMAQUINA){
                 console.log("Dados recebidos: ", JSON.stringify(resposta));
                 var feed = document.getElementById("discos");
                 feed.innerHTML = "";
-                for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
-                    var publicacao = resposta[contador_usuario];
+
+                    var publicacao = resposta[1];
                     // criando e manipulando elementos do HTML via JavaScript
 
                     var disco = document.createElement("span");
                     disco.id = `disco${publicacao.IDMonitoramento}`;
 
                     var label = document.createElement("span");
-                    label.innerHTML = `Disco ${contador_usuario+1} - `;
+                    label.innerHTML = `Disco ${0+1} - `;
                     disco.appendChild(label);
 
                     var porcentagem = document.createElement("span");
@@ -214,7 +214,6 @@ function buscarDiscos(FKMAQUINA){
 
                     feed.appendChild(disco)
 
-                }
             });
         } else {
             throw ("Houve um erro ao tentar realizar A pesquisa!");

@@ -229,6 +229,35 @@ CREATE TABLE Henry(
 	CONSTRAINT FKHenry_Maquina FOREIGN KEY (FKMaquina) REFERENCES Maquinas(IDMaquina)
 );
 
+CREATE TABLE Processos(
+IDProcesso INT IDENTITY(1,1),
+PID INT,
+nomeProcesso VARCHAR(255),
+cpu_processo FLOAT,
+uso_ram FLOAT,
+tempo_user FLOAT,
+data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+fkMaquina INT,
+    CONSTRAINT fkMaquina FOREIGN KEY (fkMaquina)
+        REFERENCES Maquinas(idMaquina),
+constraint pkCompostaP primary key (IDProcesso, fkMaquina)
+);
+
+CREATE TABLE Alerta_Processo(
+IDAlertaProcessos INT identity(1,1),
+PID INT,
+nomeProcesso VARCHAR(255),
+cpu_processo FLOAT,
+uso_ram FLOAT,
+data_hora DATETIME,
+tipo_alerta int,
+FKProcesso INT,
+FKMaquina INT,
+	CONSTRAINT fkProcesso FOREIGN KEY (fkProcesso,FKMaquina)
+        REFERENCES Processos(idProcesso,fkMaquina),
+constraint pkCompostaA primary key (IDAlertaProcessos, fkProcesso, fkMaquina)
+);
+
 -- Aréa de inserts para testes de funcionalidade 
 
 INSERT INTO Grupo_Empresa (Apelido_Interno_Grupo,Razao_social) VALUES
@@ -434,22 +463,71 @@ INSERT INTO Componentes_monitorados (FKComponente_cadastrado,FKMaquina) VALUES
 
 SELECT * FROM Monitoramento_RAW;
 
+select * from Componentes_cadastrados;
+
+SELECT * FROM Componentes_monitorados where FKComponente_cadastrado = 1;
+
 SELECT * FROM Henry;
 
 SELECT * FROM Janelas_Abertas;
 
-TRUNCATE TABLE Henry;
+SELECT TOP 10 * FROM Processos;
+
+TRUNCATE TABLE Processos;
+
+TRUNCATE TABLE Maquinas
 
 SELECT * FROM Usuario_Dashboard;
 
 SELECT * FROM Alertas;
 
+SELECT * FROM Tempo_de_Execucao;
+
+INSERT INTO Tempo_de_Execucao (Data_Hora, Total_captura, FKTempo_maquina)
+VALUES
+    ('2023-11-19 08:00:00', '00:03:06', 1),
+    ('2023-11-20 12:45:00', '00:01:20', 1),
+    ('2023-11-20 10:40:50', '00:04:30', 1),
+    ('2023-11-20 01:46:54', '00:00:30', 1),
+    ('2023-11-21 12:08:32', '00:10:00', 1),
+    ('2023-11-21 17:23:09', '00:20:30', 1),
+    ('2023-11-23 18:30:00', '01:24:05', 1);
+   
+
+    INSERT INTO Tempo_de_Execucao (Data_Hora, Total_captura, FKTempo_maquina)
+VALUES
+    ('2023-12-01 09:30:00', '02:00:00', 1),
+    ('2023-12-01 10:09:30', '00:04:06', 1),
+    ('2023-12-01 19:00:32', '00:03:34', 1),-- Exemplo para o dia 5 de dezembro
+    ('2023-12-02 15:15:00', '01:05:00', 1), -- Exemplo para o dia 20 de dezembro
+    ('2023-12-03 22:00:00', '04:30:54', 1); -- Exemplo para o último dia de dezembro
+
+	SELECT * FROM Tempo_de_Execucao;
+
 SELECT * FROM Nivel_alerta;
+
+SELECT * FROM Processos;
+
+SELECT * FROM henry;
+
+SELECT * FROM Alertas;
 
 INSERT INTO Nivel_alerta (Nivel) VALUES
 ('Atenção'),
 ('Perigo'),
 ('Critico');
+
+INSERT INTO Alertas (Alerta,FKMonitoramento,FKNivel_alerta,FKUnidade_negocio) VALUES
+('Excesso de uso',2,1,1),
+('Excesso de uso',3,1,1),
+('Excesso de uso',1,1,1);
+
+SELECT * FROM Janelas_Abertas;
+
+        SELECT count(Nome_Janelas) as Total From Janelas_Abertas WHERE FKMaquina = 1 AND Janelas_Abertas.Nome_Janelas != ''
+        AND Data_Hora_Conexao >= DATE_SUB(GETDATE(), INTERVAL 5 MINUTE);
+
+SELECT * FROM Monitoramento_RAW;
 
 SELECT
             COUNT(IDAlerta) as Alertas

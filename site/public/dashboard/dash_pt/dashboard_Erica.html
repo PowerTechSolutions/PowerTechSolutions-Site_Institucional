@@ -10,7 +10,7 @@
 
 </head>
 
-<body onload="atualizarFeed_usuarios(), buscarJanelas(1), buscarTotal_Janelas(1), estabilidadeCPU(1), visualizar(1), exibirgraph(1)">
+<body>
 
     <div class="dropdown">
         <img id="voltar" src="./seta-para-a-esquerda.png" alt="menu">
@@ -33,12 +33,10 @@
             <div class="total">
                 <h4> Total </h4>
                 <div id="qntd">
-                    <div class="total_janelas">
-                    </div>
                 </div>
             </div>
             <span class="span_font"> Gráfico de uso de CPU </span>
-            <div class="grafico_cpu" onload="exibirgraph()">
+            <div class="grafico_cpu" id="grafico">
                 <canvas id="myChart_CPU"></canvas>
             </div>
         </div>
@@ -63,8 +61,8 @@
                 <span class="span_font"> Escolha a máquina que deseja visualizar: </span>
                 <div>
                     <select id="selecionar_maquina"
-                        onchange="buscarJanelas(this.value),buscarTotal_Janelas(this.value),estabilidadeCPU(this.value),exibirgraph(this.value)">
-                        <option value=""> Nenhuma máquina selecionada </option>
+                        onchange="estabilidadeCPU(this.value),exibirgraph(this.value),buscarTotal_Janelas(this.value),buscarJanelas(this.value)">
+                        <option> Nenhuma máquina selecionada </option>
                     </select>
                 </div>
                 <div id="card_func">
@@ -85,11 +83,22 @@
 </html>
 <script>
 
+    window.onload=atualizarFeed_usuarios()
+    window.onload=visualizar(1);
 
-    var IDMaquina = sessionStorage.getItem(IDMaquina)
+    var IDMaquina = sessionStorage.IDMaquina;
 
-    function exibirgraph() {
-        obterDadosGrafico_CPU(1)
+    function exibirgraph(IDMaquina) {
+
+        Number(IDMaquina)
+
+        var feed = document.getElementById("grafico");
+        feed.innerHTML = "";
+        var graficoCPU = document.createElement("canvas")
+        graficoCPU.setAttribute("id","myChart_CPU");
+        feed.appendChild(graficoCPU); 
+
+        obterDadosGrafico_CPU(IDMaquina)
     }
 
     function obterDadosGrafico_CPU(FKMAQUINA) {
@@ -557,7 +566,7 @@
 
                         var usuario = document.createElement("option");
                         usuario.innerHTML = `${publicacao.Maquina}`;
-                        usuario.value = publicacao.Maquina;
+                        usuario.setAttribute("value",publicacao.Maquina);
 
                         feed.appendChild(usuario)
                     }
