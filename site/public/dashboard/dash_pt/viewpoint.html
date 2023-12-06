@@ -43,6 +43,9 @@
                         src="element-3 (1).png" alt="">
                     <p>View Point</p>
                 </button>
+                <button onclick="dashboard_janelas()">
+                <p>Janelas abertas</p>
+            </button>
             </div>
             <div class="sepration2">
                 <button class="helpbutton"><img src="help-circle.png" alt="">
@@ -179,6 +182,10 @@
 
 <script>
 
+function dashboard_janelas(){
+        window.location.href = "dashboard_Erica.html";
+    }
+    
     nome_usuario.innerHTML = sessionStorage.Nome_Usuario;   
     email_usuario.innerHTML = sessionStorage.Email_Usuario;
     var idUsuario = sessionStorage.ID_USUARIO;
