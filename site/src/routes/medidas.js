@@ -11,6 +11,14 @@ router.get("/buscarDiscosKaori/:FKMAQUINA", function (req,res){
     medidaController.buscarDiscosKaori(req,res);
 });
 
+router.get("/pegar_janelas/:FKUnidade", function (req,res){
+    medidaController.pegar_janelas(req,res);
+});
+
+router.get("/henry_RAM/", function (req,res){
+    medidaController.henry_RAM(req,res);
+});
+
 router.get("/buscarTempoExecucao/:FKMAQUINA", function (req,res){
     medidaController.buscarTempoExecucao(req,res);
 });

@@ -34,6 +34,25 @@ function buscarDiscosKaori(req, res) {
     });
 }
 
+function pegar_janelas(req, res) {
+
+    var FKUnidade = req.params.FKUnidade;
+
+    var idMaquina = 0
+
+    medidaModel.pegar_janelas(FKUnidade,idMaquina).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function buscarTempoExecucao(req, res) {
 
     var FKMAQUINA = req.params.FKMAQUINA;
@@ -193,6 +212,21 @@ function ultimas_RAM(req, res) {
     var FKMAQUINA = req.params.FKMAQUINA;
 
     medidaModel.ultimas_RAM(FKMAQUINA).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function henry_RAM(req, res) {
+
+    medidaModel.henry_RAM().then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -378,5 +412,7 @@ module.exports = {
     tempo_real_vmKaori, 
     ultimas_TempoExecMonth,
     tempo_real_vmKaori2, 
-    estabilidadeCPU
+    estabilidadeCPU,
+    pegar_janelas,
+    henry_RAM
 }
