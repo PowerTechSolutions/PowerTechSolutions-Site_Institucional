@@ -213,7 +213,7 @@ option{
 
 .registros {
   width: 90%;
-  height: 52%;
+  height: 73%;
   overflow-y: scroll;
 }
 
@@ -221,6 +221,15 @@ option{
   margin-top: 0.8%;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
+}
+
+.desempenho{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+  height: auto;
   border-bottom: white 0.8px solid;
 }

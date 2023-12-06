@@ -2,9 +2,9 @@ var desempenhoModel = require("../models/desempenhoModel");
 
 function acessarDesempenho(req, res) {
 
-    var id_user = req.params.id_user;
+    // var id_user = req.params.id_user;
 
-    desempenhoModel.acessarDesempenho(id_user)
+    desempenhoModel.acessarDesempenho()
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);

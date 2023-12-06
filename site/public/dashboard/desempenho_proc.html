@@ -24,7 +24,7 @@
 
 </head>
 
-<body onload="exibirgraph(id_user)">
+<body>
     <div class="seta">
         <img onclick="voltar()" src="../assets/imgs_power/setas-voltar.png">
         <a href="maquina_fisica.html">Voltar</a>
@@ -79,6 +79,7 @@
                 <div class="colunas">
                     <span>IDMaquina</span>
                     <span>Apelido</span>
+                    <span>Processo</span>
                     <span>Uso Ram</span>
                     <span>Alerta</span>
                 </div>
@@ -102,22 +103,23 @@
     var id_user = sessionStorage.getItem('ID_Usuario');
 
     window.onload = criarLista()
+    window.onload = exibirgraph()
 
     function voltar() {
         window.location = "maquina_fisica.html"
     }
 
-    function exibirgraph(id_user) {
+    function exibirgraph() {
 
-        console.log(id_user);
+        console.log();
 
-        fetch(`/desempenho/acessarDesempenho/${id_user}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/desempenho/acessarDesempenho`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    plotarGrafico(resposta, id_user);
+                    plotarGrafico(resposta);
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -128,7 +130,7 @@
             });
     }
 
-    function plotarGrafico(resposta, id_user) {
+    function plotarGrafico(resposta) {
 
         console.log('iniciando plotagem do gráfico...');
 
@@ -154,8 +156,8 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            labels.push(registro.Uso_ram);
-            dados.datasets[0].data.push(registro.Nome_Processo);
+            labels.push(registro.dataHora);
+            dados.datasets[0].data.push(registro.ram);
 
         }
 
@@ -219,7 +221,6 @@
         var n1 = document.getElementById("valor");
         var n2 = document.getElementById("valor2");
 
-
         for (i = 0; i < resposta.length; i++) {
             var informacao = resposta[i];
             console.log('está no for do resposta')
@@ -227,30 +228,47 @@
             var contadorCritico = 0
 
             if (informacao.Uso_ram >= 90.90) {
-                feed.innerHTML += `<div>${informacao.IDMaquina}</div>
+                var maquina = document.createElement('div');
+                maquina.className = "desempenho";
+                maquina.innerHTML += `<div>${informacao.IDMaquina}</div>
                         <div>${informacao.Apelido}</div>
+                        <div>${informacao.nomeProcesso}</div>
                         <div>${informacao.Uso_ram}</div>
                         <div>Alerta</div>`
-                contadorAlerta++
+feed.appendChild(maquina)
 
+                contadorAlerta++
                 console.log('está em alertas')
             }
 
             if (informacao.Uso_ram >= 93.00) {
-                feed.innerHTML += `<div>${informacao.IDMaquina}</div>
+
+                var maquina = document.createElement('div');
+                maquina.className = "desempenho";
+                maquina.innerHTML += `<div>${informacao.IDMaquina}</div>
                         <div>${informacao.Apelido}</div>
+                        <div>${informacao.nomeProcesso}</div>
                         <div>${informacao.Uso_ram}</div>
                         <div>Crítico</div>`
+feed.appendChild(maquina)
+                // feed.innerHTML += `<div>${informacao.IDMaquina}</div>
+                //         <div>${informacao.Apelido}</div>
+                //         <div>${informacao.Uso_ram}</div>
+                //         <div>Crítico</div>`
 
                 contadorCritico++
                 console.log('está em alertas')
             }
 
             else {
-                feed.innerHTML += `<div>${informacao.IDMaquina}</div>
+                var maquina = document.createElement('div');
+                maquina.className = "desempenho";
+                maquina.innerHTML += `<div>${informacao.IDMaquina}</div>
                         <div>${informacao.Apelido}</div>
+                        <div>${informacao.nomeProcesso}</div>
                         <div>${informacao.Uso_ram}</div>
-                        <div>Estável</div>`
+                        <div>estavel</div>`
+feed.appendChild(maquina)
                 console.log('está em alertas')
             }
 
