@@ -8,15 +8,6 @@ router.get("/acessarDesempenho/:id_user", function (req, res) {
     desempenhoController.acessarDesempenho(req, res);
 })
 
-router.get("/totalDesempenhoSetor/:id_user", function (req, res) {
-    desempenhoController.totalDesempenhoSetor(req, res);
-})
-
-router.get("/programasPrincipais/:id_user", function (req, res) {
-    desempenhoController.programasPrincipais(req, res);
-})
-
-
 router.get("/kpiAlerta", function (req, res) {
     desempenhoController.kpiAlerta(req, res);
 })

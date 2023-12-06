@@ -20,10 +20,6 @@ function acessarDesempenho(req, res) {
         );
 }
 
-function totalDesempenhoSetor(req,res){
-
-}
-
 function kpiAlerta(req, res) {
 
     // var idMaquinas = req.body.idMaquinas;
@@ -47,6 +43,5 @@ function kpiAlerta(req, res) {
 
 module.exports = {
     acessarDesempenho,
-    // getFKMAQUINA,
     kpiAlerta
 }

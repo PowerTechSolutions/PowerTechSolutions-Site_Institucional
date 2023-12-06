@@ -13,24 +13,28 @@ function viewpoint(){
 
 function exibirgraph(valor){
 
-    var grafico_RAM = document.getElementById("myChart_RAM");
-    var grafico_CPU = document.getElementById("myChart_CPU");
 
+
+    var graficos = document.getElementById("graficos");
+    graficos.innerHTML = "";  
+    
     var idMaquina = sessionStorage.IDMaquina;
 
     if(valor == 1){
         
         obterDadosGrafico_RAM(idMaquina)
-        
-        grafico_CPU.style.display = "none";
-        grafico_RAM.style.display = "block";
+ 
+        var graficoRam = document.createElement("canvas");
+        graficoRam.setAttribute("id", "myChart_RAM");
+        graficos.appendChild(graficoRam)
     
     }else if(valor == 2){
         
         obterDadosGrafico_CPU(idMaquina)
         
-        grafico_RAM.style.display = "none";
-        grafico_CPU.style.display = "block";
+        var graficoCPU = document.createElement("canvas");
+        graficoCPU.setAttribute("id", "myChart_CPU");
+        graficos.appendChild(graficoCPU)
     
     }
 }
