@@ -83,6 +83,8 @@ details {
     margin: 0;
     padding: 1rem 0;
     border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
   }
   
   li:first-child {
@@ -114,8 +116,9 @@ details {
     cursor: pointer;
     justify-content: space-between;
     position: absolute;
-    top: -30px;
-    right: -147px;
+    top: -57px;
+    right: -44px;
+    flex-direction: column;
   }
   
   label span {

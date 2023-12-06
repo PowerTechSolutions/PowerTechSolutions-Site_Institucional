@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="../css/dashboard_henry.css">
     <script src="../js/sessao.js"></script>
+    <link rel="stylesheet" href="../css/dropdown.css">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -30,17 +31,26 @@
         <div class="header-left dash-header">
             <div class="sepration">
                 <img class="perfil" src="dash_pt/power_tech_solutions_logo_semfundo.png" alt="">
-                <button onclick="geral()" id="fist_top"><img src="dash_pt/bar-line-chart.png" alt="" id="first"><img
+                <button class="geral" onclick="geral()" id="fist_top"><img src="dash_pt/bar-line-chart.png" alt="" id="first"><img
                         src="dash_pt/Group 1171274974.png" alt="" id="second">
                     <p>Geral</p>
                 </button>
-                <button onclick="permi()"><img src="dash_pt/perm.png.png" id="fst" alt=""> <img id="send"
+
+                <button class="mf" onclick="MF()"><img src="dash_pt/element-3.png" id="fst" alt=""> <img id="send"
+                        src="dash_pt/element-3 (1).png" alt="">
+                    <p>MFs</p>
+                </button>
+
+                <button class="mv" onclick="MV()"><img src="dash_pt/vms.png.png" id="fst" alt=""> <img id="send"
+                        src="dash_pt/icon13.png" alt="">
+                    <p>VMs</p>
+                </button>
+                <button class="permi" onclick="permi()"><img src="dash_pt/perm.png.png" id="fst" alt=""> <img id="send"
                         src="dash_pt/pessoa.png" alt="">
                     <p>Adicionar permissões</p>
                 </button>
-                <button onclick="user()" id="frts"><a href="cadastro (5).html"><img
-                            src="../assets/imgs_power/adicionar-usuario (1).png" id="fst" alt=""> <img id="send"
-                            src="../assets/imgs_power/adicionar-usuario.png" alt=""></a>
+                <button class="user" onclick="user()" id="frts"><img src="../assets/imgs_power/adicionar-usuario (1).png" id="fst"
+                        alt=""> <img id="send" src="../assets/imgs_power/adicionar-usuario.png" alt="">
                     <p>Adicionar usuário</p>
                 </button>
             </div>
@@ -51,12 +61,22 @@
                 <div class="crd2_sept">
                     <img src="../assets/imgs_power/do-utilizador.png" alt="">
                     <p id="nome_usuario"></p>
+                    <!-- <div class="dropdown_selection">
+                    <select name="cars" id="log">
+                        <option value="volvo">January</option>
+                        <option value="saab">Febuary</option>
+                        <option value="mercedes">March</option>
+                        <option value="audi">April</option>
+                    </select>
+                </div> -->
                     <details class="custom-select">
                         <ul class="list">
                             <li>
                                 <label for="item1">
-                                    <a href="../../index.html">Sair</a>
+                                    <a href="desempenho_proc.html" id="trader">Processos</a>
                                     <span></span>
+                                    <a href="../../index.html">Sair</a>
+                                    <a href="dashboard_henry.html">Monitoramento Janelas</a>
                                 </label>
                             </li>
                         </ul>
@@ -66,7 +86,6 @@
                 </div>
             </div>
         </div>
-
         <div class="dash">
             <div class="espacoEsquerdo">
                 <div class="flexExterno">
