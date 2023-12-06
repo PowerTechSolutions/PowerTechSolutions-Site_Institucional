@@ -490,7 +490,7 @@ WHERE
 GROUP BY 
     DiaDaSemana, DATE(Data_Hora)
 ORDER BY 
-    DATE(Data_Hora) DESC, DiaDaSemana ASC
+    DATE(Data_Hora) ASC, DiaDaSemana DESC
 LIMIT 7;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -530,9 +530,9 @@ JOIN
 WHERE 
     FKTempo_maquina = ${FKMAQUINA}
 GROUP BY 
-    DiaDaSemana
+    DiaDaSemana, DATE(Data_Hora)
 ORDER BY 
-    DiaDaSemana DESC
+    DATE(Data_Hora) ASC, DiaDaSemana DESC
 LIMIT 7;
 `;
     } else {
@@ -580,7 +580,7 @@ function ultimas_TempoExecMonth(FKMAQUINA) {
     GROUP BY 
         Mes
     ORDER BY 
-        Mes ASC
+        Mes DESC
     LIMIT 12; -- Limite de 12 meses`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
