@@ -216,16 +216,15 @@ function buscarTempoExecucao(FKMAQUINA) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT DISTINCT
+        SELECT
+    IDTempo,
     DATE_FORMAT(Data_Hora, '%d/%m/%Y') AS Data,
     TIME(Data_Hora) AS Hora,
     TIME(Total_captura) AS total
-FROM 
-    Tempo_de_Execucao
-JOIN 
-    maquinas ON Tempo_de_Execucao.FKTempo_maquina = maquinas.IDMaquina
-WHERE 
-    FKTempo_maquina = ${FKMAQUINA};
+FROM
+    Tempo_de_Execucao WHERE FKTempo_maquina = ${FKMAQUINA}
+ORDER BY
+    Data_Hora DESC;
     `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -543,10 +542,11 @@ function ultimas_TempoExec(FKMAQUINA) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT DATE(Data_Hora) AS DiaDaSemana, COUNT(Total_captura) AS QuantidadeDesligamentos
-FROM Tempo_de_Execucao WHERE FKTempo_maquina = ${FKMAQUINA}
-GROUP BY Date
-ORDER BY Date DESC
+        SELECT DATE_FORMAT(Data_Hora, '%d/%m/%Y') AS DiaDaSemana, COUNT(Total_captura) AS QuantidadeDesligamentos
+FROM Tempo_de_Execucao
+WHERE FKTempo_maquina = ${FKMAQUINA}
+GROUP BY DiaDaSemana
+ORDER BY DiaDaSemana DESC
 LIMIT 7;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -568,11 +568,12 @@ function tempo_real_vmKaori(FKMAQUINA) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-SELECT DATE(Data_Hora) AS DiaDaSemana, COUNT(Total_captura) AS QuantidadeDesligamentos
-FROM Tempo_de_Execucao WHERE FKTempo_maquina = ${FKMAQUINA}
-GROUP BY Date
-ORDER BY Date DESC
-LIMIT 7;
+        SELECT DATE_FORMAT(Data_Hora, '%d/%m/%Y') AS DiaDaSemana, COUNT(Total_captura) AS QuantidadeDesligamentos
+        FROM Tempo_de_Execucao
+        WHERE FKTempo_maquina = ${FKMAQUINA}
+        GROUP BY DiaDaSemana
+        ORDER BY DiaDaSemana DESC
+        LIMIT 7;
 `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
