@@ -209,25 +209,31 @@ body {
     border-bottom:2px solid white;
     margin-bottom:10px;
 }
-#card_func{
+#card_func2{
     width:100%;
     height: 300px;
     background-color: #1A1C22;
     border-radius: 13px;
     padding:10px;
     text-align: center;
+    
 }
 
 .listagem{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     cursor:pointer;
+}
+#maiorDiv{
+    overflow-y: scroll;
+    height: 170px;
+    width: 100%;
 }
 .title{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     border-bottom:1px solid white;
 }
 
@@ -270,4 +276,5 @@ body {
     margin-bottom:15px;
     cursor:pointer;
     margin-top:10px;
+    text-align: center;
 }
