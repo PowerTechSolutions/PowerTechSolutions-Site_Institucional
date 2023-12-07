@@ -297,6 +297,7 @@ function buscarTempoExecucao(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT
+<<<<<<< HEAD
     IDTempo,                                                                                            
     FORMAT(Data_Hora, 'dd/MM/yyyy') AS Data,
     FORMAT(Data_Hora, 'HH:mm:ss') AS Hora,
@@ -308,6 +309,16 @@ WHERE
 ORDER BY
     Data_Hora DESC;
 
+=======
+    IDTempo,
+    DATE_FORMAT(Data_Hora, '%d/%m/%Y') AS Data,
+    TIME(Data_Hora) AS Hora,
+    TIME(Total_captura) AS total
+FROM
+    Tempo_de_Execucao WHERE FKTempo_maquina = ${FKMAQUINA}
+ORDER BY
+    Data_Hora DESC;
+>>>>>>> 2a59ea9284b6f639367bc485a4ce8b125876a7e8
     `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -683,20 +694,14 @@ FETCH NEXT 7 ROWS ONLY;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT 
-    FORMAT(Data_Hora, 'dd/MM/yyyy') AS DiaDaSemana,
-    COUNT(Total_captura) AS QuantidadeDesligamentos
-FROM 
-    Tempo_de_Execucao
-WHERE 
-    FKTempo_maquina = ${FKMAQUINA}
-GROUP BY 
-    FORMAT(Data_Hora, 'dd/MM/yyyy')
-ORDER BY 
-    DiaDaSemana DESC
-OFFSET 0 ROWS
-FETCH NEXT 7 ROWS ONLY;
-
+        SELECT DATE_FORMAT(Data_Hora, '%d/%m/%Y') AS DiaDaSemana, COUNT(Total_captura) AS QuantidadeDesligamentos
+        FROM Tempo_de_Execucao
+        WHERE FKTempo_maquina = ${FKMAQUINA}
+        GROUP BY DiaDaSemana
+        ORDER BY DiaDaSemana DESC
+        LIMIT 7;
+        
+        
 `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -743,34 +748,33 @@ function ultimas_TempoExecMonth(FKMAQUINA) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT TOP 12
-    CASE 
-        WHEN MONTH(Data_Hora) = 1 THEN 'Janeiro'
-        WHEN MONTH(Data_Hora) = 2 THEN 'Fevereiro'
-        WHEN MONTH(Data_Hora) = 3 THEN 'Março'
-        WHEN MONTH(Data_Hora) = 4 THEN 'Abril'
-        WHEN MONTH(Data_Hora) = 5 THEN 'Maio'
-        WHEN MONTH(Data_Hora) = 6 THEN 'Junho'
-        WHEN MONTH(Data_Hora) = 7 THEN 'Julho'
-        WHEN MONTH(Data_Hora) = 8 THEN 'Agosto'
-        WHEN MONTH(Data_Hora) = 9 THEN 'Setembro'
-        WHEN MONTH(Data_Hora) = 10 THEN 'Outubro'
-        WHEN MONTH(Data_Hora) = 11 THEN 'Novembro'
-        WHEN MONTH(Data_Hora) = 12 THEN 'Dezembro'
-    END AS Mes,
-    COUNT(*) AS QuantidadeDesligamentos
-FROM 
-    Tempo_de_Execucao
-JOIN 
-    Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
-WHERE 
-    FKTempo_maquina = ${FKMAQUINA}
-GROUP BY 
-    MONTH(Data_Hora)
-ORDER BY 
-    Mes DESC;
-
- -- Limite de 12 meses`;
+        SELECT 
+        CASE 
+            WHEN MONTH(Data_Hora) = 1 THEN 'Janeiro'
+            WHEN MONTH(Data_Hora) = 2 THEN 'Fevereiro'
+            WHEN MONTH(Data_Hora) = 3 THEN 'Março'
+            WHEN MONTH(Data_Hora) = 4 THEN 'Abril'
+            WHEN MONTH(Data_Hora) = 5 THEN 'Maio'
+            WHEN MONTH(Data_Hora) = 6 THEN 'Junho'
+            WHEN MONTH(Data_Hora) = 7 THEN 'Julho'
+            WHEN MONTH(Data_Hora) = 8 THEN 'Agosto'
+            WHEN MONTH(Data_Hora) = 9 THEN 'Setembro'
+            WHEN MONTH(Data_Hora) = 10 THEN 'Outubro'
+            WHEN MONTH(Data_Hora) = 11 THEN 'Novembro'
+            WHEN MONTH(Data_Hora) = 12 THEN 'Dezembro'
+        END AS Mes,
+        COUNT(*) AS QuantidadeDesligamentos
+    FROM 
+        Tempo_de_Execucao
+    JOIN 
+        Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
+    WHERE 
+        FKTempo_maquina = ${FKMAQUINA}
+    GROUP BY 
+        Mes
+    ORDER BY 
+        Mes DESC
+    LIMIT 12; -- Limite de 12 meses`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -816,32 +820,33 @@ function tempo_real_vmKaori2(FKMAQUINA) {
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
-        SELECT TOP 12
-    CASE 
-        WHEN MONTH(Data_Hora) = 1 THEN 'Janeiro'
-        WHEN MONTH(Data_Hora) = 2 THEN 'Fevereiro'
-        WHEN MONTH(Data_Hora) = 3 THEN 'Março'
-        WHEN MONTH(Data_Hora) = 4 THEN 'Abril'
-        WHEN MONTH(Data_Hora) = 5 THEN 'Maio'
-        WHEN MONTH(Data_Hora) = 6 THEN 'Junho'
-        WHEN MONTH(Data_Hora) = 7 THEN 'Julho'
-        WHEN MONTH(Data_Hora) = 8 THEN 'Agosto'
-        WHEN MONTH(Data_Hora) = 9 THEN 'Setembro'
-        WHEN MONTH(Data_Hora) = 10 THEN 'Outubro'
-        WHEN MONTH(Data_Hora) = 11 THEN 'Novembro'
-        WHEN MONTH(Data_Hora) = 12 THEN 'Dezembro'
-    END AS Mes,
-    COUNT(*) AS QuantidadeDesligamentos
-FROM 
-    Tempo_de_Execucao
-JOIN 
-    Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
-WHERE 
-    FKTempo_maquina = ${FKMAQUINA}
-GROUP BY 
-    MONTH(Data_Hora)
-ORDER BY 
-    Mes DESC; -- Limite de 12 meses
+        SELECT 
+        CASE 
+            WHEN MONTH(Data_Hora) = 1 THEN 'Janeiro'
+            WHEN MONTH(Data_Hora) = 2 THEN 'Fevereiro'
+            WHEN MONTH(Data_Hora) = 3 THEN 'Março'
+            WHEN MONTH(Data_Hora) = 4 THEN 'Abril'
+            WHEN MONTH(Data_Hora) = 5 THEN 'Maio'
+            WHEN MONTH(Data_Hora) = 6 THEN 'Junho'
+            WHEN MONTH(Data_Hora) = 7 THEN 'Julho'
+            WHEN MONTH(Data_Hora) = 8 THEN 'Agosto'
+            WHEN MONTH(Data_Hora) = 9 THEN 'Setembro'
+            WHEN MONTH(Data_Hora) = 10 THEN 'Outubro'
+            WHEN MONTH(Data_Hora) = 11 THEN 'Novembro'
+            WHEN MONTH(Data_Hora) = 12 THEN 'Dezembro'
+        END AS Mes,
+        COUNT(*) AS QuantidadeDesligamentos
+    FROM 
+        Tempo_de_Execucao
+    JOIN 
+        Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
+    WHERE 
+        FKTempo_maquina = ${FKMAQUINA}
+    GROUP BY 
+        Mes
+    ORDER BY 
+        Mes DESC
+    LIMIT 12; -- Limite de 12 meses
     
 `;
     } else {
@@ -860,15 +865,15 @@ module.exports = {
     ultimas_RAM,
     tempo_real_RAM,
     buscarTempoExecucao,
-    atualizarFeedCountTem, 
+    atualizarFeedCountTem,
     buscarJanelas,
     atualizarNomeMaquina,
-    buscarTotal_Janelas, 
-    buscarDiscosKaori, 
-    atualizarTotalTempo, 
+    buscarTotal_Janelas,
+    buscarDiscosKaori,
+    atualizarTotalTempo,
     ultimas_TempoExec,
-    tempo_real_vmKaori, 
-    ultimas_TempoExecMonth, 
+    tempo_real_vmKaori,
+    ultimas_TempoExecMonth,
     tempo_real_vmKaori2,
     estabilidadeCPU,
     pegar_janelas,

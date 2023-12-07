@@ -73,10 +73,11 @@
                         <h3>Nome</h3>
                         <h3>Data</h3>
                         <h3>Status</h3>
-                    </div>
-                    <div id="maiorDiv">
-                    <div id="card_func"></div>
                 </div>
+                <div id="maiorDiv">
+                <div id="card_func">
+            </div>
+        </div>
             </div>
         </div>
     </div>
@@ -86,7 +87,7 @@
 </html>
 <script>
 
-    window.onload=atualizarFeed_usuarios()
+    window.onload=atualizarFeed_usuarios();
     window.onload=visualizar(1);
     window.onload=buscarTotal_Janelas(1);
     window.onload=buscarJanelas(1);
@@ -546,7 +547,6 @@
         escolher.innerHTML = `Escolha uma máquina`;
         feed.appendChild(escolher)
 
-
         fetch("/usuarios/visualizar", {
             method: "POST",
             headers: {
@@ -581,11 +581,14 @@
                         var publicacao = resposta[contador_usuario];
                         // criando e manipulando elementos do HTML via JavaScript
 
+                        
                         var usuario = document.createElement("option");
                         usuario.innerHTML = `${publicacao.Maquina}`;
                         usuario.setAttribute("value",publicacao.Maquina);
 
                         feed.appendChild(usuario)
+                    
+                        
                     }
                 });
             } else {
@@ -597,6 +600,7 @@
         });
 
         buscarInfo(idusuario)
+       
 
         return false;
     }
