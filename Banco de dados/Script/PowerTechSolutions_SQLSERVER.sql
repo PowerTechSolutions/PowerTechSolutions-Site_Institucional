@@ -229,7 +229,7 @@ CREATE TABLE Henry(
 	CONSTRAINT FKHenry_Maquina FOREIGN KEY (FKMaquina) REFERENCES Maquinas(IDMaquina)
 );
 
-CREATE TABLE Processos(
+CREATE TABLE ProcessosV3(
 IDProcesso INT IDENTITY(1,1),
 PID INT,
 nomeProcesso VARCHAR(255),
@@ -238,12 +238,12 @@ uso_ram FLOAT,
 tempo_user FLOAT,
 data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
 fkMaquina INT,
-    CONSTRAINT fkMaquina FOREIGN KEY (fkMaquina)
+    CONSTRAINT fkMaquinav3 FOREIGN KEY (fkMaquina)
         REFERENCES Maquinas(idMaquina),
-constraint pkCompostaP primary key (IDProcesso, fkMaquina)
+constraint pkCompostaPv3 primary key (IDProcesso, fkMaquina)
 );
 
-CREATE TABLE Alerta_Processo(
+CREATE TABLE Alerta_ProcessoV3(
 IDAlertaProcessos INT identity(1,1),
 PID INT,
 nomeProcesso VARCHAR(255),
@@ -253,10 +253,14 @@ data_hora DATETIME,
 tipo_alerta int,
 FKProcesso INT,
 FKMaquina INT,
-	CONSTRAINT fkProcesso FOREIGN KEY (fkProcesso,FKMaquina)
-        REFERENCES Processos(idProcesso,fkMaquina),
-constraint pkCompostaA primary key (IDAlertaProcessos, fkProcesso, fkMaquina)
+	CONSTRAINT fkProcessoV3 FOREIGN KEY (fkProcesso,FKMaquina)
+        REFERENCES ProcessosV3(idProcesso,fkMaquina),
+constraint pkCompostaAV3 primary key (IDAlertaProcessos, fkProcesso, fkMaquina)
 );
+
+SELECT * FROM ProcessosV3 WHERE IDProcesso = 1;
+
+DELETE FROM ProcessosV3;
 
 -- Aréa de inserts para testes de funcionalidade 
 
@@ -483,6 +487,8 @@ SELECT * FROM Alertas;
 
 SELECT * FROM Tempo_de_Execucao;
 
+TRUNCATE TABLE Tempo_de_Execucao;
+
 INSERT INTO Tempo_de_Execucao (Data_Hora, Total_captura, FKTempo_maquina)
 VALUES
     ('2023-11-19 08:00:00', '00:03:06', 1),
@@ -524,9 +530,20 @@ INSERT INTO Alertas (Alerta,FKMonitoramento,FKNivel_alerta,FKUnidade_negocio) VA
 
 SELECT * FROM Janelas_Abertas;
 
-        SELECT count(Nome_Janelas) as Total From Janelas_Abertas WHERE FKMaquina = 1 AND Janelas_Abertas.Nome_Janelas != ''
-        AND Data_Hora_Conexao >= DATE_SUB(GETDATE(), INTERVAL 5 MINUTE);
+SELECT * FROM Henry;
 
+select * from Maquinas WHERE FKFuncionario = 1;
+
+SELECT * FROM Usuario_Dashboard;
+
+SELECT TOP 10 Uso_Ram,Data_Hora FROM Henry ORDER BY Uso_Ram DESC;
+
+SELECT top 1 Maquinas.IDMaquina as id,(SELECT COUNT(idRegistro) FROM Henry WHERE FKMaquina = 4) AS QTD, FORMAT(Data_Hora,'%d/%M/%y') as DataHora FROM Henry JOIN Maquinas ON Henry.FKMaquina = Maquinas.IDMaquina JOIN Usuario_Dashboard ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario where FKMaquina = 4 AND FKUnidade = 1;
+
+        SELECT count(Nome_Janelas) as Total From Janelas_Abertas WHERE FKMaquina = 1 AND Janelas_Abertas.Nome_Janelas != ''
+        ;
+
+		AND Data_Hora_Conexao >= DATEADD(MINUTE,-5,GETDATE())
 SELECT * FROM Monitoramento_RAW;
 
 SELECT
@@ -725,4 +742,129 @@ SELECT Count(IDMaquina) as Contagem
 		SELECT * FROM Usuario_Dashboard;
 
 */
+SELECT 
+        SUM(Total_captura) AS Total_Tempo
+    FROM 
+        tempo_de_execucao
+    JOIN 
+        maquinas ON tempo_de_execucao.FKTempo_maquina = maquinas.IDMaquina
+    WHERE 
+        maquinas.IDMaquina = 1;
+
+
+SELECT
+        IDTempo,
+        FORMAT(Data_Hora, 'dd/MM/yyyy') AS 'Data',
+        FORMAT(Data_Hora, 'HH:mm:ss') AS 'Hora',
+        FORMAT(Total_captura, N'hh\:mm\:ss') AS 'total'
+    FROM
+        Tempo_de_Execucao 
+    WHERE 
+        FKTempo_maquina = 1
+    ORDER BY
+        Data_Hora ASC;
+
+
+		TRUNCATE TABLE Processos;
+
+	SELECT
+
+    FROM
+        Tempo_de_Execucao 
+    WHERE 
+        FKTempo_maquina = 1
+    ORDER BY
+        Data_Hora DESC;
+
+
+		DECLARE @TotalSegundos INT;
+SELECT @TotalSegundos = SUM(DATEDIFF(SECOND, '00:00:00', Total_captura))
+FROM tempo_de_execucao
+WHERE FKTempo_maquina = 1;
+
+-- Converte de volta para o formato TIME
+DECLARE @SomaTotal TIME;
+SET @SomaTotal = DATEADD(SECOND, @TotalSegundos, '00:00:00');
+
+-- Exibe o resultado
+SELECT @SomaTotal AS Total_Tempo;
+
+ SELECT TOP 1
+        Componentes_monitorados.IDComponente_monitorado AS IDMonitoramento,
+        Data_Hora_Captura,
+       Total ,
+       Free, 
+       Uso AS Uso_Disco,
+        Porcentagem AS Porcentagem_Uso,
+        Componentes_cadastrados.Apelido 
+    FROM 
+        Monitoramento_RAW 
+    JOIN Componentes_monitorados ON FKComponente_Monitorado = IDComponente_monitorado 
+    JOIN Componentes_cadastrados ON Componentes_monitorados.FKComponente_cadastrado = IDComponente_cadastrado
+    JOIN Maquinas ON FKMaquina = IDMaquina
+    WHERE 
+        FKMaquina = 1
+        AND Componentes_cadastrados.Apelido = 'DISCO'
+    ORDER BY 
+        Monitoramento_RAW.IDMonitoramento DESC;
+		
+	SELECT 
+    FORMAT(Data_Hora, 'dd/MM/yyyy') AS DiaDaSemana,
+    CONVERT(TIME, DATEADD(SECOND, SUM(DATEDIFF(SECOND, '00:00:00', Total_captura)), '19000101')) AS SomatorioTotalCaptura
+FROM 
+    Tempo_de_Execucao
+WHERE 
+    FKTempo_maquina = 1
+GROUP BY 
+    FORMAT(Data_Hora, 'dd/MM/yyyy')
+ORDER BY 
+    FORMAT(Data_Hora, 'dd/MM/yyyy') ASC
+OFFSET 0 ROWS
+FETCH NEXT 7 ROWS ONLY;
+
+
+SELECT 
+    FORMAT(Data_Hora, 'dd/MM/yyyy') AS DiaDaSemana,
+    CONVERT(INT, SUM(DATEDIFF(MINUTE, '00:00:00', Total_captura))) AS QuantidadeDesligamentos
+FROM 
+    Tempo_de_Execucao
+WHERE 
+    FKTempo_maquina = 1
+GROUP BY 
+    FORMAT(Data_Hora, 'dd/MM/yyyy')
+ORDER BY 
+    FORMAT(Data_Hora, 'dd/MM/yyyy') ASC
+OFFSET 0 ROWS
+FETCH NEXT 7 ROWS ONLY;
+
+truncate table Processos;
+
+
+ SELECT TOP 12
+        CASE 
+            WHEN MONTH(Data_Hora) = 1 THEN 'Janeiro'
+            WHEN MONTH(Data_Hora) = 2 THEN 'Fevereiro'
+            WHEN MONTH(Data_Hora) = 3 THEN 'Março'
+            WHEN MONTH(Data_Hora) = 4 THEN 'Abril'
+            WHEN MONTH(Data_Hora) = 5 THEN 'Maio'
+            WHEN MONTH(Data_Hora) = 6 THEN 'Junho'
+            WHEN MONTH(Data_Hora) = 7 THEN 'Julho'
+            WHEN MONTH(Data_Hora) = 8 THEN 'Agosto'
+            WHEN MONTH(Data_Hora) = 9 THEN 'Setembro'
+            WHEN MONTH(Data_Hora) = 10 THEN 'Outubro'
+            WHEN MONTH(Data_Hora) = 11 THEN 'Novembro'
+            WHEN MONTH(Data_Hora) = 12 THEN 'Dezembro'
+        END AS Mes,
+        CONVERT(INT, SUM(DATEDIFF(MINUTE, '00:00:00', Total_captura))) AS QuantidadeDesligamentos
+    FROM 
+        Tempo_de_Execucao
+    JOIN 
+        Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
+    WHERE 
+        FKTempo_maquina = 1
+    GROUP BY 
+        MONTH(Data_Hora)
+    ORDER BY 
+        Mes DESC;   
+
 

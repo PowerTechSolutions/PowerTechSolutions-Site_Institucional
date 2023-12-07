@@ -1,6 +1,7 @@
 function fazerbusca(IDMaquina){
     sessionStorage.IDMaquina = IDMaquina;
     buscarDiscos(IDMaquina)
+    estabilidadeREDE(FKMaquina)
 }
 
 function geral() {
@@ -517,4 +518,21 @@ function atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM) {
 function visualizar(IDUsuario){
     sessionStorage.IDFuncionario = IDUsuario;
     window.location.href = "viewpoint.html"
+}
+
+function estabilidadeREDE(FKMaquina){
+    fetch(`/rede/estabilidade_REDE/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                resposta.reverse();
+                console.log(resposta)
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
 }

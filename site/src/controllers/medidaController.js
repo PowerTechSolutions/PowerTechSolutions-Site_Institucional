@@ -74,6 +74,7 @@ function buscarJanelas(req, res) {
 
     var FKMAQUINA = req.params.FKMAQUINA;
 
+
     medidaModel.buscarJanelas(FKMAQUINA).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);

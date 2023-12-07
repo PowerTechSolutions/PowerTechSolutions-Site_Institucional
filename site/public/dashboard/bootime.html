@@ -48,8 +48,8 @@ scale=1.0">
                     <div id="card_employee">
                         <h2>Histórico de Desligamentos:</h2>
                         <div class="title">
-                            <h3>DATA</h3>
-                            <h3>Tempo Início</h3>
+                            <h3>Data</h3>
+                            <h3>Hora Início</h3>
                             <h3>Total de Tempo</h3>
                         </div>
                         <div class="arrangement" id="arrangement">
@@ -60,13 +60,15 @@ scale=1.0">
 
                 <div class="chart">
 
-                    <canvas id="myChartWeek" style="display: block;"></canvas>
-                    <canvas id="myChartMonth" style="display: none;"></canvas>
+                    <div id="graficos" style="display: flex; width: 76%; height: 100%;">
+                    </div>
+
+                    
 
                     <div class="avisos">
                         <select class="select_graph" onchange="exibirgraph(this.value)">
-                            <option value=1 aria-checked="true">Semanal</option>
-                            <option value=2>Mensal</option>
+                            <option value=1 aria-checked="true">Últimos 7 dias</option>
+                            <option value=2>Por Mês</option>
                         </select>
                         <div class="avisos_info" id="avisos_info">
 
@@ -179,157 +181,164 @@ scale=1.0">
     window.onload = obterDadosGrafico_vmKaori2(FKMAQUINA);
     window.onload = atualizarGrafico_vmKaori2(FKMAQUINA);
 
+    window.onload = exibirgraph(1)
+
     function exibirgraph(valor) {
-    var grafico_week = document.getElementById("myChartWeek");
-    var grafico_month = document.getElementById("myChartMonth");
 
-    if (valor == 1) {
-        obterDadosGrafico_vmKaori(FKMAQUINA);
-        grafico_week.style.display = "block";
-        grafico_month.style.display = "none";
-    } else if (valor == 2) {
-        obterDadosGrafico_vmKaori2(FKMAQUINA);
-        grafico_week.style.display = "none";
-        grafico_month.style.display = "block";
+        var graficos = document.getElementById("graficos");
+        graficos.innerHTML = ""
+
+        if (valor == 1) {
+            obterDadosGrafico_vmKaori(FKMAQUINA);
+            var grafico_week = document.createElement("canvas");
+            grafico_week.id = "myChartWeek"
+            grafico_week.style.display = "block"
+            graficos.appendChild(grafico_week)
+        } else if (valor == 2) {
+            obterDadosGrafico_vmKaori2(FKMAQUINA);
+            var grafico_month = document.createElement("canvas");
+            grafico_month.id = "myChartMonth"
+            grafico_month.style.display = "block"
+            graficos.appendChild(grafico_month)
+        }
     }
-}
 
 
 
 
-function obterDadosGrafico_vmKaori2(FKMAQUINA) {
+    function obterDadosGrafico_vmKaori2(FKMAQUINA) {
 
-// alterarTitulo(idUsuario)
+        // alterarTitulo(idUsuario)
 
-// if (proximaAtualizacao != undefined) {
-//     clearTimeout(proximaAtualizacao);
-// }
+        // if (proximaAtualizacao != undefined) {
+        //     clearTimeout(proximaAtualizacao);
+        // }
 
-fetch(`/medidas/ultimas_TempoExecMonth/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (resposta) {
-            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-            resposta.reverse();
+        fetch(`/medidas/ultimas_TempoExecMonth/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
 
-            plotarGrafico_vmKaori2(resposta, FKMAQUINA);
-            var avisoCaptura = document.getElementById(`avisos_info`)
-            avisoCaptura.innerHTML = "<span>Foi recebido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará.</span>"
-        });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');
-    }
-})
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
-}
-
-function plotarGrafico_vmKaori2(resposta, FKMAQUINA) {
-
-console.log('iniciando plotagem do gráfico...');
-
-// Criando estrutura para plotar gráfico - labels
-let labels = [];
-
-// Criando estrutura para plotar gráfico - dados
-let dados = {
-    labels: labels,
-    datasets: [{
-        label: 'Tempo Total',
-        data: [],
-        fill: false,
-        borderColor: '#FFE500',
-        backgroundColor: '#FFE500'
-    }]
-};
-
-console.log('----------------------------------------------')
-console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-console.log(resposta)
-
-// Inserindo valores recebidos em estrutura para plotar o gráfico
-for (i = 0; i < resposta.length; i++) {
-    var registro = resposta[i];
-    labels.push(registro.Mes);
-    dados.datasets[0].data.push(registro.QuantidadeDesligamentos);
-}
-
-console.log('----------------------------------------------')
-console.log('O gráfico será plotado com os respectivos valores:')
-console.log('Labels:')
-console.log(labels)
-console.log('Dados:')
-console.log(dados.datasets)
-console.log('----------------------------------------------')
-
-// Criando estrutura para plotar gráfico - config
-const config = {
-    type: 'line',
-    data: dados,
-};
-
-// Adicionando gráfico criado em div na tela
-let myChartMonth = new Chart(
-    document.getElementById(`myChartMonth`),
-    config
-);
-
-setTimeout(() => atualizarGrafico_vmKaori2(FKMAQUINA, dados, myChartMonth), 2000);
-}
-
-
-
-
-function atualizarGrafico_vmKaori2(FKMAQUINA, dados, myChartMonth) {
-
-fetch(`/medidas/tempo_real_vmKaori2/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (novoRegistro) {
-
-            console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-            console.log(`Dados atuais do gráfico:`);
-            console.log(dados);
-
-            let avisoCaptura = document.getElementById(`avisoCaptura`)
-            avisoCaptura.innerHTML = ""
-
-            if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
-                console.log("---------------------------------------------------------------")
-                console.log("Como não há dados novos para captura, o gráfico não atualizará.")
-                avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i>Foi recebido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará."
-                console.log("Horário do novo dado capturado:")
-                console.log(novoRegistro[0].momento_grafico)
-                console.log("Horário do último dado capturado:")
-                console.log(dados.labels[dados.labels.length - 1])
-                console.log("---------------------------------------------------------------")
+                    plotarGrafico_vmKaori2(resposta, FKMAQUINA);
+                    var avisoCaptura = document.getElementById(`avisos_info`)
+                    avisoCaptura.innerHTML = "<span>Foi recebido o dado mais atual em minutos capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará.</span>"
+                });
             } else {
-                // tirando e colocando valores no gráfico
-                dados.labels.shift(); // apagar o primeiro
-                dados.labels.push(novoRegistro[0].Mes); // incluir um novo momento
-
-                dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                dados.datasets[0].data.push(novoRegistro[0].QuantidadeDesligamentos); // incluir uma nova medida de umidade
-
-                // dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
-                // dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-
-                myChartMonth.update();
+                console.error('Nenhum dado encontrado ou erro na API');
             }
-
-            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            setTimeout(() => atualizarGrafico_vmKaori2(FKMAQUINA, dados, myChartMonth), 3000);
-        });
-    } else {
-        console.error('Nenhum dado encontrado ou erro na API');
-        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-        setTimeout(() => atualizarGrafico_vmKaori2(FKMAQUINA, dados, myChartMonth), 3000);
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
-})
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
 
-}
+    function plotarGrafico_vmKaori2(resposta, FKMAQUINA) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Minutos Paradas',
+                data: [],
+                fill: false,
+                borderColor: '#FFE500',
+                backgroundColor: '#FFE500'
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.Mes);
+            dados.datasets[0].data.push(registro.QuantidadeDesligamentos);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChartMonth = new Chart(
+            document.getElementById(`myChartMonth`),
+            config
+        );
+
+        setTimeout(() => atualizarGrafico_vmKaori2(FKMAQUINA, dados, myChartMonth), 2000);
+    }
+
+
+
+
+    function atualizarGrafico_vmKaori2(FKMAQUINA, dados, myChartMonth) {
+
+        fetch(`/medidas/tempo_real_vmKaori2/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
+
+                    let avisoCaptura = document.getElementById(`avisoCaptura`)
+                    avisoCaptura.innerHTML = ""
+
+                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i>Foi recebido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].momento_grafico)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados.labels[dados.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        // tirando e colocando valores no gráfico
+                        dados.labels.shift(); // apagar o primeiro
+                        dados.labels.push(novoRegistro[0].Mes); // incluir um novo momento
+
+                        dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                        dados.datasets[0].data.push(novoRegistro[0].QuantidadeDesligamentos); // incluir uma nova medida de umidade
+
+                        // dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                        // dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+
+                        myChartMonth.update();
+                    }
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    setTimeout(() => atualizarGrafico_vmKaori2(FKMAQUINA, dados, myChartMonth), 3000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                setTimeout(() => atualizarGrafico_vmKaori2(FKMAQUINA, dados, myChartMonth), 3000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
 
 
     function obterDadosGrafico_vmKaori(FKMAQUINA) {
@@ -348,7 +357,7 @@ fetch(`/medidas/tempo_real_vmKaori2/${FKMAQUINA}`, { cache: 'no-store' }).then(f
 
                     plotarGrafico_vmKaori(resposta, FKMAQUINA);
                     var avisoCaptura = document.getElementById(`avisos_info`)
-            avisoCaptura.innerHTML = "<span>Foi recebido o dado mais atual capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará.</span>"
+                    avisoCaptura.innerHTML = "<span>Foi recebido o dado mais atual em minutos capturado pela API. <br> Como não há dados novos a exibir, o gráfico não atualizará.</span>"
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -370,7 +379,7 @@ fetch(`/medidas/tempo_real_vmKaori2/${FKMAQUINA}`, { cache: 'no-store' }).then(f
         let dados = {
             labels: labels,
             datasets: [{
-                label: 'Tempo Total',
+                label: 'Minutos Paradas',
                 data: [],
                 fill: false,
                 borderColor: '#FFE500',
@@ -399,7 +408,7 @@ fetch(`/medidas/tempo_real_vmKaori2/${FKMAQUINA}`, { cache: 'no-store' }).then(f
 
         // Criando estrutura para plotar gráfico - config
         const config = {
-            type: 'line',
+            type: 'bar',
             data: dados,
         };
 
@@ -443,7 +452,7 @@ fetch(`/medidas/tempo_real_vmKaori2/${FKMAQUINA}`, { cache: 'no-store' }).then(f
                         dados.labels.push(novoRegistro[0].DiaDaSemana); // incluir um novo momento
 
                         dados.datasets[0].data.shift();  // apagar o primeiro de umidade
-                        dados.datasets[0].data.push(novoRegistro[0].QuantidadeDesligamentos); // incluir uma nova medida de umidade
+                        dados.datasets[0].data.push(ovoRegistro[0].QuantidadeDesligamentos); // incluir uma nova medida de umidade
 
                         // dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
                         // dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
@@ -577,7 +586,8 @@ fetch(`/medidas/tempo_real_vmKaori2/${FKMAQUINA}`, { cache: 'no-store' }).then(f
                         var publicacao = resposta[contador_usuario];
 
                         var tempoTotal = document.querySelector("#idTempoTotal");
-                        tempoTotal.innerHTML = `${publicacao.Total_Tempo ?? 0}`;
+                        var formatado = new Date(publicacao.Total_Tempo).toISOString().slice(11, 19);
+                        tempoTotal.innerHTML = `${formatado ?? 0}`;
 
 
                     }
@@ -735,6 +745,7 @@ fetch(`/medidas/tempo_real_vmKaori2/${FKMAQUINA}`, { cache: 'no-store' }).then(f
                     for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
                         var publicacao = resposta[contador_usuario];
                         // criando e manipulando elementos do HTML via JavaScript
+                        console.log(publicacao.total)
 
                         var usuario = document.createElement("div");
                         usuario.className = "infoemp";
@@ -742,13 +753,13 @@ fetch(`/medidas/tempo_real_vmKaori2/${FKMAQUINA}`, { cache: 'no-store' }).then(f
                         var data = document.createElement("p");
                         data.innerHTML = publicacao.Data;
                         usuario.appendChild(data)
-
+                        var formatado = new Date(publicacao.total).toISOString().slice(11, 19);
                         var hora = document.createElement("p");
                         hora.innerHTML = publicacao.Hora;
                         usuario.appendChild(hora);
 
                         var total = document.createElement("p");
-                        total.innerHTML = publicacao.total;
+                        total.innerHTML = formatado;
                         usuario.appendChild(total)
 
                         feed.appendChild(usuario)
@@ -824,15 +835,15 @@ fetch(`/medidas/tempo_real_vmKaori2/${FKMAQUINA}`, { cache: 'no-store' }).then(f
 
 
                         var total = document.createElement("h4")
-                        total.innerHTML = `Total Disco(GB): <span id="total_disco"> ${publicacao.Total_Uso}</span>`
+                        total.innerHTML = `Total do Disco(GB): <span id="total_disco"> ${publicacao.Total_Uso}</span>`
                         feed.appendChild(total);
 
                         var free = document.createElement("h4")
-                        free.innerHTML = `Free Disco(GB): <span id="total_disco"> ${publicacao.Livre_Uso}</span>`
+                        free.innerHTML = `Espaço restante do Disco(GB): <span id="total_disco"> ${publicacao.Livre_Uso}</span>`
                         feed.appendChild(free);
 
                         var uso = document.createElement("h4")
-                        uso.innerHTML = `Used Disco(GB): <span id="total_disco"> ${publicacao.Uso_Disco}</span>`
+                        uso.innerHTML = `Uso do Disco(GB): <span id="total_disco"> ${publicacao.Uso_Disco}</span>`
                         feed.appendChild(uso);
 
                         // var total_disco = document.getElementById(total_disco);

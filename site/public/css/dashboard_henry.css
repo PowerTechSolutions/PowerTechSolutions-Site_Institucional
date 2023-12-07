@@ -462,8 +462,20 @@ option {
   margin-top: 21px;
   padding-top: 1px;
   padding-left: 10px;
+}
+
+.s{
+  display: flex;
+  width: 10%;
+  height: 10vh;
+  align-items: center;
+  justify-content: center;
+  margin-left: 40%;
+}
 
 
+ .quadradoTres #contagem{
+  font-size: 60px;
 }
 
 .espacoEsquerdo {

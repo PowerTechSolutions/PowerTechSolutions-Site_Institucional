@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Geral</title>
-    <link rel="stylesheet" href="../css/geralAdm.css">
+    <link rel="stylesheet" href="../css/dashboard_henry.css">
     <link rel="stylesheet" href="../css/dropdown.css">
     <link rel="stylesheet" href="../css/chat.css">
     <script src="../js/chat.js"></script>
@@ -88,8 +88,10 @@
 
 
                         <div class="quadradoTres">
-                            <h1 class="titulo">MF's <br> Ativas:</h1>
-                            <span id="contagem"></span>
+                            <h2 class="titulo">MF's <br> Ativas:</h2>
+                            <div class="s">
+                                <span id="contagem"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,7 +100,7 @@
                         <h2>Máquina Física Status</h2>
                         <div class="title">
                             <h3>ID</h3>
-                            <h3>Quantida de janelas</h3>
+                            <h3>Quantidade de janelas</h3>
                             <h3>Última captura</h3>
                         </div>
                         <div class="arrangement" id="maquinas_fisicas">
@@ -294,7 +296,7 @@
     
         // Criando estrutura para plotar gráfico - config
         const config = {
-            type: 'line',
+            type: 'bar',
             data: dados,
         };
     

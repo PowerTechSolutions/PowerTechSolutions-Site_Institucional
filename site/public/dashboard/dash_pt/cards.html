@@ -116,24 +116,21 @@
             <div class="cards">
                 <div class="card2">
                     <div class="crd2_sept">
-                        <p>Alertas</p>
-                        <div class="dropdown_selection">
-                            <select onchange="exibirlocal(this.value)">
-                                <option> Escolha o mês para visualizar </option>
-                                <option value="01">Janeiro</option>
-                                <option value="02">Fevereiro</option>
-                                <option value="03">Março</option>
-                                <option value="04">Abril</option>
-                                <option value="05">Maio</option>
-                                <option value="06">Junho</option>
-                                <option value="07">Julho</option>
-                                <option value="08">Agosto</option>
-                                <option value="09">Setembro</option>
-                                <option value="10">Outubro</option>
-                                <option value="11">Novembro</option>
-                                <option value="12">Dezembro</option>
-                            </select>
-                        </div>
+                        <select class="dropdown_selection" onchange="exibirlocal(this.value)">
+                            <option> Escolha o mês para visualizar </option>
+                            <option value="01">Janeiro</option>
+                            <option value="02">Fevereiro</option>
+                            <option value="03">Março</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Maio</option>
+                            <option value="06">Junho</option>
+                            <option value="07">Julho</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Setembro</option>
+                            <option value="10">Outubro</option>
+                            <option value="11">Novembro</option>
+                            <option value="12">Dezembro</option>
+                        </select>
                     </div>
                     <div class="alertas" id="alertas">
                         <canvas id="myChart1"></canvas>
@@ -365,8 +362,8 @@ function viewpoint(){
                 label: 'Alertas',
                 data: [],
                 fill: false,
-                borderColor: '#009EA3',
-                backgroundColor: '#009EA3'
+                color: "yellow",
+                backgroundColor: ['yellow','orange','red']
             }]
         };
 
@@ -391,7 +388,15 @@ function viewpoint(){
         // Criando estrutura para plotar gráfico - config
         const config = {
             type: 'bar',
-            data: dados
+            data: dados,
+            options: {
+                layout: {
+                    padding: {
+                        left: 15,
+                        right: 15
+                    }
+                }
+            }
         };
 
         let myChart = new Chart(

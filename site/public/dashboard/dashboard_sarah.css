@@ -342,7 +342,7 @@ select {
 .kpi h3 {
     margin-bottom: 0%;
     margin-top: 10%;
-    margin-left: 13%;
+    margin-left: 7.5%;
     display: flex;
     justify-content: left;
     align-items: center;
@@ -400,7 +400,7 @@ select {
     display: flex;
     align-items: center;
     justify-content: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 93%;
     height: 5vh;
     font-weight: bold;
@@ -419,15 +419,15 @@ select {
     display: flex;
     align-items: center;
     justify-content: center;
-    justify-content: space-evenly;
-    width: 88%;
+    justify-content: space-between;
+    width: 94%;
     height: 4.8vh;
     font-weight: bold;
     padding-top: 4%;
     background-color: rgba(255, 255, 255, 0.678);
     padding: 10px;
     margin-bottom: 8px;
-    margin-left: 5.5%;
+    margin-left: 3.5%;
     margin-top: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
@@ -485,7 +485,7 @@ select {
     display: flex;
     align-items: center;
     justify-content: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 95%;
     height: 5vh;
     font-weight: bold;
@@ -504,8 +504,7 @@ select {
     display: flex;
     align-items: center;
     justify-content: center;
-    justify-content: space-evenly;
-    width: 100%;
+    justify-content: space-between;
     height: 5vh;
     font-weight: bold;
     padding-top: 4%;
@@ -659,7 +658,7 @@ select {
 .monitor{
     display: flex;
     flex-direction: column;
-    width: 96%;
+    width: 94%;
     margin-bottom: 1%;
     margin-top: -2%;
     height: 48vh;

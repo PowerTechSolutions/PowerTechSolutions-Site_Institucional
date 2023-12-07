@@ -20,6 +20,7 @@ var processoRouter = require("./src/routes/processo");
 var maquinaRouter = require("./src/routes/maquinas");
 var slackRouter = require("./src/routes/slackbot");
 var desempenhoRouter = require("./src/routes/desempenho");
+var rederouter = require("./src/routes/rede");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -39,6 +40,7 @@ app.use("/processo", processoRouter);
 app.use("/maquinas", maquinaRouter);
 app.use("/slackbot", slackRouter);
 app.use("/desempenho", desempenhoRouter);
+app.use("/rede",rederouter);
 
 app.listen(PORTA, function () {
     console.log(`Servidor do seu site já está rodando! Acesse o caminho a seguir para visualizar: http://localhost:${PORTA} \n

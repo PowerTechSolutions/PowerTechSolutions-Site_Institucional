@@ -102,7 +102,7 @@
         <div class="first-container">
 
             <div class="kpi kp2">
-                <h3>Processos Estáveis</h3>
+                <h3>Processos Atuais Estáveis</h3>
                 <div id="kpiEstavel" class="numbers">
                     <!-- <span>  </span> -->
                 </div>
@@ -174,7 +174,7 @@
             <div class="picos">
 
                 <div class="t-grafico">
-                    <span>Desempenho da Semana</span>
+                    <span></span>
                 </div>
 
                 <div>
@@ -255,7 +255,7 @@
         <div class="espaco">
 
             <div class="monitor">
-                <h4>Monitor de Desempenho Crítico (Atual)</h4>
+                <h4>Monitor de Desempenho Crítico Atual</h4>
                 <div class="info-m">
                     <span>ALERTA</span>
                     <span>NOME</span>
@@ -273,33 +273,8 @@
 
     </div>
 
-
-
-
-
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-    <!-- <script>
-
-        let minimenu = document.querySelector('.minimenu');
-        let sidebar = document.querySelector('.sidebar');
-
-        minimenu.onclick = function () {
-            sidebar.classList.toggle('active');
-            document.body.classList.toggle('body-active-sidebar');
-        }
-
-
-        let listmenu = document.querySelectorAll('.listmenu li');
-        function activeLink(
-        ) {
-            listmenu.forEach((item) => item.classList.remove('active'));
-            this.classList.add('active')
-        }
-        listmenu.forEach((item) => item.addEventListener('click', activeLink));
-    </script> -->
-
     <script>
 
         quantidadeEstavel()
@@ -378,9 +353,19 @@
             });
         }
 
+        
+        setTimeout(() => atualizarProcessosDinamico(), 5000)
+        function atualizarProcessosDinamico(){
+                const listaTuplasProcessos = document.querySelector("#registro-container").children
+                const listaTuplasAlertas = document.querySelector("#table-container").children
+                limparTuplas(listaTuplasProcessos)
+                limparTuplas(listaTuplasAlertas),
+                PegarProcessosAtuais(),
+                ListarCriticos(),
+                setTimeout(() => atualizarProcessosDinamico(), 2000)
+        }
 
         PegarProcessosAtuais()
-
         function PegarProcessosAtuais() {
 
             fetch("/processo/ExibirUltimosProcessos", {
@@ -442,6 +427,12 @@
 
         }
 
+        function limparTuplas(listaTuplas){
+            for(tupla of listaTuplas){
+                tupla.remove()
+            }
+        }
+
 
 
         function validarCoresSvg(statusFinal) {
@@ -454,7 +445,7 @@
             }
 
             if (statusFinal == 1) {
-                return "#00FF00"
+                return "#32CD32"
             }
         }
 
@@ -478,7 +469,7 @@
             else if (porcentagemCpu >= 8.0) {
                 return 2
             }
-            else if (porcentagemCpu <= 4.0) {
+            else if (porcentagemCpu <= 7.9) {
                 return 1
             }
         }
@@ -487,10 +478,10 @@
             if (porcentagemRam >= 90.0) {
                 return 3
             }
-            else if (porcentagemRam >= 8.0) {
+            else if (porcentagemRam >= 87.0) {
                 return 2
             }
-            else if (porcentagemRam <= 85.0) {
+            else if (porcentagemRam <= 86.9) {
                 return 1
             }
         }

@@ -85,12 +85,17 @@ body {
     text-align: center;
     align-items: center;
     width: 30%;
-    height: 100px;
+    /* height: 100px; */
     margin-top: 10px;
 }
 
 .total h4{
     border-bottom:1px solid white;
+}
+#qntd{
+    display: flex;
+    justify-content: center;
+    align-self: center;
 }
 .parte {
     width: 50%;
@@ -218,16 +223,32 @@ body {
     text-align: center;
 }
 
+
+#card_func2{
+    width:100%;
+    height: 300px;
+    background-color: #1A1C22;
+    border-radius: 13px;
+    padding:10px;
+    text-align: center;
+}
 .listagem{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     cursor:pointer;
 }
+#maiorDiv{
+    overflow-y: scroll;
+    overflow-x: scroll none;
+    height: 170px;
+    width: 100%;
+}
+
 .title{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     border-bottom:1px solid white;
 }
 
