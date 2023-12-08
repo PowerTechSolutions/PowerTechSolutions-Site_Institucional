@@ -297,7 +297,6 @@ function buscarTempoExecucao(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT
-<<<<<<< HEAD
     IDTempo,                                                                                            
     FORMAT(Data_Hora, 'dd/MM/yyyy') AS Data,
     FORMAT(Data_Hora, 'HH:mm:ss') AS Hora,
@@ -308,17 +307,6 @@ WHERE
     FKTempo_maquina = ${FKMAQUINA}
 ORDER BY
     Data_Hora DESC;
-
-=======
-    IDTempo,
-    DATE_FORMAT(Data_Hora, '%d/%m/%Y') AS Data,
-    TIME(Data_Hora) AS Hora,
-    TIME(Total_captura) AS total
-FROM
-    Tempo_de_Execucao WHERE FKTempo_maquina = ${FKMAQUINA}
-ORDER BY
-    Data_Hora DESC;
->>>>>>> 2a59ea9284b6f639367bc485a4ce8b125876a7e8
     `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");

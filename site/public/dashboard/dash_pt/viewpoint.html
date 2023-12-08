@@ -43,9 +43,7 @@
                         src="element-3 (1).png" alt="">
                     <p>View Point</p>
                 </button>
-                <button onclick="dashboard_janelas()">
-                <p>Janelas abertas</p>
-            </button>
+                
             </div>
             <div class="sepration2">
                 <button class="helpbutton"><img src="help-circle.png" alt="">
@@ -78,6 +76,9 @@
                     <span id="nome_usuario" class="informacoes"></span>
                     <span id="email_usuario" class="informacoes"></span>
                 </div>
+                <button class="erica" onclick="dashboard_janelas()">
+                    <p>Janelas abertas</p>
+                </button>
             </div>
             <div class="cards" id="firstpart">
                 <div id="sept">
@@ -181,7 +182,8 @@
 </body>
 
 <script>
-
+    nome_usuario.innerHTML = sessionStorage.Nome_Usuario;
+    email_usuario.innerHTML = sessionStorage.Email_Usuario;
 function dashboard_janelas(){
         window.location.href = "dashboard_Erica.html";
     }
@@ -199,14 +201,6 @@ function dashboard_janelas(){
     .graph{
         width: 100%;
         height: auto;
-    }
-    
-    .select_graph{
-        margin-left: 4%;
-        margin-top: 4%;
-        width: 10%;
-        height: 30%;
-        border-radius: 15%;
     }
 
     .grafico{

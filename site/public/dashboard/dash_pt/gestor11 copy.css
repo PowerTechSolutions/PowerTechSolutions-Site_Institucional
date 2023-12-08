@@ -9,7 +9,14 @@ body {
   display: flex;
   justify-content: center;
 }
-
+.erica{
+  width: 200px;
+  height: 50px;
+  background-color: transparent;
+  border-color: #F7E11B;
+  color: #fff;
+  border-radius: 4px;
+}
 .dash-right .avisos {
   width: 100%;
   /* border: 3px solid pink; */
@@ -423,11 +430,23 @@ body {
   margin-top: 20px;
 }
 
+option{
+  color: black;
+}
+
 .card p {
   font-weight: lighter;
   text-align: left;
 }
-
+.select_graph {
+  margin-left: 2%;
+  margin-top: 2%;
+  width: 18%;
+  height: 30%;
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #F7E11B;
+}
 .dropdown_selection {
   display: flex;
   flex-direction: column;

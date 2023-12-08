@@ -14,14 +14,19 @@ a {
 }
 
 .seta {
-  margin-top: 2%;
+  margin-top: 1%;
   display: flex;
   flex-direction: row;
   margin-left: 1%;
-  width: 12%;
+  width: 6%;
   height: 5%;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.seta button{
+  background-color: transparent;
+  border: none;
 }
 
 option{

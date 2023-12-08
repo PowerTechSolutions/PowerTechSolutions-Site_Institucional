@@ -260,6 +260,17 @@ body {
     margin-left: -5%;
 }
 
+.bvolta button{
+    background-color: transparent;
+    border: none;
+    height: 51px;
+}
+
+.bvolta img{
+    width: 59px;
+    height: 50px;
+}
+
 .botao-voltar {
     font-size: 45px;
     text-decoration: none;

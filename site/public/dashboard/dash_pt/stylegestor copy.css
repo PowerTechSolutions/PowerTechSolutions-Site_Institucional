@@ -467,11 +467,14 @@ label span {
   /* border: 3px solid pink; */
 }
 
-.select_maquinas{
+.select_maquinas {
   width: 75%;
   height: 50%;
   display: flex;
   text-align: center;
+  background: transparent;
+  border: 2px solid #F7E11B;
+  color: white;
 }
 
 .sepration button {
