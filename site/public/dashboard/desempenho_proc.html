@@ -1,284 +1,731 @@
 ﻿<!DOCTYPE html>
+
 <html lang="en">
 
+
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Desempenho Máquinas Físicas</title>
+
     <link rel="stylesheet" href="../dashboard/dash_pt/gestor11 copy.css">
+
     <link rel="stylesheet" href="../dashboard/dash_pt/stylegestor copy.css">
+
     <!-- <link rel="stylesheet" href="../css/chat.css"> -->
+
     <link rel="stylesheet" href="../css/desempenhoTrader.css">
+
     <!-- biblioteca para gerar pdf -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"
         integrity="sha512-6HmJ9Y5PZWQVCd4KUwIaSgtDskfsykB+Fvm8Nq98GVCMHstaVoX9jqDdwSyGCbmJy5eLs/DXgDE3SXRS+2B2yA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <!-- biblioteca para gerar print -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
         integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script src="pdf-desempenho.js"></script>
+
     <script src="../js/direcoes.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
 
 
 </head>
 
+
+
 <body>
+
     <div class="seta">
-        <img onclick="voltar()" src="../assets/imgs_power/setas-voltar.png">
-        <a href="maquina_fisica.html">Voltar</a>
+
+        <img onclick="voltar()" src="arrow.png">
+
+        <!-- <a href="geralAdm.html">Voltar</a> -->
+
     </div>
+
     <div class="conteudo" id="conteudo-ID">
+
         <div class="lado-A" id="LA">
+
             <div class="kpis">
+
                 <div class="kpi">
+
                     <span class="titulo-kpi">Máquinas em estado crítico</span>
-                    <span id="valor" onclick="acharCritico()">5</span>
+
+                    <span id="valor" onclick="critico()">0</span>
+
                 </div>
+
                 <div class="kpi">
+
                     <span class="titulo-kpi">Máquinas em atenção</span>
-                    <span id="valor2" onclick="acharAlerta()">20</span>
+
+                    <span id="valor2" onclick="alerta()">0</span>
+
                 </div>
+
             </div>
+
+
 
             <div class="graph1">
+
                 <span class="titulo" id="title">Influência de processos no uso de RAM</span>
+
                 <div class="tamanho-graph1">
+
                     <canvas id="mychart1"></canvas>
+
                 </div>
+
             </div>
+
+
 
             <!-- <div class="graph2">
-                    <span class="titulo2">Taxa de funcionários que consomem muito da CPU</span>
-                    <div class="tamanho-graph2">
-                        <canvas id="mychart2"></canvas>
-                    </div>
-                </div> -->
+
+<span class="titulo2">Taxa de funcionários que consomem muito da CPU</span>
+
+<div class="tamanho-graph2">
+
+<canvas id="mychart2"></canvas>
+
+</div>
+
+</div> -->
+
         </div>
+
         <!-- fim do lado A -->
 
+
+
         <div class="lado B" id="LB">
+
             <!-- <div class="pdf" id="baixarpdf">
-                <span>Gostaria de obter um pdf desse relátorio?</span>
-                <div class="botoes">
-                    <button class="cinza" onclick="fecharMsg()">Não, obrigado</button>
-                    <button class="amarelo" onclick="criarPdf()">Gerar pdf</button>
-                </div>
-            </div> -->
+
+<span>Gostaria de obter um pdf desse relátorio?</span>
+
+<div class="botoes">
+
+<button class="cinza" onclick="fecharMsg()">Não, obrigado</button>
+
+<button class="amarelo" onclick="criarPdf()">Gerar pdf</button>
+
+</div>
+
+</div> -->
+
             <!-- <div class="resumo">
-                <p>Com base nesse gráfico, foi percebido que dos
-                    funcionários do seu setor <span id="percentual">45%</span>
-                    estão com a produtividade dentro do esperado.</p>
-            </div> -->
+
+<p>Com base nesse gráfico, foi percebido que dos
+
+funcionários do seu setor <span id="percentual">45%</span>
+
+estão com a produtividade dentro do esperado.</p>
+
+</div> -->
+
+
 
             <div class="lista">
+
                 <span class="titulo-lista">
-                    Listagem de uso de ram das máquinas físicas (em %)
+
+                    Listagem de uso de ram de cada processo (em %)
+
                 </span>
+
                 <div class="colunas">
+
                     <span>IDMaquina</span>
+
                     <span>Apelido</span>
+
                     <span>Processo</span>
+
                     <span>Uso Ram</span>
+
                     <span>Alerta</span>
+
                 </div>
+
                 <div class="registros" id="registro">
+
                     <div id="tuplas">
 
+
+
                     </div>
+
                 </div>
+
             </div>
 
 
+
+
+
         </div>
+
         <div id="TESTE"></div>
+
     </div>
+
 </body>
+
+
 
 </html>
 
+
+
 <script>
+
+
 
     var id_user = sessionStorage.getItem('ID_Usuario');
 
+
+
     window.onload = criarLista()
+
     window.onload = exibirgraph()
 
+    window.onload = acharAlerta()
+
+    window.onload = acharCritico()
+
+
+
     function voltar() {
-        window.location = "maquina_fisica.html"
+
+        window.location = "geralAdm.html"
+
     }
+
+
 
     function exibirgraph() {
 
+
+
         console.log();
 
+
+
         fetch(`/desempenho/acessarDesempenho`, { cache: 'no-store' }).then(function (response) {
+
             if (response.ok) {
+
                 response.json().then(function (resposta) {
+
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
                     resposta.reverse();
 
+
+
                     plotarGrafico(resposta);
+
                 });
+
             } else {
+
                 console.error('Nenhum dado encontrado ou erro na API');
+
             }
+
         })
+
             .catch(function (error) {
+
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+
             });
+
     }
+
+
 
     function plotarGrafico(resposta) {
 
+
+
         console.log('iniciando plotagem do gráfico...');
 
+
+
         // Criando estrutura para plotar gráfico - labels
+
         let labels = [];
 
+
+
         // Criando estrutura para plotar gráfico - dados
+
         let dados = {
+
             labels: labels,
+
             datasets: [{
+
                 label: 'Processos capturados',
+
                 data: [],
+
                 fill: false,
+
                 borderColor: 'blue',
-                backgroundColor: 'blue'
+
+                backgroundColor: 'blue',
+
             }]
+
         };
 
+
+
         console.log('----------------------------------------------')
+
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+
         console.log(resposta)
 
+
+
         // Inserindo valores recebidos em estrutura para plotar o gráfico
+
         for (i = 0; i < resposta.length; i++) {
+
             var registro = resposta[i];
+
             labels.push(registro.dataHora);
+
             dados.datasets[0].data.push(registro.ram);
+
+
 
         }
 
+
+
         console.log('----------------------------------------------')
+
         console.log('O gráfico será plotado com os respectivos valores:')
+
         console.log('Labels:')
+
         console.log(labels)
+
         console.log('Dados:')
+
         console.log(dados.datasets)
+
         console.log('----------------------------------------------')
+
+
 
         // Criando estrutura para plotar gráfico - config
+
         const config = {
+
             type: 'line',
+
             data: dados,
+
         };
 
+
+
         // const config = {
-        //     type: 'scatter',
-        //     data: dados,
-        //     options: {
-        //         scales: {
-        //             x: {
-        //                 type: 'linear',
-        //                 position: 'bottom'
-        //             }
-        //         }
-        //     }
+
+        // type: 'scatter',
+
+        // data: dados,
+
+        // options: {
+
+        // scales: {
+
+        // x: {
+
+        // type: 'linear',
+
+        // position: 'bottom'
+
+        // }
+
+        // }
+
+        // }
+
         // };
 
+
+
         // Adicionando gráfico criado em div na tela
+
         let myChartWeek = new Chart(
+
             document.getElementById(`mychart1`),
+
             config
+
         );
+
+
+
+
 
     }
 
-    function acharCritico(){}
 
-    function acharAlerta(){}
+
+    var contador = 0
+
+
+
+    function acharCritico() {
+
+        var n1 = document.getElementById("valor");
+
+
+        fetch(`/desempenho/criticoCount`, { cache: 'no-store' }).then(function (response) {
+
+            if (response.ok) {
+
+                response.json().then(function (resposta) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    resposta.reverse();
+
+
+
+                    n1.innerHTML = `${resposta[0].tipo_alerta}`
+
+                    // preencher2(resposta);
+
+
+
+                });
+
+            } else {
+
+                console.error('Nenhum dado encontrado ou erro na API');
+
+            }
+
+        })
+
+            .catch(function (error) {
+
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+
+            });
+
+
+
+
+
+    }
+
+
+
+    function acharAlerta() {
+
+        var n2 = document.getElementById("valor2");
+
+
+
+        fetch(`/desempenho/alertaCount`, { cache: 'no-store' }).then(function (response) {
+
+            if (response.ok) {
+
+                response.json().then(function (resposta) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    resposta.reverse();
+
+
+
+                    n2.innerHTML = `${resposta[0].tipo_alerta}`
+
+
+
+
+                });
+
+            } else {
+
+                console.error('Nenhum dado encontrado ou erro na API');
+
+            }
+
+        })
+
+            .catch(function (error) {
+
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+
+            });
+
+
+
+    }
+
+
 
     function criarLista() {
 
+
+
         fetch(`/desempenho/listagem`, { cache: 'no-store' }).then(function (response) {
+
             if (response.ok) {
+
                 response.json().then(function (resposta) {
+
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
                     resposta.reverse();
+
+
 
                     preencher(resposta);
 
+
+
                 });
+
             } else {
+
                 console.error('Nenhum dado encontrado ou erro na API');
+
             }
+
         })
+
             .catch(function (error) {
+
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+
             });
+
     }
 
+
+
     function preencher(resposta) {
+
         var feed = document.getElementById("tuplas");
-        var n1 = document.getElementById("valor");
-        var n2 = document.getElementById("valor2");
+
+
 
         for (i = 0; i < resposta.length; i++) {
+
             var informacao = resposta[i];
+
+
             console.log('está no for do resposta')
-            var contadorAlerta = 0
-            var contadorCritico = 0
 
-            if (informacao.Uso_ram >= 87.00 && informacao.Uso_ram < 90.00) {
-                var maquina = document.createElement('div');
-                maquina.className = "desempenho";
-                maquina.innerHTML += `<div>${informacao.IDMaquina}</div>
-                        <div>${informacao.Apelido}</div>
-                        <div>${informacao.nomeProcesso}</div>
-                        <div>${informacao.Uso_ram}</div>
-                        <div style="color:#f5e552">Alerta</div>`
-                feed.appendChild(maquina)
 
-                contadorAlerta++
-                console.log('está em alertas')
+
+            var maquina = document.createElement('div');
+
+            maquina.className = "desempenho";
+
+            maquina.innerHTML += `<div>${informacao.IDMaquina}</div>
+
+<div>${informacao.Apelido}</div>
+
+<div>${informacao.nomeProcesso}</div>
+
+<div>${informacao.Uso_ram}</div>`
+
+            feed.appendChild(maquina)
+
+
+
+            if (informacao.tipo_alerta == 2) {
+
+                maquina.innerHTML += ` <div style="color:#f5e552">Alerta</div>`
+
+                // n1.innerHTML= 0
+
             }
 
-            if (informacao.Uso_ram >= 90.00) {
+            else if (informacao.tipo_alerta == 3) {
 
-                var maquina = document.createElement('div');
-                maquina.className = "desempenho";
-                maquina.innerHTML += `<div>${informacao.IDMaquina}</div>
-                        <div>${informacao.Apelido}</div>
-                        <div>${informacao.nomeProcesso}</div>
-                        <div>${informacao.Uso_ram}</div>
-                        <div style="color:#FD3838">Crítico</div>`
-                feed.appendChild(maquina)
-               
-                contadorCritico++
-                console.log('está em alertas')
+                maquina.innerHTML += ` <div style="color:#FD3838">Crítico</div>`
+
+                // n2.innerHTML= 0
+
             }
 
             else {
-                var maquina = document.createElement('div');
-                maquina.className = "desempenho";
-                maquina.innerHTML += `<div>${informacao.IDMaquina}</div>
-                        <div>${informacao.Apelido}</div>
-                        <div>${informacao.nomeProcesso}</div>
-                        <div>${informacao.Uso_ram}</div>
-                        <div style="color: #1ea1ff">Estável</div>`
-                feed.appendChild(maquina)
-                console.log('está em alertas')
+
+                maquina.innerHTML += ` <div style="color:#00FF7F">Estável</div>`
+
             }
 
-            n1.innerHTML = contadorCritico;
-            n2.innerHTML = contadorAlerta;
+
+
+
+
 
         }
+    }
 
-        
+
+
+    function critico() {
+
+
+        fetch(`/desempenho/filtroCritico`, { cache: 'no-store' }).then(function (response) {
+
+            if (response.ok) {
+
+                response.json().then(function (resposta) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    resposta.reverse();
+
+
+
+                    var feed = document.getElementById("tuplas");
+
+                    feed.innerHTML = ""
+
+
+                    for (i = 0; i < resposta.length; i++) {
+
+                        var informacao = resposta[i];
+
+                        console.log('está no for do resposta')
+
+                        var maquina = document.createElement('div');
+
+                        maquina.className = "desempenho";
+
+                        maquina.innerHTML += `<div>${informacao.IDMaquina}</div>
+
+                        <div>${informacao.Apelido}</div>
+
+                        <div>${informacao.nomeProcesso}</div>
+
+                        <div>${informacao.uso_ram}</div>
+
+                        <div style="color:#FD3838">Crítico</div>`
+
+                        feed.appendChild(maquina)
+
+                    }
+
+                });
+
+            } else {
+
+                console.error('Nenhum dado encontrado ou erro na API');
+
+            }
+
+        })
+
+            .catch(function (error) {
+
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+
+            });
 
     }
+
+
+
+    function alerta() {
+
+
+        fetch(`/desempenho/filtroAlerta`, { cache: 'no-store' }).then(function (response) {
+
+            if (response.ok) {
+
+                response.json().then(function (resposta) {
+
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    resposta.reverse();
+
+
+
+                    var feed = document.getElementById("tuplas");
+
+                    feed.innerHTML = ""
+
+
+                    for (i = 0; i < resposta.length; i++) {
+
+                        var informacao = resposta[i];
+
+
+
+
+                        console.log('está no for do resposta')
+
+
+
+                        var maquina = document.createElement('div');
+
+                        maquina.className = "desempenho";
+
+                        maquina.innerHTML += `<div>${informacao.IDMaquina}</div>
+
+                    <div>${informacao.Apelido}</div>
+
+                    <div>${informacao.nomeProcesso}</div>
+
+                    <div>${informacao.uso_ram}</div>
+
+                    <div style="color:#f5e552">Alerta</div>`
+
+                        feed.appendChild(maquina)
+
+                    }
+
+                });
+
+            } else {
+
+                console.error('Nenhum dado encontrado ou erro na API');
+
+            }
+
+        })
+
+            .catch(function (error) {
+
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+
+            });
+
+    }
+
+
 
 </script>

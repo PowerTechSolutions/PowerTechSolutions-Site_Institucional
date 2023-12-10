@@ -20,11 +20,74 @@ function acessarDesempenho(req, res) {
         );
 }
 
-function kpiAlerta(req, res) {
+function alertaCount(req, res) {
 
     // var idMaquinas = req.body.idMaquinas;
 
-    desempenhoModel.kpiAlerta()
+    desempenhoModel.alertaCount()
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
+function criticoCount(req, res) {
+
+    // var idMaquinas = req.body.idMaquinas;
+
+    desempenhoModel.criticoCount()
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
+function filtroAlerta(req, res) {
+
+    // var idMaquinas = req.body.idMaquinas;
+
+    desempenhoModel.filtroAlerta()
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
+function filtroCritico(req, res) {
+
+    // var idMaquinas = req.body.idMaquinas;
+
+    desempenhoModel.filtroCritico()
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -60,6 +123,9 @@ function listagem(req, res) {
 
 module.exports = {
     acessarDesempenho,
-    kpiAlerta,
+    alertaCount,
+    criticoCount,
+    filtroAlerta,
+    filtroCritico,
     listagem
 }
