@@ -20,180 +20,8 @@
 
 </head>
 
-<body onload="buscarDiscos(1), exibirgraph(1)">
-    <!-- <div class="header-left dash-header">
-        <div class="sepration">
-            <img class="perfil" src="dash_pt/power_tech_solutions_logo_semfundo.png" alt="">
-            <button onclick="geral()" id="fist_top"><img src="dash_pt/bar-line-chart.png" alt="" id="first"><img
-                    src="dash_pt/Group 1171274974.png" alt="" id="second">
-                <p>Geral</p>
-            </button>
+<body>
 
-            <button onclick="viewpoint()"><img src="dash_pt/element-3.png" id="fst" alt=""> <img id="send"
-                    src="dash_pt/element-3 (1).png" alt="">
-                <p>MFs</p>
-            </button>
-
-            <button onclick="viewpoint()"><img src="dash_pt/vms.png.png" id="fst" alt=""> <img id="send"
-                src="dash_pt/icon13.png" alt="">
-            <p>VMs</p>
-            </button>
-
-            <button onclick="viewpoint()"><img src="dash_pt/perm.png.png" id="fst" alt=""> <img id="send"
-                src="dash_pt/pessoa.png" alt="">
-            <p>Add Permissões</p>
-            </button>
-        </div>
-        <div class="sepration2">
-            <button class="helpbutton"><img src="dash_pt/help-circle.png" alt="">
-                <p>Help Center</p>
-            </button>
-            <div class="person">
-                <img id="" src=" ">
-            </div>
-        </div>
-    </div>
-
-    <div class="container-kpis">
-        <div class="elements">
-        <div class="kpis-elements">
-            <div class="kpis1">
-                <h3>Info MV:</h3>
-            </div>
-            <div class="kpis2">
-                <h3>Tempo de execução:</h3>
-            </div>
-            <div class="kpis3">
-                <div id="wifi">
-                    <div class="sepration_prt1">
-                        <img src="dash_pt/image 6.png" alt="">
-                        <p>Internet</p>
-                    </div>
-                    <div class="sepration_prt2">
-                        <p>Status</p>
-                        <p id="status_wifi">Safe</p>
-                    </div>
-                </div>
-            </div>
-            <div class="kpis4">
-                <h3>Nome Servidor:</h3>
-            </div>
-        </div>
-        
-        <div class="status-mv">
-            <div id="card_employee">
-                <h2>Status de Máquinas Virtuais</h2>
-                <div class="title">
-                    <h3>ID</h3>
-                    <h3>Nome</h3>
-                    <h3>Data</h3>
-                    <h3>Status</h3>
-                </div>
-                <div class="arrangement">
-                    <div class="infoemp">
-                        <p>001</p>
-                        <p>Maquina 1</p>
-                        <p>25/09/2004</p>
-                        <p style="color: red;">Perigo</p>
-                    </div>
-                    <div class="infoemp">
-                        <p>001</p>
-                        <p>Maquina 2</p>
-                        <p>25/09/2004</p>
-                        <p style="color: green;">Estável</p>
-                    </div>
-                    <div class="infoemp">
-                        <p>001</p>
-                        <p>Maquina 3</p>
-                        <p>25/09/2004</p>
-                        <p style="color: yellow;">Atenção</p>
-                    </div>
-                    <div class="infoemp">
-                        <p>001</p>
-                        <p>Maquina 4</p>
-                        <p>25/09/2004</p>
-                        <p style="color: red;">Perigo</p>
-                    </div>
-                    <div class="infoemp">
-                        <p>001</p>
-                        <p>Maquina 5</p>
-                        <p>25/09/2004</p>
-                        <p style="color: red;">Perigo</p>
-                    </div>
-                    <div class="infoemp">
-                        <p>001</p>
-                        <p>Maquina 6</p>
-                        <p>25/09/2004</p>
-                        <p style="color: green;">Estável</p>
-                    </div>
-                    <div class="infoemp">
-                        <p>001</p>
-                        <p>Maquina 7</p>
-                        <p>25/09/2004</p>
-                        <p style="color: yellow;">Atenção</p>
-                    </div>
-                    <div class="infoemp">
-                        <p>001</p>
-                        <p>Maquina 8</p>
-                        <p>25/09/2004</p>
-                        <p style="color: red;">Perigo</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-        <div class="alerts">
-            <div id="calendar">
-                <div class="site">
-                    <img src="dash_pt/image 11.png" alt="">
-                    <h3>Site de GEO <br>MV 23</h3>
-                </div>
-                
-                <div class="part_info_bar">
-                    <div class="info_bar">
-                        <span>Uso de Disco</span>
-                        <span id="porcentage">56%</span>
-                    </div>
-                    <div class="chart_bar">
-                        <div class="barra">
-                            <div class="barra amarela"></div>
-                            <div class="barra cinza"></div>
-                        </div>
-                    </div>
-                    <div id="reminder2">
-                        <p>Quick reminder ⚠️</p>
-                        <p>23/08/1203</p>
-                        <p>Don't let your CPU reach till 66% and your Disk till 80%
-                        </p>
-                    </div>
-                    <div class="part_info_alert">
-                        <div class="alert">
-                            <span>Check ID RZ17308!! Employee Pranjalpets!!!</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="about-uso">
-        <div class="crd2_sept" id="crd2_sept">
-            <details class="custom-select" id="chartuso1">
-                <summary class="radios" id="chartuso2">
-                    <p>Uso de RAM</p>
-                </summary>
-                <ul class="list">
-                    <li>
-                        <label for="item1">
-                            Uso de CPU
-                            <span></span>
-                        </label>
-                    </li>
-                </ul>
-            </details>
-        </div>
-    </div>
- -->
     <div class="janela">
         <div class="header-left dash-header">
             <div class="sepration">
@@ -258,7 +86,8 @@
                     <div class="kpis-elements">
                         <div class="kpi_content">
                             <div class="kpis1">
-                                <h3>Informação MV:</h3>
+                                <h3>Quantidade de desligamentos:</h3>
+                                <span id="qtdTotal"></span>
                             </div>
                             <div class="kpis3">
                                 <div id="wifi">
@@ -269,7 +98,7 @@
                                     </div>
                                     <div class="sepration_prt2">
                                         <p>Status</p>
-                                        <p id="status_wifi">Seguro</p>
+                                        <p id="status_wifi"></p>
                                     </div>
                                 </div>
                             </div>
@@ -277,10 +106,15 @@
                         <div class="kpi_content">
                             <div class="kpis2">
                                 <h3>Tempo de execução:</h3>
+                                <span id="idTempoTotal"></span>
                             </div>
 
                             <div class="kpis4">
-                                <h3>Nome do servidor:</h3>
+                                <h3>IdMaquina:
+                                </h3>
+                                <span id="id_maq">
+                                </span>
+
                             </div>
                         </div>
                     </div>
@@ -290,59 +124,11 @@
                                 <h2>Status de Máquinas Virtuais</h2>
                                 <div class="title">
                                     <h3>ID</h3>
-                                    <h3>Nome</h3>
-                                    <h3>Data</h3>
+                                    <h3>Responsavel</h3>
+                                    <h3>Maquina</h3>
                                     <h3>Status</h3>
                                 </div>
-                                <div class="arrangement">
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 1</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: red;">Perigo</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 2</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: green;">Estável</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 3</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: yellow;">Atenção</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 4</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: red;">Perigo</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 5</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: red;">Perigo</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 6</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: green;">Estável</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 7</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: yellow;">Atenção</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 8</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: red;">Perigo</p>
-                                    </div>
+                                <div class="arrangement" id="maquinas_VIRTUAIS">
                                 </div>
                             </div>
                         </div>
@@ -353,11 +139,18 @@
                         <div id="calendar">
                             <div class="site">
                                 <img src="dash_pt/image 11.png" alt="">
-                                <button onclick="boot(1)" style="cursor: pointer; border: none; background-color: transparent; width: 150px; display:flex; align-items: left; justify-content: center; height:10px;">
-                                    <h3>Site de GEO <br>MV 23</h3>
-                                </button>
+
+                                <div class="inform">
+                                    <h3 id="nome_trader">
+                                    </h3>
+                                    <h3 id="email_trader">
+                                    </h3>
+                                </div>
+
+
+
                             </div>
-                            
+
                             <div class="part_info_bar">
                                 <div class="info_bar">
                                     <span>Uso de Disco</span>
@@ -375,6 +168,16 @@
                                     <p>Não deixe sua CPU atingir 66% e seu disco 80%
                                     </p>
                                 </div>
+                                <div class="quadradoButton">
+                                    <button onclick="kaori()"> <img src="../assets/imgs_power/drive-de-disco-rigido.png"
+                                            alt="">
+                                        <p>Análise de Disco</p>
+                                    </button>
+                                    <button onclick="sarah()"><img src="../dashboard/dash_pt/fluxo-de-trabalho (1).png"
+                                            alt="">
+                                        <p>Painel Processos</p>
+                                    </button>
+                                </div>
                                 <div class="part_info_alert">
                                     <div class="alert">
                                         <span>Verifique ID RZ17308!! Funcionário Pranjalpets!!!</span>
@@ -389,34 +192,38 @@
                 <div class="about-uso" style="display: flex; flex-direction: column;">
                     <div class="crd2_sept" id="crd2_sept">
                         <select class="select_graph" onchange="exibirgraph(this.value)">
-                            <option value=1 aria-checked="true">Uso de RAM</option>
+                            <option>Selecione o Grafico que deseja ver</option>
+                            <option value=1>Uso de RAM</option>
                             <option value=2>Uso de CPU</option>
                         </select>
                         <span id="avisoCaptura"></span>
                     </div>
-                    <canvas id="myChart_CPU" style="width: 100%; height: 80%;" class="graph"></canvas>
-                    <canvas id="myChart_RAM"  style="width: 100%; height: 80%;" class="graph"></canvas>
+                    <div id="graficos" class="grafico">
+                    </div>
                 </div>
             </div>
             <div class="boxes">
-                <button id="message" onclick="literate()"><img src="../assets/imgs_power/message_icon.ico" alt=""></button>
-                    <div class="dropdown_lit" id="lit_dropdown">
-                        <div id="main">
-                            <h2>Chat de Ajuda</h2>
-                            <div id="msg">
-                                <div id="robot">
-                                    <div class="bot"></div>
-                                    <h3>Agent</h3>
-                                </div>
-                            </div>
-                            <div class="input">
-                                <input type="text" id="msg_send" placeholder="New Message">
-                                <button class="send" id="reply">Mandar <i class="fas fa-paper-plane"></i></button>
+                <button id="message" onclick="literate()"><img src="../assets/imgs_power/message_icon.ico"
+                        alt=""></button>
+                <div class="dropdown_lit" id="lit_dropdown">
+                    <div id="main">
+                        <h2>Chat de Ajuda</h2>
+                        <div id="msg">
+                            <div id="robot">
+                                <div class="bot"></div>
+                                <h3>Agent</h3>
                             </div>
                         </div>
-                        <script src="chatbot.js"></script>
-                        <button id="close3"  onclick="clickclose3()"><b>x</b></button>
+                        <div class="input">
+                            <input type="text" id="msg_send" placeholder="New Message">
+                            <button class="send" id="reply">Mandar <i class="fas fa-paper-plane"></i></button>
+                            <button class="send" id="reply" onclick="mandarSlack()">Mandar <i
+                                    class="fas fa-paper-plane"></i></button>
+                        </div>
                     </div>
+                    <script src="chatbot.js"></script>
+                    <button id="close3" onclick="clickclose3()"><b>x</b></button>
+                </div>
                 </p>
             </div>
         </div>
@@ -425,75 +232,49 @@
 
 <script>
 
+    var FKMAQUINA = sessionStorage.ID_MAQUINA;
 
+    id_maq.innerHTML = FKMAQUINA;
 
-    function exibirgraph(valor){
+    window.onload = fazerBusca(FKMAQUINA)
 
-        var grafico_RAM = document.getElementById("myChart_RAM")
-        var grafico_CPU = document.getElementById("myChart_CPU")
-        
-        if(valor == 1){
-            
-            obterDadosGrafico_RAM(1)
-            
-            grafico_CPU.style.display = "none";
-            grafico_RAM.style.display = "block";
-        
-        }else if(valor == 2){
-            
-            obterDadosGrafico_CPU(1)
-            
-            grafico_RAM.style.display = "none";
-            grafico_CPU.style.display = "block";
-        
-        }
-        }
-        
-        function buscarDiscos(FKMAQUINA){
-        
-        fetch(`/medidas/buscarDiscos/${FKMAQUINA}`, {
+    function fazerBusca(FKMaquina) {
+        estabilidadeREDE(FKMAQUINA)
+        atualizarFeed_MV()
+        buscarDiscos(FKMAQUINA)
+        buscarUsuario(FKMAQUINA)
+        atualizarTotalTempo(FKMAQUINA)
+        atualizarFeedCountTem(FKMAQUINA)
+    }
+
+    function atualizarFeedCountTem(FKMAQUINA) {
+        fetch(`/medidas/atualizarFeedCountTem/${FKMAQUINA}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         }).then(function (resposta) {
-        
+
             console.log("resposta: ", resposta);
-            var feed = document.getElementById("porcentage");
-            feed.innerHTML = "";
-        
+
             if (resposta.ok) {
-        
+
                 if (resposta.status == 204) {
-                        var feed = document.getElementById("porcentage");
-                        var mensagem = document.createElement("span");
-                        mensagem.innerHTML = "Nenhum resultado encontrado."
-                        feed.appendChild(mensagem);
-                        throw "Nenhum resultado encontrado!!";
-                    }
-        
-                    resposta.json().then(function (resposta) {
-                    console.log("Dados recebidos: ", JSON.stringify(resposta));
-                    var feed = document.getElementById("porcentage");
-                    feed.innerHTML = "";
+                    var feed = document.getElementById("Info_disc");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
                     for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
                         var publicacao = resposta[contador_usuario];
-                        // criando e manipulando elementos do HTML via JavaScript
-        
-                        var disco = document.createElement("span");
-                        disco.id = `disco${publicacao.IDMonitoramento}`;
-        
-                        var label = document.createElement("span");
-                        label.innerHTML = `Disco ${contador_usuario+1} - `;
-                        disco.appendChild(label);
-        
-                        var porcentagem = document.createElement("span");
-                        porcentagem.id = `porcentage${publicacao.IDMonitoramento}`;
-                        porcentagem.innerHTML = `${publicacao.Porcentagem_Uso}`;
-                        disco.appendChild(porcentagem)
-        
-                        feed.appendChild(disco)
-        
+
+                        var porcentage = document.querySelector("#qtdTotal");
+                        porcentage.innerHTML = `${publicacao.TotalCount}`;
+
+
                     }
                 });
             } else {
@@ -501,112 +282,275 @@
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            //finalizarAguardar();
         });
-        
+
         return false;
-        }  
-        
-        function obterDadosGrafico_CPU(FKMAQUINA) {
-        
-            // alterarTitulo(idUsuario)
-        
-            // if (proximaAtualizacao != undefined) {
-            //     clearTimeout(proximaAtualizacao);
-            // }
-        
-            fetch(`/medidas/ultimas_CPU/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
-        
-                        plotarGrafico_CPU(resposta, FKMAQUINA);
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
-                }
-            })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                });
-        }
-        
-        // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-        // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-        // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-        function plotarGrafico_CPU(resposta, FKMAQUINA) {
-        
-            console.log('iniciando plotagem do gráfico...');
-        
-            // Criando estrutura para plotar gráfico - labels
-            let labels = [];
-        
-            // Criando estrutura para plotar gráfico - dados
-            let dados = {
-                labels: labels,
-                datasets: [{
-                    label: 'Uso de CPU (em porcentagem)',
-                    data: [],
-                    fill: false,
-                    borderColor: '#009EA3',
-                    backgroundColor: '#009EA3'
-                }]
-            };
-        
-            console.log('----------------------------------------------')
-            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-            console.log(resposta)
-        
-            // Inserindo valores recebidos em estrutura para plotar o gráfico
-            for (i = 0; i < resposta.length; i++) {
-                var registro = resposta[i];
-                labels.push(registro.momento_grafico);
-                dados.datasets[0].data.push(registro.Uso_CPU);
+    }
+
+    function atualizarTotalTempo(FKMAQUINA) {
+        fetch(`/medidas/atualizarTotalTempo/${FKMAQUINA}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
             }
-        
-            console.log('----------------------------------------------')
-            console.log('O gráfico será plotado com os respectivos valores:')
-            console.log('Labels:')
-            console.log(labels)
-            console.log('Dados:')
-            console.log(dados.datasets)
-            console.log('----------------------------------------------')
-        
-            // Criando estrutura para plotar gráfico - config
-            const config = {
-                type: 'line',
-                data: dados,
-            };
-        
-            // Adicionando gráfico criado em div na tela
-            let myChart_CPU = new Chart(
-                document.getElementById(`myChart_CPU`),
-                config
-            );
-        
-            setTimeout(() => atualizarGrafico_CPU(FKMAQUINA, dados, myChart_CPU), 2000);
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("idTempoTotal");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+
+                        var tempoTotal = document.querySelector("#idTempoTotal");
+                        var formatado = new Date(publicacao.Total_Tempo).toISOString().slice(11, 19);
+                        tempoTotal.innerHTML = `${formatado ?? 0}`;
+
+
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+
+    function maquinavirtualDetalhe(idmaquina) {
+        sessionStorage.ID_MAQUINA = idmaquina
+        window.location.href = "admin.html"
+    }
+
+    function exibirgraph(valor) {
+
+        var graficos = document.getElementById("graficos");
+        graficos.innerHTML = "";
+
+        var idMaquina = sessionStorage.ID_MAQUINA;
+
+        if (valor == 1) {
+
+            obterDadosGrafico_RAM(idMaquina)
+            var graficoRam = document.createElement("canvas");
+            graficoRam.setAttribute("id", "myChart_RAM");
+            graficoRam.setAttribute("class", "graph")
+            graficos.appendChild(graficoRam)
+
+        } else if (valor == 2) {
+
+            obterDadosGrafico_CPU(idMaquina)
+            var graficoCPU = document.createElement("canvas");
+            graficoCPU.setAttribute("id", "myChart_CPU");
+            graficoCPU.setAttribute("class", "graph");
+            graficos.appendChild(graficoCPU)
+
         }
-        
-        
-        // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-        // buscando a última medida inserida em tabela contendo as capturas, 
-        
-        //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-        //     Para ajustar o "select", ajuste o comando sql em src/models
-        function atualizarGrafico_CPU(FKMAQUINA, dados, myChart_CPU) {
-        
-            fetch(`/medidas/tempo-real_CPU/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (novoRegistro) {
-        
+    }
+
+    function estabilidadeREDE(IDMaquina) {
+        fetch(`/rede/estabilidade_REDE/${IDMaquina}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    var estavel = document.getElementById("status_wifi")
+
+                    if (resposta[0].estabilidade == 0) {
+                        estavel.style.color = "red";
+                        estavel.innerHTML = "Desconectada"
+                    } else {
+                        estavel.style.color = "green";
+                        estavel.innerHTML = "Conectada"
+                    }
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function atualizarFeed_MV() {
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+
+        fetch(`/maquinas/pegar_MV/${IDEmpresaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("maquinas_VIRTUAIS");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("maquinas_VIRTUAIS");
+                    feed.innerHTML = "";
+                    for (var i = 0; i < resposta.length; i++) {
+                        var maquina = resposta[i];
+
+                        var card = document.createElement("div");
+                        card.className = "infoemp";
+                        card.setAttribute("onclick", `maquinavirtualDetalhe(${maquina.IDMaquina})`)
+
+                        var id = document.createElement("p");
+                        id.innerHTML = maquina.IDMaquina;
+                        card.appendChild(id);
+
+                        var respon = document.createElement("p");
+                        respon.innerHTML = maquina.Nome;
+                        card.appendChild(respon);
+
+                        var apelido = document.createElement("p");
+                        apelido.innerHTML = maquina.apelido;
+                        card.appendChild(apelido);
+
+                        var estado = document.createElement("p");
+                        estado.innerHTML = maquina.Estado;
+                        card.appendChild(estado);
+
+                        feed.appendChild(card);
+
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+
+    function obterDadosGrafico_CPU(FKMAQUINA) {
+
+        // alterarTitulo(idUsuario)
+
+        // if (proximaAtualizacao != undefined) {
+        //     clearTimeout(proximaAtualizacao);
+        // }
+
+        fetch(`/medidas/ultimas_CPU/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico_CPU(resposta, FKMAQUINA);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico_CPU(resposta, FKMAQUINA) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Uso de CPU (em porcentagem)',
+                data: [],
+                fill: false,
+                borderColor: '#009EA3',
+                backgroundColor: '#009EA3'
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.Uso_CPU);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'line',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart_CPU = new Chart(
+            document.getElementById(`myChart_CPU`),
+            config
+        );
+
+        setTimeout(() => atualizarGrafico_CPU(FKMAQUINA, dados, myChart_CPU), 2000);
+    }
+
+
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas, 
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function atualizarGrafico_CPU(FKMAQUINA, dados, myChart_CPU) {
+
+        fetch(`/medidas/tempo-real_CPU/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados);
-        
+
                     let avisoCaptura = document.getElementById(`avisoCaptura`)
                     avisoCaptura.innerHTML = ""
-        
+
                     if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
                         console.log("---------------------------------------------------------------")
                         console.log("Como não há dados novos para captura, o gráfico não atualizará.")
@@ -620,16 +564,16 @@
                         // tirando e colocando valores no gráfico
                         dados.labels.shift(); // apagar o primeiro
                         dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-        
+
                         dados.datasets[0].data.shift();  // apagar o primeiro de umidade
                         dados.datasets[0].data.push(novoRegistro[0].Uso_CPU); // incluir uma nova medida de umidade
-        
+
                         // dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
                         // dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-        
+
                         myChart_CPU.update();
                     }
-        
+
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                     proximaAtualizacao_Umi = setTimeout(() => atualizarGrafico_CPU(FKMAQUINA, dados, myChart_CPU), 3000);
                 });
@@ -642,109 +586,109 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-        
-        }
-        
-        function obterDadosGrafico_RAM(FKMAQUINA) {
-        
-            // alterarTitulo(idUsuario)
-        
-            // if (proximaAtualizacao != undefined) {
-            //     clearTimeout(proximaAtualizacao);
-            // }
-        
-            fetch(`/medidas/ultimas_RAM/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (resposta) {
-                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                        resposta.reverse();
-        
-                        plotarGrafico_RAM(resposta, FKMAQUINA);
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
-                }
-            })
-                .catch(function (error) {
-                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+
+    }
+
+    function obterDadosGrafico_RAM(FKMAQUINA) {
+
+        // alterarTitulo(idUsuario)
+
+        // if (proximaAtualizacao != undefined) {
+        //     clearTimeout(proximaAtualizacao);
+        // }
+
+        fetch(`/medidas/ultimas_RAM/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico_RAM(resposta, FKMAQUINA);
                 });
-        }
-        
-        // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-        // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-        // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-        function plotarGrafico_RAM(resposta, FKMAQUINA) {
-        
-            console.log('iniciando plotagem do gráfico...');
-        
-            // Criando estrutura para plotar gráfico - labels
-            let labels = [];
-        
-            // Criando estrutura para plotar gráfico - dados
-            let dados = {
-                labels: labels,
-                datasets: [{
-                    label: 'Uso de RAM (em porcentagem)',
-                    data: [],
-                    fill: false,
-                    borderColor: '#009EA3',
-                    backgroundColor: '#009EA3'
-                }]
-            };
-        
-            console.log('----------------------------------------------')
-            console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
-            console.log(resposta)
-        
-            // Inserindo valores recebidos em estrutura para plotar o gráfico
-            for (i = 0; i < resposta.length; i++) {
-                var registro = resposta[i];
-                labels.push(registro.momento_grafico);
-                dados.datasets[0].data.push(registro.Uso_RAM);
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
             }
-        
-            console.log('----------------------------------------------')
-            console.log('O gráfico será plotado com os respectivos valores:')
-            console.log('Labels:')
-            console.log(labels)
-            console.log('Dados:')
-            console.log(dados.datasets)
-            console.log('----------------------------------------------')
-        
-            // Criando estrutura para plotar gráfico - config
-            const config = {
-                type: 'line',
-                data: dados,
-            };
-        
-            // Adicionando gráfico criado em div na tela
-            let myChart_RAM = new Chart(
-                document.getElementById(`myChart_RAM`),
-                config
-            );
-        
-            setTimeout(() => atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM), 2000);
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico_RAM(resposta, FKMAQUINA) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [{
+                label: 'Uso de RAM (em porcentagem)',
+                data: [],
+                fill: false,
+                borderColor: '#009EA3',
+                backgroundColor: '#009EA3'
+            }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+            labels.push(registro.momento_grafico);
+            dados.datasets[0].data.push(registro.Uso_RAM);
         }
-        
-        
-        // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-        // buscando a última medida inserida em tabela contendo as capturas, 
-        
-        //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-        //     Para ajustar o "select", ajuste o comando sql em src/models
-        function atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM) {
-        
-            fetch(`/medidas/tempo-real_RAM/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (novoRegistro) {
-        
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'line',
+            data: dados,
+        };
+
+        // Adicionando gráfico criado em div na tela
+        let myChart_RAM = new Chart(
+            document.getElementById(`myChart_RAM`),
+            config
+        );
+
+        setTimeout(() => atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM), 2000);
+    }
+
+
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas, 
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM) {
+
+        fetch(`/medidas/tempo-real_RAM/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
                     console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
                     console.log(`Dados atuais do gráfico:`);
                     console.log(dados);
-        
+
                     let avisoCaptura = document.getElementById(`avisoCaptura`)
                     avisoCaptura.innerHTML = ""
-        
+
                     if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
                         console.log("---------------------------------------------------------------")
                         console.log("Como não há dados novos para captura, o gráfico não atualizará.")
@@ -758,16 +702,16 @@
                         // tirando e colocando valores no gráfico
                         dados.labels.shift(); // apagar o primeiro
                         dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-        
+
                         dados.datasets[0].data.shift();  // apagar o primeiro de umidade
                         dados.datasets[0].data.push(novoRegistro[0].Uso_RAM); // incluir uma nova medida de umidade
-        
+
                         // dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
                         // dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
-        
+
                         myChart_CPU.update();
                     }
-        
+
                     // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
                     proximaAtualizacao_Umi = setTimeout(() => atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM), 3000);
                 });
@@ -780,8 +724,114 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
-        
-        }
+
+    }
+
+    function buscarUsuario(FKMAQUINA) {
+
+        fetch(`/usuarios/pegar_Usuarios/${FKMAQUINA}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("usbs");
+                    feed.innerHTML = "";
+                    var mensagem = document.createElement("li");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var usuario = resposta[0];
+
+                    var nome = document.getElementById("nome_trader");
+                    nome.innerHTML = "";
+                    nome.innerHTML = `${usuario.Nome}`;
+                    var email = document.getElementById("email_trader");
+                    email.innerHTML = "";
+                    email.innerHTML = ` ${usuario.Email}`;
+
+
+                });
+
+                setTimeout(() => buscarUSB(FKMAQUINA), 2000)
+
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+
+    function buscarDiscos(FKMAQUINA) {
+
+        fetch(`/medidas/buscarDiscos/${FKMAQUINA}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+            var feed = document.getElementById("porcentage");
+            feed.innerHTML = "";
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("porcentage");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    var porcentagem = document.getElementById("porcentage");
+                    porcentagem.innerHTML = `${resposta[0].Uso_DIsco}%`;
+
+                    var bar = document.querySelector(".amarela");
+                    var porcentagemUso = parseFloat(resposta[0].Uso_DIsco);
+
+                    // Check if the value is more than 60%
+                    if (porcentagemUso > 60) {
+                        bar.style.backgroundColor = "#FFE500";
+                    }
+
+                    // Check if the value is more than 80%
+                    if (porcentagemUso > 80) {
+                        bar.style.backgroundColor = "#ff7800";
+                    }
+
+                    // Set the width based on the value
+                    bar.style.width = `${porcentagemUso}%`;
+
+
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            //finalizarAguardar();
+        });
+
+        return false;
+    }
+
 </script>
 
 </html>

@@ -3,7 +3,7 @@ var sql = require('mssql');
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
-    server: "ec2-18-232-250-187.compute-1.amazonaws.com",
+    server: "ec2-34-194-127-191.compute-1.amazonaws.com",
     database: "PowerTechSolutions",
     user: "sa",
     password: "myLOVEisthe0506",
@@ -22,7 +22,7 @@ var mySqlConfig = {
     host: "localhost",
     database: "PowerTechSolutions",
     user: "root",
-    password: "1234.s",
+    password: "aluno",
 };
 
 function executar(instrucao) {

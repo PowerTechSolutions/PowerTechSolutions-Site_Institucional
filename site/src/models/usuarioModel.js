@@ -1,10 +1,37 @@
 var database = require("../database/config")
 
+function pegar_Usuarios(IDMaquina) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar_usuario()", IDMaquina);
+    var instrucao = `
+    SELECT Nome,Email FROM Usuario_Dashboard JOIN Maquinas on Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario WHERE Maquinas.IDMaquina = ${IDMaquina};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function listar_usuarios(IDEmpresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar_usuario()", IDEmpresa);
     var instrucao = `
-        SELECT IDUsuario,Nome
-        FROM Usuario_Dashboard WHERE FKUnidade = '${IDEmpresa}';
+        SELECT *
+        FROM Usuario_Dashboard WHERE FKUnidade = ${IDEmpresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function visualizar(IDUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar_usuario()", IDUsuario);
+    var instrucao = `
+         SELECT IDMaquina as Maquina from Maquinas JOIN Usuario_Dashboard ON FKFuncionario = IDUsuario WHERE FKFuncionario = ${IDUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function listar_maquinas(IDFUncionario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar_usuario()", IDFUncionario);
+    var instrucao = `
+        SELECT * FROM Maquinas WHERE FKFuncionario = ${IDFUncionario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -52,9 +79,25 @@ function cadastrando(nome, cpf, email, senha, FKUnidade, FKNivel_acesso){
     return database.executar(instrucao);
 }
 
+function buscarInfo(IDUsuario) {
+
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarInfo()", IDUsuario);
+    var instrucao = `
+        SELECT Nome as Nome, Email as Email, FKUnidade as Setor From Usuario_Dashboard join Unidade_de_negocio on FKUnidade = IDUnidade WHERE IDUsuario = ${IDUsuario};
+    `;
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+    
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     listar_usuarios,
-    cadastrando
+    cadastrando,
+    buscarInfo,
+    listar_maquinas, 
+    visualizar,
+    pegar_Usuarios
 };

@@ -1,6 +1,9 @@
 
+USE master;
+
+DROP DATABASE PowerTechSolutions;
+
 CREATE DATABASE PowerTechSolutions;
-GO
 
 USE PowerTechSolutions;
 
@@ -72,6 +75,12 @@ CREATE TABLE Tipo_maquina(
     Apelido VARCHAR(80)
 );
 
+CREATE TABLE Estado_maquina(
+	IDEstado INT PRIMARY KEY IDENTITY(1,1),
+    Estado VARCHAR(50),
+    CONSTRAINT Estado CHECK (Estado in ('Ativa','Inativa','Desativada'))
+);
+
 CREATE TABLE Maquinas(
 	IDMaquina INT PRIMARY KEY IDENTITY(1,1),
     Apelido VARCHAR(100),
@@ -81,7 +90,19 @@ CREATE TABLE Maquinas(
 			REFERENCES Usuario_Dashboard(IDUsuario,FKNivel_acesso),
 	FKTipo_maquina INT,
 		CONSTRAINT FKTipo_maquina FOREIGN KEY (FKTipo_maquina)
-			REFERENCES Tipo_maquina(IDTipo)
+			REFERENCES Tipo_maquina(IDTipo),
+	FKEstado INT,
+		CONSTRAINT FKEstado_maquina FOREIGN KEY (FKEstado)
+			REFERENCES Estado_maquina(IDEstado)
+);
+
+CREATE TABLE Tempo_de_Execucao(
+	IDTempo INT PRIMARY KEY IDENTITY(1,1),
+    Data_Hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+    Total_captura time, 
+	FKTempo_maquina INT,
+		CONSTRAINT FKTempo_maquina FOREIGN KEY (FKTempo_maquina)
+			REFERENCES Maquinas(IDMaquina)
 );
 
 CREATE TABLE Redes_conectadas(
@@ -156,20 +177,26 @@ CREATE TABLE Componentes_monitorados(
 CREATE TABLE Monitoramento_RAW(
 	IDMonitoramento INT PRIMARY KEY IDENTITY(1,1),
     Data_Hora_Captura DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Dado_Capturado VARCHAR(30),
+    Total FLOAT,
+    Free FLOAT, 
+    Uso FLOAT, 
+    Porcentagem FLOAT,
     FKComponente_Monitorado INT,
 	FKComponente_Cadastrado INT,
 		CONSTRAINT FKMonitoramento_RAW_Componente_maquina FOREIGN KEY (FKComponente_Monitorado,FKComponente_Cadastrado)
 			REFERENCES Componentes_monitorados(IDComponente_monitorado,FKComponente_Cadastrado)
 );
 
-CREATE TABLE Monitoramento_Trusted(
+CREATE TABLE Monitoramento_TRUSTED(
 	IDMonitoramento INT PRIMARY KEY IDENTITY(1,1),
     Data_Hora_Captura DATETIME DEFAULT CURRENT_TIMESTAMP,
-    Dado_Capturado VARCHAR(30),
+    Total FLOAT,
+    Free FLOAT, 
+    Uso FLOAT, 
+    Porcentagem FLOAT,
     FKComponente_Monitorado INT,
 	FKComponente_Cadastrado INT,
-    CONSTRAINT FKMonitoramento_TRUSTED_Componente_maquina FOREIGN KEY (FKComponente_Monitorado,FKComponente_Cadastrado)
+		CONSTRAINT FKMonitoramento_TRUSTED_Componente_maquina FOREIGN KEY (FKComponente_Monitorado,FKComponente_Cadastrado)
 			REFERENCES Componentes_monitorados(IDComponente_monitorado,FKComponente_Cadastrado)
 );
 
@@ -186,12 +213,54 @@ CREATE TABLE Alertas(
     FKNivel_alerta INT,
     FKUnidade_negocio INT,
 		CONSTRAINT FKMonitoramento_alerta FOREIGN KEY (FKMonitoramento)
-			REFERENCES Monitoramento_Trusted(IDMonitoramento),
+			REFERENCES Monitoramento_RAW(IDMonitoramento),
 		CONSTRAINT FKNivel_alerta FOREIGN KEY (FKNivel_alerta)
 			REFERENCES Nivel_alerta(IDNivel_alerta),
 		CONSTRAINT FKUnidade_negocio_alerta FOREIGN KEY (FKUnidade_negocio)
 			REFERENCES Unidade_de_negocio(IDUnidade)
 );
+
+CREATE TABLE Henry(
+	idRegistro INT PRIMARY KEY IDENTITY(1,1),
+	Janela VARCHAR(255),
+	Data_Hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+	Uso_Ram FLOAT,
+	FKMaquina INT,
+	CONSTRAINT FKHenry_Maquina FOREIGN KEY (FKMaquina) REFERENCES Maquinas(IDMaquina)
+);
+
+CREATE TABLE ProcessosV3(
+IDProcesso INT IDENTITY(1,1),
+PID INT,
+nomeProcesso VARCHAR(255),
+cpu_processo FLOAT,
+uso_ram FLOAT,
+tempo_user FLOAT,
+data_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+fkMaquina INT,
+    CONSTRAINT fkMaquinav3 FOREIGN KEY (fkMaquina)
+        REFERENCES Maquinas(idMaquina),
+constraint pkCompostaPv3 primary key (IDProcesso, fkMaquina)
+);
+
+CREATE TABLE Alerta_ProcessoV3(
+IDAlertaProcessos INT identity(1,1),
+PID INT,
+nomeProcesso VARCHAR(255),
+cpu_processo FLOAT,
+uso_ram FLOAT,
+data_hora DATETIME,
+tipo_alerta int,
+FKProcesso INT,
+FKMaquina INT,
+	CONSTRAINT fkProcessoV3 FOREIGN KEY (fkProcesso,FKMaquina)
+        REFERENCES ProcessosV3(idProcesso,fkMaquina),
+constraint pkCompostaAV3 primary key (IDAlertaProcessos, fkProcesso, fkMaquina)
+);
+
+SELECT * FROM ProcessosV3 WHERE IDProcesso = 1;
+
+DELETE FROM ProcessosV3;
 
 -- Aréa de inserts para testes de funcionalidade 
 
@@ -216,16 +285,13 @@ INSERT INTO Nivel_acesso (Apelido,FKPermissao) VALUES
 ('Eng NOC',1),
 ('Gestor',2);
 
-INSERT into Usuario_Dashboard (Nome,Email,Cpf,Senha,FKUnidade,FKNivel_acesso,FKPermissoes) VALUES
-('davi','davi@teste.com','48372073830','12345678',1,1,1),
-('henry','henry@teste.com','12345678910','87654321',1,2,2);
-
-INSERT INTO Alertas(Alerta,Data_Hora,FKMonitoramento,FKNivel_alerta,FKUnidade_negocio) VALUES
-('Alerta de teste1',default,null,null,1),
-('Alerta de teste2',default,null,null,1),
-('Alerta de teste2',default,null,null,1),
-('Alerta de teste3',default,null,null,1),
-('Alerta de teste4',default,null,null,1);
+INSERT into Usuario_Dashboard (Nome,Email,Cpf,Senha,FKUnidade,FKNivel_acesso) VALUES
+('Davi Rodrigues','davi@teste.com','24325638830','12345678',1,1),
+('Henrique Lipert','henri@teste.com','53169365827','12345678',1,2),
+('Erica Cunha','erica@teste.com','44815022666','12345678',1,2),
+('Sarah Oliveira','sarah@teste.com','15067515554','12345678',1,2),
+('Gabriella Inácio','gabi@teste.com','87343841629','12345678',1,1),
+('Michele Kaori','kaori@teste.com','38679683736','12345678',1,1);
 
 INSERT INTO Componentes_cadastrados (Apelido) values
 ('CPU'),
@@ -239,10 +305,40 @@ INSERT INTO Tipo_maquina (Apelido) VALUES
 ('FISICA'),
 ('VIRTUAL');
 
-INSERT INTO Maquinas (Apelido,FKFuncionario,FKTipo_maquina) VALUES
-('teste01',1,2),
-('teste02',1,1),
-('teste03',1,1);
+INSERT INTO Estado_maquina (Estado) VALUES
+('Ativa'),
+('Inativa'),
+('Desativada');
+
+INSERT INTO Maquinas (Apelido,FKFuncionario,FKNivel_Usuario,FKTipo_maquina,FKEstado) VALUES
+('teste01',1,1,2,1),
+('teste02',1,1,1,1),
+('teste03',1,1,1,2);
+
+INSERT INTO Maquinas (Apelido,FKFuncionario,FKNivel_Usuario,FKTipo_maquina,FKEstado) VALUES
+('teste01',2,2,2,1),
+('teste02',2,2,1,1),
+('teste03',2,2,1,2);
+
+INSERT INTO Maquinas (Apelido,FKFuncionario,FKNivel_Usuario,FKTipo_maquina,FKEstado) VALUES
+('teste01',3,2,2,1),
+('teste02',3,2,1,1),
+('teste03',3,2,1,2);
+
+INSERT INTO Maquinas (Apelido,FKFuncionario,FKNivel_Usuario,FKTipo_maquina,FKEstado) VALUES
+('teste01',4,2,2,1),
+('teste02',4,2,1,1),
+('teste03',4,2,1,2);
+
+INSERT INTO Maquinas (Apelido,FKFuncionario,FKNivel_Usuario,FKTipo_maquina,FKEstado) VALUES
+('teste01',5,1,2,1),
+('teste02',5,1,1,1),
+('teste03',5,1,1,2);
+
+INSERT INTO Maquinas (Apelido,FKFuncionario,FKNivel_Usuario,FKTipo_maquina,FKEstado) VALUES
+('teste01',6,1,2,1),
+('teste02',6,1,1,1),
+('teste03',6,1,1,2);
 
 INSERT INTO Componentes_monitorados (FKComponente_cadastrado,FKMaquina) VALUES
 (1,1),
@@ -254,14 +350,295 @@ INSERT INTO Componentes_monitorados (FKComponente_cadastrado,FKMaquina) VALUES
 (1,2),
 (2,2),
 (3,2),
+(4,2),
+(5,2),
+(6,2),
+(1,3),
+(2,3),
+(3,3),
 (4,3),
 (5,3),
 (6,3);
 
+-- Funcionario 2 
+INSERT INTO Componentes_monitorados (FKComponente_cadastrado,FKMaquina) VALUES
+(1,4),
+(2,4),
+(3,4),
+(4,4),
+(5,4),
+(6,4),
+(1,5),
+(2,5),
+(3,5),
+(4,5),
+(5,5),
+(6,5),
+(1,6),
+(2,6),
+(3,6),
+(4,6),
+(5,6),
+(6,6);
+
+-- Funcionario 3
+INSERT INTO Componentes_monitorados (FKComponente_cadastrado,FKMaquina) VALUES
+(1,7),
+(2,7),
+(3,7),
+(4,7),
+(5,7),
+(6,7),
+(1,8),
+(2,8),
+(3,8),
+(4,8),
+(5,8),
+(6,8),
+(1,9),
+(2,9),
+(3,9),
+(4,9),
+(5,9),
+(6,9);
+
+-- Funcionario 4 
+INSERT INTO Componentes_monitorados (FKComponente_cadastrado,FKMaquina) VALUES
+(1,10),
+(2,10),
+(3,10),
+(4,10),
+(5,10),
+(6,10),
+(1,11),
+(2,11),
+(3,11),
+(4,11),
+(5,11),
+(6,11),
+(1,12),
+(2,12),
+(3,12),
+(4,12),
+(5,12),
+(6,12);
+
+-- Funcionario 5 
+INSERT INTO Componentes_monitorados (FKComponente_cadastrado,FKMaquina) VALUES
+(1,13),
+(2,13),
+(3,13),
+(4,13),
+(5,13),
+(6,13),
+(1,14),
+(2,14),
+(3,14),
+(4,14),
+(5,14),
+(6,14),
+(1,15),
+(2,15),
+(3,15),
+(4,15),
+(5,15),
+(6,15);
+
+-- Funcionario 6 
+INSERT INTO Componentes_monitorados (FKComponente_cadastrado,FKMaquina) VALUES
+(1,16),
+(2,16),
+(3,16),
+(4,16),
+(5,16),
+(6,16),
+(1,17),
+(2,17),
+(3,17),
+(4,17),
+(5,17),
+(6,17),
+(1,18),
+(2,18),
+(3,18),
+(4,18),
+(5,18),
+(6,18);
+
+SELECT * FROM Monitoramento_RAW;
+
+select * from Componentes_cadastrados;
+
+SELECT * FROM Componentes_monitorados where FKComponente_cadastrado = 1;
+
+SELECT * FROM Henry;
+
+SELECT * FROM Janelas_Abertas;
+
+SELECT TOP 10 * FROM Processos;
+
+TRUNCATE TABLE Processos;
+
+TRUNCATE TABLE Maquinas
+
+SELECT * FROM Usuario_Dashboard;
+
+SELECT * FROM Alertas;
+
+SELECT * FROM Tempo_de_Execucao;
+
+TRUNCATE TABLE Tempo_de_Execucao;
+
+INSERT INTO Tempo_de_Execucao (Data_Hora, Total_captura, FKTempo_maquina)
+VALUES
+    ('2023-11-19 08:00:00', '00:03:06', 1),
+    ('2023-11-20 12:45:00', '00:01:20', 1),
+    ('2023-11-20 10:40:50', '00:04:30', 1),
+    ('2023-11-20 01:46:54', '00:00:30', 1),
+    ('2023-11-21 12:08:32', '00:10:00', 1),
+    ('2023-11-21 17:23:09', '00:20:30', 1),
+    ('2023-11-23 18:30:00', '01:24:05', 1);
+   
+
+    INSERT INTO Tempo_de_Execucao (Data_Hora, Total_captura, FKTempo_maquina)
+VALUES
+    ('2023-12-01 09:30:00', '02:00:00', 1),
+    ('2023-12-01 10:09:30', '00:04:06', 1),
+    ('2023-12-01 19:00:32', '00:03:34', 1),-- Exemplo para o dia 5 de dezembro
+    ('2023-12-02 15:15:00', '01:05:00', 1), -- Exemplo para o dia 20 de dezembro
+    ('2023-12-03 22:00:00', '04:30:54', 1); -- Exemplo para o último dia de dezembro
+
+	SELECT * FROM Tempo_de_Execucao;
+
+SELECT * FROM Nivel_alerta;
+
+SELECT * FROM Processos;
+
+SELECT * FROM henry;
+
+SELECT * FROM Alertas;
+
+INSERT INTO Nivel_alerta (Nivel) VALUES
+('Atenção'),
+('Perigo'),
+('Critico');
+
+INSERT INTO Alertas (Alerta,FKMonitoramento,FKNivel_alerta,FKUnidade_negocio) VALUES
+('Excesso de uso',2,1,1),
+('Excesso de uso',3,1,1),
+('Excesso de uso',1,1,1);
+
+SELECT * FROM Janelas_Abertas;
+
+SELECT * FROM Henry;
+
+select * from Maquinas WHERE FKFuncionario = 1;
+
+SELECT * FROM Usuario_Dashboard;
+
+SELECT TOP 10 Uso_Ram,Data_Hora FROM Henry ORDER BY Uso_Ram DESC;
+
+SELECT top 1 Maquinas.IDMaquina as id,(SELECT COUNT(idRegistro) FROM Henry WHERE FKMaquina = 4) AS QTD, FORMAT(Data_Hora,'%d/%M/%y') as DataHora FROM Henry JOIN Maquinas ON Henry.FKMaquina = Maquinas.IDMaquina JOIN Usuario_Dashboard ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario where FKMaquina = 4 AND FKUnidade = 1;
+
+        SELECT count(Nome_Janelas) as Total From Janelas_Abertas WHERE FKMaquina = 1 AND Janelas_Abertas.Nome_Janelas != ''
+        ;
+
+		AND Data_Hora_Conexao >= DATEADD(MINUTE,-5,GETDATE())
+SELECT * FROM Monitoramento_RAW;
+
+SELECT
+            COUNT(IDAlerta) as Alertas
+            FROM Alertas
+            JOIN Nivel_alerta 
+                ON IDNivel_alerta = FKNivel_alerta
+            WHERE FORMAT(Data_Hora, '%M') = '12' 
+            GROUP BY IDNivel_alerta;
+
+SELECT * FROM Alertas;
+
+SELECT 
+    IDMaquina,
+    Usuario_Dashboard.Nome as 'Nome',
+    Maquinas.Apelido as 'apelido',
+    Estado
+    FROM Maquinas JOIN Tipo_maquina
+        ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+    JOIN Estado_maquina
+        ON IDEstado = FKEstado
+    JOIN Usuario_Dashboard
+        ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+    WHERE Tipo_maquina.Apelido = 'FISICA'
+        AND Usuario_Dashboard.FKUnidade = 1;
+
+
+		SELECT 
+    IDMaquina,
+    Usuario_Dashboard.Nome as 'Nome',
+    Maquinas.Apelido as 'apelido',
+    Estado
+    FROM Maquinas JOIN Tipo_maquina
+        ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+    JOIN Estado_maquina
+        ON IDEstado = FKEstado
+    JOIN Usuario_Dashboard
+        ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+    WHERE Tipo_maquina.Apelido = 'VIRTUAL'
+        AND Usuario_Dashboard.FKUnidade = 1;
+
+
+	SELECT 
+            Count(IDMaquina) as Contagem 
+        FROM Maquinas JOIN Tipo_maquina
+            ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        JOIN Estado_maquina
+            ON IDEstado = FKEstado
+        JOIN Usuario_Dashboard
+            ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+        WHERE Tipo_maquina.Apelido = 'FISICA'
+            AND Usuario_Dashboard.FKUnidade = 1
+            AND Estado_maquina.Estado = 'Ativa';
+
+	SELECT 
+	        COUNT(IDAlerta) as Alertas
+                FROM Alertas JOIN Monitoramento_RAW 
+                ON Alertas.FKMonitoramento = Monitoramento_RAW.IDMonitoramento
+                JOIN Componentes_monitorados 
+	    	        ON FKComponente_Monitorado = IDComponente_monitorado 
+	    		    JOIN Componentes_cadastrados 
+	    			    ON Componentes_monitorados.FKComponente_cadastrado = IDComponente_cadastrado
+	    				    JOIN Maquinas 
+	    					    ON FKMaquina = IDMaquina
+                                JOIN Tipo_maquina 
+                                    ON IDTipo = FKTipo_maquina
+                                    JOIN Nivel_alerta
+                                        ON IDNivel_alerta = FKNivel_alerta
+	    		WHERE Tipo_maquina.Apelido = 'VIRTUAL' AND Alertas.FKUnidade_negocio = 1 GROUP BY IDNivel_alerta;
+    
+    
+	SELECT TOP 3 Nome_Dispositivo as DP,FORMAT(Data_Hora_Conexao,'%H:%m') as hora FROM Dispositivos_USB WHERE FKMaquina = 1 order by IDRegistro DESC;
+
+INSERT INTO Alertas (FKMonitoramento,FKNivel_alerta,FKUnidade_negocio) VALUES
+(1,1,1),
+(1,1,1),
+(1,1,1),
+(1,2,1),
+(1,3,1);
+
+UPDATE Usuario_Dashboard SET FKPermissoes = 2 WHERE IDUsuario = 2;
+
+/*
+
+SELECT * FROM Monitoramento_RAW;
+
+SELECT * FROM Redes_conectadas;
+
+SELECT * FROM Janelas_Abertas;
+
+SELECT * FROM Dispositivos_USB; 
 
 SELECT 
 	Data_Hora_Captura,
-    Dado_Capturado AS Uso_CPU,
+    Uso AS Uso_CPU,
     Componentes_cadastrados.Apelido
     FROM 
 		Monitoramento_RAW JOIN Componentes_monitorados 
@@ -276,7 +653,7 @@ SELECT
 
 SELECT 
 	Data_Hora_Captura,
-    Dado_Capturado AS "Uso_RAM",
+    Uso AS "Uso_RAM",
     Componentes_cadastrados.Apelido 
     FROM 
 		Monitoramento_RAW JOIN Componentes_monitorados 
@@ -291,7 +668,7 @@ SELECT
 SELECT 
 	Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
 	Data_Hora_Captura,
-    Dado_Capturado AS "Uso_DIsco",
+    Uso AS "Uso_DIsco",
     Componentes_cadastrados.Apelido 
     FROM 
 		Monitoramento_RAW JOIN Componentes_monitorados 
@@ -343,4 +720,209 @@ SELECT Count(IDMaquina) as Contagem
 		ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
     WHERE Tipo_maquina.Apelido = 'FISICA'
 		AND Usuario_Dashboard.FKUnidade = 1;
+
+
+		TRUNCATE TABLE Monitoramento_RAW;
+		
+		USE PowerTechSolutions;
+
+		SELECT * FROM Monitoramento_RAW;
+
+		SELECT * FROM Tempo_de_Execucao;
+
+		SELECT Count(IDUsuario) as Maquinas FROM Usuario_Dashboard WHERE Cpf = '48372073830';
+		SELECT * FROM Usuario_Dashboard WHERE Email = 'davi@teste.com' AND Senha = '12345678';
+
+		SELECT * FROM Usuario_Dashboard;
+
+		SELECT * FROM Tempo_de_Execucao;
+
+		SELECT * FROM Maquinas;
+
+		SELECT * FROM Usuario_Dashboard;
+
+*/
+SELECT 
+        SUM(Total_captura) AS Total_Tempo
+    FROM 
+        tempo_de_execucao
+    JOIN 
+        maquinas ON tempo_de_execucao.FKTempo_maquina = maquinas.IDMaquina
+    WHERE 
+        maquinas.IDMaquina = 1;
+
+
+SELECT
+        IDTempo,
+        FORMAT(Data_Hora, 'dd/MM/yyyy') AS 'Data',
+        FORMAT(Data_Hora, 'HH:mm:ss') AS 'Hora',
+        FORMAT(Total_captura, N'hh\:mm\:ss') AS 'total'
+    FROM
+        Tempo_de_Execucao 
+    WHERE 
+        FKTempo_maquina = 1
+    ORDER BY
+        Data_Hora ASC;
+
+
+		TRUNCATE TABLE Processos;
+
+	SELECT
+
+    FROM
+        Tempo_de_Execucao 
+    WHERE 
+        FKTempo_maquina = 1
+    ORDER BY
+        Data_Hora DESC;
+
+
+		DECLARE @TotalSegundos INT;
+SELECT @TotalSegundos = SUM(DATEDIFF(SECOND, '00:00:00', Total_captura))
+FROM tempo_de_execucao
+WHERE FKTempo_maquina = 1;
+
+-- Converte de volta para o formato TIME
+DECLARE @SomaTotal TIME;
+SET @SomaTotal = DATEADD(SECOND, @TotalSegundos, '00:00:00');
+
+-- Exibe o resultado
+SELECT @SomaTotal AS Total_Tempo;
+
+ SELECT TOP 1
+        Componentes_monitorados.IDComponente_monitorado AS IDMonitoramento,
+        Data_Hora_Captura,
+       Total ,
+       Free, 
+       Uso AS Uso_Disco,
+        Porcentagem AS Porcentagem_Uso,
+        Componentes_cadastrados.Apelido 
+    FROM 
+        Monitoramento_RAW 
+    JOIN Componentes_monitorados ON FKComponente_Monitorado = IDComponente_monitorado 
+    JOIN Componentes_cadastrados ON Componentes_monitorados.FKComponente_cadastrado = IDComponente_cadastrado
+    JOIN Maquinas ON FKMaquina = IDMaquina
+    WHERE 
+        FKMaquina = 1
+        AND Componentes_cadastrados.Apelido = 'DISCO'
+    ORDER BY 
+        Monitoramento_RAW.IDMonitoramento DESC;
+		
+	SELECT 
+    FORMAT(Data_Hora, 'dd/MM/yyyy') AS DiaDaSemana,
+    CONVERT(TIME, DATEADD(SECOND, SUM(DATEDIFF(SECOND, '00:00:00', Total_captura)), '19000101')) AS SomatorioTotalCaptura
+FROM 
+    Tempo_de_Execucao
+WHERE 
+    FKTempo_maquina = 1
+GROUP BY 
+    FORMAT(Data_Hora, 'dd/MM/yyyy')
+ORDER BY 
+    FORMAT(Data_Hora, 'dd/MM/yyyy') ASC
+OFFSET 0 ROWS
+FETCH NEXT 7 ROWS ONLY;
+
+
+SELECT 
+    FORMAT(Data_Hora, 'dd/MM/yyyy') AS DiaDaSemana,
+    CONVERT(INT, SUM(DATEDIFF(MINUTE, '00:00:00', Total_captura))) AS QuantidadeDesligamentos
+FROM 
+    Tempo_de_Execucao
+WHERE 
+    FKTempo_maquina = 1
+GROUP BY 
+    FORMAT(Data_Hora, 'dd/MM/yyyy')
+ORDER BY 
+    FORMAT(Data_Hora, 'dd/MM/yyyy') ASC
+OFFSET 0 ROWS
+FETCH NEXT 7 ROWS ONLY;
+
+truncate table Processos;
+
+
+ SELECT TOP 12
+        CASE 
+            WHEN MONTH(Data_Hora) = 1 THEN 'Janeiro'
+            WHEN MONTH(Data_Hora) = 2 THEN 'Fevereiro'
+            WHEN MONTH(Data_Hora) = 3 THEN 'Março'
+            WHEN MONTH(Data_Hora) = 4 THEN 'Abril'
+            WHEN MONTH(Data_Hora) = 5 THEN 'Maio'
+            WHEN MONTH(Data_Hora) = 6 THEN 'Junho'
+            WHEN MONTH(Data_Hora) = 7 THEN 'Julho'
+            WHEN MONTH(Data_Hora) = 8 THEN 'Agosto'
+            WHEN MONTH(Data_Hora) = 9 THEN 'Setembro'
+            WHEN MONTH(Data_Hora) = 10 THEN 'Outubro'
+            WHEN MONTH(Data_Hora) = 11 THEN 'Novembro'
+            WHEN MONTH(Data_Hora) = 12 THEN 'Dezembro'
+        END AS Mes,
+        CONVERT(INT, SUM(DATEDIFF(MINUTE, '00:00:00', Total_captura))) AS QuantidadeDesligamentos
+    FROM 
+        Tempo_de_Execucao
+    JOIN 
+        Maquinas ON Tempo_de_Execucao.FKTempo_maquina = Maquinas.IDMaquina
+    WHERE 
+        FKTempo_maquina = 1
+    GROUP BY 
+        MONTH(Data_Hora)
+    ORDER BY 
+        Mes DESC;   
+
+
+		SELECT 
+    FORMAT(Data_Hora, 'dd/MM/yyyy') AS DiaDaSemana,
+    COUNT(Total_captura) AS QuantidadeDesligamentos
+FROM 
+    Tempo_de_Execucao
+WHERE 
+    FKTempo_maquina = ${FKMAQUINA}
+GROUP BY 
+    FORMAT(Data_Hora, 'dd/MM/yyyy')
+ORDER BY 
+    DiaDaSemana DESC
+OFFSET 0 ROWS
+FETCH NEXT 7 ROWS ONLY;
+
+
+SELECT Porcentagem FROM Monitoramento_RAW;
+
+
+SELECT top 1
+	    Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
+	    FORMAT(Data_Hora_Captura, 'dd/MM/yyyy') AS DataCaptura,
+        Uso AS "Uso_DIsco",
+        Componentes_cadastrados.Apelido 
+        FROM 
+		    Monitoramento_RAW JOIN Componentes_monitorados 
+		    ON FKComponente_Monitorado = IDComponente_monitorado 
+		    JOIN Componentes_cadastrados 
+		    ON Componentes_monitorados.FKComponente_cadastrado = IDComponente_cadastrado
+		    JOIN Maquinas 
+		    ON FKMaquina = IDMaquina
+		    WHERE FKMaquina = 1
+		    AND Componentes_cadastrados.Apelido = 'DISCO'
+		    ORDER BY Monitoramento_RAW.IDMonitoramento asc;
+
+			SELECT IDUsuario,Nome
+        FROM Usuario_Dashboard WHERE FKUnidade = 1;
+
+		SELECT Nome_Janelas as Nome,Data_Hora_Conexao as data 
+        FROM Janelas_Abertas JOIN maquinas on FKMaquina = IDMaquina 
+        WHERE FKMaquina = 1 AND Janelas_Abertas.Nome_Janelas != ''
+        AND Data_Hora_Conexao >= DATEADD(MINUTE,-1,GETDATE());
+
+		SELECT COUNT(IDConexao) as estabilidade FROM Redes_conectadas WHERE FKMaquina = 1 AND Data_Hora_Conexao >= DATEADD(HOUR,-8,GETDATE());
+
+		SELECT DISTINCT Maquinas.IDMaquina as id,(SELECT COUNT(idRegistro) FROM Henry) AS QTD, FORMAT(Data_Hora,'%d/%M/%y') as DataHora 
+			FROM Henry JOIN Maquinas 
+				ON Henry.FKMaquina = Maquinas.IDMaquina 
+					JOIN Usuario_Dashboard 
+						ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario
+							JOIN Tipo_maquina
+								ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+			where FKUnidade = 1
+			AND Tipo_maquina.Apelido = 'FISICA';
+
+
+			SELECT TOP 10 Uso_Ram,Janela FROM Henry WHERE FKMaquina = 5 ORDER BY Uso_Ram DESC;
+        
 

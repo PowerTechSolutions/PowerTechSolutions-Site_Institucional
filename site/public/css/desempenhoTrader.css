@@ -1,0 +1,235 @@
+
+.body {
+  color: white;
+  font-family: 'Barlow', "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  font-family: 'Barlow', "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a {
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+}
+
+.seta {
+  margin-top: 2%;
+  display: flex;
+  flex-direction: row;
+  margin-left: 1%;
+  width: 12%;
+  height: 5%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+option{
+  background-color: black;
+}
+
+.seta img {
+  height: 8vh;
+  cursor: pointer;
+}
+
+.conteudo {
+  padding: 1%;
+  position: relative;
+  width: 83%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.lado {
+  width: 24%;
+}
+
+.kpis {
+  width: 47vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 27vh;
+}
+
+.kpi {
+  background-color: #212124;
+  height: 100%;
+  width: 47%;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.titulo-kpi {
+  width: 80%;
+  font-size: 23px
+}
+
+#valor {
+  margin-top: 4%;
+  color: #FD3838;
+  font-size: 50px;
+  font-weight: 600;
+}
+
+#valor2 {
+  color: #f5e552;
+  margin-top: 4%;
+  font-size: 50px;
+  font-weight: 600;
+}
+
+.resumo {
+  width: 40vw;
+  background-color: #212124;
+  height: 34vh;
+  font-size: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  color: white;
+}
+
+#percentual {
+  color: #38fd59
+}
+
+.resumo p {
+  width: 90%;
+}
+
+.pdf {
+  position: absolute;
+  width: 29vw;
+  height: 20vh;
+  display: flex;
+  background-color: #C8C5C5;
+  color: black;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -10vh;
+  border-radius: 20px;
+  font-size: 19px;
+  justify-content: center;
+  margin-left: 10vw;
+}
+
+.pdf span {
+  font-weight: 500;
+  width: 70%;
+  margin-right: 12%;
+}
+
+.botoes {
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 3%;
+}
+
+.botoes button {
+  border-radius: 10px;
+  height: 6vh;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: 'Barlow', "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 17px;
+  width: 12vw;
+}
+
+.amarelo {
+  background-color: #f5e552;
+  border: none;
+}
+
+.cinza {
+  background-color: #888888;
+  border: none;
+}
+
+.graph1 {
+  background-color: #1D1D20;
+  width: 48vw;
+  margin-top: 6%;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  height: 49vh;
+  flex-direction: column;
+}
+
+.titulo {
+  margin-top: 1%;
+  width: 63%;
+  font-size: 23px;
+}
+
+.tamanho-graph1 {
+  height: 88%;
+  width: 86%;
+}
+
+.lista {
+    height: 83vh;
+    background-color: #1D1D20;
+    width: 40vw;
+    color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+
+
+.titulo-lista {
+  margin-top: 8%;
+  font-size: 23px;
+  width: 89%;
+  text-align: center;
+}
+
+.colunas {
+  border-top: white 2px solid;
+  border-bottom: white 2px solid;
+  margin-top: 5%;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  justify-content: space-around;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.registros {
+  width: 90%;
+  height: 73%;
+  overflow-y: scroll;
+}
+
+#tuplas {
+  margin-top: 0.8%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.desempenho{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+  height: auto;
+  border-bottom: white 0.8px solid;
+}

@@ -1,11 +1,71 @@
 var usuarioModel = require("../models/usuarioModel");
 var aquarioModel = require("../models/aquarioModel");
 
+function pegar_Usuarios(req, res) {
+
+    var IDMaquina = req.params.FKMAQUINA;
+
+    usuarioModel.pegar_Usuarios(IDMaquina)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 function listar_usuarios(req, res) {
 
     var IDEmpresa = req.body.idEmpServer;
 
     usuarioModel.listar_usuarios(IDEmpresa)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function visualizar(req, res) {
+
+    var IDUsuario = req.body.idUsuarioServer;
+
+    usuarioModel.visualizar(IDUsuario)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function listar_maquinas(req, res){
+
+    var IDFUncionario = req.params.IDFuncionario
+
+    usuarioModel.listar_maquinas(IDFUncionario)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -133,9 +193,34 @@ function cadastrando(req, res) {
     }
 }
 
+function buscarInfo(req, res) {
+
+    var ID_user = req.body.idUsuarioServer;
+
+    usuarioModel.buscarInfo(ID_user)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
 module.exports = {
     autenticar,
     cadastrar,
     listar_usuarios,
-    cadastrando
+    cadastrando,
+    buscarInfo,
+    listar_maquinas, 
+    visualizar,
+    pegar_Usuarios
 }

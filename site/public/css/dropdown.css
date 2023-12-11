@@ -12,6 +12,17 @@
     height: 50px;
 }
 
+#sair_home{
+  width: 200px;
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    position: absolute;
+    flex-direction: column;
+    top: 4px;
+    right: 4px;
+}
+
 .crd2_sept p {
     margin-right: 20px;
     color: #ffffff;
@@ -83,6 +94,8 @@ details {
     margin: 0;
     padding: 1rem 0;
     border-bottom: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
   }
   
   li:first-child {
@@ -114,8 +127,9 @@ details {
     cursor: pointer;
     justify-content: space-between;
     position: absolute;
-    top: -30px;
-    right: -147px;
+    top: -29px;
+    right: -148px;
+    flex-direction: column;
   }
   
   label span {

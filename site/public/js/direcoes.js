@@ -27,3 +27,15 @@ function boot(FKMaquina){
 function sarah(){
     window.location.href = "dashboard_sarah.html";
 }
+
+function henry(){
+    window.location.href = "geralAdm copy.html";
+}
+
+function gabi(){
+    window.location.href = "desempenho_proc.html";
+}
+
+function kaori(){
+    window.location.href = "bootime.html";
+}

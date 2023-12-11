@@ -21,6 +21,12 @@ body {
   align-items: center;
 }
 
+#trader {
+  margin-right: 28%;
+  margin-top: -5vh;
+  position: absolute;
+}
+
 .container {
   width: 80%;
   margin: auto;
@@ -459,6 +465,16 @@ label span {
   border-bottom-right-radius: 20px;
 
   /* border: 3px solid pink; */
+}
+
+.select_maquinas {
+  width: 75%;
+  height: 50%;
+  display: flex;
+  text-align: center;
+  background: transparent;
+  border: 2px solid #F7E11B;
+  color: white;
 }
 
 .sepration button {

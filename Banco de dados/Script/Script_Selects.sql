@@ -2,7 +2,7 @@
 USE PowerTechSolutions;
 SELECT 
 	Data_Hora_Captura,
-    Dado_Capturado AS Uso_CPU,
+    Uso AS Uso_CPU,
     Componentes_cadastrados.Apelido
     FROM 
 		Monitoramento_RAW JOIN Componentes_monitorados 
@@ -14,10 +14,19 @@ SELECT
 							WHERE FKMaquina = 1
 								AND Componentes_cadastrados.Apelido = "CPU" 
 									ORDER BY Monitoramento_RAW.IDMonitoramento DESC;
+SELECT * FROM Monitoramento_RAW;
+
+SELECT * FROM Redes_conectadas;
+
+SELECT * FROM Janelas_Abertas;
+
+SELECT * FROM Dispositivos_USB;
+
+SELECT * FROM Maquinas;
 
 SELECT 
 	Data_Hora_Captura,
-    Dado_Capturado AS "Uso_RAM",
+    Uso AS "Uso_RAM",
     Componentes_cadastrados.Apelido 
     FROM 
 		Monitoramento_RAW JOIN Componentes_monitorados 
@@ -32,7 +41,7 @@ SELECT
 SELECT 
 	Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
 	Data_Hora_Captura,
-    Dado_Capturado AS "Uso_DIsco",
+    Uso AS "Uso_DIsco",
     Componentes_cadastrados.Apelido 
     FROM 
 		Monitoramento_RAW JOIN Componentes_monitorados 
@@ -41,10 +50,12 @@ SELECT
 		ON FKComponente_cadastrado = IDComponente_cadastrado
 		JOIN Maquinas 
 		ON FKMaquina = IDMaquina
-		WHERE FKMaquina = 1
+		WHERE FKMaquina = 2
 		AND Componentes_cadastrados.Apelido = "DISCO"
 		ORDER BY Monitoramento_RAW.IDMonitoramento DESC
 		LIMIT 1;
+
+SELECT * FROM Alertas;
 
 SELECT 
 	Nome_Dispositivo,
@@ -88,15 +99,15 @@ SELECT Count(IDMaquina) as Contagem
 		AND Usuario_Dashboard.FKUnidade = 1;
         
 INSERT INTO Alertas VALUES
-(NULL,'Alerta de teste1',"2023-11-01",null,null,1),
-(NULL,'Alerta de teste1',"2023-11-03",null,null,1),
-(NULL,'Alerta de teste1',"2023-11-05",null,null,1),
-(NULL,'Alerta de teste7',"2023-11-07",null,null,1),
-(NULL,'Alerta de teste8',"2023-11-08",null,null,1),
-(NULL,'Alerta de teste13',"2023-11-10",null,null,1),
-(NULL,'Alerta de teste14',"2023-11-12",null,null,1),
-(NULL,'Alerta de teste21',"2023-11-13",null,null,1),
-(NULL,'Alerta de teste28',"2023-11-14",null,null,1);
+(NULL,'Alerta de teste1',"2023-01-01",null,1,1),
+(NULL,'Alerta de teste1',"2023-01-03",null,1,1),
+(NULL,'Alerta de teste1',"2023-01-05",null,2,1),
+(NULL,'Alerta de teste7',"2023-01-07",null,2,1),
+(NULL,'Alerta de teste8',"2023-01-08",null,3,1),
+(NULL,'Alerta de teste13',"2023-01-10",null,3,1),
+(NULL,'Alerta de teste14',"2023-11-12",null,1,1),
+(NULL,'Alerta de teste21',"2023-11-13",null,1,1),
+(NULL,'Alerta de teste28',"2023-11-14",null,2,1);
 
 SELECT * FROM Alertas;
 
@@ -117,3 +128,34 @@ SELECT
         OR Data_Hora LIKE  "%-02-26 %" 
         OR Data_Hora LIKE  "%-02-27 %"
         OR Data_Hora LIKE  "%-02-28 %";
+        
+SELECT * FROM Maquinas WHERE FKFuncionario = 1;
+
+SELECT 
+            Count(IDMaquina) as Contagem 
+        FROM Maquinas JOIN Tipo_maquina
+            ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        JOIN Estado_maquina
+            ON IDEstado = FKEstado
+        JOIN Usuario_Dashboard
+            ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+        WHERE Tipo_maquina.Apelido = "VIRTUAL"
+            AND Usuario_Dashboard.FKUnidade = 1
+            AND Estado_maquina.Estado = "Inativa";
+            
+SELECT 
+		IDMaquina,Usuario_Dashboard.Nome,Maquinas.Apelido,Estado
+        FROM Maquinas JOIN Tipo_maquina
+            ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        JOIN Estado_maquina
+            ON IDEstado = FKEstado
+        JOIN Usuario_Dashboard
+            ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario 
+        WHERE Tipo_maquina.Apelido = 'FISICA'
+            AND Usuario_Dashboard.FKUnidade = 1;
+            
+SELECT count(IDAlerta) as Alertas
+        FROM Alertas JOIN Nivel_alerta
+        ON IDNivel_alerta = FKNivel_alerta
+        WHERE Data_Hora LIKE "%-12-%" GROUP BY IDNivel_alerta;
+        

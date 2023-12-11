@@ -80,7 +80,7 @@ body {
 .sepration {
   flex-direction: column;
   width: 85%;
-  height: 60%;
+  height: 82%;
   border-bottom: 2px solid #F7E11B;
   display: flex;
   align-items: center;
@@ -444,8 +444,8 @@ option {
   padding-top: 1px;
   padding-left: 15px;
   padding-right: 15px;
-
 }
+
 
 .flexInterno {
   display: flex;
@@ -483,10 +483,12 @@ option {
   display: flex;
   flex-direction: column;
 }
-.separar2 h2{
+
+.separar2 h2 {
   margin-left: 20px;
   margin-top: 15px;
 }
+
 .grafico {
   background: #1D1D20;
   border-radius: 20px;
