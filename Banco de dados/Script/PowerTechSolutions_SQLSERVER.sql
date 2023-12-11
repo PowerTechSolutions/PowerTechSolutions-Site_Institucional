@@ -868,3 +868,61 @@ truncate table Processos;
         Mes DESC;   
 
 
+		SELECT 
+    FORMAT(Data_Hora, 'dd/MM/yyyy') AS DiaDaSemana,
+    COUNT(Total_captura) AS QuantidadeDesligamentos
+FROM 
+    Tempo_de_Execucao
+WHERE 
+    FKTempo_maquina = ${FKMAQUINA}
+GROUP BY 
+    FORMAT(Data_Hora, 'dd/MM/yyyy')
+ORDER BY 
+    DiaDaSemana DESC
+OFFSET 0 ROWS
+FETCH NEXT 7 ROWS ONLY;
+
+
+SELECT Porcentagem FROM Monitoramento_RAW;
+
+
+SELECT top 1
+	    Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
+	    FORMAT(Data_Hora_Captura, 'dd/MM/yyyy') AS DataCaptura,
+        Uso AS "Uso_DIsco",
+        Componentes_cadastrados.Apelido 
+        FROM 
+		    Monitoramento_RAW JOIN Componentes_monitorados 
+		    ON FKComponente_Monitorado = IDComponente_monitorado 
+		    JOIN Componentes_cadastrados 
+		    ON Componentes_monitorados.FKComponente_cadastrado = IDComponente_cadastrado
+		    JOIN Maquinas 
+		    ON FKMaquina = IDMaquina
+		    WHERE FKMaquina = 1
+		    AND Componentes_cadastrados.Apelido = 'DISCO'
+		    ORDER BY Monitoramento_RAW.IDMonitoramento asc;
+
+			SELECT IDUsuario,Nome
+        FROM Usuario_Dashboard WHERE FKUnidade = 1;
+
+		SELECT Nome_Janelas as Nome,Data_Hora_Conexao as data 
+        FROM Janelas_Abertas JOIN maquinas on FKMaquina = IDMaquina 
+        WHERE FKMaquina = 1 AND Janelas_Abertas.Nome_Janelas != ''
+        AND Data_Hora_Conexao >= DATEADD(MINUTE,-1,GETDATE());
+
+		SELECT COUNT(IDConexao) as estabilidade FROM Redes_conectadas WHERE FKMaquina = 1 AND Data_Hora_Conexao >= DATEADD(HOUR,-8,GETDATE());
+
+		SELECT DISTINCT Maquinas.IDMaquina as id,(SELECT COUNT(idRegistro) FROM Henry) AS QTD, FORMAT(Data_Hora,'%d/%M/%y') as DataHora 
+			FROM Henry JOIN Maquinas 
+				ON Henry.FKMaquina = Maquinas.IDMaquina 
+					JOIN Usuario_Dashboard 
+						ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario
+							JOIN Tipo_maquina
+								ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+			where FKUnidade = 1
+			AND Tipo_maquina.Apelido = 'FISICA';
+
+
+			SELECT TOP 10 Uso_Ram,Janela FROM Henry WHERE FKMaquina = 5 ORDER BY Uso_Ram DESC;
+        
+

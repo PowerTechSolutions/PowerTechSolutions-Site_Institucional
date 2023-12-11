@@ -1,10 +1,19 @@
 var database = require("../database/config")
 
+function pegar_Usuarios(IDMaquina) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar_usuario()", IDMaquina);
+    var instrucao = `
+    SELECT Nome,Email FROM Usuario_Dashboard JOIN Maquinas on Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario WHERE Maquinas.IDMaquina = ${IDMaquina};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 function listar_usuarios(IDEmpresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar_usuario()", IDEmpresa);
     var instrucao = `
-        SELECT IDUsuario,Nome
-        FROM Usuario_Dashboard WHERE FKUnidade = '${IDEmpresa}';
+        SELECT *
+        FROM Usuario_Dashboard WHERE FKUnidade = ${IDEmpresa};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -89,5 +98,6 @@ module.exports = {
     cadastrando,
     buscarInfo,
     listar_maquinas, 
-    visualizar
+    visualizar,
+    pegar_Usuarios
 };

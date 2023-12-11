@@ -18,140 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 </head>
 
-<body onload="init()">
-    <!-- <div class="geral">
-        <div class="barra">
-            <div class="logo">
-                <img src="../assets/imgs_power/logo_power.png" alt="logo powertech">
-            </div>
-            <ul>
-                <li><img src="../assets/imgs_power/bar.png"> Geral </li>
-                <li><img src="../assets/imgs_power/elemento.png"> MFs </li>
-                <li><img src="../assets/imgs_power/wallet.png"> VMs </li>
-                <li class="marcado"><img src="../assets/imgs_power/user.png"> Adicionar permissão </li>
-            </ul>
-            <div class="parte2">
-                <img src="../assets/imgs_power/Line 1.png" alt="linha">
-                <ul>
-                    <li><img src="../assets/imgs_power/help.png"> Help Center </li>
-                </ul>
-                <div class="perfil_usuario">
-                    <img class="foto" src="../assets/imgs_power/perfil.png">
-                    <span> Allan Hanz </span>
-                    <details class="custom-select">
-                        <ul class="list">
-                            <li>
-                                <label for="item1">
-                                    Log out
-                                    <span></span>
-                                </label>
-                            </li>
-                        </ul>
-                        <summary class="radios">
-                        </summary>
-                    </details>
-                </div>
-            </div>
-        </div>
-        <div class="permissoes_usuario">
-            <div class="container_permissoes">
-                <h2 class="usuario"> Usuários: </h2>
-
-                <div class="campos_gerais">
-                    <h2> Id </h2>
-                    <h2> Nome </h2>
-                    <h2> CPF </h2>
-                </div>
-
-         
-                <div class="campos_preenchidos">
-                    <div class="campos_infos">
-                    <p> RZ17308 </p>
-                    <p>Pranjalpets</p>
-                    <p>123546942342</p>
-                </div>
-                    <div class="deletar"> <img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                </div>
-                </div>
-
-                <div class="campos_preenchidos">
-                    <div class="campos_infos">
-                    <p> RZ17308 </p>
-                    <p>Pranjalpets</p>
-                    <p>123546942342</p>
-                    </div>
-                    <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                </div>
-            </div>
-                
-
-                
-                <div class="campos_preenchidos">
-                    <div class="campos_infos">
-                    <p> RZ17308 </p>
-                    <p>Pranjalpets</p>
-                    <p>123546942342</p>
-                </div>
-                    <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                    </div>
-                </div>
-
-                <div class="campos_preenchidos">
-                    <div class="campos_infos">
-                    <p> RZ17308 </p>
-                    <p>Pranjalpets</p>
-                    <p>123546942342</p>
-                </div>
-                    <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                    </div>
-                </div>
-
-                <div class="campos_preenchidos">
-                    <div class="campos_infos">
-                    <p> RZ17308 </p>
-                    <p>Pranjalpets</p>
-                    <p>123546942342</p>
-                </div>
-                    <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                    </div>
-                </div>
-         
-           
-            
-               
-
-            </div>
-            <div class="container_mudar_permissoes">
-                <div class="mudancas">
-                    <div>
-
-                        <h2> Mudar permissão: </h2>
-                        <p>Nome: Pranjalpets Armimda</p>
-                        <p>Email: pranjalpets.email.com</p>
-                        <p>CPF: 10939203912</p>
-
-                    </div>
-
-                    <div>
-                        <select name="usuario" id="usuario">
-                            <option value="permissao"> Escolher permissão </option>
-                            <option value="admin"> Administrador </option>
-                            <option value="visualizador"> Visualizador </option>
-                            <option value="sem"> Sem permissão </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="botao_salvar">
-                    <button id="botao" onclick="salvar()"> Salvar mudanças </button>
-                </div>
-
-
-
-            </div>
-        </div> -->
-
-
-
+<body>
     <div class="janela">
         <div class="header-left dash-header">
             <div class="sepration">
@@ -219,79 +86,7 @@
                         <h2 id="name"> Nome </h2>
                         <h2 id="cp"> Email </h2>
                     </div>
-                    <div class="arrangement">
-                        <div class="infoemp">
-                            <p>001</p>
-                            <p>Michelly Kaori</p>
-                            <p>000000000000</p>
-                            <button>
-                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                                </div>
-                            </button>
-                        </div>
-                        <div class="infoemp">
-                            <p>001</p>
-                            <p>Michelly Kaori</p>
-                            <p>000000000000</p>
-                            <button>
-                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                                </div>
-                            </button>
-                        </div>
-                        <div class="infoemp">
-                            <p>001</p>
-                            <p>Michelly Kaori</p>
-                            <p>000000000000</p>
-                            <button>
-                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                                </div>
-                            </button>
-                        </div>
-                        <div class="infoemp">
-                            <p>001</p>
-                            <p>Michelly Kaori</p>
-                            <p>000000000000</p>
-                            <button>
-                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                                </div>
-                            </button>
-                        </div>
-                        <div class="infoemp">
-                            <p>001</p>
-                            <p>Michelly Kaori</p>
-                            <p>000000000000</p>
-                            <button>
-                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                                </div>
-                            </button>
-                        </div>
-                        <div class="infoemp">
-                            <p>001</p>
-                            <p>Michelly Kaori</p>
-                            <p>000000000000</p>
-                            <button>
-                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                                </div>
-                            </button>
-                        </div>
-                        <div class="infoemp">
-                            <p>001</p>
-                            <p>Michelly Kaori</p>
-                            <p>000000000000</p>
-                            <button>
-                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                                </div>
-                            </button>
-                        </div>
-                        <div class="infoemp">
-                            <p>001</p>
-                            <p>Michelly Kaori</p>
-                            <p>000000000000</p>
-                            <button>
-                                <div class="deletar"><img src="../assets/imgs_power/deletar.png" alt="deletar usuario">
-                                </div>
-                            </button>
-                        </div>
+                    <div class="arrangement" id="arrangement">
                     </div>
                 </div>
             </div>
@@ -300,15 +95,15 @@
                     <div>
 
                         <h1> Mudar permissão: </h1>
-                        <p>Nome: Pranjalpets Armimda</p>
-                        <p>Email: pranjalpets.email.com</p>
-                        <p>Permissão: FFFFFFFFFFF</p>
+                        <p id="nome">Nome: Pranjalpets Armimda</p>
+                        <p id="email">Email: pranjalpets.email.com</p>
+                        <p id="permisao_atual">Permissão: FFFFFFFFFFF</p>
 
                     </div>
 
                     <div>
                         <select name="usuario" id="usuario">
-                            <option value="permissao"> Escolher permissão </option>
+                            <option> Escolher permissão </option>
                             <option value="admin"> Administrador </option>
                             <option value="visualizador"> Visualizador </option>
                             <option value="sem"> Sem permissão </option>
@@ -346,3 +141,94 @@
 </body>
 
 </html>
+
+<script>
+
+    window.onload = atualizarFeed_usuarios();
+    
+    function atualizarFeed_usuarios() {
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+
+        fetch("/usuarios/listar_usuarios", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                idEmpServer: IDEmpresaVar,
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                        var feed = document.getElementById("arrangement");
+                        var mensagem = document.createElement("span");
+                        mensagem.innerHTML = "Nenhum resultado encontrado."
+                        feed.appendChild(mensagem);
+                        throw "Nenhum resultado encontrado!!";
+                    }
+
+                    resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("arrangement");
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+                        // criando e manipulando elementos do HTML via JavaScript
+
+                        var usuario = document.createElement("div");
+                        usuario.className = "infoemp";
+                        usuario.setAttribute("onclick", `visualizar(${publicacao.IDUsuario})`)
+
+                        var id = document.createElement("p");
+                        id.innerHTML = publicacao.IDUsuario;
+                        usuario.appendChild(id);
+
+                        var nome = document.createElement("p");
+                        nome.innerHTML = publicacao.Nome;
+                        usuario.appendChild(nome);
+
+                        var email = document.createElement("p");
+                        email.innerHTML = publicacao.Email;
+                        usuario.appendChild(email);
+
+                        var buton = document.createElement("button");
+                        usuario.appendChild(buton);
+
+                        var div = document.createElement("div");
+                        div.className = "deletar"
+                        buton.appendChild(div)
+
+                        var img = document.createElement("img");
+                        img.src = "../assets/imgs_power/deletar.png"
+                        img.alt = "deletar usuario";
+
+                        div.appendChild(img)
+
+                        feed.appendChild(usuario)
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    function visualizar(FKMaquina){
+
+        
+
+    }
+
+</script>

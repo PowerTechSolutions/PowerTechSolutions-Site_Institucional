@@ -10,12 +10,16 @@ body {
   justify-content: center;
 }
 .erica{
-  width: 200px;
-  height: 50px;
-  background-color: transparent;
-  border-color: #F7E11B;
-  color: #fff;
-  border-radius: 4px;
+    width: 200px;
+    height: 50px;
+    background-color: transparent;
+    border-color: #F7E11B;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 17px;
+}
+.erica p {
+  margin: 0%;
 }
 .dash-right .avisos {
   width: 100%;

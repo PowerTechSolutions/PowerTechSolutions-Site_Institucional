@@ -13,13 +13,8 @@
 <body>
 
     <div class="dropdown">
-        <img id="voltar" src="./seta-para-a-esquerda.png" alt="menu">
-        <div class="dropdown-content">
-            <div onclick="geral()" class="option">Geral</div>
-            <div onclick="viewpoint()" class="option"> View Point </div>
-            <div onclick="central()" class="option"> Central de ajuda</div>
-            <div onclick="sair()" class="option"> Sair </div>
-        </div>
+        <button style="cursor: pointer;" onclick="viewpoint()"><img src="../../assets/imgs_power/arrow.png"
+            alt=""></button>
     </div>
     <div class="div_geral">
         <div class="infos">
@@ -445,7 +440,7 @@
     }
 
     function geral() {
-        window.href = "cards.html"
+        location.href = "cards.html"
     }
 
     function viewpoint() {

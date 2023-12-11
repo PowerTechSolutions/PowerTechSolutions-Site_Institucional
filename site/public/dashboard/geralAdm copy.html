@@ -111,8 +111,8 @@
             </div>
 
             <div class="separar2">
-                <div class="grafico">
-                    <h2>Ram por janela</h2>
+                <div class="grafico" id="grafico">
+                    <h2></h2>
                     <canvas style="height: 80%; width: 100%;" id="myChart_RAM"></canvas>
                 </div>
             </div>
@@ -124,8 +124,6 @@
 
     window.onload = atualizarFeed_MF_ativas()
     window.onload = atualizarFeed_JANELAS()
-    window.onload = obterDadosGrafico_RAM()
-
 
     function atualizarFeed_MF_ativas() {
 
@@ -200,7 +198,7 @@
 
                         var card = document.createElement("div");
                         card.className = "infoemp";
-                        card.setAttribute("onclick", `maquinavirtualDetalhe(${maquina.id})`)
+                        card.setAttribute("onclick", `obterDadosGrafico_RAM(${maquina.id})`)
 
                         var id = document.createElement("p");
                         id.innerHTML = maquina.id;
@@ -228,15 +226,29 @@
         return false;
     }
 
-    function obterDadosGrafico_RAM() {
+    function limparGraph() {
 
-        // alterarTitulo(idUsuario)
-    
-        // if (proximaAtualizacao != undefined) {
-        //     clearTimeout(proximaAtualizacao);
-        // }
-    
-        fetch(`/medidas/henry_RAM/`, { cache: 'no-store' }).then(function (response) {
+        var feed = document.getElementById("grafico");
+        feed.innerHTML = "";
+
+        var label = document.createElement("h2");
+        label.innerHTML = "Ram por janela";
+        feed.appendChild(label)
+
+        var feer = document.createElement("canvas");
+        feer.id = "myChart_RAM";
+        feer.style.width = "100%";
+        feer.style.height = "80%";
+
+        feed.appendChild(feer)
+
+    }
+
+    function obterDadosGrafico_RAM(FKMaquina) {
+
+        limparGraph()
+
+        fetch(`/medidas/henry_RAM/${FKMaquina}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -282,7 +294,7 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
-            labels.push(registro.Data_Hora);
+            labels.push(registro.Janela);
             dados.datasets[0].data.push(registro.Uso_Ram);
         }
     
@@ -309,12 +321,6 @@
         //setTimeout(() => atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM), 2000);
     }
     
-    
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas, 
-    
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
     function atualizarGrafico_RAM(FKMAQUINA, dados, myChart_RAM) {
     
         fetch(`/medidas/tempo-real_RAM/${FKMAQUINA}`, { cache: 'no-store' }).then(function (response) {

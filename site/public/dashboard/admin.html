@@ -86,7 +86,8 @@
                     <div class="kpis-elements">
                         <div class="kpi_content">
                             <div class="kpis1">
-                                <h3>Informação MV:</h3>
+                                <h3>Quantidade de desligamentos:</h3>
+                                <span id="qtdTotal"></span>
                             </div>
                             <div class="kpis3">
                                 <div id="wifi">
@@ -97,7 +98,7 @@
                                     </div>
                                     <div class="sepration_prt2">
                                         <p>Status</p>
-                                        <p id="status_wifi">Seguro</p>
+                                        <p id="status_wifi"></p>
                                     </div>
                                 </div>
                             </div>
@@ -105,10 +106,15 @@
                         <div class="kpi_content">
                             <div class="kpis2">
                                 <h3>Tempo de execução:</h3>
+                                <span id="idTempoTotal"></span>
                             </div>
 
                             <div class="kpis4">
-                                <h3>Nome do servidor:</h3>
+                                <h3>IdMaquina:
+                                </h3>
+                                <span id="id_maq">
+                                </span>
+
                             </div>
                         </div>
                     </div>
@@ -118,59 +124,11 @@
                                 <h2>Status de Máquinas Virtuais</h2>
                                 <div class="title">
                                     <h3>ID</h3>
-                                    <h3>Nome</h3>
-                                    <h3>Data</h3>
+                                    <h3>Responsavel</h3>
+                                    <h3>Maquina</h3>
                                     <h3>Status</h3>
                                 </div>
-                                <div class="arrangement">
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 1</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: red;">Perigo</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 2</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: green;">Estável</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 3</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: yellow;">Atenção</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 4</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: red;">Perigo</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 5</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: red;">Perigo</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 6</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: green;">Estável</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 7</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: yellow;">Atenção</p>
-                                    </div>
-                                    <div class="infoemp">
-                                        <p>001</p>
-                                        <p>Maquina 8</p>
-                                        <p>25/09/2004</p>
-                                        <p style="color: red;">Perigo</p>
-                                    </div>
+                                <div class="arrangement" id="maquinas_VIRTUAIS">
                                 </div>
                             </div>
                         </div>
@@ -181,10 +139,16 @@
                         <div id="calendar">
                             <div class="site">
                                 <img src="dash_pt/image 11.png" alt="">
-                                <button onclick="boot(1)"
-                                    style="cursor: pointer; border: none; background-color: transparent; width: 150px; display:flex; align-items: left; justify-content: center; height:10px;">
-                                    <h3>Site de GEO <br>MV 23</h3>
-                                </button>
+
+                                <div class="inform">
+                                    <h3 id="nome_trader">
+                                    </h3>
+                                    <h3 id="email_trader">
+                                    </h3>
+                                </div>
+
+
+
                             </div>
 
                             <div class="part_info_bar">
@@ -204,6 +168,16 @@
                                     <p>Não deixe sua CPU atingir 66% e seu disco 80%
                                     </p>
                                 </div>
+                                <div class="quadradoButton">
+                                    <button onclick="kaori()"> <img src="../assets/imgs_power/drive-de-disco-rigido.png"
+                                            alt="">
+                                        <p>Análise de Disco</p>
+                                    </button>
+                                    <button onclick="sarah()"><img src="../dashboard/dash_pt/fluxo-de-trabalho (1).png"
+                                            alt="">
+                                        <p>Painel Processos</p>
+                                    </button>
+                                </div>
                                 <div class="part_info_alert">
                                     <div class="alert">
                                         <span>Verifique ID RZ17308!! Funcionário Pranjalpets!!!</span>
@@ -218,13 +192,14 @@
                 <div class="about-uso" style="display: flex; flex-direction: column;">
                     <div class="crd2_sept" id="crd2_sept">
                         <select class="select_graph" onchange="exibirgraph(this.value)">
-                            <option value=1 aria-checked="true">Uso de RAM</option>
+                            <option>Selecione o Grafico que deseja ver</option>
+                            <option value=1>Uso de RAM</option>
                             <option value=2>Uso de CPU</option>
                         </select>
                         <span id="avisoCaptura"></span>
                     </div>
-                    <canvas id="myChart_CPU" style="width: 100%; height: 80%;" class="graph"></canvas>
-                    <canvas id="myChart_RAM" style="width: 100%; height: 80%;" class="graph"></canvas>
+                    <div id="graficos" class="grafico">
+                    </div>
                 </div>
             </div>
             <div class="boxes">
@@ -256,36 +231,24 @@
 </body>
 
 <script>
-    var FKMAQUINA = sessionStorage.FKMaquina;
-    window.onload = buscarDiscos(FKMAQUINA)
 
-    window.onload = init()
+    var FKMAQUINA = sessionStorage.ID_MAQUINA;
 
-    function exibirgraph(valor) {
+    id_maq.innerHTML = FKMAQUINA;
 
-        var grafico_RAM = document.getElementById("myChart_RAM")
-        var grafico_CPU = document.getElementById("myChart_CPU")
+    window.onload = fazerBusca(FKMAQUINA)
 
-        if (valor == 1) {
-
-            obterDadosGrafico_RAM(1)
-
-            grafico_CPU.style.display = "none";
-            grafico_RAM.style.display = "block";
-
-        } else if (valor == 2) {
-
-            obterDadosGrafico_CPU(1)
-
-            grafico_RAM.style.display = "none";
-            grafico_CPU.style.display = "block";
-
-        }
+    function fazerBusca(FKMaquina) {
+        estabilidadeREDE(FKMAQUINA)
+        atualizarFeed_MV()
+        buscarDiscos(FKMAQUINA)
+        buscarUsuario(FKMAQUINA)
+        atualizarTotalTempo(FKMAQUINA)
+        atualizarFeedCountTem(FKMAQUINA)
     }
 
-    function buscarDiscos(FKMAQUINA) {
-
-        fetch(`/medidas/buscarDiscos/${FKMAQUINA}`, {
+    function atualizarFeedCountTem(FKMAQUINA) {
+        fetch(`/medidas/atualizarFeedCountTem/${FKMAQUINA}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -293,13 +256,11 @@
         }).then(function (resposta) {
 
             console.log("resposta: ", resposta);
-            var feed = document.getElementById("porcentage");
-            feed.innerHTML = "";
 
             if (resposta.ok) {
 
                 if (resposta.status == 204) {
-                    var feed = document.getElementById("porcentage");
+                    var feed = document.getElementById("Info_disc");
                     var mensagem = document.createElement("span");
                     mensagem.innerHTML = "Nenhum resultado encontrado."
                     feed.appendChild(mensagem);
@@ -307,40 +268,12 @@
                 }
 
                 resposta.json().then(function (resposta) {
-                    console.log("Dados recebidos: ", JSON.stringify(resposta));
-                    var feed = document.getElementById("porcentage");
-                    feed.innerHTML = "";
                     for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
                         var publicacao = resposta[contador_usuario];
-                        // criando e manipulando elementos do HTML via JavaScript
 
-                        var disco = document.createElement("span");
-                        disco.id = `disco${publicacao.IDMonitoramento}`;
+                        var porcentage = document.querySelector("#qtdTotal");
+                        porcentage.innerHTML = `${publicacao.TotalCount}`;
 
-                        var porcentagem = document.createElement("span");
-                        porcentagem.id = `porcentage${publicacao.IDMonitoramento}`;
-                        porcentagem.innerHTML = `${publicacao.Porcentagem_Uso}%`;
-
-                        var bar = document.querySelector(".amarela");
-                        var porcentagemUso = parseFloat(publicacao.Porcentagem_Uso);
-
-                        // Check if the value is more than 60%
-                        if (porcentagemUso > 60) {
-                            bar.style.backgroundColor = "#FFE500";
-                        }
-
-                        // Check if the value is more than 80%
-                        if (porcentagemUso > 80) {
-                            bar.style.backgroundColor = "#ff7800";
-                        }
-
-                        // Set the width based on the value
-                        bar.style.width = `${porcentagemUso}%`;
-
-                        disco.appendChild(porcentagem)
-
-
-                        feed.appendChild(disco)
 
                     }
                 });
@@ -349,7 +282,169 @@
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            //finalizarAguardar();
+        });
+
+        return false;
+    }
+
+    function atualizarTotalTempo(FKMAQUINA) {
+        fetch(`/medidas/atualizarTotalTempo/${FKMAQUINA}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("idTempoTotal");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    for (let contador_usuario = 0; contador_usuario < resposta.length; contador_usuario++) {
+                        var publicacao = resposta[contador_usuario];
+
+                        var tempoTotal = document.querySelector("#idTempoTotal");
+                        var formatado = new Date(publicacao.Total_Tempo).toISOString().slice(11, 19);
+                        tempoTotal.innerHTML = `${formatado ?? 0}`;
+
+
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+
+    function maquinavirtualDetalhe(idmaquina) {
+        sessionStorage.ID_MAQUINA = idmaquina
+        window.location.href = "admin.html"
+    }
+
+    function exibirgraph(valor) {
+
+        var graficos = document.getElementById("graficos");
+        graficos.innerHTML = "";
+
+        var idMaquina = sessionStorage.ID_MAQUINA;
+
+        if (valor == 1) {
+
+            obterDadosGrafico_RAM(idMaquina)
+            var graficoRam = document.createElement("canvas");
+            graficoRam.setAttribute("id", "myChart_RAM");
+            graficoRam.setAttribute("class", "graph")
+            graficos.appendChild(graficoRam)
+
+        } else if (valor == 2) {
+
+            obterDadosGrafico_CPU(idMaquina)
+            var graficoCPU = document.createElement("canvas");
+            graficoCPU.setAttribute("id", "myChart_CPU");
+            graficoCPU.setAttribute("class", "graph");
+            graficos.appendChild(graficoCPU)
+
+        }
+    }
+
+    function estabilidadeREDE(IDMaquina) {
+        fetch(`/rede/estabilidade_REDE/${IDMaquina}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    var estavel = document.getElementById("status_wifi")
+
+                    if (resposta[0].estabilidade == 0) {
+                        estavel.style.color = "red";
+                        estavel.innerHTML = "Desconectada"
+                    } else {
+                        estavel.style.color = "green";
+                        estavel.innerHTML = "Conectada"
+                    }
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function atualizarFeed_MV() {
+
+        var IDEmpresaVar = sessionStorage.FKUnidade;
+
+        fetch(`/maquinas/pegar_MV/${IDEmpresaVar}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("maquinas_VIRTUAIS");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("maquinas_VIRTUAIS");
+                    feed.innerHTML = "";
+                    for (var i = 0; i < resposta.length; i++) {
+                        var maquina = resposta[i];
+
+                        var card = document.createElement("div");
+                        card.className = "infoemp";
+                        card.setAttribute("onclick", `maquinavirtualDetalhe(${maquina.IDMaquina})`)
+
+                        var id = document.createElement("p");
+                        id.innerHTML = maquina.IDMaquina;
+                        card.appendChild(id);
+
+                        var respon = document.createElement("p");
+                        respon.innerHTML = maquina.Nome;
+                        card.appendChild(respon);
+
+                        var apelido = document.createElement("p");
+                        apelido.innerHTML = maquina.apelido;
+                        card.appendChild(apelido);
+
+                        var estado = document.createElement("p");
+                        estado.innerHTML = maquina.Estado;
+                        card.appendChild(estado);
+
+                        feed.appendChild(card);
+
+                    }
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
         });
 
         return false;
@@ -370,6 +465,7 @@
                     resposta.reverse();
 
                     plotarGrafico_CPU(resposta, FKMAQUINA);
+
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -631,36 +727,46 @@
 
     }
 
+    function buscarUsuario(FKMAQUINA) {
 
-    function mandarSlack() {
-
-        var msg = document.getElementById("msg_send")
-
-        fetch("/slackbot/enviarMensagem", {
-            method: "POST",
+        fetch(`/usuarios/pegar_Usuarios/${FKMAQUINA}`, {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                msgServer: msg
-            })
+            }
         }).then(function (resposta) {
 
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                // cardErro.style.display = "block";
-                // alert( `Cadastro realizado com sucesso! Redirecionando para tela de Login...`)
-                // mensagem_erro.innerHTML = `<span style="color: green;">Cadastro realizado com sucesso! Redirecionando para tela de Login...</span>`;
-                // login()
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("usbs");
+                    feed.innerHTML = "";
+                    var mensagem = document.createElement("li");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
 
-                setTimeout(() => {
-                    // login()
-                }, "2000")
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var usuario = resposta[0];
+
+                    var nome = document.getElementById("nome_trader");
+                    nome.innerHTML = "";
+                    nome.innerHTML = `${usuario.Nome}`;
+                    var email = document.getElementById("email_trader");
+                    email.innerHTML = "";
+                    email.innerHTML = ` ${usuario.Email}`;
+
+
+                });
+
+                setTimeout(() => buscarUSB(FKMAQUINA), 2000)
+
             } else {
-                throw ("Houve um erro ao tentar enviar sua mensagemn!");
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
@@ -668,6 +774,64 @@
 
         return false;
     }
+
+    function buscarDiscos(FKMAQUINA) {
+
+        fetch(`/medidas/buscarDiscos/${FKMAQUINA}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+            var feed = document.getElementById("porcentage");
+            feed.innerHTML = "";
+
+            if (resposta.ok) {
+
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("porcentage");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    var porcentagem = document.getElementById("porcentage");
+                    porcentagem.innerHTML = `${resposta[0].Uso_DIsco}%`;
+
+                    var bar = document.querySelector(".amarela");
+                    var porcentagemUso = parseFloat(resposta[0].Uso_DIsco);
+
+                    // Check if the value is more than 60%
+                    if (porcentagemUso > 60) {
+                        bar.style.backgroundColor = "#FFE500";
+                    }
+
+                    // Check if the value is more than 80%
+                    if (porcentagemUso > 80) {
+                        bar.style.backgroundColor = "#ff7800";
+                    }
+
+                    // Set the width based on the value
+                    bar.style.width = `${porcentagemUso}%`;
+
+
+                });
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            //finalizarAguardar();
+        });
+
+        return false;
+    }
+
 </script>
 
 </html>

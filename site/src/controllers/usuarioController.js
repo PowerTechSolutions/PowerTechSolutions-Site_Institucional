@@ -1,6 +1,26 @@
 var usuarioModel = require("../models/usuarioModel");
 var aquarioModel = require("../models/aquarioModel");
 
+function pegar_Usuarios(req, res) {
+
+    var IDMaquina = req.params.FKMAQUINA;
+
+    usuarioModel.pegar_Usuarios(IDMaquina)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 function listar_usuarios(req, res) {
 
     var IDEmpresa = req.body.idEmpServer;
@@ -201,5 +221,6 @@ module.exports = {
     cadastrando,
     buscarInfo,
     listar_maquinas, 
-    visualizar
+    visualizar,
+    pegar_Usuarios
 }

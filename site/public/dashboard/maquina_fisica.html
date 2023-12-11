@@ -116,8 +116,7 @@ scale=1.0">
                                     </div>
                                     <div class="status">
                                         <span class="texto_box">Status</span>
-                                        <span class="texto">Seguro</span>
-                                        <span class="texto_box">999Kb</span>
+                                        <span class="texto" id="status_wifi">Seguro</span>
                                     </div>
                                 </div>
                             </div>
@@ -148,18 +147,23 @@ scale=1.0">
                             <div class="box_trader">
                                 <div class="profile">
                                     <img id="icon_perfil" src="../assets/imgs_power/woman (2).png">
-                                    <span id="nome_trader">Armin Holland</span>
+                                    <span id="nome_trader"></span>
                                 </div>
                                 <div class="dados_t">
-                                    <span>Setor 2</span>
-                                    <span id="email">Email:armin.holland@gmail.com</span>
+                                <span id="email"></span>
                                 </div>
-                                <div class="avisos">
-                                    <span>Lembrete</span>
-                                    <span>08/10/2023</span>
-                                    <span class="alerta">Não deixe sua CPU atingir
-
-                                        66% e seu disco 80%</span>
+                                <div class="aviso">
+                                <p>Lembrete ⚠️</p>
+                                    <p>23/08/2023</p>
+                                    <p>Não deixe sua CPU atingir 66% e seu disco 80%
+                                    </p>
+                                    
+                                </div>
+                                <div class="quadradoButton">
+                                    <button onclick="henry()"> <img src="../assets/imgs_power/passe-de-imprensa.png"
+                                        alt=""><p>Monitoramento Janelas</p></button>
+                                    <button onclick="gabi()"> <img src="../assets/imgs_power/cpu.png"
+                                    alt=""><p>Processos</p></button>
                                 </div>
                             </div>
                         </div>
@@ -189,6 +193,7 @@ scale=1.0">
                 <div class="chart">
                     <div class="nav_bar_chart">
                         <select class="select_graph" onchange="exibirgraph(this.value)">
+                            <option>Selecione o dado para ver o grafico</option>
                             <option value=1>Uso de RAM</option>
                             <option value=2>Uso de CPU</option>
                         </select>
@@ -236,6 +241,8 @@ scale=1.0">
     window.onload = atualizarFeed_MF();
     window.onload = buscarUSB(FKMAQUINA);
     window.onload = buscarDiscos(FKMAQUINA);
+    window.onload = estabilidadeREDE(FKMAQUINA);
+    window.onload = buscarUsuario(FKMAQUINA);
 
     function maquinaFisicaDetalhe(idmaquina) {
         sessionStorage.ID_MAQUINA = idmaquina
@@ -342,6 +349,55 @@ scale=1.0">
                         feed.appendChild(usb)
 
                     }
+                });
+
+                setTimeout(() => buscarUSB(FKMAQUINA), 2000)
+
+            } else {
+                throw ("Houve um erro ao tentar realizar A pesquisa!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        return false;
+    }
+
+    function buscarUsuario(FKMAQUINA) {
+
+        fetch(`/usuarios/pegar_Usuarios/${FKMAQUINA}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("usbs");
+                    feed.innerHTML = "";
+                    var mensagem = document.createElement("li");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+                    
+                    var usuario = resposta[0];
+
+                    var nome = document.getElementById("nome_trader");
+                    nome.innerHTML = "";
+                    nome.innerHTML = usuario.Nome;
+
+                    var email = document.getElementById("email");
+                    email.innerHTML = "";
+                    email.innerHTML = `Email: ${usuario.Email}`;
+
+
                 });
 
                 setTimeout(() => buscarUSB(FKMAQUINA), 2000)
@@ -687,7 +743,23 @@ scale=1.0">
                     resposta.json().then(function (resposta) {
                     console.log("Dados recebidos: ", JSON.stringify(resposta));
                     var porcentagem = document.getElementById("porcentage");
-                    porcentagem.innerHTML = `${resposta[0].Uso_DIsco}`;
+                    porcentagem.innerHTML = `${resposta[0].Uso_DIsco} %`;
+                    var bar = document.querySelector(".amarela");
+                        var porcentagemUso = parseFloat(resposta[0].Uso_DIsco);
+
+                        // Check if the value is more than 60%
+                        if (porcentagemUso > 60) {
+                            bar.style.backgroundColor = "#FFE500";
+                        }
+
+                        // Check if the value is more than 80%
+                        if (porcentagemUso > 80) {
+                            bar.style.backgroundColor = "#ff7800";
+                        }
+
+                        // Set the width based on the value
+                        bar.style.width = `${porcentagemUso}%`;
+
     
                 });
             } else {
@@ -699,6 +771,32 @@ scale=1.0">
         });
     
         return false;
+    }
+
+    function estabilidadeREDE(IDMaquina){
+        fetch(`/rede/estabilidade_REDE/${IDMaquina}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    
+                    var estavel = document.getElementById("status_wifi")
+
+                    if(resposta[0].estabilidade == 0){
+                        estavel.style.color = "red";
+                        estavel.innerHTML = "Desconectada"
+                    }else{
+                        estavel.style.color = "green";
+                        estavel.innerHTML = "Conectada"
+                    }
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
     }
 
 </script>

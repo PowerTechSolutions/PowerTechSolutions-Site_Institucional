@@ -136,10 +136,10 @@ function buscarDiscos(FKMAQUINA) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-        SELECT 
+        SELECT top 1
 	    Componentes_monitorados.IDComponente_monitorado as IDMonitoramento,
-	    Data_Hora_Captura,
-        Uso AS "Uso_DIsco",
+	    FORMAT(Data_Hora_Captura, 'dd/MM/yyyy') AS DataCaptura,
+        Porcentagem AS "Uso_DIsco",
         Componentes_cadastrados.Apelido 
         FROM 
 		    Monitoramento_RAW JOIN Componentes_monitorados 
@@ -150,8 +150,7 @@ function buscarDiscos(FKMAQUINA) {
 		    ON FKMaquina = IDMaquina
 		    WHERE FKMaquina = ${FKMAQUINA}
 		    AND Componentes_cadastrados.Apelido = 'DISCO'
-		    ORDER BY Monitoramento_RAW.IDMonitoramento DESC;
-        `;
+		    ORDER BY Monitoramento_RAW.IDMonitoramento asc;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
@@ -243,8 +242,15 @@ function pegar_janelas(FKUnidade) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-        SELECT top 1 Maquinas.IDMaquina as id,(SELECT COUNT(idRegistro) FROM Henry WHERE FKMaquina = 4) AS QTD, FORMAT(Data_Hora,'%d/%M/%y') as DataHora FROM Henry JOIN Maquinas ON Henry.FKMaquina = Maquinas.IDMaquina JOIN Usuario_Dashboard ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario where FKMaquina = 4 AND FKUnidade = ${FKUnidade};
-    `;
+        SELECT DISTINCT Maquinas.IDMaquina as id,(SELECT COUNT(idRegistro) FROM Henry) AS QTD, FORMAT(Data_Hora,'%d/%M/%y') as DataHora 
+        FROM Henry JOIN Maquinas 
+            ON Henry.FKMaquina = Maquinas.IDMaquina 
+                JOIN Usuario_Dashboard 
+                    ON Maquinas.FKFuncionario = Usuario_Dashboard.IDUsuario
+                        JOIN Tipo_maquina
+                            ON Maquinas.FKTipo_maquina = Tipo_maquina.IDTipo
+        where FKUnidade = ${FKUnidade}
+        AND Tipo_maquina.Apelido = 'FISICA';`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
@@ -402,7 +408,7 @@ function ultimas_CPU(FKMAQUINA) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
         SELECT TOP 10
-        FORMAT(Data_Hora_Captura,'%H:%m') as 'momento_grafico',
+        FORMAT(Data_Hora_Captura,'%H:%m:%s') as 'momento_grafico',
         Uso AS 'Uso_CPU'
         FROM 
             Monitoramento_RAW JOIN Componentes_monitorados 
@@ -419,7 +425,7 @@ function ultimas_CPU(FKMAQUINA) {
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
         SELECT 
-            DATE_FORMAT(Data_Hora_Captura,'%H:%i') as momento_grafico,
+            DATE_FORMAT(Data_Hora_Captura,'%H:%i:%s') as momento_grafico,
             Uso AS Uso_CPU
             FROM 
 		        Monitoramento_RAW JOIN Componentes_monitorados 
@@ -448,7 +454,7 @@ function tempo_real_CPU(FKMAQUINA) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
         SELECT TOP 1
-        FORMAT(Data_Hora_Captura,'%H:%m') as 'momento_grafico',
+        FORMAT(Data_Hora_Captura,'%H:%m:%s') as 'momento_grafico',
         Uso AS 'Uso_CPU'
         FROM 
             Monitoramento_RAW JOIN Componentes_monitorados 
@@ -533,13 +539,13 @@ function ultimas_RAM(FKMAQUINA) {
     return database.executar(instrucaoSql);
 }
 
-function henry_RAM() {
+function henry_RAM(FKMAQUINA) {
 
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-        SELECT TOP 10 Uso_Ram,Data_Hora FROM Henry ORDER BY Uso_Ram DESC;`;
+        SELECT TOP 10 Uso_Ram,Janela FROM Henry WHERE FKMaquina = ${FKMAQUINA} ORDER BY Uso_Ram DESC;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
@@ -619,20 +625,18 @@ function ultimas_TempoExec(FKMAQUINA) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = ` 
-        SELECT 
+        SELECT TOP 7
     FORMAT(Data_Hora, 'dd/MM/yyyy') AS DiaDaSemana,
     CONVERT(INT, SUM(DATEDIFF(MINUTE, '00:00:00', Total_captura))) AS QuantidadeDesligamentos
 FROM 
     Tempo_de_Execucao
 WHERE 
-    FKTempo_maquina = ${FKMAQUINA}
+    FKTempo_maquina = 
 GROUP BY 
-    FORMAT(Data_Hora, 'dd/MM/yyyy')
+    FORMAT(Data_Hora, 'dd/MM/yyyy'), FORMAT(Data_Hora, 'yyyy/MM/dd')
 ORDER BY 
-    FORMAT(Data_Hora, 'dd/MM/yyyy') ASC
-OFFSET 0 ROWS
-FETCH NEXT 7 ROWS ONLY;
-        `;
+    FORMAT(Data_Hora, 'yyyy/MM/dd');
+    `;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = `
@@ -664,7 +668,7 @@ function tempo_real_vmKaori(FKMAQUINA) {
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `
-        SELECT 
+        SELECT TOP 7
     FORMAT(Data_Hora, 'dd/MM/yyyy') AS DiaDaSemana,
     CONVERT(INT, SUM(DATEDIFF(MINUTE, '00:00:00', Total_captura))) AS QuantidadeDesligamentos
 FROM 
@@ -672,11 +676,9 @@ FROM
 WHERE 
     FKTempo_maquina = ${FKMAQUINA}
 GROUP BY 
-    FORMAT(Data_Hora, 'dd/MM/yyyy')
+    FORMAT(Data_Hora, 'dd/MM/yyyy'), FORMAT(Data_Hora, 'yyyy/MM/dd')
 ORDER BY 
-    FORMAT(Data_Hora, 'dd/MM/yyyy') ASC
-OFFSET 0 ROWS
-FETCH NEXT 7 ROWS ONLY;
+    FORMAT(Data_Hora, 'yyyy/MM/dd');
 
         `;
 

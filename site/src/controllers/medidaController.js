@@ -227,7 +227,9 @@ function ultimas_RAM(req, res) {
 
 function henry_RAM(req, res) {
 
-    medidaModel.henry_RAM().then(function (resultado) {
+    var fkmaquina = req.params.FKMaquina;
+
+    medidaModel.henry_RAM(fkmaquina).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

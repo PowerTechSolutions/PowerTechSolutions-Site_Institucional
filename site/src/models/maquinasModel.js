@@ -22,7 +22,7 @@ function pegar_MF(FKUnidade){
 
 function pegar_USB(IDMaquina){
     var instrucao = `
-	SELECT TOP 1 Nome_Dispositivo as DP,FORMAT(Data_Hora_Conexao,'%H:%m') as hora FROM Dispositivos_USB WHERE FKMaquina = 1 order by IDRegistro DESC;`
+	SELECT TOP 1 Nome_Dispositivo as DP,FORMAT(Data_Hora_Conexao,'%d/%m - %H:%m') as hora FROM Dispositivos_USB WHERE FKMaquina = 1 order by IDRegistro DESC;`
 
     return database.executar(instrucao);
 }

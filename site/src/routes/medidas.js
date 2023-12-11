@@ -15,7 +15,7 @@ router.get("/pegar_janelas/:FKUnidade", function (req,res){
     medidaController.pegar_janelas(req,res);
 });
 
-router.get("/henry_RAM/", function (req,res){
+router.get("/henry_RAM/:FKMaquina", function (req,res){
     medidaController.henry_RAM(req,res);
 });
 

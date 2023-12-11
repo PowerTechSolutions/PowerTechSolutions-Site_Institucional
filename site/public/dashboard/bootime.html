@@ -29,7 +29,7 @@ scale=1.0">
     <div class="dash">
         <div class="navbar_boot">
             <div class="circle_back">
-                <button style="cursor: pointer;" onclick="geral()"><img src="../assets/imgs_power/arrow.png"
+                <button style="cursor: pointer;" onclick="MV()"><img src="../assets/imgs_power/arrow.png"
                         alt=""></button>
             </div>
 
@@ -168,7 +168,7 @@ scale=1.0">
 
 <script>
 
-    var FKMAQUINA = sessionStorage.FKMaquina;
+    var FKMAQUINA = sessionStorage.ID_MAQUINA;
 
     nome_usuario.innerHTML = sessionStorage.Nome_Usuario;
     email_usuario.innerHTML = sessionStorage.Email_Usuario;
@@ -218,7 +218,7 @@ scale=1.0">
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
+                    //resposta.reverse();
 
                     plotarGrafico_vmKaori2(resposta, FKMAQUINA);
                     var avisoCaptura = document.getElementById(`avisos_info`)
@@ -353,7 +353,7 @@ scale=1.0">
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
+                    //resposta.reverse();
 
                     plotarGrafico_vmKaori(resposta, FKMAQUINA);
                     var avisoCaptura = document.getElementById(`avisos_info`)
@@ -588,7 +588,6 @@ scale=1.0">
                         var tempoTotal = document.querySelector("#idTempoTotal");
                         var formatado = new Date(publicacao.Total_Tempo).toISOString().slice(11, 19);
                         tempoTotal.innerHTML = `${formatado ?? 0}`;
-
 
                     }
                 });

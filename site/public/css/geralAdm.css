@@ -446,41 +446,6 @@ option {
   padding-right: 15px;
 }
 
-.quadradoButton {
-  border-radius: 20px;
-  width: 231px;
-  height: 132px;
-  margin-top: 21px;
-  margin-left: 21px;
-  padding-top: 1px;
-  padding-right: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-
-.quadradoButton button {
-  width: 100%;
-  height: 52px;
-  border: none;
-  border-radius: 6px;
-  background: #1D1D20;
-  color: #FFF;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.quadradoButton p {
-  margin-left: 8px;
-  font-size: 15px;
-}
-
-.quadradoButton img {
-  width: 30px;
-  height: 30px;
-  margin-left: 5px;
-}
 
 .flexInterno {
   display: flex;

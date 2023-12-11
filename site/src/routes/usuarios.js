@@ -32,4 +32,8 @@ router.get("/listar_maquinas/:IDFuncionario", function (req, res){
     usuarioController.listar_maquinas(req,res);
 });
 
+router.get("/pegar_Usuarios/:FKMAQUINA", function (req, res){
+    usuarioController.pegar_Usuarios(req,res);
+});
+
 module.exports = router;
