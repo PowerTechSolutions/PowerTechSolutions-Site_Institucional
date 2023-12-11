@@ -8,8 +8,20 @@ router.get("/acessarDesempenho", function (req, res) {
     desempenhoController.acessarDesempenho(req, res);
 })
 
-router.get("/kpiAlerta", function (req, res) {
-    desempenhoController.kpiAlerta(req, res);
+router.get("/alertaCount", function (req, res) {
+    desempenhoController.alertaCount(req, res);
+})
+
+router.get("/criticoCount", function (req, res) {
+    desempenhoController.criticoCount(req, res);
+})
+
+router.get("/filtroCritico", function (req, res) {
+    desempenhoController.filtroCritico(req, res);
+})
+
+router.get("/filtroAlerta", function (req, res) {
+    desempenhoController.filtroAlerta(req, res);
 })
 
 router.get("/listagem", function (req, res) {
