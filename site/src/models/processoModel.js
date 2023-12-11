@@ -48,7 +48,6 @@ function maquinaNumber() {
 }
 
 function Exibir_Processos() {
-
   instrucaoSql = ''
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
@@ -311,22 +310,6 @@ GROUP BY
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
-
-
-// function matarProcesso(pid) {
-
-//   instrucaoSql = `
-//   UPDATE Alerta_Processo
-//   SET encerrado = 1
-//   WHERE IDAlertaProcessos IN (
-//   SELECT IDAlertaProcessos FROM 
-//   (SELECT IDAlertaProcessos FROM Alerta_Processo WHERE PID = ${pid}) 
-//   AS subquery);
-  
-// `
-//   console.log("Executando a instrução SQL: \n" + instrucaoSql);
-//   return database.executar(instrucaoSql);
-// }
 
 module.exports = {
   quantidadeEstavel,
